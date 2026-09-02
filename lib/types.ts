@@ -58,6 +58,7 @@ export interface Service {
   whoFor: string[];
   included: string[];
   icon: string;
+  faqs: FaqItem[];
 }
 
 export interface Tour {
