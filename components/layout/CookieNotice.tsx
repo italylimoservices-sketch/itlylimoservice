@@ -50,7 +50,7 @@ export default function CookieNotice() {
         <button
           type="button"
           onClick={dismiss}
-          className="shrink-0 rounded-sm bg-gold px-4 py-2 text-xs font-semibold text-navy-deep hover:bg-gold-light transition-colors"
+          className="shrink-0 rounded-sm bg-gold-light px-4 py-2 text-xs font-semibold text-navy-deep hover:bg-gold-pale transition-colors"
         >
           Got it
         </button>

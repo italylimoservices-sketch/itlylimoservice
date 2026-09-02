@@ -32,11 +32,11 @@ export default function HowItWorks() {
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((s, i) => (
             <div key={s.n} className="relative text-center">
-              <span className="font-display text-5xl text-gold-pale">{s.n}</span>
+              <span className="font-display text-5xl text-gold">{s.n}</span>
               <h3 className="mt-2 font-display text-lg text-navy">{s.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-stone">{s.desc}</p>
               {i < steps.length - 1 && (
-                <span className="hidden lg:block absolute top-6 -right-4 text-gold-pale">→</span>
+                <span className="hidden lg:block absolute top-6 -right-4 text-gold">→</span>
               )}
             </div>
           ))}

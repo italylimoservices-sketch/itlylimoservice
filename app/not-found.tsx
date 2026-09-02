@@ -23,7 +23,7 @@ export default function NotFound() {
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Link
             href="/"
-            className="inline-flex items-center rounded-sm bg-navy px-6 py-3 text-sm font-semibold text-ivory hover:bg-gold hover:text-navy-deep transition-colors"
+            className="inline-flex items-center rounded-sm bg-navy px-6 py-3 text-sm font-semibold text-ivory hover:bg-gold-light hover:text-navy-deep transition-colors"
           >
             Back to Homepage
           </Link>
@@ -36,7 +36,7 @@ export default function NotFound() {
         </div>
 
         <div className="mt-14">
-          <p className="text-xs uppercase tracking-wide text-stone/70 mb-4">Popular Destinations</p>
+          <p className="text-xs uppercase tracking-wide text-stone mb-4">Popular Destinations</p>
           <div className="flex flex-wrap justify-center gap-3">
             {suggestions.map((d) => (
               <Link

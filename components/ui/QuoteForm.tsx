@@ -153,7 +153,7 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
 
       <button
         type="submit"
-        className="mt-6 w-full rounded-sm bg-gold px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-navy-deep hover:bg-gold-light transition-colors"
+        className="mt-6 w-full rounded-sm bg-gold-light px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-navy-deep hover:bg-gold-pale transition-colors"
       >
         Get a Quote
       </button>

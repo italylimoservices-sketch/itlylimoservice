@@ -28,7 +28,7 @@ export default function CorporateSection() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/corporate-chauffeur"
-              className="inline-flex items-center rounded-sm bg-gold px-6 py-3 text-sm font-semibold text-navy-deep hover:bg-gold-light transition-colors"
+              className="inline-flex items-center rounded-sm bg-gold-light px-6 py-3 text-sm font-semibold text-navy-deep hover:bg-gold-pale transition-colors"
             >
               Corporate Enquiries
             </Link>

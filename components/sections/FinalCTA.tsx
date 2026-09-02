@@ -20,7 +20,7 @@ export default function FinalCTA() {
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center rounded-sm bg-gold px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-navy-deep hover:bg-gold-light transition-colors"
+            className="inline-flex items-center rounded-sm bg-gold-light px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-navy-deep hover:bg-gold-pale transition-colors"
           >
             Request a Quote
           </Link>

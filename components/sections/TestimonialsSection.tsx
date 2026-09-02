@@ -10,7 +10,7 @@ export default function TestimonialsSection() {
           title="What Our Passengers Say"
           align="center"
         />
-        <p className="mt-2 text-center text-xs text-stone/70 max-w-md mx-auto">
+        <p className="mt-2 text-center text-xs text-stone max-w-md mx-auto">
           Placeholder reviews shown below for layout purposes — to be replaced with verified customer testimonials.
         </p>
 

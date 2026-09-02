@@ -25,7 +25,7 @@ export default function CruiseSection() {
           />
           <Link
             href="/cruise-port-transfers"
-            className="mt-6 inline-flex items-center rounded-sm bg-navy px-6 py-3 text-sm font-semibold text-ivory hover:bg-gold hover:text-navy-deep transition-colors"
+            className="mt-6 inline-flex items-center rounded-sm bg-navy px-6 py-3 text-sm font-semibold text-ivory hover:bg-gold-light hover:text-navy-deep transition-colors"
           >
             Cruise Transfer Details
           </Link>

@@ -38,7 +38,7 @@ export default function CorporateUseCases() {
           </div>
           <Link
             href="/contact"
-            className="inline-flex shrink-0 items-center justify-center rounded-sm bg-navy px-6 py-3 text-sm font-semibold text-ivory hover:bg-gold hover:text-navy-deep transition-colors"
+            className="inline-flex shrink-0 items-center justify-center rounded-sm bg-navy px-6 py-3 text-sm font-semibold text-ivory hover:bg-gold-light hover:text-navy-deep transition-colors"
           >
             Contact Corporate Sales
           </Link>

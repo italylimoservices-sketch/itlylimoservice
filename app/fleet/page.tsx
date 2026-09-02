@@ -41,7 +41,7 @@ export default function FleetPage() {
                 <p className="mt-1 text-sm text-gold font-medium">{f.passengers} · {f.luggage}</p>
                 <p className="mt-3 text-sm leading-relaxed text-stone">{f.description}</p>
                 <div className="mt-4">
-                  <p className="text-xs uppercase tracking-wide text-stone/70 mb-2">Amenities</p>
+                  <p className="text-xs uppercase tracking-wide text-stone mb-2">Amenities</p>
                   <ul className="space-y-1.5">
                     {f.amenities.map((a) => (
                       <li key={a} className="text-sm text-ink-soft flex items-center gap-2">

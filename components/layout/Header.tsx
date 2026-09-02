@@ -48,7 +48,7 @@ export default function Header() {
           </a>
           <Link
             href="/contact"
-            className="inline-flex items-center rounded-sm bg-navy px-5 py-2.5 text-sm font-semibold text-ivory hover:bg-gold hover:text-navy-deep transition-colors"
+            className="inline-flex items-center rounded-sm bg-navy px-5 py-2.5 text-sm font-semibold text-ivory hover:bg-gold-light hover:text-navy-deep transition-colors"
           >
             Request a Quote
           </Link>
