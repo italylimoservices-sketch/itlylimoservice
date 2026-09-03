@@ -55,14 +55,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        // Types combined per Google's guidance for local/travel service businesses.
+        // NOTE: telephone/email/address are deliberately omitted until real values
+        // replace the placeholders in lib/siteConfig.ts — structured data is parsed
+        // by search engines, so a bracketed placeholder here is far more harmful
+        // than one in visible copy (nobody reviews JSON-LD by eye before launch).
+        "@type": ["Organization", "LocalBusiness", "TaxiService"],
         "@id": `${siteConfig.domain}/#organization`,
         name: siteConfig.name,
         url: siteConfig.domain,
         description: siteConfig.description,
-        telephone: siteConfig.phoneDisplay,
-        email: siteConfig.email,
-        areaServed: "IT",
+        areaServed: {
+          "@type": "Country",
+          name: "Italy",
+        },
       },
       {
         "@type": "WebSite",

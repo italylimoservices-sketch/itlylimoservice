@@ -48,6 +48,7 @@ This build intentionally avoids fabricating company facts. Search the codebase f
 placeholders and the following before going live:
 
 - `lib/siteConfig.ts` — real domain, phone number, email, legal entity name, office address
+- `app/layout.tsx` — once the above are real, add `telephone`, `email`, and an `address` (schema.org `PostalAddress`) back into the Organization JSON-LD block; they're deliberately omitted for now rather than shipped as placeholder text, since structured data is machine-parsed and a bracketed placeholder there is worse than one in visible copy
 - `lib/data/testimonials.ts` — real, verified customer reviews
 - `components/ui/QuoteForm.tsx` — connect the form submit handler to your booking/CRM system
 - Cancellation, delay and child-seat policies referenced in FAQ copy
