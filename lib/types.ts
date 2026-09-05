@@ -67,6 +67,7 @@ export interface Tour {
   region: string;
   description: string;
   highlights: string[];
+  destinationSlug: string;
 }
 
 export interface FleetCategory {

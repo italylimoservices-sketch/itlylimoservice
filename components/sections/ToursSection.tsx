@@ -22,11 +22,18 @@ export default function ToursSection() {
 
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {tours.map((t) => (
-            <div key={t.slug} className="rounded-md border border-line bg-white p-6">
+            <Link
+              key={t.slug}
+              href={`/destinations/${t.destinationSlug}`}
+              className="block rounded-md border border-line bg-white p-6 hover:border-gold/50 hover:shadow-lg hover:shadow-navy/5 transition-all"
+            >
               <p className="eyebrow mb-2 text-[0.65rem]">{t.region}</p>
               <h3 className="font-display text-lg text-navy">{t.name}</h3>
               <p className="mt-2 text-sm leading-relaxed text-stone">{t.description}</p>
-            </div>
+              <span className="mt-4 inline-block text-sm font-semibold text-gold hover:text-gold-light">
+                Explore {t.region} →
+              </span>
+            </Link>
           ))}
         </div>
       </div>
