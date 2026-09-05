@@ -65,5 +65,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  return entries;
+  // airport-transfers (and any other future overlap between a service slug and
+  // a hand-listed staticPaths entry) would otherwise appear twice — keep the
+  // first occurrence, which is the more specific staticPaths entry.
+  const seen = new Set<string>();
+  return entries.filter((entry) => {
+    if (seen.has(entry.url)) return false;
+    seen.add(entry.url);
+    return true;
+  });
 }
