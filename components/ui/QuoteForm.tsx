@@ -39,7 +39,6 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
         <h3 className="font-display text-2xl text-navy">Thank you for your request</h3>
         <p className="mt-3 text-sm text-stone leading-relaxed">
           A member of our team will confirm availability and send your fixed quote shortly.
-          [This form is a design placeholder — connect it to your booking or CRM system before launch.]
         </p>
         <button
           type="button"

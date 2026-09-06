@@ -31,8 +31,9 @@ export default function AboutPage() {
           </h1>
           <p className="mt-6 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
             {siteConfig.name} provides private chauffeur transportation across Italy, from airport
-            meet & greet to city-to-city transfers, hourly hire and personalised private tours.
-            [Company background, founding story and years of operation to be confirmed and added here.]
+            meet & greet to city-to-city transfers, hourly hire and personalised private tours —
+            built for travellers who want a private, professional alternative to public transport
+            or ride-hailing apps, with a driver who knows where they&apos;re going.
           </p>
         </div>
       </section>

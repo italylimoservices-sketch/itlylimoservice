@@ -4,7 +4,7 @@ export const generalFaqs: FaqItem[] = [
   {
     question: "How much does a private chauffeur in Italy cost?",
     answer:
-      "Pricing depends on the route, journey duration, vehicle type and any waiting time required. We provide a fixed, transparent quote before you book, so there are no surprises on the day. [Contact us or request a quote for pricing specific to your route.]",
+      "Pricing depends on the route, journey duration, vehicle type and any waiting time required. We provide a fixed, transparent quote before you book, so there are no surprises on the day — request a quote for pricing specific to your route.",
   },
   {
     question: "How do I book a chauffeur in Italy?",
@@ -44,11 +44,11 @@ export const generalFaqs: FaqItem[] = [
   {
     question: "Can I request a child seat?",
     answer:
-      "Child seats can be requested when booking. Please specify the age of your child in the special requirements field so we can arrange an appropriate seat. [Availability and policy to be confirmed.]",
+      "Child seats can be requested when booking. Please specify your child's age in the special requirements field so we can confirm availability and arrange an appropriate seat.",
   },
   {
     question: "What happens if my flight is delayed?",
     answer:
-      "We monitor your flight in real time, so your chauffeur adjusts pickup timing automatically for delays or early arrivals at no extra charge for reasonable delays. [Specific delay policy to be confirmed.]",
+      "We monitor your flight in real time, so your chauffeur adjusts pickup timing automatically for delays or early arrivals — you don't need to notify us of a schedule change yourself.",
   },
 ];

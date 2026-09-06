@@ -93,9 +93,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-ivory-deep/10 pt-8 text-xs text-ivory-deep/55 md:flex-row md:items-center md:justify-between">
-          <p>
-            © {year} {siteConfig.name}. All rights reserved. [Legal entity and registration details to be confirmed.]
-          </p>
+          <p>© {year} {siteConfig.name}. All rights reserved.</p>
           <div className="flex gap-5">
             <Link href="/privacy-policy" className="hover:text-ivory">Privacy Policy</Link>
             <Link href="/terms-conditions" className="hover:text-ivory">Terms & Conditions</Link>

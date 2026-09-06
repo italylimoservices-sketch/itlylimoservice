@@ -44,7 +44,7 @@ export const services: Service[] = [
       {
         question: "What happens if I can't find my driver at arrivals?",
         answer:
-          "Your driver waits in the arrivals hall with a clearly visible name board. [Confirm the exact meeting point and contact process for your specific airport before launch.]",
+          "Your driver waits in the arrivals hall with a clearly visible name board and can be reached directly using the contact details in your booking confirmation.",
       },
       {
         question: "Can I book a return airport transfer at the same time?",
@@ -100,7 +100,7 @@ export const services: Service[] = [
       {
         question: "Is a minimum booking duration required?",
         answer:
-          "Minimum durations may apply depending on the service and vehicle type. [Confirm specific minimums before launch.]",
+          "This can vary by service and vehicle type — let us know your plans when requesting a quote and we'll confirm what applies.",
       },
     ],
   },
@@ -190,7 +190,7 @@ export const services: Service[] = [
       {
         question: "What is the minimum booking for hourly hire?",
         answer:
-          "Hourly bookings typically have a minimum duration. [Confirm the specific minimum hours before launch.]",
+          "Hourly bookings typically have a minimum duration — mention how much time you need when requesting a quote and we'll confirm availability.",
       },
       {
         question: "Does waiting time count toward my booked hours?",
@@ -249,7 +249,7 @@ export const services: Service[] = [
       {
         question: "Do tours include guided commentary?",
         answer:
-          "Our chauffeurs share local knowledge along the way; a licensed local guide can be arranged separately where required. [Confirm availability before launch.]",
+          "Our chauffeurs share local knowledge along the way; a licensed local guide can be arranged separately where required — ask us when planning your itinerary.",
       },
     ],
   },
@@ -288,7 +288,7 @@ export const services: Service[] = [
       {
         question: "Do you offer corporate billing accounts?",
         answer:
-          "Corporate billing arrangements can be set up for companies with regular travel needs. [Confirm account setup process before launch.]",
+          "Corporate billing arrangements can be set up for companies with regular travel needs — contact us to discuss setting up an account.",
       },
       {
         question: "Can you coordinate transportation for a full delegation?",
@@ -342,7 +342,7 @@ export const services: Service[] = [
       {
         question: "Can vehicles be decorated for a wedding?",
         answer:
-          "Simple decoration requests can often be accommodated — mention your preferences when booking. [Confirm specific options before launch.]",
+          "Simple decoration requests can often be accommodated — mention your preferences when booking and we'll let you know what's possible.",
       },
       {
         question: "How far in advance should we book event transportation?",

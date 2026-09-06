@@ -18,7 +18,7 @@ export default function AirportPageTemplate({ airport }: { airport: Airport }) {
   const faqs: FaqItem[] = [
     {
       question: `How does the meet & greet work at ${airport.name}?`,
-      answer: `Your chauffeur waits in the arrivals hall with a name board, tracking your flight so pickup timing adjusts automatically. [Confirm the exact meeting point signage before launch.]`,
+      answer: `Your chauffeur waits in the arrivals hall with a name board, tracking your flight so pickup timing adjusts automatically for early or delayed landings.`,
     },
     {
       question: `How far is ${airport.name} from the city centre?`,

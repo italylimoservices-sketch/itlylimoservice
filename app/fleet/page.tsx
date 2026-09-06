@@ -65,7 +65,7 @@ export default function FleetPage() {
             We do not guarantee a specific make or model for any booking category — vehicle
             categories describe passenger capacity, luggage capacity and general presentation
             standard. Exact vehicles are assigned based on availability at the time of your
-            journey. [Confirm specific vehicle models and any premium options before launch.]
+            journey.
           </p>
         </div>
       </section>
