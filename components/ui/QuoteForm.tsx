@@ -19,6 +19,14 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    // Honeypot: a field real visitors never see or fill, but bots typically do.
+    // Silently accept (so the bot gets no signal it was rejected) without
+    // actually processing the submission.
+    const honeypot = (e.currentTarget.elements.namedItem("company") as HTMLInputElement | null)?.value;
+    if (honeypot) {
+      setSubmitted(true);
+      return;
+    }
     // Booking requests are handled by connecting this form to your reservations
     // system or inbox (e.g. a form endpoint or CRM integration) before launch.
     setSubmitted(true);
@@ -49,6 +57,14 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
       onSubmit={handleSubmit}
       className={`rounded-md bg-white ${compact ? "p-5 md:p-6" : "p-6 md:p-8"} shadow-xl shadow-navy/10 border border-line`}
     >
+      {/* Honeypot spam trap — hidden from real visitors, left for bots to fill */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <label>
+          Company
+          <input type="text" name="company" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Field label="Pickup Location">
           <input

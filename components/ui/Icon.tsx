@@ -9,6 +9,9 @@ const paths: Record<string, string> = {
   anchor: "M12 3v18M12 6a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM5 12h14M6 12a6 6 0 0012 0",
   check: "M4 12l5 5L20 6",
   shield: "M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z",
+  phone: "M5 4h3l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v3a2 2 0 01-2 2C9.6 20 4 14.4 4 7a2 2 0 011-2z",
+  chat: "M4 5h16v11H8l-4 4V5z",
+  email: "M4 5h16v14H4z M4 6l8 7 8-7",
 };
 
 export default function Icon({ name, className = "" }: { name: string; className?: string }) {

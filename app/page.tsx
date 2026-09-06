@@ -10,7 +10,7 @@ import FleetSection from "@/components/sections/FleetSection";
 import ToursSection from "@/components/sections/ToursSection";
 import CorporateSection from "@/components/sections/CorporateSection";
 import CruiseSection from "@/components/sections/CruiseSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import TrustValueSection from "@/components/sections/TrustValueSection";
 import HowItWorks from "@/components/sections/HowItWorks";
 import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
@@ -37,7 +37,7 @@ export default function HomePage() {
       <ToursSection />
       <CorporateSection />
       <CruiseSection />
-      <TestimonialsSection />
+      <TrustValueSection />
       <HowItWorks />
       <FaqSection items={generalFaqs} eyebrow="FAQ" title="Frequently Asked Questions" />
       <FinalCTA />

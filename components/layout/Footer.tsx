@@ -3,6 +3,7 @@ import { siteConfig } from "@/lib/siteConfig";
 import { destinations } from "@/lib/data/destinations";
 import { airports } from "@/lib/data/airports";
 import { services } from "@/lib/data/services";
+import { LogoFull } from "@/components/ui/Logo";
 
 const featuredDestinations = destinations.slice(0, 8);
 const featuredAirports = airports.slice(0, 8);
@@ -15,7 +16,7 @@ export default function Footer() {
       <div className="container-luxe py-14 md:py-16">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
           <div className="col-span-2 md:col-span-1">
-            <span className="font-display text-2xl text-ivory">{siteConfig.name}</span>
+            <LogoFull theme="onDark" />
             <p className="mt-3 text-sm leading-relaxed text-ivory-deep/70">
               {siteConfig.tagline}. Premium private chauffeur transportation across Italy.
             </p>

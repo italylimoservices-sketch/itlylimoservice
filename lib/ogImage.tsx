@@ -8,6 +8,7 @@ export function renderOgImage(eyebrow: string, title: string) {
     (
       <div
         style={{
+          position: "relative",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -19,6 +20,22 @@ export function renderOgImage(eyebrow: string, title: string) {
           fontFamily: "sans-serif",
         }}
       >
+        <svg
+          width="56"
+          height="56"
+          viewBox="0 0 64 64"
+          style={{ position: "absolute", top: 56, right: 64 }}
+        >
+          <path
+            d="M18 21 L32 43 L46 21"
+            fill="none"
+            stroke="#cba565"
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <line x1="25" y1="49" x2="39" y2="49" stroke="#cba565" strokeWidth="3" strokeLinecap="round" />
+        </svg>
         <div
           style={{
             display: "flex",

@@ -12,8 +12,15 @@ export const metadata: Metadata = {
 };
 
 const contactPoints = [
-  { icon: "briefcase", label: "Phone", value: siteConfig.phoneDisplay, href: siteConfig.phoneHref },
-  { icon: "sparkles", label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
+  { icon: "phone", label: "Phone", value: siteConfig.phoneDisplay, href: siteConfig.phoneHref },
+  {
+    icon: "chat",
+    label: "WhatsApp",
+    value: "Message us directly",
+    href: siteConfig.whatsappHref,
+    external: true,
+  },
+  { icon: "email", label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
   { icon: "map", label: "Office", value: siteConfig.addressLine },
 ];
 
@@ -47,7 +54,12 @@ export default function ContactPage() {
                   <div>
                     <p className="text-xs uppercase tracking-wide text-stone">{c.label}</p>
                     {c.href ? (
-                      <a href={c.href} className="text-sm font-semibold text-navy hover:text-gold">
+                      <a
+                        href={c.href}
+                        target={c.external ? "_blank" : undefined}
+                        rel={c.external ? "noopener noreferrer" : undefined}
+                        className="text-sm font-semibold text-navy hover:text-gold"
+                      >
                         {c.value}
                       </a>
                     ) : (

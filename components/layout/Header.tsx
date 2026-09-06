@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { siteConfig } from "@/lib/siteConfig";
+import Icon from "@/components/ui/Icon";
+import { LogoFull } from "@/components/ui/Logo";
 
 const primaryLinks = [
   { href: "/chauffeur-service", label: "Chauffeur Service" },
@@ -21,16 +23,11 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-line/70 bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/85">
       <div className="container-luxe flex h-16 md:h-20 items-center justify-between">
-        <Link href="/" className="flex items-baseline gap-1.5" onClick={() => setOpen(false)}>
-          <span className="font-display text-2xl md:text-[1.7rem] tracking-wide text-navy">
-            {siteConfig.name}
-          </span>
-          <span className="hidden sm:inline text-[0.65rem] uppercase tracking-[0.2em] text-gold font-semibold">
-            Italy
-          </span>
+        <Link href="/" onClick={() => setOpen(false)}>
+          <LogoFull />
         </Link>
 
-        <nav className="hidden xl:flex items-center gap-5">
+        <nav className="hidden xl:flex items-center gap-4">
           {primaryLinks.map((link) => (
             <Link
               key={link.href}
@@ -42,13 +39,27 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden xl:flex items-center gap-4">
-          <a href={siteConfig.phoneHref} className="text-sm font-semibold text-ink-soft hover:text-gold transition-colors">
-            {siteConfig.phoneDisplay}
+        <div className="hidden xl:flex items-center gap-3 shrink-0">
+          <a
+            href={siteConfig.phoneHref}
+            aria-label={`Call ${siteConfig.phoneDisplay}`}
+            title={siteConfig.phoneDisplay}
+            className="text-ink-soft hover:text-gold transition-colors"
+          >
+            <Icon name="phone" className="h-5 w-5" />
+          </a>
+          <a
+            href={siteConfig.whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Message us on WhatsApp"
+            className="text-ink-soft hover:text-gold transition-colors"
+          >
+            <Icon name="chat" className="h-5 w-5" />
           </a>
           <Link
             href="/contact"
-            className="inline-flex items-center rounded-sm bg-navy px-5 py-2.5 text-sm font-semibold text-ivory hover:bg-gold-light hover:text-navy-deep transition-colors"
+            className="inline-flex items-center whitespace-nowrap rounded-sm bg-navy px-4 py-2.5 text-sm font-semibold text-ivory hover:bg-gold-light hover:text-navy-deep transition-colors"
           >
             Request a Quote
           </Link>
@@ -103,6 +114,15 @@ export default function Header() {
             </Link>
             <a href={siteConfig.phoneHref} className="mt-3 text-center text-sm font-semibold text-ink-soft">
               {siteConfig.phoneDisplay}
+            </a>
+            <a
+              href={siteConfig.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 flex items-center justify-center gap-1.5 text-center text-sm font-semibold text-ink-soft"
+            >
+              <Icon name="chat" className="h-4 w-4" />
+              WhatsApp
             </a>
           </nav>
         </div>
