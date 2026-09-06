@@ -26,9 +26,12 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
                 +
               </span>
             </button>
-            {isOpen && (
-              <p className="pb-5 text-sm leading-relaxed text-stone max-w-3xl">{item.answer}</p>
-            )}
+            <p
+              hidden={!isOpen}
+              className="pb-5 text-sm leading-relaxed text-stone max-w-3xl"
+            >
+              {item.answer}
+            </p>
           </div>
         );
       })}
