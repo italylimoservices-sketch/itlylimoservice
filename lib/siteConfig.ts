@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Vetturino",
   legalName: "Vetturino Private Chauffeurs [Legal Entity Name — to confirm]",
   tagline: "Private Chauffeurs, Italy-Wide",
-  domain: "https://www.vetturino-italy.example", // PLACEHOLDER — replace with the live production domain
+  domain: "https://italylimoservice.com",
   phoneDisplay: "[+39 XXX XXX XXXX]",
   phoneHref: "tel:+39XXXXXXXXX",
   whatsappHref: "https://wa.me/39XXXXXXXXX",
