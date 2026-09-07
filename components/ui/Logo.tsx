@@ -30,13 +30,8 @@ export function LogoFull({ theme = "onLight" }: { theme?: "onLight" | "onDark" }
   return (
     <span className="inline-flex items-center gap-2">
       <Monogram theme={theme} size={28} />
-      <span className="flex items-baseline gap-1.5">
-        <span className={`font-display text-2xl md:text-[1.7rem] tracking-wide ${textColor}`}>
-          {siteConfig.name}
-        </span>
-        <span className="hidden sm:inline text-[0.65rem] uppercase tracking-[0.2em] text-gold font-semibold">
-          Italy
-        </span>
+      <span className={`font-display text-xl md:text-2xl tracking-wide whitespace-nowrap ${textColor}`}>
+        {siteConfig.name}
       </span>
     </span>
   );

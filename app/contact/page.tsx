@@ -7,7 +7,7 @@ import Icon from "@/components/ui/Icon";
 export const metadata: Metadata = {
   title: "Contact Us | Request a Quote",
   description:
-    "Contact Vetturino to request a quote for your private chauffeur service in Italy — airport transfers, city-to-city transportation, tours and corporate travel.",
+    "Contact Italy Limo Service to request a quote for your private chauffeur service in Italy — airport transfers, city-to-city transportation, tours and corporate travel.",
   alternates: { canonical: "/contact" },
 };
 

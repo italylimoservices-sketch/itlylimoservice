@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { siteConfig } from "@/lib/siteConfig";
 
 export const ogImageSize = { width: 1200, height: 630 };
 export const ogImageContentType = "image/png";
@@ -77,7 +78,7 @@ export function renderOgImage(eyebrow: string, title: string) {
             color: "rgba(250,247,241,0.6)",
           }}
         >
-          Vetturino — Private Chauffeurs, Italy-Wide
+          {siteConfig.name} — {siteConfig.tagline}
         </div>
       </div>
     ),

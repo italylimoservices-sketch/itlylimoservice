@@ -16,7 +16,7 @@ function makeRoute(
     to: toName,
     fromSlug,
     toSlug,
-    metaTitle: `Private Transfer ${fromName} to ${toName}`,
+    metaTitle: `Transfer ${fromName} to ${toName}`,
     metaDescription: `Book a private chauffeur transfer from ${fromName} to ${toName}. Direct, comfortable travel with a professional driver, door to door, no changes required.`,
     summary: `Private door-to-door chauffeur transfer between ${fromName} and ${toName}.`,
     intro,

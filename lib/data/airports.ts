@@ -6,7 +6,7 @@ export const airports: Airport[] = [
     name: "Rome Fiumicino Airport",
     code: "FCO",
     city: "Rome",
-    metaTitle: "Rome Fiumicino Airport Chauffeur Transfer (FCO)",
+    metaTitle: "Rome Fiumicino Airport Transfer (FCO)",
     metaDescription:
       "Private chauffeur transfers from Rome Fiumicino Airport (FCO). Flight monitoring, meet & greet, luggage assistance and direct transport into Rome or beyond.",
     summary:
@@ -24,7 +24,7 @@ export const airports: Airport[] = [
     name: "Rome Ciampino Airport",
     code: "CIA",
     city: "Rome",
-    metaTitle: "Rome Ciampino Airport Chauffeur Transfer (CIA)",
+    metaTitle: "Rome Ciampino Airport Transfer (CIA)",
     metaDescription:
       "Book a private chauffeur transfer from Rome Ciampino Airport (CIA) with flight tracking, meet & greet and a direct, comfortable ride into Rome.",
     summary: "Reliable private transfers for low-cost and charter flights landing at Ciampino.",
@@ -41,7 +41,7 @@ export const airports: Airport[] = [
     name: "Milan Malpensa Airport",
     code: "MXP",
     city: "Milan",
-    metaTitle: "Milan Malpensa Airport Chauffeur Transfer (MXP)",
+    metaTitle: "Milan Malpensa Airport Transfer (MXP)",
     metaDescription:
       "Private chauffeur service from Milan Malpensa Airport (MXP) to Milan city centre, Lake Como and northern Italy, with flight monitoring and meet & greet.",
     summary:
@@ -59,7 +59,7 @@ export const airports: Airport[] = [
     name: "Milan Linate Airport",
     code: "LIN",
     city: "Milan",
-    metaTitle: "Milan Linate Airport Chauffeur Transfer (LIN)",
+    metaTitle: "Milan Linate Airport Transfer (LIN)",
     metaDescription:
       "Fast private chauffeur transfers from Milan Linate Airport (LIN) into central Milan, ideal for business travellers on tight schedules.",
     summary: "Quick, professional transfers for the city-centre convenience of Linate Airport.",
@@ -76,7 +76,7 @@ export const airports: Airport[] = [
     name: "Venice Marco Polo Airport",
     code: "VCE",
     city: "Venice",
-    metaTitle: "Venice Marco Polo Airport Transfer (VCE)",
+    metaTitle: "Venice Marco Polo Transfer (VCE)",
     metaDescription:
       "Private chauffeur and boat-connected transfers from Venice Marco Polo Airport (VCE) to Venice and the surrounding Veneto region.",
     summary:
@@ -94,7 +94,7 @@ export const airports: Airport[] = [
     name: "Florence Airport",
     code: "FLR",
     city: "Florence",
-    metaTitle: "Florence Airport Chauffeur Transfer (FLR)",
+    metaTitle: "Florence Airport Transfer (FLR)",
     metaDescription:
       "Private chauffeur transfers from Florence Airport (Peretola) to central Florence, Tuscany and Chianti, with flight tracking and meet & greet.",
     summary: "Direct private transfers from Florence Airport into the city and greater Tuscany.",
@@ -111,7 +111,7 @@ export const airports: Airport[] = [
     name: "Bologna Airport",
     code: "BLQ",
     city: "Bologna",
-    metaTitle: "Bologna Airport Chauffeur Transfer (BLQ)",
+    metaTitle: "Bologna Airport Transfer (BLQ)",
     metaDescription:
       "Private chauffeur transfers from Bologna Guglielmo Marconi Airport (BLQ) to Bologna, Emilia-Romagna and connecting cities.",
     summary: "Comfortable private transfers from Bologna Airport across Emilia-Romagna.",
@@ -128,7 +128,7 @@ export const airports: Airport[] = [
     name: "Naples Airport",
     code: "NAP",
     city: "Naples",
-    metaTitle: "Naples Airport Chauffeur Transfer (NAP)",
+    metaTitle: "Naples Airport Transfer (NAP)",
     metaDescription:
       "Private chauffeur transfers from Naples Airport (NAP) to Naples, Sorrento, the Amalfi Coast and Pompeii, with meet & greet and luggage assistance.",
     summary:
@@ -146,7 +146,7 @@ export const airports: Airport[] = [
     name: "Pisa Airport",
     code: "PSA",
     city: "Pisa",
-    metaTitle: "Pisa Airport Chauffeur Transfer (PSA)",
+    metaTitle: "Pisa Airport Transfer (PSA)",
     metaDescription:
       "Private chauffeur transfers from Pisa International Airport (PSA) to Pisa, Florence, Tuscany and the Cinque Terre.",
     summary: "Private transfers from Pisa Airport into Tuscany and along the Ligurian coast.",
@@ -163,7 +163,7 @@ export const airports: Airport[] = [
     name: "Palermo Airport",
     code: "PMO",
     city: "Palermo",
-    metaTitle: "Palermo Airport Chauffeur Transfer (PMO)",
+    metaTitle: "Palermo Airport Transfer (PMO)",
     metaDescription:
       "Private chauffeur transfers from Palermo Falcone-Borsellino Airport (PMO) to Palermo and destinations across Sicily.",
     summary: "Private transfers and touring drivers based around Palermo's main airport.",
@@ -180,7 +180,7 @@ export const airports: Airport[] = [
     name: "Catania Airport",
     code: "CTA",
     city: "Catania",
-    metaTitle: "Catania Airport Chauffeur Transfer (CTA)",
+    metaTitle: "Catania Airport Transfer (CTA)",
     metaDescription:
       "Private chauffeur transfers from Catania Fontanarossa Airport (CTA) to Catania, Taormina and eastern Sicily.",
     summary: "Private transfers from Catania Airport across eastern Sicily.",
@@ -197,7 +197,7 @@ export const airports: Airport[] = [
     name: "Bergamo Airport",
     code: "BGY",
     city: "Bergamo",
-    metaTitle: "Bergamo Airport Chauffeur Transfer (BGY)",
+    metaTitle: "Bergamo Airport Transfer (BGY)",
     metaDescription:
       "Private chauffeur transfers from Bergamo Orio al Serio Airport (BGY) to Milan, Lake Como and the Lombardy region.",
     summary: "Private transfers from Bergamo Airport into Milan and the Lombardy lakes.",

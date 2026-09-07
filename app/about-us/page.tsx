@@ -8,7 +8,7 @@ import FinalCTA from "@/components/sections/FinalCTA";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about Vetturino, a premium private chauffeur service operating across Italy, built around professionalism, safety and local expertise.",
+    "Learn about Italy Limo Service, a premium private chauffeur service operating across Italy, built around professionalism, safety and local expertise.",
   alternates: { canonical: "/about-us" },
 };
 

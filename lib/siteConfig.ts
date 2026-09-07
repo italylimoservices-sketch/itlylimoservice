@@ -1,6 +1,6 @@
 export const siteConfig = {
-  name: "Vetturino",
-  legalName: "Vetturino Private Chauffeurs [Legal Entity Name — to confirm]",
+  name: "Italy Limo Service",
+  legalName: "Italy Limo Service [Legal Entity Name — to confirm]",
   tagline: "Private Chauffeurs, Italy-Wide",
   domain: "https://italylimoservice.com",
   phoneDisplay: "[+39 XXX XXX XXXX]",
@@ -14,7 +14,7 @@ export const siteConfig = {
     linkedin: "#",
   },
   description:
-    "Vetturino provides premium private chauffeur services across Italy, including airport transfers, city-to-city transportation, hourly chauffeur hire, private tours and corporate travel.",
+    "Italy Limo Service provides premium private chauffeur services across Italy, including airport transfers, city-to-city transportation, hourly chauffeur hire, private tours and corporate travel.",
 };
 
 export type SiteConfig = typeof siteConfig;
