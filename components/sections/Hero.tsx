@@ -1,12 +1,10 @@
 import QuoteForm from "@/components/ui/QuoteForm";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/locales";
 
-const trustSignals = [
-  "English-speaking chauffeurs",
-  "Fixed, transparent pricing",
-  "Italy-wide coverage",
-];
+export default function Hero({ locale = "en" }: { locale?: Locale }) {
+  const t = getDictionary(locale).home;
 
-export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-navy-deep text-ivory">
       <div
@@ -19,19 +17,17 @@ export default function Hero() {
       />
       <div className="container-luxe relative py-14 md:py-24 grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-start">
         <div>
-          <p className="eyebrow eyebrow-invert mb-4">Private Chauffeur Service in Italy</p>
+          <p className="eyebrow eyebrow-invert mb-4">{t.heroEyebrow}</p>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] max-w-xl">
-            Chauffeur Service in Italy, Refined for Every Journey
+            {t.heroTitle}
           </h1>
           <p className="mt-6 max-w-lg text-[1.02rem] leading-relaxed text-ivory-deep/80">
-            Premium private chauffeur transportation across Italy — from airport meet & greet
-            to city-to-city transfers, hourly hire and personalised private tours. Professional,
-            English-speaking drivers and comfortable vehicles, wherever your journey takes you.
+            {t.heroSubtitle}
           </p>
 
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
-            {trustSignals.map((t) => (
-              <div key={t} className="flex items-center gap-2 text-sm text-ivory-deep/85">
+            {t.heroTrust.map((signal) => (
+              <div key={signal} className="flex items-center gap-2 text-sm text-ivory-deep/85">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-gold shrink-0">
                   <path
                     d="M3 8.5l3 3 7-7"
@@ -41,14 +37,14 @@ export default function Hero() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                {t}
+                {signal}
               </div>
             ))}
           </div>
         </div>
 
         <div className="lg:sticky lg:top-24">
-          <QuoteForm />
+          <QuoteForm locale={locale} />
         </div>
       </div>
     </section>

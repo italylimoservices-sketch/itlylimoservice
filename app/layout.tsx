@@ -1,11 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import StickyMobileCTA from "@/components/layout/StickyMobileCTA";
-import WhatsAppBubble from "@/components/layout/WhatsAppBubble";
-import CookieNotice from "@/components/layout/CookieNotice";
 import { siteConfig } from "@/lib/siteConfig";
 
 const playfair = Playfair_Display({
@@ -106,14 +101,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Header />
-        <main id="main-content" className="flex-1 pb-16 xl:pb-0">
-          {children}
-        </main>
-        <Footer />
-        <StickyMobileCTA />
-        <WhatsAppBubble />
-        <CookieNotice />
+        {children}
       </body>
     </html>
   );

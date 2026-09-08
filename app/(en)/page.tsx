@@ -20,27 +20,30 @@ export const metadata: Metadata = {
   title: "Italy Chauffeur Service | Private Drivers & Airport Transfers",
   description:
     "Premium private chauffeur service across Italy. Airport transfers, city-to-city transportation, hourly hire and private tours with English-speaking drivers and transparent pricing.",
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: { en: "/", it: "/it" },
+  },
 };
 
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <TrustBar />
-      <ServicesGrid />
-      <AirportsSection />
-      <DestinationsSection />
-      <RoutesSection />
-      <WhyChooseUs />
-      <FleetSection />
-      <ToursSection />
-      <CorporateSection />
-      <CruiseSection />
-      <TrustValueSection />
-      <HowItWorks />
+      <Hero locale="en" />
+      <TrustBar locale="en" />
+      <ServicesGrid locale="en" />
+      <AirportsSection locale="en" />
+      <DestinationsSection locale="en" />
+      <RoutesSection locale="en" />
+      <WhyChooseUs locale="en" />
+      <FleetSection locale="en" />
+      <ToursSection locale="en" />
+      <CorporateSection locale="en" />
+      <CruiseSection locale="en" />
+      <TrustValueSection locale="en" />
+      <HowItWorks locale="en" />
       <FaqSection items={generalFaqs} eyebrow="FAQ" title="Frequently Asked Questions" />
-      <FinalCTA />
+      <FinalCTA locale="en" />
     </>
   );
 }

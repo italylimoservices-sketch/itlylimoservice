@@ -5,29 +5,34 @@ import { useState } from "react";
 import { siteConfig } from "@/lib/siteConfig";
 import Icon from "@/components/ui/Icon";
 import { LogoFull } from "@/components/ui/Logo";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import { localePath, type Locale } from "@/lib/i18n/locales";
 
-const primaryLinks = [
-  { href: "/chauffeur-service", label: "Chauffeur Service" },
-  { href: "/airport-transfers", label: "Airport Transfers" },
-  { href: "/destinations", label: "Destinations" },
-  { href: "/routes", label: "Routes" },
-  { href: "/italy-private-tours", label: "Private Tours" },
-  { href: "/corporate-chauffeur", label: "Corporate" },
-  { href: "/fleet", label: "Fleet" },
-  { href: "/about-us", label: "About" },
-];
-
-export default function Header() {
+export default function Header({ locale = "en" }: { locale?: Locale }) {
   const [open, setOpen] = useState(false);
+  const t = getDictionary(locale);
+  const p = (path: string) => localePath(locale, path);
+
+  const primaryLinks = [
+    { href: p("/chauffeur-service"), label: t.nav.chauffeurService },
+    { href: p("/airport-transfers"), label: t.nav.airportTransfers },
+    { href: p("/destinations"), label: t.nav.destinations },
+    { href: p("/routes"), label: t.nav.routes },
+    { href: p("/italy-private-tours"), label: t.nav.privateTours },
+    { href: p("/corporate-chauffeur"), label: t.nav.corporate },
+    { href: p("/fleet"), label: t.nav.fleet },
+    { href: p("/about-us"), label: t.nav.about },
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-line/70 bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/85">
       <div className="container-luxe flex h-16 md:h-20 items-center justify-between">
-        <Link href="/" onClick={() => setOpen(false)}>
+        <Link href={p("/")} onClick={() => setOpen(false)}>
           <LogoFull />
         </Link>
 
-        <nav className="hidden xl:flex items-center gap-4">
+        <nav className="hidden xl:flex items-center gap-3">
           {primaryLinks.map((link) => (
             <Link
               key={link.href}
@@ -39,7 +44,8 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden xl:flex items-center gap-3 shrink-0">
+        <div className="hidden xl:flex items-center gap-2.5 shrink-0">
+          <LanguageSwitcher locale={locale} />
           <a
             href={siteConfig.phoneHref}
             aria-label={`Call ${siteConfig.phoneDisplay}`}
@@ -58,16 +64,16 @@ export default function Header() {
             <Icon name="chat" className="h-5 w-5" />
           </a>
           <Link
-            href="/contact"
-            className="inline-flex items-center whitespace-nowrap rounded-sm bg-navy px-4 py-2.5 text-sm font-semibold text-ivory hover:bg-gold-light hover:text-navy-deep transition-colors"
+            href={p("/contact")}
+            className="inline-flex items-center whitespace-nowrap rounded-sm bg-navy px-3.5 py-2.5 text-[0.85rem] font-semibold text-ivory hover:bg-gold-light hover:text-navy-deep transition-colors"
           >
-            Request a Quote
+            {t.nav.requestQuote}
           </Link>
         </div>
 
         <button
           type="button"
-          aria-label="Toggle menu"
+          aria-label={t.nav.toggleMenu}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="xl:hidden inline-flex h-10 w-10 items-center justify-center text-navy"
@@ -99,18 +105,21 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="/faq"
+              href={p("/faq")}
               onClick={() => setOpen(false)}
               className="py-2.5 text-[0.95rem] font-medium text-ink-soft border-b border-line/60"
             >
-              FAQ
+              {t.nav.faq}
             </Link>
+            <div className="mt-4 flex justify-center">
+              <LanguageSwitcher locale={locale} />
+            </div>
             <Link
-              href="/contact"
+              href={p("/contact")}
               onClick={() => setOpen(false)}
               className="mt-4 inline-flex items-center justify-center rounded-sm bg-navy px-5 py-3 text-sm font-semibold text-ivory"
             >
-              Request a Quote
+              {t.nav.requestQuote}
             </Link>
             <a href={siteConfig.phoneHref} className="mt-3 text-center text-sm font-semibold text-ink-soft">
               {siteConfig.phoneDisplay}

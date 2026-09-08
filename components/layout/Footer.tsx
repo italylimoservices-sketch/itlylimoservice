@@ -4,12 +4,18 @@ import { destinations } from "@/lib/data/destinations";
 import { airports } from "@/lib/data/airports";
 import { services } from "@/lib/data/services";
 import { LogoFull } from "@/components/ui/Logo";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import { localePath, type Locale } from "@/lib/i18n/locales";
+import { destinationNames_it, airportNames_it, services_it } from "@/lib/i18n/data.it";
 
 const featuredDestinations = destinations.slice(0, 8);
 const featuredAirports = airports.slice(0, 8);
 
-export default function Footer() {
+export default function Footer({ locale = "en" }: { locale?: Locale }) {
   const year = new Date().getFullYear();
+  const t = getDictionary(locale);
+  const p = (path: string) => localePath(locale, path);
+  const isIt = locale === "it";
 
   return (
     <footer className="bg-navy-deep text-ivory-deep">
@@ -17,9 +23,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
           <div className="col-span-2 md:col-span-1">
             <LogoFull theme="onDark" />
-            <p className="mt-3 text-sm leading-relaxed text-ivory-deep/70">
-              {siteConfig.tagline}. Premium private chauffeur transportation across Italy.
-            </p>
+            <p className="mt-3 text-sm leading-relaxed text-ivory-deep/70">{t.footer.tagline}</p>
             <div className="mt-5 space-y-1 text-sm text-ivory-deep/80">
               <a href={siteConfig.phoneHref} className="block hover:text-gold-light">
                 {siteConfig.phoneDisplay}
@@ -32,12 +36,12 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-light">Services</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-light">{t.footer.services}</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               {services.map((s) => (
                 <li key={s.slug}>
-                  <Link href={`/${s.slug}`} className="text-ivory-deep/75 hover:text-ivory">
-                    {s.name}
+                  <Link href={p(`/${s.slug}`)} className="text-ivory-deep/75 hover:text-ivory">
+                    {isIt ? services_it[s.slug]?.name ?? s.name : s.name}
                   </Link>
                 </li>
               ))}
@@ -45,58 +49,61 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-light">Destinations</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-light">{t.footer.destinations}</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
-              {featuredDestinations.map((d) => (
-                <li key={d.slug}>
-                  <Link href={`/destinations/${d.slug}`} className="text-ivory-deep/75 hover:text-ivory">
-                    Chauffeur in {d.name}
-                  </Link>
-                </li>
-              ))}
+              {featuredDestinations.map((d) => {
+                const name = isIt ? destinationNames_it[d.slug]?.name ?? d.name : d.name;
+                return (
+                  <li key={d.slug}>
+                    <Link href={p(`/destinations/${d.slug}`)} className="text-ivory-deep/75 hover:text-ivory">
+                      {isIt ? name : `Chauffeur in ${name}`}
+                    </Link>
+                  </li>
+                );
+              })}
               <li>
-                <Link href="/destinations" className="text-gold-light hover:text-gold">
-                  All destinations →
+                <Link href={p("/destinations")} className="text-gold-light hover:text-gold">
+                  {t.footer.allDestinations}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-light">Airport Transfers</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-light">{t.footer.airportTransfers}</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               {featuredAirports.map((a) => (
                 <li key={a.slug}>
-                  <Link href={`/airport-transfers/${a.slug}`} className="text-ivory-deep/75 hover:text-ivory">
-                    {a.name}
+                  <Link href={p(`/airport-transfers/${a.slug}`)} className="text-ivory-deep/75 hover:text-ivory">
+                    {isIt ? airportNames_it[a.slug]?.name ?? a.name : a.name}
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href="/airport-transfers" className="text-gold-light hover:text-gold">
-                  All airports →
+                <Link href={p("/airport-transfers")} className="text-gold-light hover:text-gold">
+                  {t.footer.allAirports}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-light">Company</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-light">{t.footer.company}</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
-              <li><Link href="/about-us" className="text-ivory-deep/75 hover:text-ivory">About Us</Link></li>
-              <li><Link href="/fleet" className="text-ivory-deep/75 hover:text-ivory">Our Fleet</Link></li>
-              <li><Link href="/routes" className="text-ivory-deep/75 hover:text-ivory">Popular Routes</Link></li>
-              <li><Link href="/faq" className="text-ivory-deep/75 hover:text-ivory">FAQ</Link></li>
-              <li><Link href="/contact" className="text-ivory-deep/75 hover:text-ivory">Contact</Link></li>
+              <li><Link href={p("/about-us")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.aboutUs}</Link></li>
+              <li><Link href={p("/fleet")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.ourFleet}</Link></li>
+              <li><Link href={p("/routes")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.popularRoutes}</Link></li>
+              <li><Link href={p("/faq")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.faq}</Link></li>
+              <li><Link href={p("/contact")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.contact}</Link></li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-ivory-deep/10 pt-8 text-xs text-ivory-deep/55 md:flex-row md:items-center md:justify-between">
-          <p>© {year} {siteConfig.name}. All rights reserved.</p>
+          <p>© {year} {siteConfig.name}. {t.footer.rightsReserved}</p>
           <div className="flex gap-5">
-            <Link href="/privacy-policy" className="hover:text-ivory">Privacy Policy</Link>
-            <Link href="/terms-conditions" className="hover:text-ivory">Terms & Conditions</Link>
+            <Link href={p("/privacy-policy")} className="hover:text-ivory">{t.footer.privacyPolicy}</Link>
+            <Link href={p("/terms-conditions")} className="hover:text-ivory">{t.footer.termsConditions}</Link>
           </div>
         </div>
       </div>

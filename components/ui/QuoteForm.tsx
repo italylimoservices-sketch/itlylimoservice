@@ -1,21 +1,15 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-
-const vehicleOptions = [
-  "Not sure yet",
-  "Executive Sedan",
-  "Luxury Sedan",
-  "Luxury SUV",
-  "Executive Van",
-  "Luxury Van",
-];
+import { getDictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/locales";
 
 const passengerOptions = ["1", "2", "3", "4", "5", "6", "7+"];
 
-export default function QuoteForm({ compact = false }: { compact?: boolean }) {
+export default function QuoteForm({ compact = false, locale = "en" }: { compact?: boolean; locale?: Locale }) {
   const [submitted, setSubmitted] = useState(false);
   const [tripType, setTripType] = useState<"one-way" | "round-trip">("one-way");
+  const t = getDictionary(locale).quoteForm;
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -35,17 +29,15 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
   if (submitted) {
     return (
       <div className="rounded-md bg-white p-8 text-center shadow-xl shadow-navy/10 border border-line">
-        <p className="eyebrow mb-2">Request Received</p>
-        <h3 className="font-display text-2xl text-navy">Thank you for your request</h3>
-        <p className="mt-3 text-sm text-stone leading-relaxed">
-          A member of our team will confirm availability and send your fixed quote shortly.
-        </p>
+        <p className="eyebrow mb-2">{t.requestReceived}</p>
+        <h3 className="font-display text-2xl text-navy">{t.thankYou}</h3>
+        <p className="mt-3 text-sm text-stone leading-relaxed">{t.confirmMessage}</p>
         <button
           type="button"
           onClick={() => setSubmitted(false)}
           className="mt-6 text-sm font-semibold text-gold hover:text-gold-light"
         >
-          Submit another request
+          {t.submitAnother}
         </button>
       </div>
     );
@@ -65,34 +57,22 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field label="Pickup Location">
-          <input
-            required
-            type="text"
-            name="pickup"
-            placeholder="e.g. Rome Fiumicino Airport"
-            className="input-luxe"
-          />
+        <Field label={t.pickupLocation}>
+          <input required type="text" name="pickup" placeholder={t.pickupPlaceholder} className="input-luxe" />
         </Field>
-        <Field label="Destination">
-          <input
-            required
-            type="text"
-            name="destination"
-            placeholder="e.g. Central Rome"
-            className="input-luxe"
-          />
+        <Field label={t.destination}>
+          <input required type="text" name="destination" placeholder={t.destinationPlaceholder} className="input-luxe" />
         </Field>
-        <Field label="Date">
+        <Field label={t.date}>
           <input required type="date" name="date" className="input-luxe" />
         </Field>
-        <Field label="Time">
+        <Field label={t.time}>
           <input required type="time" name="time" className="input-luxe" />
         </Field>
-        <Field label="Passengers">
+        <Field label={t.passengers}>
           <select required name="passengers" defaultValue="" className="input-luxe">
             <option value="" disabled>
-              Select
+              {t.select}
             </option>
             {passengerOptions.map((p) => (
               <option key={p} value={p}>
@@ -101,9 +81,9 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
             ))}
           </select>
         </Field>
-        <Field label="Vehicle Type">
-          <select name="vehicle" defaultValue={vehicleOptions[0]} className="input-luxe">
-            {vehicleOptions.map((v) => (
+        <Field label={t.vehicleType}>
+          <select name="vehicle" defaultValue={t.vehicleOptions[0]} className="input-luxe">
+            {t.vehicleOptions.map((v) => (
               <option key={v} value={v}>
                 {v}
               </option>
@@ -113,14 +93,12 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
       </div>
 
       <div className="mt-4">
-        <span className="mb-2 block text-xs font-semibold uppercase tracking-wide text-stone">
-          Trip Type
-        </span>
+        <span className="mb-2 block text-xs font-semibold uppercase tracking-wide text-stone">{t.tripType}</span>
         <div className="flex gap-3">
           {(
             [
-              { value: "one-way", label: "One-way" },
-              { value: "round-trip", label: "Round trip" },
+              { value: "one-way", label: t.oneWay },
+              { value: "round-trip", label: t.roundTrip },
             ] as const
           ).map((opt) => (
             <button
@@ -141,28 +119,22 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
       </div>
 
       <div className="mt-4">
-        <Field label="Special Requirements (optional)">
+        <Field label={t.specialRequirements}>
           <textarea
             name="requirements"
             rows={2}
-            placeholder="Child seat, extra luggage, flight number..."
+            placeholder={t.specialRequirementsPlaceholder}
             className="input-luxe resize-none"
           />
         </Field>
       </div>
 
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field label="Full Name">
-          <input required type="text" name="name" placeholder="Your name" className="input-luxe" />
+        <Field label={t.fullName}>
+          <input required type="text" name="name" placeholder={t.fullNamePlaceholder} className="input-luxe" />
         </Field>
-        <Field label="Email or Phone">
-          <input
-            required
-            type="text"
-            name="contact"
-            placeholder="How should we reach you?"
-            className="input-luxe"
-          />
+        <Field label={t.contact}>
+          <input required type="text" name="contact" placeholder={t.contactPlaceholder} className="input-luxe" />
         </Field>
       </div>
 
@@ -170,12 +142,10 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
         type="submit"
         className="mt-6 w-full rounded-sm bg-gold-light px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-navy-deep hover:bg-gold-pale transition-colors"
       >
-        Get a Quote
+        {t.submit}
       </button>
 
-      <p className="mt-3 text-center text-xs text-stone">
-        No payment required now · Fixed, transparent pricing · Your details are kept private
-      </p>
+      <p className="mt-3 text-center text-xs text-stone">{t.disclaimer}</p>
     </form>
   );
 }

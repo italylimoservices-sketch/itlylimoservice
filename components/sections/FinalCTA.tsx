@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import { localePath, type Locale } from "@/lib/i18n/locales";
 
-export default function FinalCTA() {
+export default function FinalCTA({ locale = "en" }: { locale?: Locale }) {
+  const t = getDictionary(locale).finalCta;
+
   return (
     <section className="relative overflow-hidden bg-navy-deep text-ivory">
       <div
@@ -12,23 +16,20 @@ export default function FinalCTA() {
         aria-hidden
       />
       <div className="container-luxe relative py-16 md:py-20 text-center">
-        <h2 className="font-display text-3xl md:text-4xl">Ready to Travel Italy in Comfort?</h2>
-        <p className="mt-4 max-w-xl mx-auto text-[0.98rem] text-ivory-deep/80 leading-relaxed">
-          Request a fixed quote for your airport transfer, city-to-city journey or private tour —
-          our team responds promptly with availability and pricing.
-        </p>
+        <h2 className="font-display text-3xl md:text-4xl">{t.title}</h2>
+        <p className="mt-4 max-w-xl mx-auto text-[0.98rem] text-ivory-deep/80 leading-relaxed">{t.subtitle}</p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
-            href="/contact"
+            href={localePath(locale, "/contact")}
             className="inline-flex items-center rounded-sm bg-gold-light px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-navy-deep hover:bg-gold-pale transition-colors"
           >
-            Request a Quote
+            {t.requestQuote}
           </Link>
           <Link
-            href="/contact"
+            href={localePath(locale, "/contact")}
             className="inline-flex items-center rounded-sm border border-ivory/30 px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-ivory hover:border-gold transition-colors"
           >
-            Book Your Chauffeur
+            {t.bookChauffeur}
           </Link>
         </div>
       </div>

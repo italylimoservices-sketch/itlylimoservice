@@ -1,13 +1,9 @@
-const items = [
-  { title: "Professional Chauffeurs", desc: "Experienced, English-speaking drivers" },
-  { title: "Premium Vehicles", desc: "Clean, comfortable and well-maintained" },
-  { title: "Airport Meet & Greet", desc: "Flight tracking included" },
-  { title: "Fixed, Transparent Pricing", desc: "Your fare confirmed before you travel" },
-  { title: "24/7 Availability", desc: "Booking support around the clock" },
-  { title: "Italy-Wide Coverage", desc: "From major cities to coastal towns" },
-];
+import { getDictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/locales";
 
-export default function TrustBar() {
+export default function TrustBar({ locale = "en" }: { locale?: Locale }) {
+  const items = getDictionary(locale).home.trustBar;
+
   return (
     <section className="border-b border-line bg-white">
       <div className="container-luxe py-8 md:py-10">
