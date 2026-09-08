@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StickyMobileCTA from "@/components/layout/StickyMobileCTA";
+import WhatsAppBubble from "@/components/layout/WhatsAppBubble";
 import CookieNotice from "@/components/layout/CookieNotice";
 import { siteConfig } from "@/lib/siteConfig";
 
@@ -111,6 +112,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <StickyMobileCTA />
+        <WhatsAppBubble />
         <CookieNotice />
       </body>
     </html>
