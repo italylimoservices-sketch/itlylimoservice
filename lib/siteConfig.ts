@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Italy Limo Service",
-  legalName: "Italy Limo Service [Legal Entity Name — to confirm]",
+  legalName: "[Legal Entity Name — to confirm]",
   tagline: "Private Chauffeurs, Italy-Wide",
   domain: "https://italylimoservice.com",
   phoneDisplay: "[+39 XXX XXX XXXX]",

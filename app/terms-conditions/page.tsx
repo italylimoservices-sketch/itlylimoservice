@@ -97,7 +97,7 @@ export default function TermsPage() {
             <div>
               <h2 className="font-display text-xl text-navy mb-2">9. Contact</h2>
               <p>
-                {siteConfig.legalName}
+                {siteConfig.name}
                 <br />
                 {siteConfig.addressLine}
                 <br />

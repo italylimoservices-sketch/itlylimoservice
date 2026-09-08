@@ -101,7 +101,7 @@ export default function PrivacyPolicyPage() {
             <div>
               <h2 className="font-display text-xl text-navy mb-2">8. Contact</h2>
               <p>
-                {siteConfig.legalName}
+                {siteConfig.name}
                 <br />
                 {siteConfig.addressLine}
                 <br />
