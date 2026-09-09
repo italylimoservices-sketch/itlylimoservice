@@ -10,6 +10,7 @@ import { Section } from "@/components/admin/ui/Section";
 import { SimpleTable } from "@/components/admin/ui/SimpleTable";
 import { StatusBadge } from "@/components/admin/ui/Badge";
 import { RecordPaymentForm } from "@/components/admin/invoices/RecordPaymentForm";
+import { ConfirmButton } from "@/components/admin/ui/ConfirmButton";
 import { formatCurrency, formatDate } from "@/lib/admin/format";
 import { markInvoiceSent, voidInvoice, recordPayment } from "@/lib/admin/actions/invoices";
 import { buildWhatsAppLink } from "@/lib/notifications/whatsapp";
@@ -113,9 +114,12 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                 ) : null}
                 {invoice.status !== "VOID" && invoice.status !== "PAID" ? (
                   <form action={voidInvoice.bind(null, id)}>
-                    <button type="submit" className="w-full text-sm border border-line px-3 py-2 rounded-sm hover:bg-red-50 hover:text-red-700">
+                    <ConfirmButton
+                      confirmMessage={`Void invoice ${invoice.invoice_number}? This can't be undone.`}
+                      className="w-full text-sm border border-line px-3 py-2 rounded-sm hover:bg-red-50 hover:text-red-700"
+                    >
                       Void invoice
-                    </button>
+                    </ConfirmButton>
                   </form>
                 ) : null}
               </div>

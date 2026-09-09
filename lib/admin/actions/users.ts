@@ -51,6 +51,16 @@ export async function inviteUser(_prevState: FormState, formData: FormData): Pro
     .eq("id", data.user.id);
   if (profileError) return { error: profileError.message };
 
+  // Via the session-bound client, not `admin` — log_activity() reads
+  // auth.uid() from the caller's JWT, which the service-role client doesn't carry.
+  const supabase = await createClient();
+  await supabase.rpc("log_activity", {
+    p_action: "user.invited",
+    p_entity_type: "profile",
+    p_entity_id: data.user.id,
+    p_metadata: { email: parsed.data.email, role: parsed.data.role },
+  });
+
   revalidatePath("/admin/users");
   return { success: true };
 }
@@ -67,6 +77,14 @@ export async function setUserRole(userId: string, role: UserRole) {
   const supabase = await createClient();
   const { error } = await supabase.from("profiles").update({ role: parsedRole }).eq("id", userId);
   if (error) throw new Error(error.message);
+
+  await supabase.rpc("log_activity", {
+    p_action: "user.role_changed",
+    p_entity_type: "profile",
+    p_entity_id: userId,
+    p_metadata: { role: parsedRole },
+  });
+
   revalidatePath("/admin/users");
 }
 
@@ -84,6 +102,14 @@ export async function setUserActive(userId: string, active: boolean) {
   const supabase = await createClient();
   const { error } = await supabase.from("profiles").update({ active }).eq("id", userId);
   if (error) throw new Error(error.message);
+
+  await supabase.rpc("log_activity", {
+    p_action: active ? "user.activated" : "user.deactivated",
+    p_entity_type: "profile",
+    p_entity_id: userId,
+    p_metadata: {},
+  });
+
   revalidatePath("/admin/users");
 }
 

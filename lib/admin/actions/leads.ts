@@ -80,7 +80,7 @@ export async function createLead(_prevState: FormState, formData: FormData): Pro
   });
 
   revalidatePath("/admin/leads");
-  redirect(`/admin/leads/${data.id}`);
+  redirect(`/admin/leads/${data.id}?success=Lead+created`);
 }
 
 export async function updateLead(id: string, _prevState: FormState, formData: FormData): Promise<FormState> {
@@ -110,7 +110,7 @@ export async function updateLead(id: string, _prevState: FormState, formData: Fo
   if (error) return { error: error.message };
 
   revalidatePath(`/admin/leads/${id}`);
-  redirect(`/admin/leads/${id}`);
+  redirect(`/admin/leads/${id}?success=Changes+saved`);
 }
 
 export async function setLeadStatus(id: string, status: LeadStatus) {

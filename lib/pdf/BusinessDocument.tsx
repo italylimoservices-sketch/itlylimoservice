@@ -1,9 +1,10 @@
-import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
+import { Document, Page, View, Text, Image, StyleSheet } from "@react-pdf/renderer";
 import type { CompanySettings } from "@/lib/pdf/company";
 
 const styles = StyleSheet.create({
   page: { padding: 40, fontSize: 10, fontFamily: "Helvetica", color: "#12161f" },
   headerRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 24 },
+  logo: { maxWidth: 140, maxHeight: 48, marginBottom: 8, objectFit: "contain" },
   companyName: { fontSize: 16, fontFamily: "Helvetica-Bold", marginBottom: 4 },
   companyLine: { color: "#6f6a60", marginBottom: 1 },
   docTitle: { fontSize: 18, fontFamily: "Helvetica-Bold", textAlign: "right" },
@@ -68,6 +69,8 @@ export function BusinessDocument({
       <Page size="A4" style={styles.page}>
         <View style={styles.headerRow}>
           <View>
+            {/* eslint-disable-next-line jsx-a11y/alt-text -- @react-pdf/renderer's Image, not an HTML <img>; it has no alt prop */}
+            {company.logo_url ? <Image src={company.logo_url} style={styles.logo} /> : null}
             <Text style={styles.companyName}>{company.company_name}</Text>
             {company.legal_name ? <Text style={styles.companyLine}>{company.legal_name}</Text> : null}
             {company.address ? <Text style={styles.companyLine}>{company.address}</Text> : null}

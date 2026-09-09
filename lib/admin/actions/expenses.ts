@@ -32,21 +32,32 @@ export async function createExpense(_prevState: FormState, formData: FormData): 
   if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Invalid input." };
 
   const supabase = await createClient();
-  const { error } = await supabase.from("expenses").insert({
-    category: parsed.data.category,
-    amount: parsed.data.amount,
-    currency: parsed.data.currency,
-    booking_id: toNullable(parsed.data.booking_id),
-    driver_id: toNullable(parsed.data.driver_id),
-    vehicle_id: toNullable(parsed.data.vehicle_id),
-    description: toNullable(parsed.data.description),
-    expense_date: parsed.data.expense_date,
-    created_by: profile.id,
+  const { data: expense, error } = await supabase
+    .from("expenses")
+    .insert({
+      category: parsed.data.category,
+      amount: parsed.data.amount,
+      currency: parsed.data.currency,
+      booking_id: toNullable(parsed.data.booking_id),
+      driver_id: toNullable(parsed.data.driver_id),
+      vehicle_id: toNullable(parsed.data.vehicle_id),
+      description: toNullable(parsed.data.description),
+      expense_date: parsed.data.expense_date,
+      created_by: profile.id,
+    })
+    .select("id")
+    .single();
+  if (error || !expense) return { error: error?.message ?? "Could not create expense." };
+
+  await supabase.rpc("log_activity", {
+    p_action: "expense.created",
+    p_entity_type: "expense",
+    p_entity_id: expense.id,
+    p_metadata: { category: parsed.data.category, amount: parsed.data.amount },
   });
-  if (error) return { error: error.message };
 
   revalidatePath("/admin/expenses");
-  redirect("/admin/expenses");
+  redirect("/admin/expenses?success=Expense+added");
 }
 
 export async function deleteExpense(id: string) {
@@ -54,5 +65,8 @@ export async function deleteExpense(id: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("expenses").update({ deleted_at: new Date().toISOString() }).eq("id", id);
   if (error) throw new Error(error.message);
+
+  await supabase.rpc("log_activity", { p_action: "expense.deleted", p_entity_type: "expense", p_entity_id: id, p_metadata: {} });
+
   revalidatePath("/admin/expenses");
 }

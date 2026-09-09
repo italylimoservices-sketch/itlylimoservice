@@ -2,12 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { requireUser } from "@/lib/auth/dal";
-import { canManageOps, canManageFinance } from "@/lib/auth/roles";
+import { canManageOps, canManageFinance, canViewFinance } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/admin/ui/PageHeader";
 import { Section } from "@/components/admin/ui/Section";
 import { StatusBadge } from "@/components/admin/ui/Badge";
 import { EntityPicker } from "@/components/admin/ui/EntityPicker";
+import { ConfirmButton } from "@/components/admin/ui/ConfirmButton";
 import { BookingForm } from "@/components/admin/bookings/BookingForm";
 import { formatDateTime, formatCurrency, formatDate, formatTime } from "@/lib/admin/format";
 import { updateBooking, setBookingStatus, assignDriverAndVehicle } from "@/lib/admin/actions/bookings";
@@ -38,12 +39,33 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
     .maybeSingle();
   if (!booking) notFound();
 
-  const [{ data: invoice }, { data: history }] = await Promise.all([
+  const showFinance = canViewFinance(profile.role);
+
+  const [{ data: invoice }, { data: history }, { data: tripExpenses }] = await Promise.all([
     supabase.from("invoices").select("id, invoice_number, status, balance_due").eq("booking_id", id).maybeSingle(),
     supabase.from("booking_status_history").select("id, from_status, to_status, changed_at").eq("booking_id", id).order("changed_at", { ascending: false }),
+    showFinance
+      ? supabase.from("expenses").select("category, amount").eq("booking_id", id).is("deleted_at", null)
+      : Promise.resolve({ data: [] as { category: string; amount: number }[] }),
   ]);
 
   const canEdit = canManageOps(profile.role);
+
+  // Estimated per-trip profitability: revenue - tax - driver cost - vehicle
+  // cost - other trip expenses. Expense categories don't map 1:1 onto
+  // "driver"/"vehicle" so this groups them the closest reasonable way;
+  // labeled "estimated" throughout since it's a derived figure, not an
+  // accounting record.
+  const expenseRows = tripExpenses ?? [];
+  const driverCost = expenseRows.filter((e) => e.category === "DRIVER").reduce((sum, e) => sum + Number(e.amount), 0);
+  const vehicleCost = expenseRows
+    .filter((e) => e.category === "FUEL" || e.category === "MAINTENANCE")
+    .reduce((sum, e) => sum + Number(e.amount), 0);
+  const otherCost = expenseRows
+    .filter((e) => !["DRIVER", "FUEL", "MAINTENANCE"].includes(e.category))
+    .reduce((sum, e) => sum + Number(e.amount), 0);
+  const totalTripExpenses = driverCost + vehicleCost + otherCost;
+  const estimatedProfit = Number(booking.total) - Number(booking.tax_amount) - totalTripExpenses;
 
   return (
     <div>
@@ -112,6 +134,25 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
             </div>
           </Section>
 
+          {showFinance ? (
+            <Section title="Estimated profitability">
+              <div className="p-4 space-y-1.5 text-sm">
+                <Row label="Revenue" value={formatCurrency(booking.total, booking.currency)} />
+                <Row label="Tax" value={`-${formatCurrency(booking.tax_amount, booking.currency)}`} />
+                <Row label="Driver cost" value={`-${formatCurrency(driverCost, booking.currency)}`} />
+                <Row label="Vehicle cost (fuel/maintenance)" value={`-${formatCurrency(vehicleCost, booking.currency)}`} />
+                <Row label="Other trip expenses" value={`-${formatCurrency(otherCost, booking.currency)}`} />
+                <div className="flex items-center justify-between pt-2 border-t border-line font-semibold text-ink">
+                  <span>Estimated profit</span>
+                  <span className={estimatedProfit < 0 ? "text-red-700" : ""}>{formatCurrency(estimatedProfit, booking.currency)}</span>
+                </div>
+                <p className="text-xs text-stone pt-1">
+                  Estimate only — driver/vehicle costs are inferred from this trip&apos;s logged expenses by category, not a formal cost allocation.
+                </p>
+              </div>
+            </Section>
+          ) : null}
+
           <Section title="Status history">
             <ul className="divide-y divide-line">
               {(history ?? []).length === 0 ? (
@@ -146,14 +187,20 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                   </form>
                 ))}
                 <form action={setBookingStatus.bind(null, id, "NO_SHOW")}>
-                  <button type="submit" className="text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700">
+                  <ConfirmButton
+                    confirmMessage="Mark this booking as a no-show?"
+                    className="text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700"
+                  >
                     No-show
-                  </button>
+                  </ConfirmButton>
                 </form>
                 <form action={setBookingStatus.bind(null, id, "CANCELLED")}>
-                  <button type="submit" className="text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700">
+                  <ConfirmButton
+                    confirmMessage={`Cancel booking ${booking.booking_reference}?`}
+                    className="text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700"
+                  >
                     Cancel
-                  </button>
+                  </ConfirmButton>
                 </form>
               </div>
             </Section>
@@ -229,6 +276,15 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
           </div>
         ) : null}
       </div>
+    </div>
+  );
+}
+
+function Row({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-center justify-between text-stone">
+      <span>{label}</span>
+      <span className="text-ink">{value}</span>
     </div>
   );
 }

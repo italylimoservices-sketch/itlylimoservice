@@ -9,6 +9,7 @@ import { Card } from "@/components/admin/ui/Card";
 import { SimpleTable } from "@/components/admin/ui/SimpleTable";
 import { formatDateTime } from "@/lib/admin/format";
 import { deleteDocument } from "@/lib/admin/actions/documents";
+import { ConfirmButton } from "@/components/admin/ui/ConfirmButton";
 
 export const metadata: Metadata = { title: "Documents" };
 
@@ -80,9 +81,9 @@ export default async function DocumentsPage({ searchParams }: { searchParams: Pr
                   </a>
                   {canDelete ? (
                     <form action={deleteDocument.bind(null, d.id, d.storage_path)}>
-                      <button type="submit" className="text-stone hover:text-red-600" aria-label="Delete">
+                      <ConfirmButton confirmMessage={`Delete "${d.file_name}"? This can't be undone.`} className="text-stone hover:text-red-600" aria-label="Delete">
                         <Trash2 className="h-4 w-4" />
-                      </button>
+                      </ConfirmButton>
                     </form>
                   ) : null}
                 </div>

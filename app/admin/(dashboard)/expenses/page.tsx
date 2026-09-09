@@ -10,6 +10,7 @@ import { Pagination } from "@/components/admin/ui/Pagination";
 import { SimpleTable } from "@/components/admin/ui/SimpleTable";
 import { formatCurrency, formatDate } from "@/lib/admin/format";
 import { deleteExpense } from "@/lib/admin/actions/expenses";
+import { ConfirmButton } from "@/components/admin/ui/ConfirmButton";
 
 export const metadata: Metadata = { title: "Expenses" };
 
@@ -58,9 +59,9 @@ export default async function ExpensesPage({ searchParams }: { searchParams: Pro
                     header: "",
                     cell: (e: any) => (
                       <form action={deleteExpense.bind(null, e.id)}>
-                        <button type="submit" className="text-stone hover:text-red-600" aria-label="Delete expense">
+                        <ConfirmButton confirmMessage="Delete this expense?" className="text-stone hover:text-red-600" aria-label="Delete expense">
                           <Trash2 className="h-4 w-4" />
-                        </button>
+                        </ConfirmButton>
                       </form>
                     ),
                   },

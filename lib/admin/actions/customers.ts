@@ -115,7 +115,7 @@ export async function createCustomer(_prevState: FormState, formData: FormData):
   });
 
   revalidatePath("/admin/customers");
-  redirect(`/admin/customers/${data.id}`);
+  redirect(`/admin/customers/${data.id}?success=Customer+created`);
 }
 
 export async function updateCustomer(id: string, _prevState: FormState, formData: FormData): Promise<FormState> {
@@ -154,7 +154,7 @@ export async function updateCustomer(id: string, _prevState: FormState, formData
 
   revalidatePath(`/admin/customers/${id}`);
   revalidatePath("/admin/customers");
-  redirect(`/admin/customers/${id}`);
+  redirect(`/admin/customers/${id}?success=Changes+saved`);
 }
 
 export async function archiveCustomer(id: string) {
@@ -171,5 +171,5 @@ export async function archiveCustomer(id: string) {
   });
 
   revalidatePath("/admin/customers");
-  redirect("/admin/customers");
+  redirect("/admin/customers?success=Customer+archived");
 }

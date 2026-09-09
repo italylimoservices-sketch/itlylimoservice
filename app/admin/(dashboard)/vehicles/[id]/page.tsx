@@ -9,6 +9,7 @@ import { SimpleTable } from "@/components/admin/ui/SimpleTable";
 import { StatusBadge } from "@/components/admin/ui/Badge";
 import { VehicleForm } from "@/components/admin/vehicles/VehicleForm";
 import { DocumentUploadForm } from "@/components/admin/documents/DocumentUploadForm";
+import { ConfirmButton } from "@/components/admin/ui/ConfirmButton";
 import { formatDate, formatTime } from "@/lib/admin/format";
 import { updateVehicle, setVehicleStatus, archiveVehicle } from "@/lib/admin/actions/vehicles";
 
@@ -88,9 +89,12 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
             <Section title="Archive">
               <div className="p-4">
                 <form action={archiveVehicle.bind(null, id)}>
-                  <button type="submit" className="w-full text-sm border border-line px-3 py-2 rounded-sm hover:bg-red-50 hover:text-red-700">
+                  <ConfirmButton
+                    confirmMessage={`Archive ${vehicle.name}? It'll disappear from pickers but historical bookings keep their record.`}
+                    className="w-full text-sm border border-line px-3 py-2 rounded-sm hover:bg-red-50 hover:text-red-700"
+                  >
                     Archive vehicle
-                  </button>
+                  </ConfirmButton>
                 </form>
               </div>
             </Section>

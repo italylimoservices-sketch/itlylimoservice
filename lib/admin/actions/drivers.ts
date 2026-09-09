@@ -54,7 +54,7 @@ export async function createDriver(_prevState: FormState, formData: FormData): P
   if (error || !data) return { error: error?.message ?? "Could not create driver." };
 
   revalidatePath("/admin/drivers");
-  redirect(`/admin/drivers/${data.id}`);
+  redirect(`/admin/drivers/${data.id}?success=Driver+created`);
 }
 
 export async function updateDriver(id: string, _prevState: FormState, formData: FormData): Promise<FormState> {
@@ -79,7 +79,7 @@ export async function updateDriver(id: string, _prevState: FormState, formData: 
   if (error) return { error: error.message };
 
   revalidatePath(`/admin/drivers/${id}`);
-  redirect(`/admin/drivers/${id}`);
+  redirect(`/admin/drivers/${id}?success=Changes+saved`);
 }
 
 export async function setDriverActive(id: string, active: boolean) {

@@ -61,7 +61,7 @@ export async function createVehicle(_prevState: FormState, formData: FormData): 
   if (error || !data) return { error: error?.message ?? "Could not create vehicle." };
 
   revalidatePath("/admin/vehicles");
-  redirect(`/admin/vehicles/${data.id}`);
+  redirect(`/admin/vehicles/${data.id}?success=Vehicle+created`);
 }
 
 export async function updateVehicle(id: string, _prevState: FormState, formData: FormData): Promise<FormState> {
@@ -89,7 +89,7 @@ export async function updateVehicle(id: string, _prevState: FormState, formData:
   if (error) return { error: error.message };
 
   revalidatePath(`/admin/vehicles/${id}`);
-  redirect(`/admin/vehicles/${id}`);
+  redirect(`/admin/vehicles/${id}?success=Changes+saved`);
 }
 
 export async function setVehicleStatus(id: string, status: VehicleStatus) {
@@ -111,5 +111,5 @@ export async function archiveVehicle(id: string) {
     .eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/vehicles");
-  redirect("/admin/vehicles");
+  redirect("/admin/vehicles?success=Vehicle+archived");
 }

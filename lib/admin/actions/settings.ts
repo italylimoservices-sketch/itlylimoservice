@@ -11,6 +11,7 @@ export type FormState = { error?: string; success?: boolean } | undefined;
 const SettingsSchema = z.object({
   company_name: z.string().trim().min(1, "Company name is required."),
   legal_name: z.string().trim().optional().or(z.literal("")),
+  logo_url: z.string().trim().url("Enter a valid URL.").optional().or(z.literal("")),
   email: z.string().trim().email().optional().or(z.literal("")),
   phone: z.string().trim().optional().or(z.literal("")),
   whatsapp: z.string().trim().optional().or(z.literal("")),
@@ -47,6 +48,7 @@ export async function updateCompanySettings(_prevState: FormState, formData: For
     .update({
       company_name: parsed.data.company_name,
       legal_name: toNullable(parsed.data.legal_name),
+      logo_url: toNullable(parsed.data.logo_url),
       email: toNullable(parsed.data.email),
       phone: toNullable(parsed.data.phone),
       whatsapp: toNullable(parsed.data.whatsapp),

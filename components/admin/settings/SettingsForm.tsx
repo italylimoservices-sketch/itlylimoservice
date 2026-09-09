@@ -6,6 +6,7 @@ import { updateCompanySettings, type FormState } from "@/lib/admin/actions/setti
 type CompanySettings = {
   company_name: string;
   legal_name: string | null;
+  logo_url: string | null;
   email: string | null;
   phone: string | null;
   whatsapp: string | null;
@@ -43,6 +44,17 @@ export function SettingsForm({ settings }: { settings: CompanySettings }) {
         <div>
           <label className="block text-sm font-medium text-ink-soft mb-1">Address</label>
           <textarea name="address" defaultValue={settings.address ?? ""} rows={2} className="input-luxe" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-ink-soft mb-1">Logo URL</label>
+          <input name="logo_url" type="url" placeholder="https://…" defaultValue={settings.logo_url ?? ""} className="input-luxe" />
+          <p className="text-xs text-stone mt-1">
+            A hosted image URL (upload to Supabase Storage or any image host and paste the link). Shown on quotation/invoice/receipt PDFs.
+          </p>
+          {settings.logo_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={settings.logo_url} alt="Company logo preview" className="mt-2 h-12 object-contain" />
+          ) : null}
         </div>
       </fieldset>
 

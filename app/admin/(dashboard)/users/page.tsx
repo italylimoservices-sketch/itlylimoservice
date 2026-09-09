@@ -9,6 +9,7 @@ import { formatDate } from "@/lib/admin/format";
 import { setUserActive } from "@/lib/admin/actions/users";
 import { RoleSelect } from "@/components/admin/users/RoleSelect";
 import { InviteUserForm } from "@/components/admin/users/InviteUserForm";
+import { ConfirmButton } from "@/components/admin/ui/ConfirmButton";
 
 export const metadata: Metadata = { title: "Users" };
 
@@ -58,9 +59,18 @@ export default async function UsersPage() {
                         <td className="px-4 py-2.5">
                           {u.id !== profile.id ? (
                             <form action={setUserActive.bind(null, u.id, !u.active)}>
-                              <button type="submit" className="text-xs text-gold hover:underline">
-                                {u.active ? "Deactivate" : "Activate"}
-                              </button>
+                              {u.active ? (
+                                <ConfirmButton
+                                  confirmMessage={`Deactivate ${u.full_name || u.email}? They'll immediately lose admin access.`}
+                                  className="text-xs text-gold hover:underline"
+                                >
+                                  Deactivate
+                                </ConfirmButton>
+                              ) : (
+                                <button type="submit" className="text-xs text-gold hover:underline">
+                                  Activate
+                                </button>
+                              )}
                             </form>
                           ) : (
                             <span className="text-xs text-stone">You</span>

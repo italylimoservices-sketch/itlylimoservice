@@ -90,7 +90,7 @@ export async function createBooking(_prevState: FormState, formData: FormData): 
   });
 
   revalidatePath("/admin/bookings");
-  redirect(`/admin/bookings/${data.id}`);
+  redirect(`/admin/bookings/${data.id}?success=Booking+created`);
 }
 
 export async function updateBooking(id: string, _prevState: FormState, formData: FormData): Promise<FormState> {
@@ -125,7 +125,7 @@ export async function updateBooking(id: string, _prevState: FormState, formData:
   if (error) return { error: error.message };
 
   revalidatePath(`/admin/bookings/${id}`);
-  redirect(`/admin/bookings/${id}`);
+  redirect(`/admin/bookings/${id}?success=Changes+saved`);
 }
 
 type BookingStatus =

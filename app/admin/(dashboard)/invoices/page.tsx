@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Plus } from "lucide-react";
 import { requireRole } from "@/lib/auth/dal";
-import { VIEW_FINANCE } from "@/lib/auth/roles";
+import { VIEW_FINANCE, canManageFinance } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/admin/ui/PageHeader";
 import { Card } from "@/components/admin/ui/Card";
@@ -20,7 +21,7 @@ export default async function InvoicesPage({
 }: {
   searchParams: Promise<{ q?: string; status?: string; page?: string }>;
 }) {
-  await requireRole(VIEW_FINANCE);
+  const profile = await requireRole(VIEW_FINANCE);
   const { q, status: rawStatus, page: pageParam } = await searchParams;
   const status = STATUSES.includes(rawStatus as (typeof STATUSES)[number]) ? (rawStatus as (typeof STATUSES)[number]) : undefined;
   const page = Math.max(1, Number(pageParam) || 1);
@@ -41,7 +42,16 @@ export default async function InvoicesPage({
 
   return (
     <div>
-      <PageHeader title="Invoices" />
+      <PageHeader
+        title="Invoices"
+        actions={
+          canManageFinance(profile.role) ? (
+            <Link href="/admin/invoices/new" className="inline-flex items-center gap-1.5 bg-navy text-ivory text-sm font-semibold px-4 py-2 rounded-sm hover:bg-navy-deep">
+              <Plus className="h-4 w-4" /> New invoice
+            </Link>
+          ) : undefined
+        }
+      />
 
       <form className="mb-4 flex flex-wrap gap-2">
         <input type="search" name="q" defaultValue={q} placeholder="Search by invoice number…" className="input-luxe max-w-sm" />

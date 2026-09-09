@@ -124,7 +124,7 @@ export async function createQuotation(_prevState: FormState, formData: FormData)
   });
 
   revalidatePath("/admin/quotations");
-  redirect(`/admin/quotations/${quotation.id}`);
+  redirect(`/admin/quotations/${quotation.id}?success=Quotation+created`);
 }
 
 export async function updateQuotation(id: string, _prevState: FormState, formData: FormData): Promise<FormState> {
@@ -173,7 +173,7 @@ export async function updateQuotation(id: string, _prevState: FormState, formDat
   if (itemsError) return { error: itemsError.message };
 
   revalidatePath(`/admin/quotations/${id}`);
-  redirect(`/admin/quotations/${id}`);
+  redirect(`/admin/quotations/${id}?success=Changes+saved`);
 }
 
 export async function sendQuotation(id: string) {
@@ -221,6 +221,9 @@ export async function markQuotationAccepted(id: string) {
     .update({ status: "ACCEPTED", accepted_at: new Date().toISOString() })
     .eq("id", id);
   if (error) throw new Error(error.message);
+
+  await supabase.rpc("log_activity", { p_action: "quotation.accepted", p_entity_type: "quotation", p_entity_id: id, p_metadata: {} });
+
   revalidatePath(`/admin/quotations/${id}`);
 }
 
@@ -232,6 +235,9 @@ export async function markQuotationRejected(id: string) {
     .update({ status: "REJECTED", rejected_at: new Date().toISOString() })
     .eq("id", id);
   if (error) throw new Error(error.message);
+
+  await supabase.rpc("log_activity", { p_action: "quotation.rejected", p_entity_type: "quotation", p_entity_id: id, p_metadata: {} });
+
   revalidatePath(`/admin/quotations/${id}`);
 }
 
@@ -285,16 +291,23 @@ export async function duplicateQuotation(id: string) {
   }
 
   revalidatePath("/admin/quotations");
-  redirect(`/admin/quotations/${copy.id}`);
+  redirect(`/admin/quotations/${copy.id}?success=Quotation+duplicated`);
 }
 
 export async function convertQuotationToBooking(id: string) {
-  await requireRole(MANAGE_CRM);
+  const profile = await requireRole(MANAGE_CRM);
   const supabase = await createClient();
   const { data: bookingId, error } = await supabase.rpc("convert_quotation_to_booking", { p_quotation_id: id });
   if (error) throw new Error(error.message);
 
+  await supabase.rpc("log_activity", {
+    p_action: "quotation.converted_to_booking",
+    p_entity_type: "quotation",
+    p_entity_id: id,
+    p_metadata: { booking_id: bookingId, converted_by: profile.id },
+  });
+
   revalidatePath(`/admin/quotations/${id}`);
   revalidatePath("/admin/bookings");
-  redirect(`/admin/bookings/${bookingId}`);
+  redirect(`/admin/bookings/${bookingId}?success=Booking+created+from+quotation`);
 }

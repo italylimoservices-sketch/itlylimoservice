@@ -11,6 +11,98 @@ import { formatCurrency } from "@/lib/admin/format";
 
 export type FormState = { error?: string } | undefined;
 
+const ItemSchema = z.object({
+  description: z.string().trim().min(1),
+  quantity: z.coerce.number().positive(),
+  unit_price: z.coerce.number().nonnegative(),
+});
+
+const ManualInvoiceSchema = z.object({
+  customer_id: z.string().uuid("Select a customer."),
+  booking_id: z.string().uuid().optional().or(z.literal("")),
+  discount: z.coerce.number().nonnegative().default(0),
+  tax_rate: z.coerce.number().nonnegative().default(0),
+  currency: z.string().trim().default("EUR"),
+  due_date: z.string().trim().optional().or(z.literal("")),
+  payment_terms: z.string().trim().optional().or(z.literal("")),
+  terms_and_conditions: z.string().trim().optional().or(z.literal("")),
+  items: z.string().min(1),
+});
+
+function toNullable(value: string | undefined) {
+  return value && value.length > 0 ? value : null;
+}
+
+export async function createManualInvoice(_prevState: FormState, formData: FormData): Promise<FormState> {
+  const profile = await requireRole(MANAGE_FINANCE);
+  const parsed = ManualInvoiceSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Invalid input." };
+
+  let items: z.infer<typeof ItemSchema>[];
+  try {
+    items = z.array(ItemSchema).min(1, "Add at least one line item.").parse(JSON.parse(parsed.data.items));
+  } catch {
+    return { error: "Add at least one valid line item." };
+  }
+
+  const subtotal = items.reduce((sum, item) => sum + item.quantity * item.unit_price, 0);
+  const discount = parsed.data.discount;
+  const taxAmount = Math.max(0, subtotal - discount) * (parsed.data.tax_rate / 100);
+  const total = Math.max(0, subtotal - discount) + taxAmount;
+
+  const supabase = await createClient();
+
+  if (parsed.data.booking_id) {
+    const { data: existing } = await supabase.from("invoices").select("id").eq("booking_id", parsed.data.booking_id).maybeSingle();
+    if (existing) return { error: "This booking already has an invoice." };
+  }
+
+  const { data: invoice, error } = await supabase
+    .from("invoices")
+    .insert({
+      // Filled in by the assign_invoice_number trigger.
+      invoice_number: undefined!,
+      customer_id: parsed.data.customer_id,
+      booking_id: toNullable(parsed.data.booking_id),
+      subtotal,
+      discount,
+      tax_rate: parsed.data.tax_rate,
+      tax_amount: taxAmount,
+      total,
+      currency: parsed.data.currency,
+      due_date: toNullable(parsed.data.due_date),
+      payment_terms: toNullable(parsed.data.payment_terms),
+      terms_and_conditions: toNullable(parsed.data.terms_and_conditions),
+      status: "DRAFT",
+      created_by: profile.id,
+    })
+    .select("id")
+    .single();
+  if (error || !invoice) return { error: error?.message ?? "Could not create invoice." };
+
+  const { error: itemsError } = await supabase.from("invoice_items").insert(
+    items.map((item, index) => ({
+      invoice_id: invoice.id,
+      description: item.description,
+      quantity: item.quantity,
+      unit_price: item.unit_price,
+      amount: item.quantity * item.unit_price,
+      sort_order: index,
+    }))
+  );
+  if (itemsError) return { error: itemsError.message };
+
+  await supabase.rpc("log_activity", {
+    p_action: "invoice.created",
+    p_entity_type: "invoice",
+    p_entity_id: invoice.id,
+    p_metadata: { manual: true },
+  });
+
+  revalidatePath("/admin/invoices");
+  redirect(`/admin/invoices/${invoice.id}?success=Invoice+created`);
+}
+
 export async function createInvoiceForBooking(bookingId: string) {
   await requireRole(MANAGE_FINANCE);
   const supabase = await createClient();
@@ -51,8 +143,15 @@ export async function createInvoiceForBooking(bookingId: string) {
     sort_order: 0,
   });
 
+  await supabase.rpc("log_activity", {
+    p_action: "invoice.created",
+    p_entity_type: "invoice",
+    p_entity_id: invoice.id,
+    p_metadata: { booking_id: bookingId },
+  });
+
   revalidatePath("/admin/invoices");
-  redirect(`/admin/invoices/${invoice.id}`);
+  redirect(`/admin/invoices/${invoice.id}?success=Invoice+created`);
 }
 
 export async function markInvoiceSent(id: string) {
@@ -60,6 +159,9 @@ export async function markInvoiceSent(id: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("invoices").update({ status: "SENT", sent_at: new Date().toISOString() }).eq("id", id);
   if (error) throw new Error(error.message);
+
+  await supabase.rpc("log_activity", { p_action: "invoice.sent", p_entity_type: "invoice", p_entity_id: id, p_metadata: {} });
+
   revalidatePath(`/admin/invoices/${id}`);
   revalidatePath("/admin/invoices");
 }
@@ -69,6 +171,9 @@ export async function voidInvoice(id: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("invoices").update({ status: "VOID" }).eq("id", id);
   if (error) throw new Error(error.message);
+
+  await supabase.rpc("log_activity", { p_action: "invoice.voided", p_entity_type: "invoice", p_entity_id: id, p_metadata: {} });
+
   revalidatePath(`/admin/invoices/${id}`);
   revalidatePath("/admin/invoices");
 }

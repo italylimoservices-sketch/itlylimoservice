@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { requireUser } from "@/lib/auth/dal";
-import { canManageOps } from "@/lib/auth/roles";
+import { canManageOps, canViewFinance } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/admin/ui/PageHeader";
 import { Section } from "@/components/admin/ui/Section";
 import { SimpleTable } from "@/components/admin/ui/SimpleTable";
 import { StatusBadge } from "@/components/admin/ui/Badge";
+import { StatCard } from "@/components/admin/ui/Card";
 import { DriverForm } from "@/components/admin/drivers/DriverForm";
 import { DocumentUploadForm } from "@/components/admin/documents/DocumentUploadForm";
-import { formatDate, formatTime } from "@/lib/admin/format";
+import { formatCurrency, formatDate, formatTime } from "@/lib/admin/format";
 import { updateDriver, setDriverActive, setDriverAvailability } from "@/lib/admin/actions/drivers";
 
 export const metadata: Metadata = { title: "Driver" };
@@ -24,14 +25,30 @@ export default async function DriverDetailPage({ params }: { params: Promise<{ i
   const { data: driver } = await supabase.from("drivers").select("*").eq("id", id).maybeSingle();
   if (!driver) notFound();
 
-  const { data: trips } = await supabase
-    .from("bookings")
-    .select("id, booking_reference, pickup, dropoff, trip_date, trip_time, status")
-    .eq("driver_id", id)
-    .order("trip_date", { ascending: false })
-    .limit(20);
+  const showFinance = canViewFinance(profile.role);
+
+  const [{ data: trips }, { data: driverExpenses }] = await Promise.all([
+    supabase
+      .from("bookings")
+      .select("id, booking_reference, pickup, dropoff, trip_date, trip_time, status")
+      .eq("driver_id", id)
+      .order("trip_date", { ascending: false })
+      .limit(20),
+    showFinance
+      ? supabase.from("expenses").select("category, amount, currency, expense_date, description, bookings(booking_reference)").eq("driver_id", id).is("deleted_at", null).order("expense_date", { ascending: false })
+      : Promise.resolve({ data: [] as any[] }),
+  ]);
 
   const canEdit = canManageOps(profile.role);
+  const upcomingCount = (trips ?? []).filter((t) => !["COMPLETED", "CANCELLED", "NO_SHOW"].includes(t.status)).length;
+  const completedCount = (trips ?? []).filter((t) => t.status === "COMPLETED").length;
+  const expenseRows = driverExpenses ?? [];
+  // "Earnings" = expenses logged under the DRIVER category against this
+  // driver (pay/commission) — there's no separate payroll system, so this is
+  // the closest honest proxy available in the data.
+  const earnings = expenseRows.filter((e) => e.category === "DRIVER").reduce((sum, e) => sum + Number(e.amount), 0);
+  const totalExpenses = expenseRows.reduce((sum, e) => sum + Number(e.amount), 0);
+  const currency = expenseRows[0]?.currency ?? "EUR";
 
   return (
     <div>
@@ -44,6 +61,13 @@ export default async function DriverDetailPage({ params }: { params: Promise<{ i
           </div>
         }
       />
+
+      <div className={`grid gap-3 mb-4 ${showFinance ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2"}`}>
+        <StatCard label="Upcoming trips" value={upcomingCount} />
+        <StatCard label="Completed trips" value={completedCount} />
+        {showFinance ? <StatCard label="Earnings" value={formatCurrency(earnings, currency)} hint="Logged as DRIVER-category expenses" /> : null}
+        {showFinance ? <StatCard label="Total expenses" value={formatCurrency(totalExpenses, currency)} /> : null}
+      </div>
 
       <div className="grid lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 space-y-4">
@@ -69,6 +93,22 @@ export default async function DriverDetailPage({ params }: { params: Promise<{ i
               ]}
             />
           </Section>
+
+          {showFinance ? (
+            <Section title="Expenses">
+              <SimpleTable
+                rows={expenseRows.map((e, i) => ({ ...e, id: String(i) }))}
+                emptyTitle="No expenses logged for this driver"
+                columns={[
+                  { header: "Date", cell: (e: any) => formatDate(e.expense_date) },
+                  { header: "Category", cell: (e: any) => e.category },
+                  { header: "Trip", cell: (e: any) => e.bookings?.booking_reference ?? "—" },
+                  { header: "Amount", cell: (e: any) => formatCurrency(e.amount, e.currency) },
+                  { header: "Description", cell: (e: any) => e.description ?? "—" },
+                ]}
+              />
+            </Section>
+          ) : null}
         </div>
 
         {canEdit ? (
