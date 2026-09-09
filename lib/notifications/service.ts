@@ -1,9 +1,15 @@
 import "server-only";
 
 import { sendMail } from "@/lib/mailer";
-import { renderEmail, type EmailTemplateKey, type TemplateVars } from "@/lib/notifications/templates";
+import { renderEmail, renderEmailFromRaw, type EmailTemplateKey, type TemplateVars } from "@/lib/notifications/templates";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { siteConfig } from "@/lib/siteConfig";
+
+// Marketing-adjacent sends a customer can opt out of via /my-profile
+// (customers.opt_out_marketing). Every other template is a transactional
+// business record (booking confirmation, invoice, receipt, ...) and is
+// never gated by this preference.
+const OPT_OUT_ELIGIBLE: EmailTemplateKey[] = ["quotation_reminder", "review_request"];
 
 /**
  * Sends a templated notification email and records it in `notifications`
@@ -25,8 +31,21 @@ export async function notifyCustomer(params: {
 }) {
   if (!params.to) return;
 
-  const { subject, html, text } = renderEmail(params.templateKey, params.vars);
   const admin = createAdminClient();
+
+  if (OPT_OUT_ELIGIBLE.includes(params.templateKey)) {
+    const { data: customer } = await admin.from("customers").select("opt_out_marketing").eq("email", params.to).maybeSingle();
+    if (customer?.opt_out_marketing) return;
+  }
+
+  const { data: override } = await admin
+    .from("notification_templates")
+    .select("subject_template, body_template, is_customized")
+    .eq("key", params.templateKey)
+    .maybeSingle();
+
+  const { subject, html, text } =
+    override?.is_customized ? renderEmailFromRaw(override.subject_template, override.body_template, params.vars) : renderEmail(params.templateKey, params.vars);
 
   const { data: notification } = await admin
     .from("notifications")

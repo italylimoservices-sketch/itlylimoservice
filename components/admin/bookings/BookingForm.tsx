@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { EntityPicker } from "@/components/admin/ui/EntityPicker";
+import { SUPPORTED_CURRENCIES } from "@/lib/pricing/currencies";
 import type { FormState } from "@/lib/admin/actions/bookings";
 
 type BookingDefaults = {
@@ -19,6 +20,11 @@ type BookingDefaults = {
   driver_id?: string;
   driver_label?: string;
   flight_number?: string;
+  is_airport_pickup?: boolean;
+  flight_terminal?: string;
+  flight_arrival_time?: string;
+  flight_departure_time?: string;
+  meet_and_greet_notes?: string;
   special_requests?: string;
   price?: number;
   discount?: number;
@@ -58,7 +64,16 @@ export function BookingForm({
         <Field label="Passengers" name="passengers" type="number" defaultValue={defaults?.passengers?.toString()} />
         <Field label="Luggage" name="luggage" type="number" defaultValue={defaults?.luggage?.toString()} />
         <Field label="Flight number" name="flight_number" defaultValue={defaults?.flight_number} />
-        <Field label="Currency" name="currency" defaultValue={defaults?.currency ?? "EUR"} />
+        <div>
+          <label className="block text-sm font-medium text-ink-soft mb-1">Currency</label>
+          <select name="currency" defaultValue={defaults?.currency ?? "EUR"} className="input-luxe">
+            {SUPPORTED_CURRENCIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div>
           <label className="block text-sm font-medium text-ink-soft mb-1">Vehicle</label>
@@ -73,6 +88,22 @@ export function BookingForm({
         <Field label="Discount" name="discount" type="number" defaultValue={defaults?.discount?.toString() ?? "0"} />
         <Field label="Tax amount" name="tax_amount" type="number" defaultValue={defaults?.tax_amount?.toString() ?? "0"} />
       </div>
+
+      <fieldset className="border border-line rounded-sm p-4 space-y-3">
+        <legend className="text-sm font-medium text-ink-soft px-1">Airport / flight details</legend>
+        <label className="flex items-center gap-2 text-sm text-ink-soft">
+          <input type="checkbox" name="is_airport_pickup" defaultChecked={defaults?.is_airport_pickup} /> This is an airport pickup/drop-off
+        </label>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Field label="Terminal" name="flight_terminal" defaultValue={defaults?.flight_terminal} />
+          <Field label="Flight arrival (local)" name="flight_arrival_time" type="datetime-local" defaultValue={toLocalInputValue(defaults?.flight_arrival_time)} />
+          <Field label="Flight departure (local)" name="flight_departure_time" type="datetime-local" defaultValue={toLocalInputValue(defaults?.flight_departure_time)} />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-ink-soft mb-1">Meet &amp; greet instructions</label>
+          <textarea name="meet_and_greet_notes" defaultValue={defaults?.meet_and_greet_notes ?? ""} rows={2} className="input-luxe" placeholder="e.g. Driver holds a name sign at arrivals hall exit B" />
+        </div>
+      </fieldset>
 
       <div>
         <label className="block text-sm font-medium text-ink-soft mb-1">Special requests</label>
@@ -102,6 +133,15 @@ export function BookingForm({
       </button>
     </form>
   );
+}
+
+/** ISO timestamp -> the "YYYY-MM-DDTHH:mm" shape <input type="datetime-local"> requires. */
+function toLocalInputValue(iso?: string) {
+  if (!iso) return undefined;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return undefined;
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
 function Field({

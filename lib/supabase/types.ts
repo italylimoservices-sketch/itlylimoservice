@@ -18,6 +18,8 @@ export type Database = {
         Row: {
           action: string
           actor_id: string | null
+          after_state: Json | null
+          before_state: Json | null
           created_at: string
           entity_id: string | null
           entity_type: string
@@ -27,6 +29,8 @@ export type Database = {
         Insert: {
           action: string
           actor_id?: string | null
+          after_state?: Json | null
+          before_state?: Json | null
           created_at?: string
           entity_id?: string | null
           entity_type: string
@@ -36,6 +40,8 @@ export type Database = {
         Update: {
           action?: string
           actor_id?: string | null
+          after_state?: Json | null
+          before_state?: Json | null
           created_at?: string
           entity_id?: string | null
           entity_type?: string
@@ -49,6 +55,91 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      automation_definitions: {
+        Row: {
+          config: Json
+          description: string
+          enabled: boolean
+          key: string
+          kind: string
+          label: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          config?: Json
+          description: string
+          enabled?: boolean
+          key: string
+          kind: string
+          label: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          config?: Json
+          description?: string
+          enabled?: boolean
+          key?: string
+          kind?: string
+          label?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automation_definitions_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      automation_runs: {
+        Row: {
+          affected_count: number
+          automation_key: string
+          error_message: string | null
+          finished_at: string
+          id: string
+          metadata: Json
+          started_at: string
+          status: string
+          triggered_by: string
+        }
+        Insert: {
+          affected_count?: number
+          automation_key: string
+          error_message?: string | null
+          finished_at?: string
+          id?: string
+          metadata?: Json
+          started_at?: string
+          status: string
+          triggered_by: string
+        }
+        Update: {
+          affected_count?: number
+          automation_key?: string
+          error_message?: string | null
+          finished_at?: string
+          id?: string
+          metadata?: Json
+          started_at?: string
+          status?: string
+          triggered_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automation_runs_automation_key_fkey"
+            columns: ["automation_key"]
+            isOneToOne: false
+            referencedRelation: "automation_definitions"
+            referencedColumns: ["key"]
           },
         ]
       }
@@ -134,6 +225,9 @@ export type Database = {
           assigned_at: string | null
           assigned_by: string | null
           booking_reference: string
+          cancelled_at: string | null
+          completed_at: string | null
+          confirmed_at: string | null
           created_at: string
           created_by: string | null
           currency: string
@@ -141,16 +235,27 @@ export type Database = {
           customer_notes: string | null
           deleted_at: string | null
           discount: number
+          distance_km: number | null
+          driver_en_route_at: string | null
           driver_id: string | null
           dropoff: string
+          estimated_duration_minutes: number
+          flight_arrival_time: string | null
+          flight_departure_time: string | null
           flight_number: string | null
+          flight_terminal: string | null
           id: string
           internal_notes: string | null
+          is_airport_pickup: boolean
           luggage: number | null
+          meet_and_greet_notes: string | null
+          no_show_at: string | null
           passengers: number | null
           payment_status: Database["public"]["Enums"]["payment_status"]
+          picked_up_at: string | null
           pickup: string
           price: number
+          pricing_breakdown: Json | null
           quotation_id: string | null
           source: Database["public"]["Enums"]["booking_source"]
           special_requests: string | null
@@ -158,6 +263,7 @@ export type Database = {
           tax_amount: number
           total: number
           trip_date: string
+          trip_started_at: string | null
           trip_time: string
           updated_at: string
           vehicle_id: string | null
@@ -166,6 +272,9 @@ export type Database = {
           assigned_at?: string | null
           assigned_by?: string | null
           booking_reference: string
+          cancelled_at?: string | null
+          completed_at?: string | null
+          confirmed_at?: string | null
           created_at?: string
           created_by?: string | null
           currency?: string
@@ -173,16 +282,27 @@ export type Database = {
           customer_notes?: string | null
           deleted_at?: string | null
           discount?: number
+          distance_km?: number | null
+          driver_en_route_at?: string | null
           driver_id?: string | null
           dropoff: string
+          estimated_duration_minutes?: number
+          flight_arrival_time?: string | null
+          flight_departure_time?: string | null
           flight_number?: string | null
+          flight_terminal?: string | null
           id?: string
           internal_notes?: string | null
+          is_airport_pickup?: boolean
           luggage?: number | null
+          meet_and_greet_notes?: string | null
+          no_show_at?: string | null
           passengers?: number | null
           payment_status?: Database["public"]["Enums"]["payment_status"]
+          picked_up_at?: string | null
           pickup: string
           price?: number
+          pricing_breakdown?: Json | null
           quotation_id?: string | null
           source?: Database["public"]["Enums"]["booking_source"]
           special_requests?: string | null
@@ -190,6 +310,7 @@ export type Database = {
           tax_amount?: number
           total?: number
           trip_date: string
+          trip_started_at?: string | null
           trip_time: string
           updated_at?: string
           vehicle_id?: string | null
@@ -198,6 +319,9 @@ export type Database = {
           assigned_at?: string | null
           assigned_by?: string | null
           booking_reference?: string
+          cancelled_at?: string | null
+          completed_at?: string | null
+          confirmed_at?: string | null
           created_at?: string
           created_by?: string | null
           currency?: string
@@ -205,16 +329,27 @@ export type Database = {
           customer_notes?: string | null
           deleted_at?: string | null
           discount?: number
+          distance_km?: number | null
+          driver_en_route_at?: string | null
           driver_id?: string | null
           dropoff?: string
+          estimated_duration_minutes?: number
+          flight_arrival_time?: string | null
+          flight_departure_time?: string | null
           flight_number?: string | null
+          flight_terminal?: string | null
           id?: string
           internal_notes?: string | null
+          is_airport_pickup?: boolean
           luggage?: number | null
+          meet_and_greet_notes?: string | null
+          no_show_at?: string | null
           passengers?: number | null
           payment_status?: Database["public"]["Enums"]["payment_status"]
+          picked_up_at?: string | null
           pickup?: string
           price?: number
+          pricing_breakdown?: Json | null
           quotation_id?: string | null
           source?: Database["public"]["Enums"]["booking_source"]
           special_requests?: string | null
@@ -222,6 +357,7 @@ export type Database = {
           tax_amount?: number
           total?: number
           trip_date?: string
+          trip_started_at?: string | null
           trip_time?: string
           updated_at?: string
           vehicle_id?: string | null
@@ -346,6 +482,38 @@ export type Database = {
         }
         Relationships: []
       }
+      customer_accounts: {
+        Row: {
+          created_at: string
+          customer_id: string | null
+          email: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          customer_id?: string | null
+          email: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          customer_id?: string | null
+          email?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "customer_accounts_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       customers: {
         Row: {
           billing_address: string | null
@@ -358,6 +526,7 @@ export type Database = {
           full_name: string
           id: string
           notes: string | null
+          opt_out_marketing: boolean
           phone: string | null
           updated_at: string
           whatsapp: string | null
@@ -373,6 +542,7 @@ export type Database = {
           full_name: string
           id?: string
           notes?: string | null
+          opt_out_marketing?: boolean
           phone?: string | null
           updated_at?: string
           whatsapp?: string | null
@@ -388,6 +558,7 @@ export type Database = {
           full_name?: string
           id?: string
           notes?: string | null
+          opt_out_marketing?: boolean
           phone?: string | null
           updated_at?: string
           whatsapp?: string | null
@@ -1103,6 +1274,44 @@ export type Database = {
           },
         ]
       }
+      notification_templates: {
+        Row: {
+          body_template: string
+          is_customized: boolean
+          key: string
+          label: string
+          subject_template: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          body_template: string
+          is_customized?: boolean
+          key: string
+          label: string
+          subject_template: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          body_template?: string
+          is_customized?: boolean
+          key?: string
+          label?: string
+          subject_template?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_templates_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           body: string | null
@@ -1225,6 +1434,203 @@ export type Database = {
           {
             foreignKeyName: "payments_recorded_by_fkey"
             columns: ["recorded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pricing_holiday_dates: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          holiday_date: string
+          id: string
+          label: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          holiday_date: string
+          id?: string
+          label?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          holiday_date?: string
+          id?: string
+          label?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pricing_holiday_dates_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pricing_rate_cards: {
+        Row: {
+          active: boolean
+          base_price: number
+          created_at: string
+          created_by: string | null
+          currency: string
+          deleted_at: string | null
+          id: string
+          label: string
+          min_price: number | null
+          price_per_km: number | null
+          sort_order: number
+          updated_at: string
+          vehicle_category: Database["public"]["Enums"]["vehicle_category"]
+        }
+        Insert: {
+          active?: boolean
+          base_price?: number
+          created_at?: string
+          created_by?: string | null
+          currency: string
+          deleted_at?: string | null
+          id?: string
+          label: string
+          min_price?: number | null
+          price_per_km?: number | null
+          sort_order?: number
+          updated_at?: string
+          vehicle_category: Database["public"]["Enums"]["vehicle_category"]
+        }
+        Update: {
+          active?: boolean
+          base_price?: number
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          deleted_at?: string | null
+          id?: string
+          label?: string
+          min_price?: number | null
+          price_per_km?: number | null
+          sort_order?: number
+          updated_at?: string
+          vehicle_category?: Database["public"]["Enums"]["vehicle_category"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pricing_rate_cards_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pricing_route_rates: {
+        Row: {
+          active: boolean
+          created_at: string
+          created_by: string | null
+          currency: string
+          deleted_at: string | null
+          dropoff_label: string
+          id: string
+          pickup_label: string
+          price: number
+          updated_at: string
+          vehicle_category: Database["public"]["Enums"]["vehicle_category"]
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          created_by?: string | null
+          currency: string
+          deleted_at?: string | null
+          dropoff_label: string
+          id?: string
+          pickup_label: string
+          price: number
+          updated_at?: string
+          vehicle_category: Database["public"]["Enums"]["vehicle_category"]
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          deleted_at?: string | null
+          dropoff_label?: string
+          id?: string
+          pickup_label?: string
+          price?: number
+          updated_at?: string
+          vehicle_category?: Database["public"]["Enums"]["vehicle_category"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pricing_route_rates_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pricing_surcharge_rules: {
+        Row: {
+          active: boolean
+          amount: number
+          created_at: string
+          created_by: string | null
+          currency: string | null
+          deleted_at: string | null
+          ends_at: string | null
+          id: string
+          is_percent: boolean
+          kind: string
+          label: string
+          sort_order: number
+          starts_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          amount?: number
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          deleted_at?: string | null
+          ends_at?: string | null
+          id?: string
+          is_percent?: boolean
+          kind: string
+          label: string
+          sort_order?: number
+          starts_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          amount?: number
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          deleted_at?: string | null
+          ends_at?: string | null
+          id?: string
+          is_percent?: boolean
+          kind?: string
+          label?: string
+          sort_order?: number
+          starts_at?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pricing_surcharge_rules_created_by_fkey"
+            columns: ["created_by"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -1357,6 +1763,7 @@ export type Database = {
           customer_id: string
           deleted_at: string | null
           discount: number
+          distance_km: number | null
           driver_id: string | null
           dropoff: string | null
           id: string
@@ -1366,6 +1773,7 @@ export type Database = {
           passengers: number | null
           payment_terms: string | null
           pickup: string | null
+          pricing_breakdown: Json | null
           quotation_number: string
           rejected_at: string | null
           sent_at: string | null
@@ -1391,6 +1799,7 @@ export type Database = {
           customer_id: string
           deleted_at?: string | null
           discount?: number
+          distance_km?: number | null
           driver_id?: string | null
           dropoff?: string | null
           id?: string
@@ -1400,6 +1809,7 @@ export type Database = {
           passengers?: number | null
           payment_terms?: string | null
           pickup?: string | null
+          pricing_breakdown?: Json | null
           quotation_number: string
           rejected_at?: string | null
           sent_at?: string | null
@@ -1425,6 +1835,7 @@ export type Database = {
           customer_id?: string
           deleted_at?: string | null
           discount?: number
+          distance_km?: number | null
           driver_id?: string | null
           dropoff?: string | null
           id?: string
@@ -1434,6 +1845,7 @@ export type Database = {
           passengers?: number | null
           payment_terms?: string | null
           pickup?: string | null
+          pricing_breakdown?: Json | null
           quotation_number?: string
           rejected_at?: string | null
           sent_at?: string | null
@@ -1566,6 +1978,67 @@ export type Database = {
           },
         ]
       }
+      reviews: {
+        Row: {
+          booking_id: string | null
+          comment: string | null
+          created_at: string
+          created_by: string | null
+          customer_id: string | null
+          id: string
+          is_published: boolean
+          rating: number
+          source: string
+          updated_at: string
+        }
+        Insert: {
+          booking_id?: string | null
+          comment?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_id?: string | null
+          id?: string
+          is_published?: boolean
+          rating: number
+          source: string
+          updated_at?: string
+        }
+        Update: {
+          booking_id?: string | null
+          comment?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_id?: string | null
+          id?: string
+          is_published?: boolean
+          rating?: number
+          source?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       vehicles: {
         Row: {
           active: boolean
@@ -1634,6 +2107,26 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      automation_config: { Args: { p_key: string }; Returns: Json }
+      automation_is_enabled: { Args: { p_key: string }; Returns: boolean }
+      check_assignment_conflicts: {
+        Args: {
+          p_booking_id: string
+          p_driver_id: string
+          p_duration_minutes?: number
+          p_trip_date: string
+          p_trip_time: string
+          p_vehicle_id: string
+        }
+        Returns: {
+          booking_id: string
+          booking_reference: string
+          conflict_type: string
+          status: Database["public"]["Enums"]["booking_status"]
+          trip_date: string
+          trip_time: string
+        }[]
+      }
       convert_quotation_to_booking: {
         Args: { p_quotation_id: string }
         Returns: string
@@ -1642,6 +2135,7 @@ export type Database = {
         Args: { p_days_ahead?: number }
         Returns: number
       }
+      current_customer_id: { Args: never; Returns: string }
       current_user_active: { Args: never; Returns: boolean }
       current_user_role: {
         Args: never
@@ -1681,6 +2175,145 @@ export type Database = {
           upcoming_trips: number
         }[]
       }
+      get_my_booking: {
+        Args: { p_reference: string }
+        Returns: {
+          booking_reference: string
+          cancelled_at: string
+          completed_at: string
+          confirmed_at: string
+          currency: string
+          customer_notes: string
+          discount: number
+          driver_en_route_at: string
+          driver_name: string
+          driver_phone: string
+          dropoff: string
+          flight_arrival_time: string
+          flight_departure_time: string
+          flight_number: string
+          flight_terminal: string
+          id: string
+          is_airport_pickup: boolean
+          luggage: number
+          meet_and_greet_notes: string
+          passengers: number
+          payment_status: Database["public"]["Enums"]["payment_status"]
+          picked_up_at: string
+          pickup: string
+          price: number
+          special_requests: string
+          status: Database["public"]["Enums"]["booking_status"]
+          tax_amount: number
+          total: number
+          trip_date: string
+          trip_started_at: string
+          trip_time: string
+          vehicle_name: string
+        }[]
+      }
+      get_my_booking_review: {
+        Args: { p_reference: string }
+        Returns: {
+          comment: string
+          created_at: string
+          rating: number
+        }[]
+      }
+      get_my_booking_status_history: {
+        Args: { p_reference: string }
+        Returns: {
+          changed_at: string
+          from_status: Database["public"]["Enums"]["booking_status"]
+          to_status: Database["public"]["Enums"]["booking_status"]
+        }[]
+      }
+      get_my_bookings: {
+        Args: never
+        Returns: {
+          booking_reference: string
+          currency: string
+          driver_name: string
+          driver_phone: string
+          dropoff: string
+          flight_number: string
+          id: string
+          is_airport_pickup: boolean
+          payment_status: Database["public"]["Enums"]["payment_status"]
+          pickup: string
+          status: Database["public"]["Enums"]["booking_status"]
+          total: number
+          trip_date: string
+          trip_time: string
+          vehicle_name: string
+        }[]
+      }
+      get_my_customer_profile: {
+        Args: never
+        Returns: {
+          billing_address: string
+          country: string
+          email: string
+          full_name: string
+          id: string
+          opt_out_marketing: boolean
+          phone: string
+          whatsapp: string
+        }[]
+      }
+      get_my_invoice: {
+        Args: { p_invoice_number: string }
+        Returns: {
+          amount_paid: number
+          balance_due: number
+          created_at: string
+          currency: string
+          discount: number
+          due_date: string
+          id: string
+          invoice_number: string
+          payment_terms: string
+          status: Database["public"]["Enums"]["invoice_status"]
+          subtotal: number
+          tax_amount: number
+          terms_and_conditions: string
+          total: number
+        }[]
+      }
+      get_my_invoice_items: {
+        Args: { p_invoice_number: string }
+        Returns: {
+          amount: number
+          description: string
+          quantity: number
+          sort_order: number
+          unit_price: number
+        }[]
+      }
+      get_my_invoice_receipts: {
+        Args: { p_invoice_number: string }
+        Returns: {
+          amount: number
+          method: Database["public"]["Enums"]["payment_method"]
+          payment_date: string
+          receipt_number: string
+          remaining_balance: number
+        }[]
+      }
+      get_my_invoices: {
+        Args: never
+        Returns: {
+          amount_paid: number
+          balance_due: number
+          created_at: string
+          currency: string
+          due_date: string
+          id: string
+          invoice_number: string
+          status: Database["public"]["Enums"]["invoice_status"]
+          total: number
+        }[]
+      }
       is_admin: { Args: never; Returns: boolean }
       is_staff_role: {
         Args: { roles: Database["public"]["Enums"]["user_role"][] }
@@ -1695,8 +2328,37 @@ export type Database = {
         }
         Returns: string
       }
+      log_automation_run: {
+        Args: {
+          p_affected_count: number
+          p_error_message: string
+          p_key: string
+          p_metadata?: Json
+          p_status: string
+          p_triggered_by: string
+        }
+        Returns: undefined
+      }
       mark_overdue_invoices: { Args: never; Returns: number }
       next_document_number: { Args: { p_doc_type: string }; Returns: string }
+      submit_my_review: {
+        Args: { p_comment: string; p_rating: number; p_reference: string }
+        Returns: undefined
+      }
+      update_my_customer_profile: {
+        Args: {
+          p_billing_address: string
+          p_country: string
+          p_full_name: string
+          p_phone: string
+          p_whatsapp: string
+        }
+        Returns: undefined
+      }
+      update_my_notification_preferences: {
+        Args: { p_opt_out_marketing: boolean }
+        Returns: undefined
+      }
     }
     Enums: {
       booking_source:

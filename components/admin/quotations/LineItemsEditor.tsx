@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { formatCurrency } from "@/lib/admin/format";
 
@@ -8,7 +8,8 @@ export type LineItem = { description: string; quantity: number; unit_price: numb
 
 export function LineItemsEditor({
   name,
-  initialItems,
+  items,
+  onItemsChange,
   discount,
   taxRate,
   currency,
@@ -16,21 +17,20 @@ export function LineItemsEditor({
   onTaxRateChange,
 }: {
   name: string;
-  initialItems: LineItem[];
+  items: LineItem[];
+  onItemsChange: (items: LineItem[]) => void;
   discount: number;
   taxRate: number;
   currency: string;
   onDiscountChange: (value: number) => void;
   onTaxRateChange: (value: number) => void;
 }) {
-  const [items, setItems] = useState<LineItem[]>(initialItems.length ? initialItems : [{ description: "", quantity: 1, unit_price: 0 }]);
-
   const subtotal = useMemo(() => items.reduce((sum, i) => sum + i.quantity * i.unit_price, 0), [items]);
   const taxAmount = Math.max(0, subtotal - discount) * (taxRate / 100);
   const total = Math.max(0, subtotal - discount) + taxAmount;
 
   function update(index: number, patch: Partial<LineItem>) {
-    setItems((prev) => prev.map((item, i) => (i === index ? { ...item, ...patch } : item)));
+    onItemsChange(items.map((item, i) => (i === index ? { ...item, ...patch } : item)));
   }
 
   return (
@@ -83,7 +83,7 @@ export function LineItemsEditor({
                 <td className="px-3 py-1.5 text-center">
                   <button
                     type="button"
-                    onClick={() => setItems((prev) => prev.filter((_, i) => i !== index))}
+                    onClick={() => onItemsChange(items.filter((_, i) => i !== index))}
                     disabled={items.length === 1}
                     className="text-stone hover:text-red-600 disabled:opacity-30"
                     aria-label="Remove line"
@@ -97,7 +97,7 @@ export function LineItemsEditor({
         </table>
         <button
           type="button"
-          onClick={() => setItems((prev) => [...prev, { description: "", quantity: 1, unit_price: 0 }])}
+          onClick={() => onItemsChange([...items, { description: "", quantity: 1, unit_price: 0 }])}
           className="flex items-center gap-1.5 text-xs text-gold px-3 py-2 hover:underline"
         >
           <Plus className="h-3.5 w-3.5" /> Add line

@@ -51,6 +51,10 @@ const STATUS_TONE: Record<string, keyof typeof TONE_CLASSES> = {
   AVAILABLE: "success",
   ON_TRIP: "gold",
   OFF_DUTY: "neutral",
+  // automation runs
+  SUCCESS: "success",
+  FAILURE: "danger",
+  SKIPPED_DISABLED: "neutral",
 };
 
 export function StatusBadge({ status }: { status: string }) {

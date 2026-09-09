@@ -44,6 +44,12 @@ export default async function SettingsPage() {
               <Link href="/admin/activity" className="block text-sm text-gold hover:underline">
                 View activity log →
               </Link>
+              <Link href="/admin/settings/pricing" className="block text-sm text-gold hover:underline">
+                Manage pricing engine →
+              </Link>
+              <Link href="/admin/settings/templates" className="block text-sm text-gold hover:underline">
+                Edit notification templates →
+              </Link>
               <div className="pt-2 border-t border-line space-y-2">
                 {PERMISSION_MATRIX.map(([role, desc]) => (
                   <div key={role} className="text-xs">

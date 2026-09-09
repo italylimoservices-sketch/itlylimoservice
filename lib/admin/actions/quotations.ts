@@ -36,7 +36,19 @@ const QuotationSchema = z.object({
   terms_and_conditions: z.string().trim().optional().or(z.literal("")),
   internal_notes: z.string().trim().optional().or(z.literal("")),
   items: z.string().min(1),
+  pricing_breakdown: z.string().optional().or(z.literal("")),
 });
+
+function parsePricingBreakdown(raw: string | undefined) {
+  if (!raw) return { breakdown: null as Record<string, unknown> | null, distanceKm: null as number | null };
+  try {
+    const parsed = JSON.parse(raw);
+    const distanceKm = typeof parsed.distanceKm === "number" ? parsed.distanceKm : null;
+    return { breakdown: parsed, distanceKm };
+  } catch {
+    return { breakdown: null, distanceKm: null };
+  }
+}
 
 function toNullable(value: string | undefined) {
   return value && value.length > 0 ? value : null;
@@ -62,8 +74,9 @@ function parseQuotationForm(formData: FormData) {
   const discount = parsed.data.discount;
   const taxAmount = Math.max(0, subtotal - discount) * (parsed.data.tax_rate / 100);
   const total = Math.max(0, subtotal - discount) + taxAmount;
+  const { breakdown: pricingBreakdown, distanceKm } = parsePricingBreakdown(parsed.data.pricing_breakdown);
 
-  return { success: true as const, data: parsed.data, items, subtotal, taxAmount, total };
+  return { success: true as const, data: parsed.data, items, subtotal, taxAmount, total, pricingBreakdown, distanceKm };
 }
 
 export async function createQuotation(_prevState: FormState, formData: FormData): Promise<FormState> {
@@ -97,6 +110,8 @@ export async function createQuotation(_prevState: FormState, formData: FormData)
       payment_terms: toNullable(parsed.data.payment_terms),
       terms_and_conditions: toNullable(parsed.data.terms_and_conditions),
       internal_notes: toNullable(parsed.data.internal_notes),
+      distance_km: parsed.distanceKm,
+      pricing_breakdown: parsed.pricingBreakdown,
       created_by: profile.id,
     })
     .select("id")
@@ -155,6 +170,8 @@ export async function updateQuotation(id: string, _prevState: FormState, formDat
       payment_terms: toNullable(parsed.data.payment_terms),
       terms_and_conditions: toNullable(parsed.data.terms_and_conditions),
       internal_notes: toNullable(parsed.data.internal_notes),
+      distance_km: parsed.distanceKm,
+      pricing_breakdown: parsed.pricingBreakdown,
     })
     .eq("id", id);
   if (error) return { error: error.message };

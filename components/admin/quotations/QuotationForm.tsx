@@ -3,6 +3,9 @@
 import { useActionState, useState } from "react";
 import { EntityPicker } from "@/components/admin/ui/EntityPicker";
 import { LineItemsEditor, type LineItem } from "@/components/admin/quotations/LineItemsEditor";
+import { PriceSuggestionPanel } from "@/components/admin/quotations/PriceSuggestionPanel";
+import { SUPPORTED_CURRENCIES } from "@/lib/pricing/currencies";
+import type { PricingSuggestion } from "@/lib/pricing/engine";
 import type { FormState } from "@/lib/admin/actions/quotations";
 
 type QuotationDefaults = {
@@ -41,10 +44,26 @@ export function QuotationForm({
   const [state, formAction, pending] = useActionState(action, undefined);
   const [discount, setDiscount] = useState(defaults?.discount ?? 0);
   const [taxRate, setTaxRate] = useState(defaults?.tax_rate ?? 0);
+  const [items, setItems] = useState<LineItem[]>(defaults?.items?.length ? defaults.items : [{ description: "", quantity: 1, unit_price: 0 }]);
+  const [currency, setCurrency] = useState(defaults?.currency ?? "EUR");
+  const [pickup, setPickup] = useState(defaults?.pickup ?? "");
+  const [dropoff, setDropoff] = useState(defaults?.dropoff ?? "");
+  const [tripDate, setTripDate] = useState(defaults?.trip_date ?? "");
+  const [tripTime, setTripTime] = useState(defaults?.trip_time ?? "");
+  const [pricingBreakdown, setPricingBreakdown] = useState<PricingSuggestion | null>(null);
+
+  function applySuggestion(description: string, amount: number, breakdown: PricingSuggestion) {
+    setItems((prev) => {
+      const rest = prev.filter((i) => i.description.trim() !== "" || i.quantity !== 1 || i.unit_price !== 0);
+      return [...rest, { description, quantity: 1, unit_price: amount }];
+    });
+    setPricingBreakdown(breakdown);
+  }
 
   return (
     <form action={formAction} className="space-y-6 max-w-3xl">
       {defaults?.lead_id ? <input type="hidden" name="lead_id" value={defaults.lead_id} /> : null}
+      {pricingBreakdown ? <input type="hidden" name="pricing_breakdown" value={JSON.stringify(pricingBreakdown)} /> : null}
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
@@ -63,7 +82,13 @@ export function QuotationForm({
         <div className="grid grid-cols-2 gap-2">
           <div>
             <label className="block text-sm font-medium text-ink-soft mb-1">Currency</label>
-            <input name="currency" defaultValue={defaults?.currency ?? "EUR"} className="input-luxe" />
+            <select name="currency" value={currency} onChange={(e) => setCurrency(e.target.value)} className="input-luxe">
+              {SUPPORTED_CURRENCIES.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-ink-soft mb-1">Valid until</label>
@@ -71,10 +96,10 @@ export function QuotationForm({
           </div>
         </div>
 
-        <Field label="Pickup" name="pickup" defaultValue={defaults?.pickup} />
-        <Field label="Drop-off" name="dropoff" defaultValue={defaults?.dropoff} />
-        <Field label="Trip date" name="trip_date" type="date" defaultValue={defaults?.trip_date} />
-        <Field label="Trip time" name="trip_time" type="time" defaultValue={defaults?.trip_time} />
+        <Field label="Pickup" name="pickup" value={pickup} onChange={setPickup} />
+        <Field label="Drop-off" name="dropoff" value={dropoff} onChange={setDropoff} />
+        <Field label="Trip date" name="trip_date" type="date" value={tripDate} onChange={setTripDate} />
+        <Field label="Trip time" name="trip_time" type="time" value={tripTime} onChange={setTripTime} />
         <Field label="Passengers" name="passengers" type="number" defaultValue={defaults?.passengers?.toString()} />
         <Field label="Luggage" name="luggage" type="number" defaultValue={defaults?.luggage?.toString()} />
 
@@ -88,14 +113,17 @@ export function QuotationForm({
         </div>
       </div>
 
+      <PriceSuggestionPanel pickup={pickup} dropoff={dropoff} tripDate={tripDate} tripTime={tripTime} currency={currency} onApply={applySuggestion} />
+
       <div>
         <label className="block text-sm font-medium text-ink-soft mb-2">Line items</label>
         <LineItemsEditor
           name="items"
-          initialItems={defaults?.items ?? []}
+          items={items}
+          onItemsChange={setItems}
           discount={discount}
           taxRate={taxRate}
-          currency={defaults?.currency ?? "EUR"}
+          currency={currency}
           onDiscountChange={setDiscount}
           onTaxRateChange={setTaxRate}
         />
@@ -141,18 +169,26 @@ function Field({
   name,
   type = "text",
   defaultValue,
+  value,
+  onChange,
 }: {
   label: string;
   name: string;
   type?: string;
   defaultValue?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }) {
   return (
     <div>
       <label htmlFor={name} className="block text-sm font-medium text-ink-soft mb-1">
         {label}
       </label>
-      <input id={name} name={name} type={type} defaultValue={defaultValue} className="input-luxe" />
+      {onChange ? (
+        <input id={name} name={name} type={type} value={value} onChange={(e) => onChange(e.target.value)} className="input-luxe" />
+      ) : (
+        <input id={name} name={name} type={type} defaultValue={defaultValue} className="input-luxe" />
+      )}
     </div>
   );
 }

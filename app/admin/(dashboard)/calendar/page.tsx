@@ -33,9 +33,22 @@ type CalendarBooking = {
   dropoff: string;
   driver_id: string | null;
   vehicle_id: string | null;
+  estimated_duration_minutes: number;
   drivers: { full_name: string } | null;
   vehicles: { name: string } | null;
 };
+
+function tripWindow(b: Pick<CalendarBooking, "trip_date" | "trip_time" | "estimated_duration_minutes">) {
+  const start = new Date(`${b.trip_date}T${b.trip_time}`);
+  const end = new Date(start.getTime() + (b.estimated_duration_minutes ?? 120) * 60_000);
+  return { start, end };
+}
+
+function overlaps(a: CalendarBooking, b: CalendarBooking) {
+  const wa = tripWindow(a);
+  const wb = tripWindow(b);
+  return wa.start < wb.end && wb.start < wa.end;
+}
 
 const VIEWS = ["month", "week", "day"] as const;
 type ViewKey = (typeof VIEWS)[number];
@@ -66,28 +79,30 @@ export default async function CalendarPage({
   const supabase = await createClient();
   const { data: bookings } = await supabase
     .from("bookings")
-    .select("id, booking_reference, trip_date, trip_time, status, pickup, dropoff, driver_id, vehicle_id, drivers(full_name), vehicles(name)")
+    .select("id, booking_reference, trip_date, trip_time, status, pickup, dropoff, driver_id, vehicle_id, estimated_duration_minutes, drivers(full_name), vehicles(name)")
     .gte("trip_date", format(rangeStart, "yyyy-MM-dd"))
     .lte("trip_date", format(rangeEnd, "yyyy-MM-dd"))
+    .not("status", "in", "(CANCELLED,NO_SHOW,COMPLETED)")
     .is("deleted_at", null)
     .order("trip_time", { ascending: true });
 
   const rows = (bookings ?? []) as unknown as CalendarBooking[];
 
-  // "Obvious" conflict: the same driver or vehicle booked at the same date
-  // + time on two different trips (no trip-duration field exists to detect
-  // overlaps more precisely than that).
+  // Same driver/vehicle with overlapping time windows (mirrors
+  // check_assignment_conflicts in the DB, using estimated_duration_minutes
+  // instead of exact-time-match — a 9:00-11:00 airport run and a 10:00
+  // pickup on the same driver is a conflict even though the times differ).
   const conflictKeys = new Set<string>();
-  const seen = new Map<string, number>();
-  for (const b of rows) {
-    for (const key of [b.driver_id && `d:${b.driver_id}:${b.trip_date}:${b.trip_time}`, b.vehicle_id && `v:${b.vehicle_id}:${b.trip_date}:${b.trip_time}`]) {
-      if (!key) continue;
-      seen.set(key, (seen.get(key) ?? 0) + 1);
-    }
-  }
-  for (const b of rows) {
-    for (const key of [b.driver_id && `d:${b.driver_id}:${b.trip_date}:${b.trip_time}`, b.vehicle_id && `v:${b.vehicle_id}:${b.trip_date}:${b.trip_time}`]) {
-      if (key && (seen.get(key) ?? 0) > 1) conflictKeys.add(b.id);
+  for (let i = 0; i < rows.length; i++) {
+    for (let j = i + 1; j < rows.length; j++) {
+      const a = rows[i];
+      const b = rows[j];
+      const sameDriver = a.driver_id && a.driver_id === b.driver_id;
+      const sameVehicle = a.vehicle_id && a.vehicle_id === b.vehicle_id;
+      if ((sameDriver || sameVehicle) && overlaps(a, b)) {
+        conflictKeys.add(a.id);
+        conflictKeys.add(b.id);
+      }
     }
   }
 

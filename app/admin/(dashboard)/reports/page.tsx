@@ -10,7 +10,7 @@ import { REPORT_LABELS, runReport, type ReportKey } from "@/lib/admin/reports";
 
 export const metadata: Metadata = { title: "Reports" };
 
-const REPORT_ROLES: UserRole[] = ["SUPER_ADMIN", "ADMIN", "FINANCE", "OPERATIONS"];
+const REPORT_ROLES: UserRole[] = ["SUPER_ADMIN", "ADMIN", "FINANCE", "OPERATIONS", "VIEWER"];
 const RANGE_KEYS: DateRangeKey[] = ["today", "week", "month", "year", "all"];
 
 export default async function ReportsPage({

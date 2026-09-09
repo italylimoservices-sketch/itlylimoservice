@@ -8,8 +8,23 @@ import { requireRole } from "@/lib/auth/dal";
 import { MANAGE_OPS } from "@/lib/auth/roles";
 import { notifyCustomer } from "@/lib/notifications/service";
 import { formatCurrency, formatDate, formatTime } from "@/lib/admin/format";
+import type { Json } from "@/lib/supabase/types";
 
 export type FormState = { error?: string } | undefined;
+
+/**
+ * Activity logging must never take down a mutation that already succeeded —
+ * a booking status change or assignment is the real outcome the user asked
+ * for; a failed audit-log write is a monitoring gap, not a reason to bounce
+ * the user to an error page after their change already committed.
+ */
+async function logActivitySafe(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  args: { p_action: string; p_entity_type: string; p_entity_id: string; p_metadata: Json }
+) {
+  const { error } = await supabase.rpc("log_activity", args);
+  if (error) console.error("log_activity failed", args.p_action, error.message);
+}
 
 const BookingSchema = z.object({
   customer_id: z.string().uuid("Select a customer."),
@@ -23,6 +38,11 @@ const BookingSchema = z.object({
   vehicle_id: z.string().uuid().optional().or(z.literal("")),
   driver_id: z.string().uuid().optional().or(z.literal("")),
   flight_number: z.string().trim().optional().or(z.literal("")),
+  is_airport_pickup: z.string().optional(),
+  flight_terminal: z.string().trim().optional().or(z.literal("")),
+  flight_arrival_time: z.string().trim().optional().or(z.literal("")),
+  flight_departure_time: z.string().trim().optional().or(z.literal("")),
+  meet_and_greet_notes: z.string().trim().optional().or(z.literal("")),
   special_requests: z.string().trim().optional().or(z.literal("")),
   price: z.coerce.number().nonnegative().default(0),
   discount: z.coerce.number().nonnegative().default(0),
@@ -66,6 +86,11 @@ export async function createBooking(_prevState: FormState, formData: FormData): 
       vehicle_id: toNullable(parsed.data.vehicle_id),
       driver_id: toNullable(parsed.data.driver_id),
       flight_number: toNullable(parsed.data.flight_number),
+      is_airport_pickup: parsed.data.is_airport_pickup === "on",
+      flight_terminal: toNullable(parsed.data.flight_terminal),
+      flight_arrival_time: toNullable(parsed.data.flight_arrival_time),
+      flight_departure_time: toNullable(parsed.data.flight_departure_time),
+      meet_and_greet_notes: toNullable(parsed.data.meet_and_greet_notes),
       special_requests: toNullable(parsed.data.special_requests),
       price: parsed.data.price,
       discount: parsed.data.discount,
@@ -82,7 +107,7 @@ export async function createBooking(_prevState: FormState, formData: FormData): 
 
   if (error || !data) return { error: error?.message ?? "Could not create booking." };
 
-  await supabase.rpc("log_activity", {
+  await logActivitySafe(supabase, {
     p_action: "booking.created",
     p_entity_type: "booking",
     p_entity_id: data.id,
@@ -112,6 +137,11 @@ export async function updateBooking(id: string, _prevState: FormState, formData:
       vehicle_id: toNullable(parsed.data.vehicle_id),
       driver_id: toNullable(parsed.data.driver_id),
       flight_number: toNullable(parsed.data.flight_number),
+      is_airport_pickup: parsed.data.is_airport_pickup === "on",
+      flight_terminal: toNullable(parsed.data.flight_terminal),
+      flight_arrival_time: toNullable(parsed.data.flight_arrival_time),
+      flight_departure_time: toNullable(parsed.data.flight_departure_time),
+      meet_and_greet_notes: toNullable(parsed.data.meet_and_greet_notes),
       special_requests: toNullable(parsed.data.special_requests),
       price: parsed.data.price,
       discount: parsed.data.discount,
@@ -143,9 +173,15 @@ export async function setBookingStatus(id: string, status: BookingStatus) {
   await requireRole(MANAGE_OPS);
   const supabase = await createClient();
   const { error } = await supabase.from("bookings").update({ status }).eq("id", id);
-  if (error) throw new Error(error.message);
+  if (error) {
+    // guard_booking_terminal_state raises a plain exception (not a
+    // constraint violation), so this is the expected, user-facing path for
+    // "that trip is already completed/cancelled/no-show" — redirect with the
+    // message instead of throwing into the generic error boundary.
+    redirect(`/admin/bookings/${id}?error=${encodeURIComponent(error.message)}`);
+  }
 
-  await supabase.rpc("log_activity", {
+  await logActivitySafe(supabase, {
     p_action: "booking.status_changed",
     p_entity_type: "booking",
     p_entity_id: id,
@@ -188,9 +224,35 @@ export async function assignDriverAndVehicle(id: string, formData: FormData) {
   const profile = await requireRole(MANAGE_OPS);
   const driverId = toNullable(formData.get("driver_id")?.toString());
   const vehicleId = toNullable(formData.get("vehicle_id")?.toString());
+  const force = formData.get("force") === "1";
 
   const supabase = await createClient();
-  const { data: booking } = await supabase.from("bookings").select("status").eq("id", id).single();
+  const { data: booking } = await supabase
+    .from("bookings")
+    .select("status, trip_date, trip_time, estimated_duration_minutes")
+    .eq("id", id)
+    .single();
+  if (!booking) throw new Error("Booking not found.");
+
+  if ((driverId || vehicleId) && !force) {
+    const { data: conflicts } = await supabase.rpc("check_assignment_conflicts", {
+      p_booking_id: id,
+      // The SQL function's uuid params genuinely accept null (unassigned
+      // driver/vehicle); the generator just can't see that from the
+      // declaration, so it types them as required `string`.
+      p_driver_id: driverId as string,
+      p_vehicle_id: vehicleId as string,
+      p_trip_date: booking.trip_date,
+      p_trip_time: booking.trip_time,
+      p_duration_minutes: booking.estimated_duration_minutes,
+    });
+    if (conflicts && conflicts.length > 0) {
+      const summary = conflicts
+        .map((c) => `${c.conflict_type === "DRIVER" ? "Driver" : "Vehicle"} already on ${c.booking_reference} (${c.trip_date} ${c.trip_time})`)
+        .join("; ");
+      redirect(`/admin/bookings/${id}?error=${encodeURIComponent(`Schedule conflict — ${summary}. Assign anyway to override.`)}`);
+    }
+  }
 
   const { error } = await supabase
     .from("bookings")
@@ -199,7 +261,7 @@ export async function assignDriverAndVehicle(id: string, formData: FormData) {
       vehicle_id: vehicleId,
       assigned_by: profile.id,
       assigned_at: new Date().toISOString(),
-      status: driverId && booking && ["PENDING", "CONFIRMED"].includes(booking.status) ? "ASSIGNED" : booking?.status,
+      status: driverId && ["PENDING", "CONFIRMED"].includes(booking.status) ? "ASSIGNED" : booking.status,
     })
     .eq("id", id);
   if (error) throw new Error(error.message);
@@ -213,11 +275,11 @@ export async function assignDriverAndVehicle(id: string, formData: FormData) {
     });
   }
 
-  await supabase.rpc("log_activity", {
+  await logActivitySafe(supabase, {
     p_action: "booking.driver_assigned",
     p_entity_type: "booking",
     p_entity_id: id,
-    p_metadata: { driver_id: driverId, vehicle_id: vehicleId },
+    p_metadata: { driver_id: driverId, vehicle_id: vehicleId, forced: force },
   });
 
   if (driverId) {

@@ -50,6 +50,7 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
   ]);
 
   const canEdit = canManageOps(profile.role);
+  const isTerminal = booking.status === "COMPLETED" || booking.status === "CANCELLED" || booking.status === "NO_SHOW";
 
   // Estimated per-trip profitability: revenue - tax - driver cost - vehicle
   // cost - other trip expenses. Expense categories don't map 1:1 onto
@@ -117,6 +118,11 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                     driver_id: (booking as any).drivers?.id,
                     driver_label: (booking as any).drivers?.full_name,
                     flight_number: booking.flight_number ?? undefined,
+                    is_airport_pickup: booking.is_airport_pickup ?? undefined,
+                    flight_terminal: booking.flight_terminal ?? undefined,
+                    flight_arrival_time: booking.flight_arrival_time ?? undefined,
+                    flight_departure_time: booking.flight_departure_time ?? undefined,
+                    meet_and_greet_notes: booking.meet_and_greet_notes ?? undefined,
                     special_requests: booking.special_requests ?? undefined,
                     price: Number(booking.price),
                     discount: Number(booking.discount),
@@ -172,37 +178,43 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
         {canEdit ? (
           <div className="space-y-4">
             <Section title="Trip status">
-              <div className="p-4 flex flex-wrap gap-1.5">
-                {STATUS_FLOW.map((s) => (
-                  <form key={s} action={setBookingStatus.bind(null, id, s)}>
-                    <button
-                      type="submit"
-                      disabled={booking.status === s}
-                      className={`text-xs px-2.5 py-1.5 rounded-sm border ${
-                        booking.status === s ? "border-navy bg-navy text-ivory" : "border-line hover:bg-ivory-deep"
-                      }`}
+              {isTerminal ? (
+                <p className="px-4 py-3 text-xs text-stone">
+                  This trip is {booking.status.replaceAll("_", " ").toLowerCase()} — a final status, no further changes allowed.
+                </p>
+              ) : (
+                <div className="p-4 flex flex-wrap gap-1.5">
+                  {STATUS_FLOW.map((s) => (
+                    <form key={s} action={setBookingStatus.bind(null, id, s)}>
+                      <button
+                        type="submit"
+                        disabled={booking.status === s}
+                        className={`text-xs px-2.5 py-1.5 rounded-sm border ${
+                          booking.status === s ? "border-navy bg-navy text-ivory" : "border-line hover:bg-ivory-deep"
+                        }`}
+                      >
+                        {s.replaceAll("_", " ")}
+                      </button>
+                    </form>
+                  ))}
+                  <form action={setBookingStatus.bind(null, id, "NO_SHOW")}>
+                    <ConfirmButton
+                      confirmMessage="Mark this booking as a no-show?"
+                      className="text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700"
                     >
-                      {s.replaceAll("_", " ")}
-                    </button>
+                      No-show
+                    </ConfirmButton>
                   </form>
-                ))}
-                <form action={setBookingStatus.bind(null, id, "NO_SHOW")}>
-                  <ConfirmButton
-                    confirmMessage="Mark this booking as a no-show?"
-                    className="text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700"
-                  >
-                    No-show
-                  </ConfirmButton>
-                </form>
-                <form action={setBookingStatus.bind(null, id, "CANCELLED")}>
-                  <ConfirmButton
-                    confirmMessage={`Cancel booking ${booking.booking_reference}?`}
-                    className="text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700"
-                  >
-                    Cancel
-                  </ConfirmButton>
-                </form>
-              </div>
+                  <form action={setBookingStatus.bind(null, id, "CANCELLED")}>
+                    <ConfirmButton
+                      confirmMessage={`Cancel booking ${booking.booking_reference}?`}
+                      className="text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700"
+                    >
+                      Cancel
+                    </ConfirmButton>
+                  </form>
+                </div>
+              )}
             </Section>
 
             <Section title="Assign driver &amp; vehicle">
@@ -215,6 +227,10 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                   <label className="block text-xs text-stone mb-1">Vehicle</label>
                   <EntityPicker entity="vehicles" name="vehicle_id" defaultValue={(booking as any).vehicles?.id} defaultLabel={(booking as any).vehicles?.name} placeholder="Search vehicles…" />
                 </div>
+                <label className="flex items-center gap-2 text-xs text-stone">
+                  <input type="checkbox" name="force" value="1" />
+                  Assign anyway if there&rsquo;s a schedule conflict
+                </label>
                 <button type="submit" className="w-full text-sm bg-navy text-ivory px-3 py-2 rounded-sm hover:bg-navy-deep">
                   Assign
                 </button>

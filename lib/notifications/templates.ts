@@ -18,8 +18,10 @@ export type TemplateVars = Record<string, string>;
 // {{variable}} substitution, per the spec's dynamic-variable convention
 // (customer_name, booking_reference, pickup, dropoff, date, time, vehicle,
 // total, amount_paid, balance_due, ...). Unknown variables are left blank
-// rather than leaking the raw "{{token}}" into a sent email.
-function fill(template: string, vars: TemplateVars): string {
+// rather than leaking the raw "{{token}}" into a sent email. Exported for
+// the DB-editable template path (notification_templates table) and the
+// template-builder preview to reuse the exact same substitution logic.
+export function fill(template: string, vars: TemplateVars): string {
   return template.replace(/\{\{(\w+)\}\}/g, (_, key: string) => vars[key] ?? "");
 }
 
@@ -137,5 +139,34 @@ export function renderEmail(key: EmailTemplateKey, vars: TemplateVars): { subjec
   const lines = def.bodyLines(vars);
   const html = wrapHtml(paragraphBlock(lines) + ctaButton("Questions", siteConfig.phoneDisplay));
   const text = lines.map((l) => l.replace(/<[^>]+>/g, "")).join("\n\n");
+  return { subject, html, text };
+}
+
+function escapeHtml(value: string): string {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+/** Same {{var}} substitution as fill(), but HTML-escapes each substituted
+ * value (not the surrounding template text) — the template body itself is
+ * admin-authored trusted markup, but variable values like customer_name can
+ * originate from a customer-controlled field (public booking form, portal
+ * profile edit), so they must not be interpolated as raw HTML. */
+function fillHtmlSafe(template: string, vars: TemplateVars): string {
+  return template.replace(/\{\{(\w+)\}\}/g, (_, key: string) => escapeHtml(vars[key] ?? ""));
+}
+
+/**
+ * Renders a raw subject/body pair (from notification_templates, or the
+ * template-builder preview) through the same {{var}} substitution + HTML
+ * envelope as the code-defined templates, so an admin-edited template looks
+ * identical in kind to the default ones. Body paragraphs are separated by a
+ * blank line, matching how templates are seeded and edited in the builder.
+ */
+export function renderEmailFromRaw(subjectTemplate: string, bodyTemplate: string, vars: TemplateVars): { subject: string; html: string; text: string } {
+  const subject = fill(subjectTemplate, vars);
+  const htmlLines = bodyTemplate.split(/\n\n+/).map((l) => fillHtmlSafe(l, vars));
+  const textLines = bodyTemplate.split(/\n\n+/).map((l) => fill(l, vars));
+  const html = wrapHtml(paragraphBlock(htmlLines) + ctaButton("Questions", siteConfig.phoneDisplay));
+  const text = textLines.join("\n\n");
   return { subject, html, text };
 }

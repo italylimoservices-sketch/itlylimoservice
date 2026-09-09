@@ -12,6 +12,28 @@ export const metadata: Metadata = { title: "Activity log" };
 
 const PAGE_SIZE = 40;
 
+/** Only the fields that actually differ between before/after — noisy columns
+ * like updated_at are excluded since they change on every save regardless. */
+function changedFields(before: unknown, after: unknown): { field: string; from: unknown; to: unknown }[] {
+  if (!before || !after || typeof before !== "object" || typeof after !== "object") return [];
+  const b = before as Record<string, unknown>;
+  const a = after as Record<string, unknown>;
+  const skip = new Set(["updated_at", "created_at"]);
+  const fields = new Set([...Object.keys(b), ...Object.keys(a)]);
+  const diffs: { field: string; from: unknown; to: unknown }[] = [];
+  for (const field of fields) {
+    if (skip.has(field)) continue;
+    if (JSON.stringify(b[field]) !== JSON.stringify(a[field])) diffs.push({ field, from: b[field], to: a[field] });
+  }
+  return diffs;
+}
+
+function formatValue(v: unknown): string {
+  if (v === null || v === undefined) return "—";
+  if (typeof v === "object") return JSON.stringify(v);
+  return String(v);
+}
+
 export default async function ActivityPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
   await requireRole(ADMIN_ONLY);
   const { page: pageParam } = await searchParams;
@@ -21,13 +43,16 @@ export default async function ActivityPage({ searchParams }: { searchParams: Pro
   const supabase = await createClient();
   const { data: logs, count } = await supabase
     .from("activity_logs")
-    .select("id, action, entity_type, entity_id, metadata, created_at, profiles(full_name, email)", { count: "exact" })
+    .select("id, action, entity_type, entity_id, metadata, before_state, after_state, created_at, profiles(full_name, email)", { count: "exact" })
     .order("created_at", { ascending: false })
     .range(from, from + PAGE_SIZE - 1);
 
   return (
     <div>
-      <PageHeader title="Activity log" description="Every important create/update/status change across the system, super-admin/admin only." />
+      <PageHeader
+        title="Activity log"
+        description="Every important create/update/status change across the system, super-admin/admin only. Row-level changes on core tables show a before/after diff — this log is append-only, nothing here can be edited or deleted through the app."
+      />
       <Card>
         <SimpleTable
           rows={logs ?? []}
@@ -37,6 +62,25 @@ export default async function ActivityPage({ searchParams }: { searchParams: Pro
             { header: "Who", cell: (l: any) => l.profiles?.full_name || l.profiles?.email || "System" },
             { header: "Action", cell: (l: any) => l.action },
             { header: "Entity", cell: (l: any) => `${l.entity_type} · ${String(l.entity_id ?? "").slice(0, 8)}` },
+            {
+              header: "Details",
+              cell: (l: any) => {
+                const diffs = changedFields(l.before_state, l.after_state);
+                if (diffs.length === 0) return l.metadata && Object.keys(l.metadata).length > 0 ? <code className="text-xs">{JSON.stringify(l.metadata)}</code> : "—";
+                return (
+                  <details className="text-xs">
+                    <summary className="cursor-pointer text-gold">{diffs.length} field{diffs.length > 1 ? "s" : ""} changed</summary>
+                    <ul className="mt-1.5 space-y-0.5">
+                      {diffs.map((d) => (
+                        <li key={d.field}>
+                          <span className="font-medium">{d.field}</span>: {formatValue(d.from)} → {formatValue(d.to)}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                );
+              },
+            },
           ]}
         />
         <Pagination page={page} pageSize={PAGE_SIZE} total={count ?? 0} basePath="/admin/activity" />

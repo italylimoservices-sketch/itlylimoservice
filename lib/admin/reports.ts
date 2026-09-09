@@ -2,6 +2,7 @@ import "server-only";
 
 import { createClient } from "@/lib/supabase/server";
 import { resolveDateRange, isoDate, type DateRangeKey } from "@/lib/admin/date-range";
+import { getInsights } from "@/lib/admin/insights";
 
 export type ReportKey =
   | "bookings"
@@ -14,7 +15,10 @@ export type ReportKey =
   | "outstanding_invoices"
   | "overdue_invoices"
   | "cancelled_bookings"
-  | "expenses";
+  | "expenses"
+  | "route_analytics"
+  | "driver_analytics"
+  | "vehicle_analytics";
 
 export const REPORT_LABELS: Record<ReportKey, string> = {
   bookings: "Bookings",
@@ -28,6 +32,9 @@ export const REPORT_LABELS: Record<ReportKey, string> = {
   overdue_invoices: "Overdue invoices",
   cancelled_bookings: "Cancelled bookings",
   expenses: "Expenses",
+  route_analytics: "Route analytics (Insights)",
+  driver_analytics: "Driver analytics (Insights)",
+  vehicle_analytics: "Vehicle analytics (Insights)",
 };
 
 export type ReportResult = { columns: string[]; rows: (string | number)[][] };
@@ -170,6 +177,27 @@ export async function runReport(key: ReportKey, range: DateRangeKey): Promise<Re
       return {
         columns: ["Date", "Category", "Trip", "Amount", "Description"],
         rows: (data ?? []).map((e: any) => [e.expense_date, e.category, e.bookings?.booking_reference ?? "", money(e.amount), e.description ?? ""]),
+      };
+    }
+    case "route_analytics": {
+      const { topRoutes } = await getInsights(range);
+      return {
+        columns: ["Route", "Trips", "Revenue"],
+        rows: topRoutes.map((r) => [r.route, r.trips, money(r.revenue)]),
+      };
+    }
+    case "driver_analytics": {
+      const { topDrivers } = await getInsights(range);
+      return {
+        columns: ["Driver", "Trips", "Revenue", "Cancellations"],
+        rows: topDrivers.map((d) => [d.name, d.trips, money(d.revenue), d.cancellations]),
+      };
+    }
+    case "vehicle_analytics": {
+      const { topVehicles } = await getInsights(range);
+      return {
+        columns: ["Vehicle", "Trips", "Revenue"],
+        rows: topVehicles.map((v) => [v.name, v.trips, money(v.revenue)]),
       };
     }
     default:

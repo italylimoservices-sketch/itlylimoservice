@@ -4,7 +4,7 @@ import type { UserRole } from "@/lib/auth/roles";
 import { REPORT_LABELS, runReport, toCsv, type ReportKey } from "@/lib/admin/reports";
 import type { DateRangeKey } from "@/lib/admin/date-range";
 
-const REPORT_ROLES: UserRole[] = ["SUPER_ADMIN", "ADMIN", "FINANCE", "OPERATIONS"];
+const REPORT_ROLES: UserRole[] = ["SUPER_ADMIN", "ADMIN", "FINANCE", "OPERATIONS", "VIEWER"];
 
 export async function GET(request: NextRequest) {
   await requireRole(REPORT_ROLES);

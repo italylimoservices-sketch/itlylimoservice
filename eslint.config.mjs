@@ -28,6 +28,20 @@ const eslintConfig = defineConfig([
       "@typescript-eslint/no-explicit-any": "warn",
     },
   },
+  {
+    // The system-health page measures real elapsed time (DB round-trip
+    // latency, hours-since-last-cron-run) — Date.now() calls are the point
+    // of the page, not an accidental side effect. react-hooks/purity exists
+    // to protect React Compiler's memoization of client component render
+    // output; it doesn't apply to an async Server Component that re-runs
+    // fully on every request and is never memoized the way client renders
+    // are, so a blanket "impure function" flag here is a false positive for
+    // this specific diagnostics use case.
+    files: ["app/admin/**/system/page.tsx"],
+    rules: {
+      "react-hooks/purity": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { EntityPicker } from "@/components/admin/ui/EntityPicker";
 import { LineItemsEditor, type LineItem } from "@/components/admin/quotations/LineItemsEditor";
+import { SUPPORTED_CURRENCIES } from "@/lib/pricing/currencies";
 import { createManualInvoice, type FormState } from "@/lib/admin/actions/invoices";
 
 export function InvoiceForm({
@@ -19,7 +20,8 @@ export function InvoiceForm({
   const [state, formAction, pending] = useActionState<FormState, FormData>(createManualInvoice, undefined);
   const [discount, setDiscount] = useState(0);
   const [taxRate, setTaxRate] = useState(0);
-  const initialItems: LineItem[] = [];
+  const [currency, setCurrency] = useState("EUR");
+  const [items, setItems] = useState<LineItem[]>([{ description: "", quantity: 1, unit_price: 0 }]);
 
   return (
     <form action={formAction} className="space-y-6 max-w-3xl">
@@ -36,7 +38,13 @@ export function InvoiceForm({
         </div>
         <div>
           <label className="block text-sm font-medium text-ink-soft mb-1">Currency</label>
-          <input name="currency" defaultValue="EUR" className="input-luxe" />
+          <select name="currency" value={currency} onChange={(e) => setCurrency(e.target.value)} className="input-luxe">
+            {SUPPORTED_CURRENCIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <label className="block text-sm font-medium text-ink-soft mb-1">Due date</label>
@@ -48,10 +56,11 @@ export function InvoiceForm({
         <label className="block text-sm font-medium text-ink-soft mb-2">Line items</label>
         <LineItemsEditor
           name="items"
-          initialItems={initialItems}
+          items={items}
+          onItemsChange={setItems}
           discount={discount}
           taxRate={taxRate}
-          currency="EUR"
+          currency={currency}
           onDiscountChange={setDiscount}
           onTaxRateChange={setTaxRate}
         />

@@ -16,6 +16,11 @@ import {
   FolderOpen,
   BarChart3,
   Settings,
+  Zap,
+  MessageSquare,
+  Star,
+  TrendingUp,
+  Activity,
   type LucideIcon,
 } from "lucide-react";
 import type { UserRole } from "@/lib/auth/roles";
@@ -42,8 +47,13 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/admin/receipts", label: "Receipts", icon: FileCheck2, roles: ["SUPER_ADMIN", "ADMIN", "FINANCE", "OPERATIONS", "VIEWER"] },
   { href: "/admin/expenses", label: "Expenses", icon: ReceiptText, roles: ["SUPER_ADMIN", "ADMIN", "FINANCE", "OPERATIONS", "VIEWER"] },
   { href: "/admin/follow-ups", label: "Follow-ups", icon: Bell },
+  { href: "/admin/communications", label: "Communications", icon: MessageSquare, roles: ["SUPER_ADMIN", "ADMIN", "OPERATIONS"] },
+  { href: "/admin/reviews", label: "Reviews", icon: Star, roles: ["SUPER_ADMIN", "ADMIN", "OPERATIONS"] },
   { href: "/admin/documents", label: "Documents", icon: FolderOpen },
-  { href: "/admin/reports", label: "Reports", icon: BarChart3, roles: ["SUPER_ADMIN", "ADMIN", "FINANCE", "OPERATIONS"] },
+  { href: "/admin/reports", label: "Reports", icon: BarChart3, roles: ["SUPER_ADMIN", "ADMIN", "FINANCE", "OPERATIONS", "VIEWER"] },
+  { href: "/admin/insights", label: "Insights", icon: TrendingUp, roles: ["SUPER_ADMIN", "ADMIN", "FINANCE", "OPERATIONS"] },
+  { href: "/admin/automations", label: "Automations", icon: Zap, roles: ["SUPER_ADMIN", "ADMIN"] },
+  { href: "/admin/system", label: "System health", icon: Activity, roles: ["SUPER_ADMIN", "ADMIN"] },
   { href: "/admin/settings", label: "Settings", icon: Settings, roles: ["SUPER_ADMIN", "ADMIN"] },
 ];
 
