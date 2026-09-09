@@ -29,14 +29,14 @@ export default async function Image() {
           style={{ position: "absolute", top: 56, right: 64 }}
         >
           <path
-            d="M18 21 L32 43 L46 21"
+            d="M19 48 L19 27 A13 16 0 0 1 45 27 L45 48"
             fill="none"
             stroke="#cba565"
             strokeWidth="5.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          <line x1="25" y1="49" x2="39" y2="49" stroke="#cba565" strokeWidth="3.5" strokeLinecap="round" />
+          <line x1="14" y1="49" x2="50" y2="49" stroke="#cba565" strokeWidth="4" strokeLinecap="round" />
         </svg>
         <div
           style={{
