@@ -5,13 +5,16 @@ const isDev = process.env.NODE_ENV === "development";
 // No external scripts/styles/images/fonts/frames are used anywhere in this
 // site (next/font self-hosts fonts, JSON-LD is the only inline script), so
 // the policy can stay tight without per-request nonces — which would force
-// every statically generated page into dynamic rendering.
+// every statically generated page into dynamic rendering. Cloudflare
+// auto-injects its Web Analytics beacon into the HTML at the edge, so its
+// domains need an explicit allowance regardless of what the app itself uses.
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
+  script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com${isDev ? " 'unsafe-eval'" : ""};
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data:;
   font-src 'self';
+  connect-src 'self' https://cloudflareinsights.com;
   object-src 'none';
   base-uri 'self';
   form-action 'self';
