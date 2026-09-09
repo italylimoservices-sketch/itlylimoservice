@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "Servizio auto con autista privato di alta gamma in tutta Italia. Transfer aeroportuali, trasporto città-città, noleggio a ore e tour privati con autisti che parlano inglese e prezzi trasparenti.",
   alternates: {
     canonical: "/it",
-    languages: { en: "/", it: "/it" },
+    languages: { en: "/", it: "/it", "x-default": "/" },
   },
 };
 

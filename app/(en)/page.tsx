@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "Premium private chauffeur service across Italy. Airport transfers, city-to-city transportation, hourly hire and private tours with English-speaking drivers and transparent pricing.",
   alternates: {
     canonical: "/",
-    languages: { en: "/", it: "/it" },
+    languages: { en: "/", it: "/it", "x-default": "/" },
   },
 };
 
