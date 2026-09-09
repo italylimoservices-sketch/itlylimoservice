@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/siteConfig";
+import { HashSessionHandler } from "@/components/auth/HashSessionHandler";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -101,6 +102,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <HashSessionHandler />
         {children}
       </body>
     </html>
