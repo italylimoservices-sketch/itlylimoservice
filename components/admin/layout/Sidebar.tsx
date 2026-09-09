@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
-import type { NavItem } from "@/lib/admin/nav";
+import { navItemsForRole, type NavItem } from "@/lib/admin/nav";
+import type { UserRole } from "@/lib/auth/roles";
 import { siteConfig } from "@/lib/siteConfig";
 
 function NavList({ navItems, pathname, onNavigate }: { navItems: NavItem[]; pathname: string; onNavigate?: () => void }) {
@@ -36,15 +37,20 @@ function NavList({ navItems, pathname, onNavigate }: { navItems: NavItem[]; path
 }
 
 export function Sidebar({
-  navItems,
+  role,
   mobileOpen,
   onClose,
 }: {
-  navItems: NavItem[];
+  role: UserRole;
   mobileOpen: boolean;
   onClose: () => void;
 }) {
   const pathname = usePathname();
+  // Computed client-side from the role (a plain string, safe to cross the
+  // server/client boundary) rather than received as a prop — NavItem.icon is
+  // a component reference (lucide-react forwardRef object), and those can't
+  // be serialized from a Server Component into a Client Component.
+  const navItems = navItemsForRole(role);
 
   return (
     <>
