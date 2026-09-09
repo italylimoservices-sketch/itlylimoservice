@@ -1,7 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendMail } from "@/lib/mailer";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 const REQUIRED_FIELDS = ["pickup", "destination", "date", "time", "passengers", "name", "contact"] as const;
+
+/**
+ * Records the public enquiry as a CRM lead. Uses the service-role client
+ * because this is an unauthenticated route — there's no signed-in staff
+ * session for RLS to key off, and a public lead is exactly the kind of
+ * "operation that must cross the RLS boundary by design" the admin client
+ * exists for (see lib/supabase/admin.ts). Best-effort: a failure here must
+ * never take down the booking form, since the email above is already the
+ * primary, working notification path.
+ */
+async function recordLead(data: Record<string, string>) {
+  try {
+    const supabase = createAdminClient();
+    const isEmail = data.contact.includes("@");
+
+    await supabase.from("leads").insert({
+      // Filled in by the assign_lead_number trigger — deliberately omitted
+      // at runtime (undefined is dropped by JSON.stringify) so the trigger's
+      // `if new.lead_number is null` check fires.
+      lead_number: undefined!,
+      full_name: data.name,
+      email: isEmail ? data.contact : null,
+      phone: isEmail ? null : data.contact,
+      source: "WEBSITE",
+      pickup: data.pickup,
+      dropoff: data.destination,
+      trip_date: data.date || null,
+      trip_time: data.time || null,
+      passengers: Number(data.passengers) || null,
+      notes: [data.tripType ? `Trip type: ${data.tripType}` : null, data.vehicle ? `Preferred vehicle: ${data.vehicle}` : null, data.requirements || null]
+        .filter(Boolean)
+        .join("\n") || null,
+    });
+  } catch (err) {
+    console.error("Failed to record lead from public booking form", err);
+  }
+}
 
 export async function POST(req: NextRequest) {
   let data: Record<string, string>;
@@ -57,6 +95,8 @@ export async function POST(req: NextRequest) {
     console.error("Failed to send booking email", err);
     return NextResponse.json({ ok: false, error: "Failed to send" }, { status: 502 });
   }
+
+  await recordLead(data);
 
   return NextResponse.json({ ok: true });
 }

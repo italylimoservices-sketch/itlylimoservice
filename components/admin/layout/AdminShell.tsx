@@ -1,0 +1,29 @@
+"use client";
+
+import { useState, type ReactNode } from "react";
+import { Sidebar } from "@/components/admin/layout/Sidebar";
+import { Topbar } from "@/components/admin/layout/Topbar";
+import type { NavItem } from "@/lib/admin/nav";
+import type { UserRole } from "@/lib/auth/roles";
+
+export function AdminShell({
+  navItems,
+  profile,
+  children,
+}: {
+  navItems: NavItem[];
+  profile: { fullName: string; email: string; role: UserRole };
+  children: ReactNode;
+}) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  return (
+    <div className="min-h-screen flex bg-ivory-deep">
+      <Sidebar navItems={navItems} mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <div className="flex-1 flex flex-col min-w-0">
+        <Topbar profile={profile} onMenuClick={() => setMobileOpen(true)} />
+        <main className="flex-1 p-4 md:p-6 overflow-x-hidden">{children}</main>
+      </div>
+    </div>
+  );
+}
