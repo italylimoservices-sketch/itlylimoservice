@@ -8,22 +8,41 @@ const passengerOptions = ["1", "2", "3", "4", "5", "6", "7+"];
 
 export default function QuoteForm({ compact = false, locale = "en" }: { compact?: boolean; locale?: Locale }) {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
   const [tripType, setTripType] = useState<"one-way" | "round-trip">("one-way");
   const t = getDictionary(locale).quoteForm;
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+
     // Honeypot: a field real visitors never see or fill, but bots typically do.
     // Silently accept (so the bot gets no signal it was rejected) without
     // actually processing the submission.
-    const honeypot = (e.currentTarget.elements.namedItem("company") as HTMLInputElement | null)?.value;
+    const honeypot = (form.elements.namedItem("company") as HTMLInputElement | null)?.value;
     if (honeypot) {
       setSubmitted(true);
       return;
     }
-    // Booking requests are handled by connecting this form to your reservations
-    // system or inbox (e.g. a form endpoint or CRM integration) before launch.
-    setSubmitted(true);
+
+    const payload = Object.fromEntries(new FormData(form).entries());
+
+    setSubmitting(true);
+    setError(false);
+    try {
+      const res = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -138,11 +157,14 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
         </Field>
       </div>
 
+      {error && <p className="mt-4 text-center text-sm text-red-600">{t.submitError}</p>}
+
       <button
         type="submit"
-        className="mt-6 w-full rounded-sm bg-gold-light px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-navy-deep hover:bg-gold-pale transition-colors"
+        disabled={submitting}
+        className="mt-6 w-full rounded-sm bg-gold-light px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-navy-deep hover:bg-gold-pale transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {t.submit}
+        {submitting ? t.submitting : t.submit}
       </button>
 
       <p className="mt-3 text-center text-xs text-stone">{t.disclaimer}</p>

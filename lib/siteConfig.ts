@@ -6,7 +6,7 @@ export const siteConfig = {
   phoneDisplay: "[+39 XXX XXX XXXX]",
   phoneHref: "tel:+39XXXXXXXXX",
   whatsappHref: "https://wa.me/39XXXXXXXXX",
-  email: "concierge@vetturino-italy.example", // PLACEHOLDER
+  email: "info@italylimoservice.com",
   addressLine: "[Registered office address — to confirm], Italy",
   socials: {
     instagram: "#",
