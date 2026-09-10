@@ -50,6 +50,7 @@ export const metadata: Metadata = {
     google: "yI7_JvGHmvXsg7pN8bXNJIoabuazfwXDadARxcICcEk",
     other: {
       "msvalidate.01": "470931585FFF31283E1B476672E1A59D",
+      "p:domain_verify": "94b45acbd592f0d916b42d0c17377408",
     },
   },
 };
