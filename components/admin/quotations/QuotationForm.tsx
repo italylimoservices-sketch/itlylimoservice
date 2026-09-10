@@ -2,7 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { EntityPicker } from "@/components/admin/ui/EntityPicker";
-import { LineItemsEditor, type LineItem } from "@/components/admin/quotations/LineItemsEditor";
+import { LineItemsEditor, type LineItem, type ServiceOption } from "@/components/admin/quotations/LineItemsEditor";
 import { PriceSuggestionPanel } from "@/components/admin/quotations/PriceSuggestionPanel";
 import { SUPPORTED_CURRENCIES } from "@/lib/pricing/currencies";
 import type { PricingSuggestion } from "@/lib/pricing/engine";
@@ -36,10 +36,12 @@ export function QuotationForm({
   action,
   defaults,
   submitLabel = "Save quotation",
+  services,
 }: {
   action: (state: FormState, formData: FormData) => Promise<FormState>;
   defaults?: QuotationDefaults;
   submitLabel?: string;
+  services?: ServiceOption[];
 }) {
   const [state, formAction, pending] = useActionState(action, undefined);
   const [discount, setDiscount] = useState(defaults?.discount ?? 0);
@@ -126,6 +128,7 @@ export function QuotationForm({
           currency={currency}
           onDiscountChange={setDiscount}
           onTaxRateChange={setTaxRate}
+          services={services}
         />
         <input type="hidden" name="discount" value={discount} />
         <input type="hidden" name="tax_rate" value={taxRate} />

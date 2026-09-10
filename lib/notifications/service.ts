@@ -28,6 +28,8 @@ export async function notifyCustomer(params: {
   vars: TemplateVars;
   relatedEntityType: string;
   relatedEntityId: string;
+  attachments?: { filename: string; content: Buffer; contentType?: string }[];
+  bcc?: string;
 }) {
   if (!params.to) return;
 
@@ -71,7 +73,7 @@ export async function notifyCustomer(params: {
   }
 
   try {
-    await sendMail({ from: `"${siteConfig.name}" <${from}>`, to: params.to, subject, text, html });
+    await sendMail({ from: `"${siteConfig.name}" <${from}>`, to: params.to, subject, text, html, attachments: params.attachments, bcc: params.bcc });
     if (notification) {
       await admin.from("notifications").update({ status: "SENT", sent_at: new Date().toISOString() }).eq("id", notification.id);
     }

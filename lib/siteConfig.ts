@@ -1,13 +1,12 @@
 export const siteConfig = {
   name: "Italy Limo Service",
-  legalName: "[Legal Entity Name — to confirm]",
   tagline: "Private Chauffeurs, Italy-Wide",
   domain: "https://italylimoservice.com",
-  phoneDisplay: "[+39 XXX XXX XXXX]",
-  phoneHref: "tel:+39XXXXXXXXX",
-  whatsappHref: "https://wa.me/39XXXXXXXXX",
-  email: "info@italylimoservice.com",
-  addressLine: "[Registered office address — to confirm], Italy",
+  // The address staff actually monitor for booking requests (matches
+  // MAIL_TO_BOOKING in .env.example) — kept as the one prominent, real
+  // contact channel until a phone/WhatsApp number is confirmed.
+  email: "booking@italylimoservice.com",
+  trustpilotUrl: "https://www.trustpilot.com/review/italylimoservice.com",
   socials: {
     instagram: "#",
     facebook: "#",

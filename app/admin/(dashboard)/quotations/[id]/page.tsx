@@ -34,6 +34,9 @@ export default async function QuotationDetailPage({ params }: { params: Promise<
 
   const canEdit = canManageCrm(profile.role);
   const items = ((quotation as any).quotation_items ?? []).sort((a: any, b: any) => a.sort_order - b.sort_order);
+  const { data: services } = canEdit
+    ? await supabase.from("services").select("id, name, default_price, currency").eq("is_active", true).order("sort_order")
+    : { data: null };
 
   return (
     <div>
@@ -62,6 +65,7 @@ export default async function QuotationDetailPage({ params }: { params: Promise<
                 <QuotationForm
                   action={updateQuotation.bind(null, id)}
                   submitLabel="Save changes"
+                  services={services ?? undefined}
                   defaults={{
                     customer_id: (quotation as any).customers?.id,
                     customer_label: (quotation as any).customers?.full_name,
@@ -82,7 +86,12 @@ export default async function QuotationDetailPage({ params }: { params: Promise<
                     payment_terms: quotation.payment_terms ?? undefined,
                     terms_and_conditions: quotation.terms_and_conditions ?? undefined,
                     internal_notes: quotation.internal_notes ?? undefined,
-                    items: items.map((i: any) => ({ description: i.description, quantity: Number(i.quantity), unit_price: Number(i.unit_price) })),
+                    items: items.map((i: any) => ({
+                      description: i.description,
+                      quantity: Number(i.quantity),
+                      unit_price: Number(i.unit_price),
+                      service_id: i.service_id ?? undefined,
+                    })),
                   }}
                 />
               ) : (

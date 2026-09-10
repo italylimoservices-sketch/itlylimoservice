@@ -27,6 +27,20 @@ export default function Header({ locale = "en" }: { locale?: Locale }) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line/70 bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/85">
+      <div className="bg-navy text-ivory-deep">
+        <div className="container-luxe flex h-9 items-center justify-between">
+          <a
+            href={`mailto:${siteConfig.email}`}
+            aria-label={`Email ${siteConfig.email}`}
+            className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wide hover:text-gold-light transition-colors"
+          >
+            <Icon name="email" className="h-3.5 w-3.5" />
+            {siteConfig.email}
+          </a>
+          <LanguageSwitcher locale={locale} theme="onDark" />
+        </div>
+      </div>
+
       <div className="container-luxe flex h-16 md:h-20 items-center justify-between">
         <Link href={p("/")} onClick={() => setOpen(false)}>
           <LogoFull />
@@ -45,24 +59,6 @@ export default function Header({ locale = "en" }: { locale?: Locale }) {
         </nav>
 
         <div className="hidden xl:flex items-center gap-2.5 shrink-0">
-          <LanguageSwitcher locale={locale} />
-          <a
-            href={siteConfig.phoneHref}
-            aria-label={`Call ${siteConfig.phoneDisplay}`}
-            title={siteConfig.phoneDisplay}
-            className="text-ink-soft hover:text-gold transition-colors"
-          >
-            <Icon name="phone" className="h-5 w-5" />
-          </a>
-          <a
-            href={siteConfig.whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Message us on WhatsApp"
-            className="text-ink-soft hover:text-gold transition-colors"
-          >
-            <Icon name="chat" className="h-5 w-5" />
-          </a>
           <Link
             href={p("/contact")}
             className="inline-flex items-center whitespace-nowrap rounded-sm bg-navy px-3.5 py-2.5 text-[0.85rem] font-semibold text-ivory hover:bg-gold-light hover:text-navy-deep transition-colors"
@@ -111,9 +107,6 @@ export default function Header({ locale = "en" }: { locale?: Locale }) {
             >
               {t.nav.faq}
             </Link>
-            <div className="mt-4 flex justify-center">
-              <LanguageSwitcher locale={locale} />
-            </div>
             <Link
               href={p("/contact")}
               onClick={() => setOpen(false)}
@@ -121,18 +114,6 @@ export default function Header({ locale = "en" }: { locale?: Locale }) {
             >
               {t.nav.requestQuote}
             </Link>
-            <a href={siteConfig.phoneHref} className="mt-3 text-center text-sm font-semibold text-ink-soft">
-              {siteConfig.phoneDisplay}
-            </a>
-            <a
-              href={siteConfig.whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 flex items-center justify-center gap-1.5 text-center text-sm font-semibold text-ink-soft"
-            >
-              <Icon name="chat" className="h-4 w-4" />
-              WhatsApp
-            </a>
           </nav>
         </div>
       )}

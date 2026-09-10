@@ -70,3 +70,70 @@ export async function deleteExpense(id: string) {
 
   revalidatePath("/admin/expenses");
 }
+
+// ---------------------------------------------------------------------------
+// Approval workflow: DRAFT -> SUBMITTED -> APPROVED/REJECTED -> PAID.
+// RLS enforces who can move which transition (see expenses_update policy);
+// these actions are the first-line check + the audit trail write.
+// ---------------------------------------------------------------------------
+export async function submitExpense(id: string) {
+  const profile = await requireRole(EXPENSE_CREATORS);
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("expenses")
+    .update({ status: "SUBMITTED", submitted_by: profile.id, submitted_at: new Date().toISOString() })
+    .eq("id", id)
+    .eq("status", "DRAFT");
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin/expenses");
+}
+
+export async function approveExpense(id: string) {
+  const profile = await requireRole(MANAGE_FINANCE);
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("expenses")
+    .update({ status: "APPROVED", approved_by: profile.id, approved_at: new Date().toISOString() })
+    .eq("id", id)
+    .eq("status", "SUBMITTED");
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin/expenses");
+}
+
+const RejectSchema = z.object({ rejection_reason: z.string().trim().min(1, "A reason is required.") });
+
+export async function rejectExpense(id: string, formData: FormData): Promise<void> {
+  const profile = await requireRole(MANAGE_FINANCE);
+  const parsed = RejectSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect(`/admin/expenses?error=${encodeURIComponent(parsed.error.issues[0]?.message ?? "Invalid input.")}`);
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("expenses")
+    .update({ status: "REJECTED", rejected_by: profile.id, rejected_at: new Date().toISOString(), rejection_reason: parsed.data.rejection_reason })
+    .eq("id", id)
+    .eq("status", "SUBMITTED");
+  if (error) redirect(`/admin/expenses?error=${encodeURIComponent(error.message)}`);
+
+  revalidatePath("/admin/expenses");
+  redirect("/admin/expenses?success=Expense+rejected");
+}
+
+const MarkPaidSchema = z.object({ payment_reference: z.string().trim().min(1, "A payment reference is required.") });
+
+export async function markExpensePaid(id: string, formData: FormData): Promise<void> {
+  const profile = await requireRole(MANAGE_FINANCE);
+  const parsed = MarkPaidSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect(`/admin/expenses?error=${encodeURIComponent(parsed.error.issues[0]?.message ?? "Invalid input.")}`);
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("expenses")
+    .update({ status: "PAID", paid_by: profile.id, paid_at: new Date().toISOString(), payment_reference: parsed.data.payment_reference })
+    .eq("id", id)
+    .eq("status", "APPROVED");
+  if (error) redirect(`/admin/expenses?error=${encodeURIComponent(error.message)}`);
+
+  revalidatePath("/admin/expenses");
+  redirect("/admin/expenses?success=Expense+marked+paid");
+}

@@ -73,16 +73,12 @@ export default function AboutPage() {
           <SectionHeading eyebrow="Company Information" title="Details" />
           <dl className="mt-6 space-y-3 text-sm">
             <div className="flex gap-2">
-              <dt className="font-semibold text-navy w-32 shrink-0">Legal Name</dt>
-              <dd className="text-stone">{siteConfig.legalName}</dd>
-            </div>
-            <div className="flex gap-2">
               <dt className="font-semibold text-navy w-32 shrink-0">Coverage</dt>
               <dd className="text-stone">Nationwide chauffeur service across Italy</dd>
             </div>
             <div className="flex gap-2">
               <dt className="font-semibold text-navy w-32 shrink-0">Contact</dt>
-              <dd className="text-stone">{siteConfig.email} · {siteConfig.phoneDisplay}</dd>
+              <dd className="text-stone">{siteConfig.email}</dd>
             </div>
           </dl>
         </div>

@@ -12,7 +12,7 @@ export function EntityPicker({
   placeholder = "Search…",
   required,
 }: {
-  entity: "customers" | "drivers" | "vehicles" | "bookings";
+  entity: "customers" | "drivers" | "vehicles" | "bookings" | "profiles";
   name: string;
   defaultValue?: string;
   defaultLabel?: string;

@@ -1,6 +1,7 @@
 import { siteConfig } from "@/lib/siteConfig";
 
 export type EmailTemplateKey =
+  | "lead_received"
   | "quotation_sent"
   | "quotation_reminder"
   | "booking_confirmation"
@@ -35,7 +36,7 @@ function wrapHtml(bodyHtml: string): string {
 </td></tr>
 <tr><td style="padding:32px;">${bodyHtml}</td></tr>
 <tr><td style="padding:20px 32px;background:#f2ede2;font-size:11px;color:#6f6a60;">
-${siteConfig.name} · ${siteConfig.phoneDisplay} · ${siteConfig.email}
+${siteConfig.name} · ${siteConfig.email}
 </td></tr>
 </table>
 </td></tr>
@@ -55,13 +56,21 @@ function ctaButton(label: string, note?: string): string {
 type TemplateDef = { subject: (v: TemplateVars) => string; bodyLines: (v: TemplateVars) => string[] };
 
 const TEMPLATES: Record<EmailTemplateKey, TemplateDef> = {
+  lead_received: {
+    subject: () => `We've received your request — ${siteConfig.name}`,
+    bodyLines: (v) => [
+      `Dear {{customer_name}},`,
+      `Thank you — your request for {{pickup}} → {{dropoff}} on {{date}} at {{time}} has been received.`,
+      `A member of our team will review availability and pricing, then get back to you shortly to confirm.`,
+    ].map((l) => fill(l, v)),
+  },
   quotation_sent: {
     subject: (v) => `Your quotation ${v.quotation_number} from {{company_name}}`.replace("{{company_name}}", siteConfig.name),
     bodyLines: (v) => [
       `Dear {{customer_name}},`,
-      `Thank you for your interest — please find your quotation <strong>{{quotation_number}}</strong> for {{pickup}} → {{dropoff}} on {{date}} at {{time}}.`,
+      `Thank you for your interest — please find your quotation <strong>{{quotation_number}}</strong> for {{pickup}} → {{dropoff}} on {{date}} at {{time}}{{pdf_note}}.`,
       `Total: <strong>{{total}}</strong>. This quotation is valid until {{valid_until}}.`,
-      `Reply to this email or contact us on ${siteConfig.phoneDisplay} to confirm.`,
+      `Reply to this email to confirm.`,
     ].map((l) => fill(l, v)),
   },
   quotation_reminder: {
@@ -90,7 +99,7 @@ const TEMPLATES: Record<EmailTemplateKey, TemplateDef> = {
   },
   invoice_created: {
     subject: (v) => `Invoice ${v.invoice_number} from ${siteConfig.name}`,
-    bodyLines: (v) => [`Dear {{customer_name}},`, `Please find invoice <strong>{{invoice_number}}</strong> for {{total}}, due {{due_date}}.`].map((l) => fill(l, v)),
+    bodyLines: (v) => [`Dear {{customer_name}},`, `Please find invoice <strong>{{invoice_number}}</strong> for {{total}}, due {{due_date}}{{pdf_note}}.`].map((l) => fill(l, v)),
   },
   payment_confirmation: {
     subject: (v) => `Payment received — ${v.invoice_number}`,
@@ -122,7 +131,12 @@ const TEMPLATES: Record<EmailTemplateKey, TemplateDef> = {
   },
   review_request: {
     subject: () => `How was your trip?`,
-    bodyLines: (v) => [`Dear {{customer_name}},`, `We'd love to hear your feedback on trip {{booking_reference}} — it helps us improve.`].map((l) => fill(l, v)),
+    bodyLines: (v) => [
+      `Dear {{customer_name}},`,
+      `We'd love to hear your feedback on trip {{booking_reference}} — it helps us improve.`,
+      `Leave a review in your account: {{review_link}}`,
+      `Or on Trustpilot: {{trustpilot_url}}`,
+    ].map((l) => fill(l, v)),
   },
   payment_overdue: {
     subject: (v) => `Payment overdue — ${v.invoice_number}`,
@@ -137,7 +151,7 @@ export function renderEmail(key: EmailTemplateKey, vars: TemplateVars): { subjec
   const def = TEMPLATES[key];
   const subject = def.subject(vars);
   const lines = def.bodyLines(vars);
-  const html = wrapHtml(paragraphBlock(lines) + ctaButton("Questions", siteConfig.phoneDisplay));
+  const html = wrapHtml(paragraphBlock(lines) + ctaButton("Questions", siteConfig.email));
   const text = lines.map((l) => l.replace(/<[^>]+>/g, "")).join("\n\n");
   return { subject, html, text };
 }
@@ -166,7 +180,7 @@ export function renderEmailFromRaw(subjectTemplate: string, bodyTemplate: string
   const subject = fill(subjectTemplate, vars);
   const htmlLines = bodyTemplate.split(/\n\n+/).map((l) => fillHtmlSafe(l, vars));
   const textLines = bodyTemplate.split(/\n\n+/).map((l) => fill(l, vars));
-  const html = wrapHtml(paragraphBlock(htmlLines) + ctaButton("Questions", siteConfig.phoneDisplay));
+  const html = wrapHtml(paragraphBlock(htmlLines) + ctaButton("Questions", siteConfig.email));
   const text = textLines.join("\n\n");
   return { subject, html, text };
 }

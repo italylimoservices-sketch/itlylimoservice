@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendMail } from "@/lib/mailer";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { notifyCustomer } from "@/lib/notifications/service";
+import { formatDate, formatTime } from "@/lib/admin/format";
 
 const REQUIRED_FIELDS = ["pickup", "destination", "date", "time", "passengers", "name", "contact"] as const;
 
@@ -13,31 +15,38 @@ const REQUIRED_FIELDS = ["pickup", "destination", "date", "time", "passengers", 
  * never take down the booking form, since the email above is already the
  * primary, working notification path.
  */
-async function recordLead(data: Record<string, string>) {
+async function recordLead(data: Record<string, string>): Promise<string | null> {
   try {
     const supabase = createAdminClient();
     const isEmail = data.contact.includes("@");
 
-    await supabase.from("leads").insert({
-      // Filled in by the assign_lead_number trigger — deliberately omitted
-      // at runtime (undefined is dropped by JSON.stringify) so the trigger's
-      // `if new.lead_number is null` check fires.
-      lead_number: undefined!,
-      full_name: data.name,
-      email: isEmail ? data.contact : null,
-      phone: isEmail ? null : data.contact,
-      source: "WEBSITE",
-      pickup: data.pickup,
-      dropoff: data.destination,
-      trip_date: data.date || null,
-      trip_time: data.time || null,
-      passengers: Number(data.passengers) || null,
-      notes: [data.tripType ? `Trip type: ${data.tripType}` : null, data.vehicle ? `Preferred vehicle: ${data.vehicle}` : null, data.requirements || null]
-        .filter(Boolean)
-        .join("\n") || null,
-    });
+    const { data: lead, error } = await supabase
+      .from("leads")
+      .insert({
+        // Filled in by the assign_lead_number trigger — deliberately omitted
+        // at runtime (undefined is dropped by JSON.stringify) so the trigger's
+        // `if new.lead_number is null` check fires.
+        lead_number: undefined!,
+        full_name: data.name,
+        email: isEmail ? data.contact : null,
+        phone: isEmail ? null : data.contact,
+        source: "WEBSITE",
+        pickup: data.pickup,
+        dropoff: data.destination,
+        trip_date: data.date || null,
+        trip_time: data.time || null,
+        passengers: Number(data.passengers) || null,
+        notes: [data.tripType ? `Trip type: ${data.tripType}` : null, data.vehicle ? `Preferred vehicle: ${data.vehicle}` : null, data.requirements || null]
+          .filter(Boolean)
+          .join("\n") || null,
+      })
+      .select("id")
+      .single();
+    if (error) throw error;
+    return lead.id;
   } catch (err) {
     console.error("Failed to record lead from public booking form", err);
+    return null;
   }
 }
 
@@ -96,7 +105,31 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Failed to send" }, { status: 502 });
   }
 
-  await recordLead(data);
+  const leadId = await recordLead(data);
+
+  // Best-effort customer confirmation — a phone-only contact has no email
+  // to send to, and any failure here must never fail the form submission
+  // itself (the staff notification above is the primary, already-succeeded
+  // path).
+  if (leadId && data.contact.includes("@")) {
+    try {
+      await notifyCustomer({
+        templateKey: "lead_received",
+        to: data.contact,
+        vars: {
+          customer_name: data.name,
+          pickup: data.pickup,
+          dropoff: data.destination,
+          date: formatDate(data.date),
+          time: formatTime(data.time),
+        },
+        relatedEntityType: "lead",
+        relatedEntityId: leadId,
+      });
+    } catch (err) {
+      console.error("Failed to send lead_received confirmation", err);
+    }
+  }
 
   return NextResponse.json({ ok: true });
 }

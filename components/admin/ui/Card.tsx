@@ -11,7 +11,7 @@ export function StatCard({
 }: {
   label: string;
   value: ReactNode;
-  hint?: string;
+  hint?: ReactNode;
 }) {
   return (
     <Card className="p-4">

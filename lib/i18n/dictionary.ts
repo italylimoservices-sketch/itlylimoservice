@@ -35,8 +35,7 @@ export const dictionary = {
       tagline: "Premium private chauffeur transportation across Italy.",
     },
     stickyCta: {
-      call: "Call",
-      whatsapp: "WhatsApp",
+      email: "Email",
       getQuote: "Get a Quote",
     },
     cookie: {
@@ -231,8 +230,7 @@ export const dictionary = {
       tagline: "Trasporto privato con autista di alta gamma in tutta Italia.",
     },
     stickyCta: {
-      call: "Chiama",
-      whatsapp: "WhatsApp",
+      email: "Email",
       getQuote: "Richiedi Preventivo",
     },
     cookie: {

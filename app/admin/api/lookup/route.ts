@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/auth/dal";
 
-const ENTITIES = ["customers", "drivers", "vehicles", "bookings"] as const;
+const ENTITIES = ["customers", "drivers", "vehicles", "bookings", "profiles"] as const;
 type Entity = (typeof ENTITIES)[number];
 
 const TABLES: Record<Entity, { columns: string; label: (row: any) => string }> = {
@@ -21,6 +21,10 @@ const TABLES: Record<Entity, { columns: string; label: (row: any) => string }> =
   bookings: {
     columns: "id, booking_reference, pickup, dropoff",
     label: (r) => `${r.booking_reference} · ${r.pickup} → ${r.dropoff}`,
+  },
+  profiles: {
+    columns: "id, full_name, email",
+    label: (r) => `${r.full_name || r.email}`,
   },
 };
 
@@ -54,6 +58,7 @@ export async function GET(request: NextRequest) {
   if (entity === "vehicles") query = query.eq("active" as any, true);
   if (entity === "drivers") query = query.eq("active" as any, true);
   if (entity === "bookings") query = query.is("deleted_at", null).order("trip_date", { ascending: false });
+  if (entity === "profiles") query = query.eq("active" as any, true);
 
   if (q) {
     if (entity === "customers") {
@@ -64,6 +69,8 @@ export async function GET(request: NextRequest) {
       query = query.or(`name.ilike.%${q}%,registration_number.ilike.%${q}%`);
     } else if (entity === "bookings") {
       query = query.ilike("booking_reference", `%${q}%`);
+    } else if (entity === "profiles") {
+      query = query.or(`full_name.ilike.%${q}%,email.ilike.%${q}%`);
     }
   }
 

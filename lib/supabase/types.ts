@@ -225,7 +225,12 @@ export type Database = {
           assigned_at: string | null
           assigned_by: string | null
           booking_reference: string
+          cancellation_fee: number | null
+          cancellation_initiated_by: string | null
+          cancellation_reason: string | null
+          cancellation_refund_amount: number | null
           cancelled_at: string | null
+          cancelled_by: string | null
           completed_at: string | null
           confirmed_at: string | null
           created_at: string
@@ -250,6 +255,10 @@ export type Database = {
           luggage: number | null
           meet_and_greet_notes: string | null
           no_show_at: string | null
+          no_show_charge: number | null
+          no_show_notes: string | null
+          no_show_refund_amount: number | null
+          no_show_type: string | null
           passengers: number | null
           payment_status: Database["public"]["Enums"]["payment_status"]
           picked_up_at: string | null
@@ -257,6 +266,7 @@ export type Database = {
           price: number
           pricing_breakdown: Json | null
           quotation_id: string | null
+          service_id: string | null
           source: Database["public"]["Enums"]["booking_source"]
           special_requests: string | null
           status: Database["public"]["Enums"]["booking_status"]
@@ -272,7 +282,12 @@ export type Database = {
           assigned_at?: string | null
           assigned_by?: string | null
           booking_reference: string
+          cancellation_fee?: number | null
+          cancellation_initiated_by?: string | null
+          cancellation_reason?: string | null
+          cancellation_refund_amount?: number | null
           cancelled_at?: string | null
+          cancelled_by?: string | null
           completed_at?: string | null
           confirmed_at?: string | null
           created_at?: string
@@ -297,6 +312,10 @@ export type Database = {
           luggage?: number | null
           meet_and_greet_notes?: string | null
           no_show_at?: string | null
+          no_show_charge?: number | null
+          no_show_notes?: string | null
+          no_show_refund_amount?: number | null
+          no_show_type?: string | null
           passengers?: number | null
           payment_status?: Database["public"]["Enums"]["payment_status"]
           picked_up_at?: string | null
@@ -304,6 +323,7 @@ export type Database = {
           price?: number
           pricing_breakdown?: Json | null
           quotation_id?: string | null
+          service_id?: string | null
           source?: Database["public"]["Enums"]["booking_source"]
           special_requests?: string | null
           status?: Database["public"]["Enums"]["booking_status"]
@@ -319,7 +339,12 @@ export type Database = {
           assigned_at?: string | null
           assigned_by?: string | null
           booking_reference?: string
+          cancellation_fee?: number | null
+          cancellation_initiated_by?: string | null
+          cancellation_reason?: string | null
+          cancellation_refund_amount?: number | null
           cancelled_at?: string | null
+          cancelled_by?: string | null
           completed_at?: string | null
           confirmed_at?: string | null
           created_at?: string
@@ -344,6 +369,10 @@ export type Database = {
           luggage?: number | null
           meet_and_greet_notes?: string | null
           no_show_at?: string | null
+          no_show_charge?: number | null
+          no_show_notes?: string | null
+          no_show_refund_amount?: number | null
+          no_show_type?: string | null
           passengers?: number | null
           payment_status?: Database["public"]["Enums"]["payment_status"]
           picked_up_at?: string | null
@@ -351,6 +380,7 @@ export type Database = {
           price?: number
           pricing_breakdown?: Json | null
           quotation_id?: string | null
+          service_id?: string | null
           source?: Database["public"]["Enums"]["booking_source"]
           special_requests?: string | null
           status?: Database["public"]["Enums"]["booking_status"]
@@ -366,6 +396,13 @@ export type Database = {
           {
             foreignKeyName: "bookings_assigned_by_fkey"
             columns: ["assigned_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_cancelled_by_fkey"
+            columns: ["cancelled_by"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -399,6 +436,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "bookings_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "bookings_vehicle_id_fkey"
             columns: ["vehicle_id"]
             isOneToOne: false
@@ -414,6 +458,7 @@ export type Database = {
           booking_prefix: string
           company_name: string
           currency_default: string
+          discount_approval_threshold_percent: number
           email: string | null
           id: string
           invoice_prefix: string
@@ -438,6 +483,7 @@ export type Database = {
           booking_prefix?: string
           company_name?: string
           currency_default?: string
+          discount_approval_threshold_percent?: number
           email?: string | null
           id?: string
           invoice_prefix?: string
@@ -462,6 +508,7 @@ export type Database = {
           booking_prefix?: string
           company_name?: string
           currency_default?: string
+          discount_approval_threshold_percent?: number
           email?: string | null
           id?: string
           invoice_prefix?: string
@@ -481,6 +528,64 @@ export type Database = {
           whatsapp?: string | null
         }
         Relationships: []
+      }
+      credit_notes: {
+        Row: {
+          amount: number
+          created_at: string
+          credit_note_number: string
+          currency: string
+          customer_id: string | null
+          id: string
+          invoice_id: string | null
+          reason: string | null
+          refund_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          credit_note_number: string
+          currency?: string
+          customer_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          reason?: string | null
+          refund_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          credit_note_number?: string
+          currency?: string
+          customer_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          reason?: string | null
+          refund_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "credit_notes_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "credit_notes_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "credit_notes_refund_id_fkey"
+            columns: ["refund_id"]
+            isOneToOne: false
+            referencedRelation: "refunds"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       customer_accounts: {
         Row: {
@@ -514,52 +619,109 @@ export type Database = {
           },
         ]
       }
+      customer_segment_overrides: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          customer_id: string
+          note: string | null
+          segment: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          customer_id: string
+          note?: string | null
+          segment: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          customer_id?: string
+          note?: string | null
+          segment?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "customer_segment_overrides_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "customer_segment_overrides_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: true
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       customers: {
         Row: {
           billing_address: string | null
+          billing_contact_name: string | null
+          billing_email: string | null
           company_name: string | null
           country: string | null
           created_at: string
           created_by: string | null
+          credit_limit: number | null
+          customer_type: string
           deleted_at: string | null
           email: string | null
           full_name: string
           id: string
           notes: string | null
           opt_out_marketing: boolean
+          payment_terms: string | null
           phone: string | null
+          tax_vat_number: string | null
           updated_at: string
           whatsapp: string | null
         }
         Insert: {
           billing_address?: string | null
+          billing_contact_name?: string | null
+          billing_email?: string | null
           company_name?: string | null
           country?: string | null
           created_at?: string
           created_by?: string | null
+          credit_limit?: number | null
+          customer_type?: string
           deleted_at?: string | null
           email?: string | null
           full_name: string
           id?: string
           notes?: string | null
           opt_out_marketing?: boolean
+          payment_terms?: string | null
           phone?: string | null
+          tax_vat_number?: string | null
           updated_at?: string
           whatsapp?: string | null
         }
         Update: {
           billing_address?: string | null
+          billing_contact_name?: string | null
+          billing_email?: string | null
           company_name?: string | null
           country?: string | null
           created_at?: string
           created_by?: string | null
+          credit_limit?: number | null
+          customer_type?: string
           deleted_at?: string | null
           email?: string | null
           full_name?: string
           id?: string
           notes?: string | null
           opt_out_marketing?: boolean
+          payment_terms?: string | null
           phone?: string | null
+          tax_vat_number?: string | null
           updated_at?: string
           whatsapp?: string | null
         }
@@ -567,6 +729,72 @@ export type Database = {
           {
             foreignKeyName: "customers_created_by_fkey"
             columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      discount_requests: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string
+          discount_amount: number
+          discount_percent: number
+          entity_id: string
+          entity_type: string
+          final_price: number
+          id: string
+          original_price: number
+          reason: string
+          requested_by: string | null
+          status: string
+          threshold_percent: number
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          discount_amount?: number
+          discount_percent?: number
+          entity_id: string
+          entity_type: string
+          final_price: number
+          id?: string
+          original_price: number
+          reason: string
+          requested_by?: string | null
+          status?: string
+          threshold_percent: number
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          discount_amount?: number
+          discount_percent?: number
+          entity_id?: string
+          entity_type?: string
+          final_price?: number
+          id?: string
+          original_price?: number
+          reason?: string
+          requested_by?: string | null
+          status?: string
+          threshold_percent?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discount_requests_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "discount_requests_requested_by_fkey"
+            columns: ["requested_by"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -592,8 +820,10 @@ export type Database = {
         Row: {
           created_at: string
           doc_type: Database["public"]["Enums"]["document_kind"]
+          document_subtype: string | null
           entity_id: string
           entity_type: string
+          expiry_date: string | null
           file_name: string
           id: string
           mime_type: string | null
@@ -604,8 +834,10 @@ export type Database = {
         Insert: {
           created_at?: string
           doc_type: Database["public"]["Enums"]["document_kind"]
+          document_subtype?: string | null
           entity_id: string
           entity_type: string
+          expiry_date?: string | null
           file_name: string
           id?: string
           mime_type?: string | null
@@ -616,8 +848,10 @@ export type Database = {
         Update: {
           created_at?: string
           doc_type?: Database["public"]["Enums"]["document_kind"]
+          document_subtype?: string | null
           entity_id?: string
           entity_type?: string
+          expiry_date?: string | null
           file_name?: string
           id?: string
           mime_type?: string | null
@@ -700,6 +934,174 @@ export type Database = {
           },
         ]
       }
+      driver_earnings: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          booking_id: string | null
+          calculation_method: string
+          calculation_rate: number | null
+          company_share: number
+          created_at: string
+          currency: string
+          driver_earning: number
+          driver_id: string
+          id: string
+          payout_id: string | null
+          status: string
+          trip_revenue: number
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          booking_id?: string | null
+          calculation_method: string
+          calculation_rate?: number | null
+          company_share: number
+          created_at?: string
+          currency?: string
+          driver_earning: number
+          driver_id: string
+          id?: string
+          payout_id?: string | null
+          status?: string
+          trip_revenue: number
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          booking_id?: string | null
+          calculation_method?: string
+          calculation_rate?: number | null
+          company_share?: number
+          created_at?: string
+          currency?: string
+          driver_earning?: number
+          driver_id?: string
+          id?: string
+          payout_id?: string | null
+          status?: string
+          trip_revenue?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "driver_earnings_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "driver_earnings_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "driver_earnings_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "drivers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "driver_earnings_payout_id_fkey"
+            columns: ["payout_id"]
+            isOneToOne: false
+            referencedRelation: "driver_payouts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      driver_payouts: {
+        Row: {
+          adjustments: number
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string
+          created_by: string | null
+          currency: string
+          driver_id: string
+          expenses: number
+          gross_earnings: number
+          id: string
+          net_payout: number
+          notes: string | null
+          paid_at: string | null
+          payment_reference: string | null
+          period_end: string
+          period_start: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          adjustments?: number
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          driver_id: string
+          expenses?: number
+          gross_earnings?: number
+          id?: string
+          net_payout?: number
+          notes?: string | null
+          paid_at?: string | null
+          payment_reference?: string | null
+          period_end: string
+          period_start: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          adjustments?: number
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          driver_id?: string
+          expenses?: number
+          gross_earnings?: number
+          id?: string
+          net_payout?: number
+          notes?: string | null
+          paid_at?: string | null
+          payment_reference?: string | null
+          period_end?: string
+          period_start?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "driver_payouts_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "driver_payouts_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "driver_payouts_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "drivers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       drivers: {
         Row: {
           active: boolean
@@ -714,6 +1116,9 @@ export type Database = {
           license_number: string | null
           nationality: string | null
           notes: string | null
+          pay_currency: string | null
+          pay_model: string | null
+          pay_rate: number | null
           phone: string | null
           updated_at: string
           whatsapp: string | null
@@ -731,6 +1136,9 @@ export type Database = {
           license_number?: string | null
           nationality?: string | null
           notes?: string | null
+          pay_currency?: string | null
+          pay_model?: string | null
+          pay_rate?: number | null
           phone?: string | null
           updated_at?: string
           whatsapp?: string | null
@@ -748,6 +1156,9 @@ export type Database = {
           license_number?: string | null
           nationality?: string | null
           notes?: string | null
+          pay_currency?: string | null
+          pay_model?: string | null
+          pay_rate?: number | null
           phone?: string | null
           updated_at?: string
           whatsapp?: string | null
@@ -762,9 +1173,56 @@ export type Database = {
           },
         ]
       }
+      expense_status_history: {
+        Row: {
+          changed_at: string
+          changed_by: string | null
+          expense_id: string
+          from_status: string | null
+          id: string
+          note: string | null
+          to_status: string
+        }
+        Insert: {
+          changed_at?: string
+          changed_by?: string | null
+          expense_id: string
+          from_status?: string | null
+          id?: string
+          note?: string | null
+          to_status: string
+        }
+        Update: {
+          changed_at?: string
+          changed_by?: string | null
+          expense_id?: string
+          from_status?: string | null
+          id?: string
+          note?: string | null
+          to_status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expense_status_history_changed_by_fkey"
+            columns: ["changed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expense_status_history_expense_id_fkey"
+            columns: ["expense_id"]
+            isOneToOne: false
+            referencedRelation: "expenses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       expenses: {
         Row: {
           amount: number
+          approved_at: string | null
+          approved_by: string | null
           booking_id: string | null
           category: Database["public"]["Enums"]["expense_category"]
           created_at: string
@@ -775,11 +1233,22 @@ export type Database = {
           driver_id: string | null
           expense_date: string
           id: string
+          paid_at: string | null
+          paid_by: string | null
+          payment_reference: string | null
+          rejected_at: string | null
+          rejected_by: string | null
+          rejection_reason: string | null
+          status: string
+          submitted_at: string | null
+          submitted_by: string | null
           updated_at: string
           vehicle_id: string | null
         }
         Insert: {
           amount: number
+          approved_at?: string | null
+          approved_by?: string | null
           booking_id?: string | null
           category: Database["public"]["Enums"]["expense_category"]
           created_at?: string
@@ -790,11 +1259,22 @@ export type Database = {
           driver_id?: string | null
           expense_date?: string
           id?: string
+          paid_at?: string | null
+          paid_by?: string | null
+          payment_reference?: string | null
+          rejected_at?: string | null
+          rejected_by?: string | null
+          rejection_reason?: string | null
+          status?: string
+          submitted_at?: string | null
+          submitted_by?: string | null
           updated_at?: string
           vehicle_id?: string | null
         }
         Update: {
           amount?: number
+          approved_at?: string | null
+          approved_by?: string | null
           booking_id?: string | null
           category?: Database["public"]["Enums"]["expense_category"]
           created_at?: string
@@ -805,10 +1285,26 @@ export type Database = {
           driver_id?: string | null
           expense_date?: string
           id?: string
+          paid_at?: string | null
+          paid_by?: string | null
+          payment_reference?: string | null
+          rejected_at?: string | null
+          rejected_by?: string | null
+          rejection_reason?: string | null
+          status?: string
+          submitted_at?: string | null
+          submitted_by?: string | null
           updated_at?: string
           vehicle_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "expenses_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "expenses_booking_id_fkey"
             columns: ["booking_id"]
@@ -831,10 +1327,69 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "expenses_paid_by_fkey"
+            columns: ["paid_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expenses_rejected_by_fkey"
+            columns: ["rejected_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expenses_submitted_by_fkey"
+            columns: ["submitted_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "expenses_vehicle_id_fkey"
             columns: ["vehicle_id"]
             isOneToOne: false
             referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      export_logs: {
+        Row: {
+          created_at: string
+          dataset: string
+          filters: Json | null
+          id: string
+          row_count: number
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          dataset: string
+          filters?: Json | null
+          id?: string
+          row_count?: number
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          dataset?: string
+          filters?: Json | null
+          id?: string
+          row_count?: number
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "export_logs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -943,6 +1498,41 @@ export type Database = {
           },
         ]
       }
+      internal_notes: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          entity_id: string
+          entity_type: string
+          id: string
+          note: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          entity_id: string
+          entity_type: string
+          id?: string
+          note: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          note?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "internal_notes_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       invoice_items: {
         Row: {
           amount: number
@@ -950,6 +1540,7 @@ export type Database = {
           id: string
           invoice_id: string
           quantity: number
+          service_id: string | null
           sort_order: number
           unit_price: number
         }
@@ -959,6 +1550,7 @@ export type Database = {
           id?: string
           invoice_id: string
           quantity?: number
+          service_id?: string | null
           sort_order?: number
           unit_price?: number
         }
@@ -968,6 +1560,7 @@ export type Database = {
           id?: string
           invoice_id?: string
           quantity?: number
+          service_id?: string | null
           sort_order?: number
           unit_price?: number
         }
@@ -977,6 +1570,13 @@ export type Database = {
             columns: ["invoice_id"]
             isOneToOne: false
             referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoice_items_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
             referencedColumns: ["id"]
           },
         ]
@@ -1360,6 +1960,72 @@ export type Database = {
         }
         Relationships: []
       }
+      operational_alerts: {
+        Row: {
+          alert_type: string
+          assigned_to: string | null
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          message: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          severity: string
+          snoozed_until: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          alert_type: string
+          assigned_to?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          message?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          snoozed_until?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          alert_type?: string
+          assigned_to?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          message?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          snoozed_until?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "operational_alerts_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "operational_alerts_resolved_by_fkey"
+            columns: ["resolved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       payments: {
         Row: {
           amount: number
@@ -1368,11 +2034,16 @@ export type Database = {
           currency: string
           customer_id: string | null
           deleted_at: string | null
+          external_reference: string | null
           id: string
           invoice_id: string
           method: Database["public"]["Enums"]["payment_method"]
           notes: string | null
           payment_date: string
+          reconciled_at: string | null
+          reconciled_by: string | null
+          reconciliation_notes: string | null
+          reconciliation_status: string
           recorded_by: string | null
           reference_number: string | null
           updated_at: string
@@ -1384,11 +2055,16 @@ export type Database = {
           currency?: string
           customer_id?: string | null
           deleted_at?: string | null
+          external_reference?: string | null
           id?: string
           invoice_id: string
           method: Database["public"]["Enums"]["payment_method"]
           notes?: string | null
           payment_date?: string
+          reconciled_at?: string | null
+          reconciled_by?: string | null
+          reconciliation_notes?: string | null
+          reconciliation_status?: string
           recorded_by?: string | null
           reference_number?: string | null
           updated_at?: string
@@ -1400,11 +2076,16 @@ export type Database = {
           currency?: string
           customer_id?: string | null
           deleted_at?: string | null
+          external_reference?: string | null
           id?: string
           invoice_id?: string
           method?: Database["public"]["Enums"]["payment_method"]
           notes?: string | null
           payment_date?: string
+          reconciled_at?: string | null
+          reconciled_by?: string | null
+          reconciliation_notes?: string | null
+          reconciliation_status?: string
           recorded_by?: string | null
           reference_number?: string | null
           updated_at?: string
@@ -1432,8 +2113,56 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "payments_reconciled_by_fkey"
+            columns: ["reconciled_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "payments_recorded_by_fkey"
             columns: ["recorded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      price_override_log: {
+        Row: {
+          changed_at: string
+          changed_by: string | null
+          entity_id: string
+          entity_type: string
+          id: string
+          new_price: number
+          original_price: number
+          reason: string
+        }
+        Insert: {
+          changed_at?: string
+          changed_by?: string | null
+          entity_id: string
+          entity_type: string
+          id?: string
+          new_price: number
+          original_price: number
+          reason: string
+        }
+        Update: {
+          changed_at?: string
+          changed_by?: string | null
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          new_price?: number
+          original_price?: number
+          reason?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "price_override_log_changed_by_fkey"
+            columns: ["changed_by"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -1677,6 +2406,7 @@ export type Database = {
           id: string
           quantity: number
           quotation_id: string
+          service_id: string | null
           sort_order: number
           unit_price: number
         }
@@ -1686,6 +2416,7 @@ export type Database = {
           id?: string
           quantity?: number
           quotation_id: string
+          service_id?: string | null
           sort_order?: number
           unit_price?: number
         }
@@ -1695,6 +2426,7 @@ export type Database = {
           id?: string
           quantity?: number
           quotation_id?: string
+          service_id?: string | null
           sort_order?: number
           unit_price?: number
         }
@@ -1704,6 +2436,13 @@ export type Database = {
             columns: ["quotation_id"]
             isOneToOne: false
             referencedRelation: "quotations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotation_items_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
             referencedColumns: ["id"]
           },
         ]
@@ -1978,6 +2717,109 @@ export type Database = {
           },
         ]
       }
+      refunds: {
+        Row: {
+          amount: number
+          approved_at: string | null
+          approved_by: string | null
+          booking_id: string | null
+          created_at: string
+          currency: string
+          customer_id: string | null
+          id: string
+          invoice_id: string | null
+          payment_id: string
+          processed_at: string | null
+          reason: string
+          refund_reference: string | null
+          refund_type: string
+          requested_by: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          approved_at?: string | null
+          approved_by?: string | null
+          booking_id?: string | null
+          created_at?: string
+          currency?: string
+          customer_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          payment_id: string
+          processed_at?: string | null
+          reason: string
+          refund_reference?: string | null
+          refund_type: string
+          requested_by?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          approved_at?: string | null
+          approved_by?: string | null
+          booking_id?: string | null
+          created_at?: string
+          currency?: string
+          customer_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          payment_id?: string
+          processed_at?: string | null
+          reason?: string
+          refund_reference?: string | null
+          refund_type?: string
+          requested_by?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "refunds_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refunds_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refunds_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refunds_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refunds_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refunds_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       reviews: {
         Row: {
           booking_id: string | null
@@ -2039,65 +2881,296 @@ export type Database = {
           },
         ]
       }
+      role_permissions: {
+        Row: {
+          permission: string
+          role: Database["public"]["Enums"]["user_role"]
+        }
+        Insert: {
+          permission: string
+          role: Database["public"]["Enums"]["user_role"]
+        }
+        Update: {
+          permission?: string
+          role?: Database["public"]["Enums"]["user_role"]
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          currency: string | null
+          default_buffer_minutes: number | null
+          default_duration_minutes: number | null
+          default_price: number | null
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          pricing_model: string
+          sort_order: number
+          tax_behavior: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          default_buffer_minutes?: number | null
+          default_duration_minutes?: number | null
+          default_price?: number | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          pricing_model: string
+          sort_order?: number
+          tax_behavior?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          default_buffer_minutes?: number | null
+          default_duration_minutes?: number | null
+          default_price?: number | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          pricing_model?: string
+          sort_order?: number
+          tax_behavior?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "services_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          assigned_to: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          priority: string
+          related_entity_id: string | null
+          related_entity_type: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string
+          related_entity_id?: string | null
+          related_entity_type?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string
+          related_entity_id?: string | null
+          related_entity_type?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vehicle_maintenance: {
+        Row: {
+          cost: number
+          created_at: string
+          created_by: string | null
+          currency: string
+          description: string | null
+          document_id: string | null
+          id: string
+          maintenance_type: Database["public"]["Enums"]["maintenance_type"]
+          mileage: number | null
+          next_service_date: string | null
+          next_service_mileage: number | null
+          service_date: string
+          updated_at: string
+          vehicle_id: string
+          vendor: string | null
+        }
+        Insert: {
+          cost?: number
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          description?: string | null
+          document_id?: string | null
+          id?: string
+          maintenance_type: Database["public"]["Enums"]["maintenance_type"]
+          mileage?: number | null
+          next_service_date?: string | null
+          next_service_mileage?: number | null
+          service_date?: string
+          updated_at?: string
+          vehicle_id: string
+          vendor?: string | null
+        }
+        Update: {
+          cost?: number
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          description?: string | null
+          document_id?: string | null
+          id?: string
+          maintenance_type?: Database["public"]["Enums"]["maintenance_type"]
+          mileage?: number | null
+          next_service_date?: string | null
+          next_service_mileage?: number | null
+          service_date?: string
+          updated_at?: string
+          vehicle_id?: string
+          vendor?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vehicle_maintenance_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicle_maintenance_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicle_maintenance_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       vehicles: {
         Row: {
           active: boolean
           category: Database["public"]["Enums"]["vehicle_category"]
+          color: string | null
           created_at: string
+          current_mileage: number | null
           deleted_at: string | null
           description: string | null
           id: string
           image_url: string | null
           insurance_expiry: string | null
+          lease_end_date: string | null
+          lease_monthly_amount: number | null
           luggage_capacity: number | null
           make: string | null
           model: string | null
           name: string
+          purchase_date: string | null
+          purchase_price: number | null
           registration_expiry: string | null
           registration_number: string | null
           seats: number | null
           status: Database["public"]["Enums"]["vehicle_status"]
           updated_at: string
+          vin: string | null
           year: number | null
         }
         Insert: {
           active?: boolean
           category?: Database["public"]["Enums"]["vehicle_category"]
+          color?: string | null
           created_at?: string
+          current_mileage?: number | null
           deleted_at?: string | null
           description?: string | null
           id?: string
           image_url?: string | null
           insurance_expiry?: string | null
+          lease_end_date?: string | null
+          lease_monthly_amount?: number | null
           luggage_capacity?: number | null
           make?: string | null
           model?: string | null
           name: string
+          purchase_date?: string | null
+          purchase_price?: number | null
           registration_expiry?: string | null
           registration_number?: string | null
           seats?: number | null
           status?: Database["public"]["Enums"]["vehicle_status"]
           updated_at?: string
+          vin?: string | null
           year?: number | null
         }
         Update: {
           active?: boolean
           category?: Database["public"]["Enums"]["vehicle_category"]
+          color?: string | null
           created_at?: string
+          current_mileage?: number | null
           deleted_at?: string | null
           description?: string | null
           id?: string
           image_url?: string | null
           insurance_expiry?: string | null
+          lease_end_date?: string | null
+          lease_monthly_amount?: number | null
           luggage_capacity?: number | null
           make?: string | null
           model?: string | null
           name?: string
+          purchase_date?: string | null
+          purchase_price?: number | null
           registration_expiry?: string | null
           registration_number?: string | null
           seats?: number | null
           status?: Database["public"]["Enums"]["vehicle_status"]
           updated_at?: string
+          vin?: string | null
           year?: number | null
         }
         Relationships: []
@@ -2109,6 +3182,10 @@ export type Database = {
     Functions: {
       automation_config: { Args: { p_key: string }; Returns: Json }
       automation_is_enabled: { Args: { p_key: string }; Returns: boolean }
+      bump_vehicle_mileage: {
+        Args: { p_mileage: number; p_vehicle_id: string }
+        Returns: undefined
+      }
       check_assignment_conflicts: {
         Args: {
           p_booking_id: string
@@ -2173,6 +3250,20 @@ export type Database = {
           todays_trips: number
           unassigned_trips: number
           upcoming_trips: number
+        }[]
+      }
+      get_customer_metrics: {
+        Args: { p_customer_id: string }
+        Returns: {
+          avg_booking_value: number
+          completed_bookings: number
+          days_since_last_booking: number
+          first_booking_date: string
+          is_corporate: boolean
+          last_booking_date: string
+          segment: string
+          total_bookings: number
+          total_revenue: number
         }[]
       }
       get_my_booking: {
@@ -2314,6 +3405,7 @@ export type Database = {
           total: number
         }[]
       }
+      has_permission: { Args: { p_permission: string }; Returns: boolean }
       is_admin: { Args: never; Returns: boolean }
       is_staff_role: {
         Args: { roles: Database["public"]["Enums"]["user_role"][] }
@@ -2341,6 +3433,11 @@ export type Database = {
       }
       mark_overdue_invoices: { Args: never; Returns: number }
       next_document_number: { Args: { p_doc_type: string }; Returns: string }
+      recalculate_invoice_financials: {
+        Args: { p_invoice_id: string }
+        Returns: undefined
+      }
+      refresh_operational_alerts: { Args: never; Returns: number }
       submit_my_review: {
         Args: { p_comment: string; p_rating: number; p_reference: string }
         Returns: undefined
@@ -2421,6 +3518,15 @@ export type Database = {
         | "NEGOTIATING"
         | "WON"
         | "LOST"
+      maintenance_type:
+        | "OIL_SERVICE"
+        | "TIRES"
+        | "BRAKES"
+        | "INSPECTION"
+        | "REGISTRATION"
+        | "INSURANCE"
+        | "GENERAL"
+        | "REPAIR"
       notification_channel: "EMAIL" | "WHATSAPP" | "SYSTEM"
       notification_status: "PENDING" | "SENT" | "FAILED"
       payment_method: "CASH" | "BANK_TRANSFER" | "CARD" | "ONLINE" | "OTHER"
@@ -2441,7 +3547,7 @@ export type Database = {
         | "DISPATCHER"
         | "VIEWER"
       vehicle_category: "SEDAN" | "SUV" | "VAN" | "LUXURY" | "MINIBUS"
-      vehicle_status: "ACTIVE" | "MAINTENANCE" | "INACTIVE"
+      vehicle_status: "ACTIVE" | "MAINTENANCE" | "INACTIVE" | "AVAILABLE"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2629,6 +3735,16 @@ export const Constants = {
         "REFUNDED",
       ],
       lead_status: ["NEW", "CONTACTED", "QUOTED", "NEGOTIATING", "WON", "LOST"],
+      maintenance_type: [
+        "OIL_SERVICE",
+        "TIRES",
+        "BRAKES",
+        "INSPECTION",
+        "REGISTRATION",
+        "INSURANCE",
+        "GENERAL",
+        "REPAIR",
+      ],
       notification_channel: ["EMAIL", "WHATSAPP", "SYSTEM"],
       notification_status: ["PENDING", "SENT", "FAILED"],
       payment_method: ["CASH", "BANK_TRANSFER", "CARD", "ONLINE", "OTHER"],
@@ -2651,7 +3767,7 @@ export const Constants = {
         "VIEWER",
       ],
       vehicle_category: ["SEDAN", "SUV", "VAN", "LUXURY", "MINIBUS"],
-      vehicle_status: ["ACTIVE", "MAINTENANCE", "INACTIVE"],
+      vehicle_status: ["ACTIVE", "MAINTENANCE", "INACTIVE", "AVAILABLE"],
     },
   },
 } as const

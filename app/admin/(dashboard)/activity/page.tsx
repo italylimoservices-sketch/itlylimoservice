@@ -7,32 +7,11 @@ import { Card } from "@/components/admin/ui/Card";
 import { Pagination } from "@/components/admin/ui/Pagination";
 import { SimpleTable } from "@/components/admin/ui/SimpleTable";
 import { formatDateTime } from "@/lib/admin/format";
+import { changedFields, formatDiffValue } from "@/lib/admin/activityDiff";
 
 export const metadata: Metadata = { title: "Activity log" };
 
 const PAGE_SIZE = 40;
-
-/** Only the fields that actually differ between before/after — noisy columns
- * like updated_at are excluded since they change on every save regardless. */
-function changedFields(before: unknown, after: unknown): { field: string; from: unknown; to: unknown }[] {
-  if (!before || !after || typeof before !== "object" || typeof after !== "object") return [];
-  const b = before as Record<string, unknown>;
-  const a = after as Record<string, unknown>;
-  const skip = new Set(["updated_at", "created_at"]);
-  const fields = new Set([...Object.keys(b), ...Object.keys(a)]);
-  const diffs: { field: string; from: unknown; to: unknown }[] = [];
-  for (const field of fields) {
-    if (skip.has(field)) continue;
-    if (JSON.stringify(b[field]) !== JSON.stringify(a[field])) diffs.push({ field, from: b[field], to: a[field] });
-  }
-  return diffs;
-}
-
-function formatValue(v: unknown): string {
-  if (v === null || v === undefined) return "—";
-  if (typeof v === "object") return JSON.stringify(v);
-  return String(v);
-}
 
 export default async function ActivityPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
   await requireRole(ADMIN_ONLY);
@@ -73,7 +52,7 @@ export default async function ActivityPage({ searchParams }: { searchParams: Pro
                     <ul className="mt-1.5 space-y-0.5">
                       {diffs.map((d) => (
                         <li key={d.field}>
-                          <span className="font-medium">{d.field}</span>: {formatValue(d.from)} → {formatValue(d.to)}
+                          <span className="font-medium">{d.field}</span>: {formatDiffValue(d.from)} → {formatDiffValue(d.to)}
                         </li>
                       ))}
                     </ul>

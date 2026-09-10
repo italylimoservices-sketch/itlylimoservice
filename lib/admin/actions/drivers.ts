@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { requireRole } from "@/lib/auth/dal";
-import { MANAGE_OPS } from "@/lib/auth/roles";
+import { MANAGE_OPS, MANAGE_FINANCE } from "@/lib/auth/roles";
 import type { Database } from "@/lib/supabase/types";
 
 export type FormState = { error?: string } | undefined;
@@ -97,4 +97,29 @@ export async function setDriverAvailability(id: string, availability: DriverAvai
   const { error } = await supabase.from("drivers").update({ availability }).eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath(`/admin/drivers/${id}`);
+}
+
+const DriverPaySchema = z.object({
+  pay_model: z.enum(["FIXED_PER_TRIP", "PERCENTAGE", "DAILY_RATE", "CUSTOM"]),
+  pay_rate: z.coerce.number().nonnegative().optional(),
+  pay_currency: z.string().trim().default("EUR"),
+});
+
+/** Compensation is sensitive — gated to FINANCE/ADMIN, separate from the
+ * general driver-profile edit which OPERATIONS/DISPATCHER can also do. */
+export async function updateDriverPay(id: string, formData: FormData): Promise<void> {
+  await requireRole(MANAGE_FINANCE);
+  const raw = Object.fromEntries(formData);
+  const parsed = DriverPaySchema.safeParse({ ...raw, pay_rate: raw.pay_rate || undefined });
+  if (!parsed.success) redirect(`/admin/drivers/${id}?error=${encodeURIComponent(parsed.error.issues[0]?.message ?? "Invalid input.")}`);
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("drivers")
+    .update({ pay_model: parsed.data.pay_model, pay_rate: parsed.data.pay_rate ?? null, pay_currency: parsed.data.pay_currency })
+    .eq("id", id);
+  if (error) redirect(`/admin/drivers/${id}?error=${encodeURIComponent(error.message)}`);
+
+  revalidatePath(`/admin/drivers/${id}`);
+  redirect(`/admin/drivers/${id}?success=Pay+settings+saved`);
 }

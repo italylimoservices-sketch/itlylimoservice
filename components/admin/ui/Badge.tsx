@@ -55,6 +55,30 @@ const STATUS_TONE: Record<string, keyof typeof TONE_CLASSES> = {
   SUCCESS: "success",
   FAILURE: "danger",
   SKIPPED_DISABLED: "neutral",
+  // expense / refund / discount / payout lifecycles
+  SUBMITTED: "info",
+  APPROVED: "success",
+  PROCESSED: "success",
+  AUTO_APPROVED: "success",
+  // tasks
+  TODO: "warning",
+  // alerts
+  OPEN: "warning",
+  ACKNOWLEDGED: "info",
+  RESOLVED: "success",
+  SNOOZED: "neutral",
+  // reconciliation
+  UNMATCHED: "warning",
+  MATCHED: "success",
+  PARTIALLY_MATCHED: "gold",
+  DISPUTED: "danger",
+  // reviews / receivables
+  CURRENT: "success",
+  DUE_SOON: "gold",
+  // customer segments
+  VIP: "gold",
+  HIGH_FREQUENCY: "success",
+  CORPORATE: "info",
 };
 
 export function StatusBadge({ status }: { status: string }) {

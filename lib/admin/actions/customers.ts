@@ -13,7 +13,13 @@ const CustomerSchema = z.object({
   phone: z.string().trim().optional().or(z.literal("")),
   whatsapp: z.string().trim().optional().or(z.literal("")),
   country: z.string().trim().optional().or(z.literal("")),
+  customer_type: z.enum(["INDIVIDUAL", "COMPANY"]).default("INDIVIDUAL"),
   company_name: z.string().trim().optional().or(z.literal("")),
+  billing_contact_name: z.string().trim().optional().or(z.literal("")),
+  billing_email: z.string().trim().email("Enter a valid billing email.").optional().or(z.literal("")),
+  tax_vat_number: z.string().trim().optional().or(z.literal("")),
+  payment_terms: z.enum(["PAY_NOW", "DUE_7", "DUE_15", "DUE_30", "CUSTOM"]).optional().or(z.literal("")),
+  credit_limit: z.coerce.number().nonnegative().optional(),
   billing_address: z.string().trim().optional().or(z.literal("")),
   notes: z.string().trim().optional().or(z.literal("")),
 });
@@ -78,10 +84,15 @@ export async function ensureCustomerFromContact(input: {
   return data.id;
 }
 
+function parseCustomerForm(formData: FormData) {
+  const raw = Object.fromEntries(formData);
+  return CustomerSchema.safeParse({ ...raw, credit_limit: raw.credit_limit || undefined });
+}
+
 export async function createCustomer(_prevState: FormState, formData: FormData): Promise<FormState> {
   const profile = await requireRole(MANAGE_CRM);
 
-  const parsed = CustomerSchema.safeParse(Object.fromEntries(formData));
+  const parsed = parseCustomerForm(formData);
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Invalid input." };
   }
@@ -95,7 +106,13 @@ export async function createCustomer(_prevState: FormState, formData: FormData):
       phone: toNullable(parsed.data.phone),
       whatsapp: toNullable(parsed.data.whatsapp),
       country: toNullable(parsed.data.country),
+      customer_type: parsed.data.customer_type,
       company_name: toNullable(parsed.data.company_name),
+      billing_contact_name: toNullable(parsed.data.billing_contact_name),
+      billing_email: toNullable(parsed.data.billing_email),
+      tax_vat_number: toNullable(parsed.data.tax_vat_number),
+      payment_terms: toNullable(parsed.data.payment_terms),
+      credit_limit: parsed.data.credit_limit ?? null,
       billing_address: toNullable(parsed.data.billing_address),
       notes: toNullable(parsed.data.notes),
       created_by: profile.id,
@@ -121,7 +138,7 @@ export async function createCustomer(_prevState: FormState, formData: FormData):
 export async function updateCustomer(id: string, _prevState: FormState, formData: FormData): Promise<FormState> {
   await requireRole(MANAGE_CRM);
 
-  const parsed = CustomerSchema.safeParse(Object.fromEntries(formData));
+  const parsed = parseCustomerForm(formData);
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Invalid input." };
   }
@@ -135,7 +152,13 @@ export async function updateCustomer(id: string, _prevState: FormState, formData
       phone: toNullable(parsed.data.phone),
       whatsapp: toNullable(parsed.data.whatsapp),
       country: toNullable(parsed.data.country),
+      customer_type: parsed.data.customer_type,
       company_name: toNullable(parsed.data.company_name),
+      billing_contact_name: toNullable(parsed.data.billing_contact_name),
+      billing_email: toNullable(parsed.data.billing_email),
+      tax_vat_number: toNullable(parsed.data.tax_vat_number),
+      payment_terms: toNullable(parsed.data.payment_terms),
+      credit_limit: parsed.data.credit_limit ?? null,
       billing_address: toNullable(parsed.data.billing_address),
       notes: toNullable(parsed.data.notes),
     })

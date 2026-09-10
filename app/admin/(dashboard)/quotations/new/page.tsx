@@ -20,8 +20,10 @@ export default async function NewQuotationPage({
   let customerLabel: string | undefined;
   let leadDefaults: { pickup?: string; dropoff?: string; trip_date?: string; trip_time?: string; passengers?: number } = {};
 
+  const supabase = await createClient();
+  const { data: services } = await supabase.from("services").select("id, name, default_price, currency").eq("is_active", true).order("sort_order");
+
   if (customer_id || lead_id) {
-    const supabase = await createClient();
     if (customer_id) {
       const { data } = await supabase.from("customers").select("full_name, phone, email").eq("id", customer_id).maybeSingle();
       if (data) customerLabel = `${data.full_name}${data.phone ? ` · ${data.phone}` : data.email ? ` · ${data.email}` : ""}`;
@@ -51,6 +53,7 @@ export default async function NewQuotationPage({
         <QuotationForm
           action={createQuotation}
           submitLabel="Create quotation"
+          services={services ?? undefined}
           defaults={{
             customer_id,
             customer_label: customerLabel,

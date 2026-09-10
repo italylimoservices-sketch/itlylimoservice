@@ -7,7 +7,10 @@ import { createClient } from "@/lib/supabase/server";
 import { requireRole } from "@/lib/auth/dal";
 import { MANAGE_CRM } from "@/lib/auth/roles";
 import { notifyCustomer } from "@/lib/notifications/service";
-import { formatCurrency, formatDate } from "@/lib/admin/format";
+import { formatCurrency, formatDate, formatTime } from "@/lib/admin/format";
+import { recordDiscountIfNeeded } from "@/lib/admin/actions/discounts";
+import { getQuotationPdfDocument } from "@/lib/pdf/quotation";
+import { renderToBuffer } from "@react-pdf/renderer";
 
 export type FormState = { error?: string } | undefined;
 
@@ -15,6 +18,7 @@ const ItemSchema = z.object({
   description: z.string().trim().min(1),
   quantity: z.coerce.number().positive(),
   unit_price: z.coerce.number().nonnegative(),
+  service_id: z.string().uuid().optional().or(z.literal("")),
 });
 
 const QuotationSchema = z.object({
@@ -122,6 +126,7 @@ export async function createQuotation(_prevState: FormState, formData: FormData)
   const { error: itemsError } = await supabase.from("quotation_items").insert(
     parsed.items.map((item, index) => ({
       quotation_id: quotation.id,
+      service_id: item.service_id || null,
       description: item.description,
       quantity: item.quantity,
       unit_price: item.unit_price,
@@ -138,12 +143,21 @@ export async function createQuotation(_prevState: FormState, formData: FormData)
     p_metadata: {},
   });
 
+  await recordDiscountIfNeeded(supabase, {
+    entityType: "quotation",
+    entityId: quotation.id,
+    originalPrice: parsed.subtotal,
+    discountAmount: parsed.data.discount,
+    finalPrice: parsed.total,
+    requestedBy: profile.id,
+  });
+
   revalidatePath("/admin/quotations");
   redirect(`/admin/quotations/${quotation.id}?success=Quotation+created`);
 }
 
 export async function updateQuotation(id: string, _prevState: FormState, formData: FormData): Promise<FormState> {
-  await requireRole(MANAGE_CRM);
+  const profile = await requireRole(MANAGE_CRM);
   const parsed = parseQuotationForm(formData);
   if (!parsed.success) return { error: parsed.error };
 
@@ -180,6 +194,7 @@ export async function updateQuotation(id: string, _prevState: FormState, formDat
   const { error: itemsError } = await supabase.from("quotation_items").insert(
     parsed.items.map((item, index) => ({
       quotation_id: id,
+      service_id: item.service_id || null,
       description: item.description,
       quantity: item.quantity,
       unit_price: item.unit_price,
@@ -188,6 +203,15 @@ export async function updateQuotation(id: string, _prevState: FormState, formDat
     }))
   );
   if (itemsError) return { error: itemsError.message };
+
+  await recordDiscountIfNeeded(supabase, {
+    entityType: "quotation",
+    entityId: id,
+    originalPrice: parsed.subtotal,
+    discountAmount: parsed.data.discount,
+    finalPrice: parsed.total,
+    requestedBy: profile.id,
+  });
 
   revalidatePath(`/admin/quotations/${id}`);
   redirect(`/admin/quotations/${id}?success=Changes+saved`);
@@ -204,11 +228,25 @@ export async function sendQuotation(id: string) {
 
   const { data: quotation } = await supabase
     .from("quotations")
-    .select("quotation_number, total, currency, valid_until, customers(full_name, email)")
+    .select("quotation_number, total, currency, valid_until, pickup, dropoff, trip_date, trip_time, customers(full_name, email)")
     .eq("id", id)
     .maybeSingle();
   const customer = (quotation as any)?.customers;
   if (quotation && customer?.email) {
+    // Best-effort PDF attachment — a failed render must never block the
+    // email itself (the customer should still get the quotation summary
+    // even if the PDF generation has a problem).
+    let attachments: { filename: string; content: Buffer }[] | undefined;
+    try {
+      const doc = await getQuotationPdfDocument(id);
+      if (doc) {
+        const buffer = await renderToBuffer(doc.element as any);
+        attachments = [{ filename: doc.filename, content: buffer }];
+      }
+    } catch (err) {
+      console.error("quotation PDF attachment failed", err instanceof Error ? err.message : err);
+    }
+
     await notifyCustomer({
       templateKey: "quotation_sent",
       to: customer.email,
@@ -217,13 +255,15 @@ export async function sendQuotation(id: string) {
         quotation_number: quotation.quotation_number,
         total: formatCurrency(quotation.total, quotation.currency),
         valid_until: quotation.valid_until ? formatDate(quotation.valid_until) : "—",
-        pickup: "",
-        dropoff: "",
-        date: "",
-        time: "",
+        pickup: quotation.pickup ?? "",
+        dropoff: quotation.dropoff ?? "",
+        date: quotation.trip_date ? formatDate(quotation.trip_date) : "",
+        time: quotation.trip_time ? formatTime(quotation.trip_time) : "",
+        pdf_note: attachments ? " (attached as a PDF)" : "",
       },
       relatedEntityType: "quotation",
       relatedEntityId: id,
+      attachments,
     });
   }
 
@@ -298,6 +338,7 @@ export async function duplicateQuotation(id: string) {
     await supabase.from("quotation_items").insert(
       items.map((item, index) => ({
         quotation_id: copy.id,
+        service_id: item.service_id ?? null,
         description: item.description,
         quantity: item.quantity,
         unit_price: item.unit_price,
