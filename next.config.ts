@@ -13,13 +13,18 @@ const isDev = process.env.NODE_ENV === "development";
 // (plus the region-sharded *.google-analytics.com) to send hits. Ahrefs
 // Analytics (analytics.ahrefs.com) is the same story: one domain for both
 // the script and the beacon it sends. Microsoft Clarity (clarity.ms)
-// self-injects its script tag from an inline snippet and reports back to
-// the same host plus its region-sharded *.clarity.ms endpoints.
+// self-injects its script tag from an inline snippet, but the tag actually
+// loads the real script from scripts.clarity.ms (a different host than the
+// www.clarity.ms/tag/<id> bootstrap URL) and reports back via a c.gif image
+// beacon on c.clarity.ms, which itself redirects a sync pixel to Bing Ads
+// (c.bing.com) as part of Clarity's default cross-platform sync — all of
+// it, plus the region-sharded *.clarity.ms, needs an explicit allowance or
+// Clarity silently fails under this CSP.
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com https://analytics.ahrefs.com https://www.clarity.ms${isDev ? " 'unsafe-eval'" : ""};
+  script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com https://analytics.ahrefs.com https://www.clarity.ms https://scripts.clarity.ms${isDev ? " 'unsafe-eval'" : ""};
   style-src 'self' 'unsafe-inline';
-  img-src 'self' blob: data:;
+  img-src 'self' blob: data: https://c.clarity.ms https://*.clarity.ms https://c.bing.com;
   font-src 'self';
   connect-src 'self' https://cloudflareinsights.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://analytics.ahrefs.com https://www.clarity.ms https://*.clarity.ms;
   object-src 'none';

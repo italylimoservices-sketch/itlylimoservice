@@ -7,8 +7,10 @@ import { createClient } from "@/lib/supabase/server";
 import { requireRole } from "@/lib/auth/dal";
 import { MANAGE_CRM } from "@/lib/auth/roles";
 import { notifyCustomer } from "@/lib/notifications/service";
-import { formatCurrency, formatDate } from "@/lib/admin/format";
+import { formatCurrency, formatDate, formatTime } from "@/lib/admin/format";
 import { recordDiscountIfNeeded } from "@/lib/admin/actions/discounts";
+import { getQuotationPdfDocument } from "@/lib/pdf/quotation";
+import { renderToBuffer } from "@react-pdf/renderer";
 
 export type FormState = { error?: string } | undefined;
 
@@ -226,11 +228,25 @@ export async function sendQuotation(id: string) {
 
   const { data: quotation } = await supabase
     .from("quotations")
-    .select("quotation_number, total, currency, valid_until, customers(full_name, email)")
+    .select("quotation_number, total, currency, valid_until, pickup, dropoff, trip_date, trip_time, customers(full_name, email)")
     .eq("id", id)
     .maybeSingle();
   const customer = (quotation as any)?.customers;
   if (quotation && customer?.email) {
+    // Best-effort PDF attachment — a failed render must never block the
+    // email itself (the customer should still get the quotation summary
+    // even if the PDF generation has a problem).
+    let attachments: { filename: string; content: Buffer }[] | undefined;
+    try {
+      const doc = await getQuotationPdfDocument(id);
+      if (doc) {
+        const buffer = await renderToBuffer(doc.element as any);
+        attachments = [{ filename: doc.filename, content: buffer }];
+      }
+    } catch (err) {
+      console.error("quotation PDF attachment failed", err instanceof Error ? err.message : err);
+    }
+
     await notifyCustomer({
       templateKey: "quotation_sent",
       to: customer.email,
@@ -239,13 +255,15 @@ export async function sendQuotation(id: string) {
         quotation_number: quotation.quotation_number,
         total: formatCurrency(quotation.total, quotation.currency),
         valid_until: quotation.valid_until ? formatDate(quotation.valid_until) : "—",
-        pickup: "",
-        dropoff: "",
-        date: "",
-        time: "",
+        pickup: quotation.pickup ?? "",
+        dropoff: quotation.dropoff ?? "",
+        date: quotation.trip_date ? formatDate(quotation.trip_date) : "",
+        time: quotation.trip_time ? formatTime(quotation.trip_time) : "",
+        pdf_note: attachments ? " (attached as a PDF)" : "",
       },
       relatedEntityType: "quotation",
       relatedEntityId: id,
+      attachments,
     });
   }
 

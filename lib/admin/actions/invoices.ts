@@ -7,7 +7,9 @@ import { createClient } from "@/lib/supabase/server";
 import { requireRole } from "@/lib/auth/dal";
 import { MANAGE_FINANCE } from "@/lib/auth/roles";
 import { notifyCustomer } from "@/lib/notifications/service";
-import { formatCurrency } from "@/lib/admin/format";
+import { formatCurrency, formatDate } from "@/lib/admin/format";
+import { getInvoicePdfDocument } from "@/lib/pdf/invoice";
+import { renderToBuffer } from "@react-pdf/renderer";
 
 export type FormState = { error?: string } | undefined;
 
@@ -161,6 +163,44 @@ export async function markInvoiceSent(id: string) {
   if (error) throw new Error(error.message);
 
   await supabase.rpc("log_activity", { p_action: "invoice.sent", p_entity_type: "invoice", p_entity_id: id, p_metadata: {} });
+
+  const { data: invoice } = await supabase
+    .from("invoices")
+    .select("invoice_number, total, currency, due_date, customers(full_name, email)")
+    .eq("id", id)
+    .maybeSingle();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const customer = (invoice as any)?.customers;
+  if (invoice && customer?.email) {
+    // Best-effort PDF attachment — a failed render must never block the
+    // email itself.
+    let attachments: { filename: string; content: Buffer }[] | undefined;
+    try {
+      const doc = await getInvoicePdfDocument(id);
+      if (doc) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const buffer = await renderToBuffer(doc.element as any);
+        attachments = [{ filename: doc.filename, content: buffer }];
+      }
+    } catch (err) {
+      console.error("invoice PDF attachment failed", err instanceof Error ? err.message : err);
+    }
+
+    await notifyCustomer({
+      templateKey: "invoice_created",
+      to: customer.email,
+      vars: {
+        customer_name: customer.full_name ?? "",
+        invoice_number: invoice.invoice_number,
+        total: formatCurrency(invoice.total, invoice.currency),
+        due_date: invoice.due_date ? formatDate(invoice.due_date) : "—",
+        pdf_note: attachments ? " (attached as a PDF)" : "",
+      },
+      relatedEntityType: "invoice",
+      relatedEntityId: id,
+      attachments,
+    });
+  }
 
   revalidatePath(`/admin/invoices/${id}`);
   revalidatePath("/admin/invoices");

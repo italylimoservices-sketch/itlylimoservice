@@ -59,7 +59,7 @@ const TEMPLATES: Record<EmailTemplateKey, TemplateDef> = {
     subject: (v) => `Your quotation ${v.quotation_number} from {{company_name}}`.replace("{{company_name}}", siteConfig.name),
     bodyLines: (v) => [
       `Dear {{customer_name}},`,
-      `Thank you for your interest — please find your quotation <strong>{{quotation_number}}</strong> for {{pickup}} → {{dropoff}} on {{date}} at {{time}}.`,
+      `Thank you for your interest — please find your quotation <strong>{{quotation_number}}</strong> for {{pickup}} → {{dropoff}} on {{date}} at {{time}}{{pdf_note}}.`,
       `Total: <strong>{{total}}</strong>. This quotation is valid until {{valid_until}}.`,
       `Reply to this email to confirm.`,
     ].map((l) => fill(l, v)),
@@ -90,7 +90,7 @@ const TEMPLATES: Record<EmailTemplateKey, TemplateDef> = {
   },
   invoice_created: {
     subject: (v) => `Invoice ${v.invoice_number} from ${siteConfig.name}`,
-    bodyLines: (v) => [`Dear {{customer_name}},`, `Please find invoice <strong>{{invoice_number}}</strong> for {{total}}, due {{due_date}}.`].map((l) => fill(l, v)),
+    bodyLines: (v) => [`Dear {{customer_name}},`, `Please find invoice <strong>{{invoice_number}}</strong> for {{total}}, due {{due_date}}{{pdf_note}}.`].map((l) => fill(l, v)),
   },
   payment_confirmation: {
     subject: (v) => `Payment received — ${v.invoice_number}`,

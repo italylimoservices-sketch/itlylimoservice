@@ -27,6 +27,7 @@ export async function sendMail(options: {
   text: string;
   html?: string;
   replyTo?: string;
+  attachments?: { filename: string; content: Buffer; contentType?: string }[];
 }) {
   await getTransporter().sendMail({
     from: options.from,
@@ -35,5 +36,6 @@ export async function sendMail(options: {
     subject: options.subject,
     text: options.text,
     html: options.html,
+    attachments: options.attachments,
   });
 }
