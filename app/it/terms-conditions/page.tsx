@@ -102,8 +102,6 @@ export default function TermsPageIt() {
               <p>
                 {siteConfig.name}
                 <br />
-                {siteConfig.addressLine}
-                <br />
                 {siteConfig.email}
               </p>
             </div>

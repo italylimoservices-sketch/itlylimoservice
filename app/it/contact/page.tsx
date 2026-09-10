@@ -11,19 +11,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/it/contact", languages: { en: "/contact", it: "/it/contact" } },
 };
 
-const contactPoints = [
-  { icon: "phone", label: "Telefono", value: siteConfig.phoneDisplay, href: siteConfig.phoneHref },
-  {
-    icon: "chat",
-    label: "WhatsApp",
-    value: "Scrivici direttamente",
-    href: siteConfig.whatsappHref,
-    external: true,
-  },
-  { icon: "email", label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
-  { icon: "map", label: "Ufficio", value: siteConfig.addressLine },
-];
-
 export default function ContactPageIt() {
   return (
     <>
@@ -46,28 +33,17 @@ export default function ContactPageIt() {
           <div>
             <h2 className="font-display text-2xl text-navy mb-6">Contattaci</h2>
             <div className="space-y-4">
-              {contactPoints.map((c) => (
-                <div key={c.label} className="flex items-start gap-4 rounded-md border border-line bg-white p-5">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-navy/5 text-gold shrink-0">
-                    <Icon name={c.icon} className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-wide text-stone">{c.label}</p>
-                    {c.href ? (
-                      <a
-                        href={c.href}
-                        target={c.external ? "_blank" : undefined}
-                        rel={c.external ? "noopener noreferrer" : undefined}
-                        className="text-sm font-semibold text-navy hover:text-gold"
-                      >
-                        {c.value}
-                      </a>
-                    ) : (
-                      <p className="text-sm font-semibold text-navy">{c.value}</p>
-                    )}
-                  </div>
+              <div className="flex items-start gap-4 rounded-md border border-line bg-white p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-navy/5 text-gold shrink-0">
+                  <Icon name="email" className="h-4 w-4" />
                 </div>
-              ))}
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone">Email</p>
+                  <a href={`mailto:${siteConfig.email}`} className="text-sm font-semibold text-navy hover:text-gold">
+                    {siteConfig.email}
+                  </a>
+                </div>
+              </div>
             </div>
 
             <div className="mt-8 rounded-md border border-gold/30 bg-gold-pale/20 p-5">

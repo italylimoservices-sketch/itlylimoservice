@@ -73,16 +73,12 @@ export default function AboutPageIt() {
           <SectionHeading eyebrow="Informazioni Aziendali" title="Dettagli" />
           <dl className="mt-6 space-y-3 text-sm">
             <div className="flex gap-2">
-              <dt className="font-semibold text-navy w-32 shrink-0">Ragione Sociale</dt>
-              <dd className="text-stone">{siteConfig.legalName}</dd>
-            </div>
-            <div className="flex gap-2">
               <dt className="font-semibold text-navy w-32 shrink-0">Copertura</dt>
               <dd className="text-stone">Servizio di autista privato su tutto il territorio italiano</dd>
             </div>
             <div className="flex gap-2">
               <dt className="font-semibold text-navy w-32 shrink-0">Contatti</dt>
-              <dd className="text-stone">{siteConfig.email} · {siteConfig.phoneDisplay}</dd>
+              <dd className="text-stone">{siteConfig.email}</dd>
             </div>
           </dl>
         </div>

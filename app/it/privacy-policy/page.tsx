@@ -26,7 +26,7 @@ export default function PrivacyPolicyPageIt() {
             <div>
               <h2 className="font-display text-xl text-navy mb-2">1. Chi Siamo</h2>
               <p>
-                {siteConfig.name} ({siteConfig.legalName}) gestisce questo sito web e fornisce
+                {siteConfig.name} gestisce questo sito web e fornisce
                 servizi di trasporto con autista privato in tutta Italia. Per qualsiasi domanda
                 relativa alla privacy, contattaci a{" "}
                 <a href={`mailto:${siteConfig.email}`} className="text-gold hover:underline">
@@ -105,8 +105,6 @@ export default function PrivacyPolicyPageIt() {
               <h2 className="font-display text-xl text-navy mb-2">8. Contatti</h2>
               <p>
                 {siteConfig.name}
-                <br />
-                {siteConfig.addressLine}
                 <br />
                 {siteConfig.email}
               </p>
