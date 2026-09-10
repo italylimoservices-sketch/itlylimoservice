@@ -1,29 +1,21 @@
+import Image from "next/image";
 import { siteConfig } from "@/lib/siteConfig";
 
-const marks = {
-  onLight: { badge: "#0d1526", stroke: "#a9803f" },
-  onDark: { badge: "transparent", stroke: "#cba565" },
-};
-
 /**
- * A simple triumphal-arch silhouette — evokes Italy's classical architecture
- * (Rome's arches, aqueducts) without copying any specific competitor's mark.
- * Kept deliberately simple so it stays legible at favicon sizes.
+ * The brand mark (gold arch over a Tuscan road) as a transparent PNG/WebP,
+ * so it reads correctly on both the light header and dark footer without
+ * needing separate light/dark art.
  */
-function Monogram({ theme = "onLight", size = 32 }: { theme?: "onLight" | "onDark"; size?: number }) {
-  const { badge, stroke } = marks[theme];
+function Monogram({ size = 32 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden>
-      {theme === "onLight" && <rect width="40" height="40" rx="8" fill={badge} />}
-      <path
-        d="M12 30 L12 17 A8 10 0 0 1 28 17 L28 30"
-        stroke={stroke}
-        strokeWidth="2.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <line x1="9" y1="30.5" x2="31" y2="30.5" stroke={stroke} strokeWidth="2.25" strokeLinecap="round" />
-    </svg>
+    <Image
+      src="/logo-icon.webp"
+      alt=""
+      width={size}
+      height={size}
+      className="shrink-0"
+      aria-hidden
+    />
   );
 }
 
@@ -34,7 +26,7 @@ export function LogoFull({ theme = "onLight" }: { theme?: "onLight" | "onDark" }
   const textColor = theme === "onLight" ? "text-navy" : "text-ivory";
   return (
     <span className="inline-flex items-center gap-2">
-      <Monogram theme={theme} size={28} />
+      <Monogram size={28} />
       <span className={`font-display text-xl md:text-2xl tracking-wide whitespace-nowrap ${textColor}`}>
         {siteConfig.name}
       </span>
@@ -44,8 +36,8 @@ export function LogoFull({ theme = "onLight" }: { theme?: "onLight" | "onDark" }
 
 /**
  * Compact lockup: monogram only, for tight spaces (mobile header, favicons rendered
- * inline, social avatars). Matches app/icon.svg and app/apple-icon.tsx.
+ * inline, social avatars). Matches app/icon.png and app/apple-icon.png.
  */
-export function LogoCompact({ theme = "onLight", size = 32 }: { theme?: "onLight" | "onDark"; size?: number }) {
-  return <Monogram theme={theme} size={size} />;
+export function LogoCompact({ size = 32 }: { size?: number }) {
+  return <Monogram size={size} />;
 }
