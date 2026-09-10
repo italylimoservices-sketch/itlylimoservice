@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/siteConfig";
+import { localePath, type Locale } from "@/lib/i18n/locales";
 
 export interface Crumb {
   label: string;
   href?: string;
 }
 
-export default function Breadcrumbs({ items }: { items: Crumb[] }) {
+export default function Breadcrumbs({ items, locale = "en" }: { items: Crumb[]; locale?: Locale }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -29,7 +30,7 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
       />
       <ol className="container-luxe flex flex-wrap items-center gap-1.5 py-3 text-xs text-stone">
         <li>
-          <Link href="/" className="hover:text-gold">Home</Link>
+          <Link href={localePath(locale, "/")} className="hover:text-gold">Home</Link>
         </li>
         {items.map((item, i) => (
           <li key={i} className="flex items-center gap-1.5">

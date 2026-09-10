@@ -2,6 +2,21 @@
 // and section teasers. Keyed by the same slugs as the English data files in
 // lib/data/, so lookups stay a simple slug match regardless of locale.
 
+// distanceApprox/durationApprox in lib/data/routes.ts always follow the
+// pattern "Approximately N km" / "Around N hour(s)" — translate those
+// generically rather than duplicating every value per route.
+export function distance_it(s: string): string {
+  return s.replace(/^Approximately/, "Circa");
+}
+
+export function duration_it(s: string): string {
+  const oneHour = s.match(/^Around\s+1\s+hour$/);
+  if (oneHour) return "Circa 1 ora";
+  const hours = s.match(/^Around\s+([\d.]+)\s+hours$/);
+  if (hours) return `Circa ${hours[1].replace(".", ",")} ore`;
+  return s;
+}
+
 export const destinationNames_it: Record<string, { name: string; region: string }> = {
   rome: { name: "Roma", region: "Lazio" },
   milan: { name: "Milano", region: "Lombardia" },
@@ -106,23 +121,106 @@ export const routes_it: { fromEn: string; toEn: string; from: string; to: string
   { fromEn: "Florence", toEn: "Siena", from: "Firenze", to: "Siena", durationApprox: "Circa 1 ora" },
 ];
 
-export const fleet_it: Record<string, { name: string; passengers: string; luggage: string; idealFor: string }> = {
-  "executive-sedan": { name: "Berlina Executive", passengers: "Fino a 3 passeggeri", luggage: "Fino a 2 valigie", idealFor: "Transfer aeroportuali, riunioni di lavoro e spostamenti in città" },
-  "luxury-sedan": { name: "Berlina di Lusso", passengers: "Fino a 3 passeggeri", luggage: "Fino a 2 valigie", idealFor: "Viaggi executive, occasioni speciali e transfer VIP" },
-  "luxury-suv": { name: "SUV di Lusso", passengers: "Fino a 5 passeggeri", luggage: "Fino a 4 valigie", idealFor: "Famiglie, piccoli gruppi e bagagli aggiuntivi" },
-  "executive-van": { name: "Van Executive", passengers: "Fino a 7 passeggeri", luggage: "Fino a 6 valigie", idealFor: "Gruppi, famiglie e delegazioni aziendali" },
-  "luxury-van": { name: "Van di Lusso", passengers: "Fino a 7 passeggeri", luggage: "Fino a 6 valigie", idealFor: "Gruppi executive, eventi e viaggi di gruppo premium" },
+export const fleet_it: Record<
+  string,
+  { name: string; passengers: string; luggage: string; idealFor: string; description: string; amenities: string[] }
+> = {
+  "executive-sedan": {
+    name: "Berlina Executive",
+    passengers: "Fino a 3 passeggeri",
+    luggage: "Fino a 2 valigie",
+    idealFor: "Transfer aeroportuali, riunioni di lavoro e spostamenti in città",
+    description:
+      "Una berlina confortevole e professionale, adatta a transfer aeroportuali, viaggi di lavoro e spostamenti in città per singoli passeggeri o piccoli gruppi.",
+    amenities: ["Aria condizionata", "Acqua in bottiglia", "Autista professionista", "Ricarica per telefono"],
+  },
+  "luxury-sedan": {
+    name: "Berlina di Lusso",
+    passengers: "Fino a 3 passeggeri",
+    luggage: "Fino a 2 valigie",
+    idealFor: "Viaggi executive, occasioni speciali e transfer VIP",
+    description:
+      "Una berlina premium con comfort e presentazione superiori, ideale per viaggi executive, occasioni speciali e clienti che desiderano un'esperienza di livello superiore.",
+    amenities: ["Interni premium", "Aria condizionata", "Acqua in bottiglia", "Autista professionista"],
+  },
+  "luxury-suv": {
+    name: "SUV di Lusso",
+    passengers: "Fino a 5 passeggeri",
+    luggage: "Fino a 4 valigie",
+    idealFor: "Famiglie, piccoli gruppi e bagagli aggiuntivi",
+    description:
+      "Spazio extra e un'altezza da terra maggiore lo rendono una scelta apprezzata da famiglie, piccoli gruppi e viaggiatori con bagagli aggiuntivi.",
+    amenities: ["Capacità bagagli extra", "Aria condizionata", "Acqua in bottiglia", "Autista professionista"],
+  },
+  "executive-van": {
+    name: "Van Executive",
+    passengers: "Fino a 7 passeggeri",
+    luggage: "Fino a 6 valigie",
+    idealFor: "Gruppi, famiglie e delegazioni aziendali",
+    description:
+      "Un van spazioso e confortevole per transfer di gruppo, viaggi in famiglia e piccole delegazioni aziendali che devono spostarsi insieme.",
+    amenities: ["Posti a sedere di gruppo", "Spazio bagagli extra", "Aria condizionata", "Autista professionista"],
+  },
+  "luxury-van": {
+    name: "Van di Lusso",
+    passengers: "Fino a 7 passeggeri",
+    luggage: "Fino a 6 valigie",
+    idealFor: "Gruppi executive, eventi e viaggi di gruppo premium",
+    description:
+      "Un veicolo di gruppo premium che unisce ampio spazio a finiture interne curate, adatto a gruppi executive e trasporti per eventi speciali.",
+    amenities: ["Interni premium", "Posti a sedere di gruppo", "Spazio bagagli extra", "Autista professionista"],
+  },
 };
 
-export const tours_it: Record<string, { name: string; region: string; description: string }> = {
-  "tuscany-wine-tours": { name: "Tour Enologici in Toscana", region: "Toscana", description: "Un percorso privato nel Chianti e sulle colline toscane, con soste flessibili tra vigneti e borghi collinari." },
-  "amalfi-coast-tours": { name: "Tour della Costiera Amalfitana", region: "Campania", description: "Un itinerario privato lungo le strade panoramiche della Costiera Amalfitana, con tappe a Positano, Amalfi e Ravello." },
-  "rome-private-tours": { name: "Tour Privati di Roma", region: "Lazio", description: "Un itinerario privato flessibile nel centro storico di Roma, nell'area vaticana e oltre, al ritmo che preferisci." },
-  "florence-private-tours": { name: "Tour Privati di Firenze", region: "Toscana", description: "Una giornata privata a Firenze e, se lo desideri, nella campagna toscana circostante per un itinerario più ampio." },
-  "venice-private-tours": { name: "Tour Privati di Venezia", region: "Veneto", description: "Un itinerario privato che unisce la terraferma veneta a Venezia, ideale per chi vuole scoprire anche i dintorni." },
-  "lake-como-tours": { name: "Tour del Lago di Como", region: "Lombardia", description: "Una giornata privata intorno al Lago di Como, con tempo per esplorare Bellagio, Como e Varenna con calma." },
-  "cinque-terre-tours": { name: "Tour delle Cinque Terre", region: "Liguria", description: "Una gita privata ai borghi delle Cinque Terre, abbinata a un percorso lungo la costa ligure." },
-  "sicily-tours": { name: "Tour della Sicilia", region: "Sicilia", description: "Un itinerario privato di più giorni in Sicilia, adattato al tuo ritmo anziché a un programma di gruppo fisso." },
+export const tours_it: Record<string, { name: string; region: string; description: string; highlights: string[] }> = {
+  "tuscany-wine-tours": {
+    name: "Tour Enologici in Toscana",
+    region: "Toscana",
+    description: "Un percorso privato nel Chianti e sulle colline toscane, con soste flessibili tra vigneti e borghi collinari.",
+    highlights: ["Campagna del Chianti", "Visite alle cantine", "Soste nei borghi collinari", "Ritmo flessibile"],
+  },
+  "amalfi-coast-tours": {
+    name: "Tour della Costiera Amalfitana",
+    region: "Campania",
+    description: "Un itinerario privato lungo le strade panoramiche della Costiera Amalfitana, con tappe a Positano, Amalfi e Ravello.",
+    highlights: ["Positano", "Il borgo di Amalfi", "Punti panoramici di Ravello", "Autisti esperti delle strade costiere"],
+  },
+  "rome-private-tours": {
+    name: "Tour Privati di Roma",
+    region: "Lazio",
+    description: "Un itinerario privato flessibile nel centro storico di Roma, nell'area vaticana e oltre, al ritmo che preferisci.",
+    highlights: ["Centro storico", "Area vaticana", "Mezza giornata o giornata intera flessibile", "Attesa comoda durante le soste"],
+  },
+  "florence-private-tours": {
+    name: "Tour Privati di Firenze",
+    region: "Toscana",
+    description: "Una giornata privata a Firenze e, se lo desideri, nella campagna toscana circostante per un itinerario più ampio.",
+    highlights: ["Centro storico di Firenze", "Estensione opzionale nella campagna toscana", "Orari flessibili"],
+  },
+  "venice-private-tours": {
+    name: "Tour Privati di Venezia",
+    region: "Veneto",
+    description: "Un itinerario privato che unisce la terraferma veneta a Venezia, ideale per chi vuole scoprire anche i dintorni.",
+    highlights: ["Campagna veneta", "Opzioni per Verona e Padova", "Trasporto privato sulla terraferma"],
+  },
+  "lake-como-tours": {
+    name: "Tour del Lago di Como",
+    region: "Lombardia",
+    description: "Una giornata privata intorno al Lago di Como, con tempo per esplorare Bellagio, Como e Varenna con calma.",
+    highlights: ["Bellagio", "Il centro di Como", "Varenna", "Soste flessibili sul lago"],
+  },
+  "cinque-terre-tours": {
+    name: "Tour delle Cinque Terre",
+    region: "Liguria",
+    description: "Una gita privata ai borghi delle Cinque Terre, abbinata a un percorso lungo la costa ligure.",
+    highlights: ["Borghi di accesso alle Cinque Terre", "Costa ligure", "Punti di partenza flessibili"],
+  },
+  "sicily-tours": {
+    name: "Tour della Sicilia",
+    region: "Sicilia",
+    description: "Un itinerario privato di più giorni in Sicilia, adattato al tuo ritmo anziché a un programma di gruppo fisso.",
+    highlights: ["Flessibilità su più giorni", "Percorsi costieri e nell'entroterra", "Conoscenza degli autisti locali"],
+  },
 };
 
 export const ports_it: Record<string, { name: string; region: string; description: string }> = {
