@@ -64,14 +64,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     "@graph": [
       {
         // Types combined per Google's guidance for local/travel service businesses.
-        // NOTE: telephone/email/address are deliberately omitted until real values
-        // replace the placeholders in lib/siteConfig.ts — structured data is parsed
-        // by search engines, so a bracketed placeholder here is far more harmful
-        // than one in visible copy (nobody reviews JSON-LD by eye before launch).
+        // NOTE: telephone/address are deliberately omitted until a real, confirmed
+        // number/registered address exists — structured data is parsed by search
+        // engines, so a placeholder here is far more harmful than one in visible
+        // copy (nobody reviews JSON-LD by eye before launch). Email is real (the
+        // booking inbox) and safe to include.
         "@type": ["Organization", "LocalBusiness", "TaxiService"],
         "@id": `${siteConfig.domain}/#organization`,
         name: siteConfig.name,
         url: siteConfig.domain,
+        email: siteConfig.email,
         description: siteConfig.description,
         areaServed: {
           "@type": "Country",

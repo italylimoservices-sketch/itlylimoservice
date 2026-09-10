@@ -1,7 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StickyMobileCTA from "@/components/layout/StickyMobileCTA";
-import WhatsAppBubble from "@/components/layout/WhatsAppBubble";
 import CookieNotice from "@/components/layout/CookieNotice";
 import LanguageWelcomeModal from "@/components/layout/LanguageWelcomeModal";
 
@@ -14,7 +13,6 @@ export default function EnglishLayout({ children }: { children: React.ReactNode 
       </main>
       <Footer locale="en" />
       <StickyMobileCTA locale="en" />
-      <WhatsAppBubble />
       <CookieNotice locale="en" />
       <LanguageWelcomeModal locale="en" />
     </>

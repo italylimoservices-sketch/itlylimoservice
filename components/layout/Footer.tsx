@@ -25,13 +25,9 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
             <LogoFull theme="onDark" />
             <p className="mt-3 text-sm leading-relaxed text-ivory-deep/70">{t.footer.tagline}</p>
             <div className="mt-5 space-y-1 text-sm text-ivory-deep/80">
-              <a href={siteConfig.phoneHref} className="block hover:text-gold-light">
-                {siteConfig.phoneDisplay}
-              </a>
-              <a href={`mailto:${siteConfig.email}`} className="block hover:text-gold-light">
+              <a href={`mailto:${siteConfig.email}`} className="block font-semibold hover:text-gold-light">
                 {siteConfig.email}
               </a>
-              <p className="text-ivory-deep/60">{siteConfig.addressLine}</p>
             </div>
           </div>
 

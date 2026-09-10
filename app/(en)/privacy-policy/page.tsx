@@ -26,7 +26,7 @@ export default function PrivacyPolicyPage() {
             <div>
               <h2 className="font-display text-xl text-navy mb-2">1. Who We Are</h2>
               <p>
-                {siteConfig.name} ({siteConfig.legalName}) operates this website and provides
+                {siteConfig.name} operates this website and provides
                 private chauffeur transportation services across Italy. For any privacy-related
                 questions, contact us at{" "}
                 <a href={`mailto:${siteConfig.email}`} className="text-gold hover:underline">
@@ -102,8 +102,6 @@ export default function PrivacyPolicyPage() {
               <h2 className="font-display text-xl text-navy mb-2">8. Contact</h2>
               <p>
                 {siteConfig.name}
-                <br />
-                {siteConfig.addressLine}
                 <br />
                 {siteConfig.email}
               </p>

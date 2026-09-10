@@ -47,21 +47,13 @@ export default function Header({ locale = "en" }: { locale?: Locale }) {
         <div className="hidden xl:flex items-center gap-2.5 shrink-0">
           <LanguageSwitcher locale={locale} />
           <a
-            href={siteConfig.phoneHref}
-            aria-label={`Call ${siteConfig.phoneDisplay}`}
-            title={siteConfig.phoneDisplay}
-            className="text-ink-soft hover:text-gold transition-colors"
+            href={`mailto:${siteConfig.email}`}
+            aria-label={`Email ${siteConfig.email}`}
+            title={siteConfig.email}
+            className="inline-flex items-center gap-1.5 text-[0.85rem] font-semibold text-ink-soft hover:text-gold transition-colors"
           >
-            <Icon name="phone" className="h-5 w-5" />
-          </a>
-          <a
-            href={siteConfig.whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Message us on WhatsApp"
-            className="text-ink-soft hover:text-gold transition-colors"
-          >
-            <Icon name="chat" className="h-5 w-5" />
+            <Icon name="email" className="h-5 w-5" />
+            <span className="hidden 2xl:inline">{siteConfig.email}</span>
           </a>
           <Link
             href={p("/contact")}
@@ -121,17 +113,12 @@ export default function Header({ locale = "en" }: { locale?: Locale }) {
             >
               {t.nav.requestQuote}
             </Link>
-            <a href={siteConfig.phoneHref} className="mt-3 text-center text-sm font-semibold text-ink-soft">
-              {siteConfig.phoneDisplay}
-            </a>
             <a
-              href={siteConfig.whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 flex items-center justify-center gap-1.5 text-center text-sm font-semibold text-ink-soft"
+              href={`mailto:${siteConfig.email}`}
+              className="mt-3 flex items-center justify-center gap-1.5 text-center text-sm font-semibold text-ink-soft"
             >
-              <Icon name="chat" className="h-4 w-4" />
-              WhatsApp
+              <Icon name="email" className="h-4 w-4" />
+              {siteConfig.email}
             </a>
           </nav>
         </div>

@@ -99,8 +99,6 @@ export default function TermsPage() {
               <p>
                 {siteConfig.name}
                 <br />
-                {siteConfig.addressLine}
-                <br />
                 {siteConfig.email}
               </p>
             </div>

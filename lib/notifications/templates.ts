@@ -35,7 +35,7 @@ function wrapHtml(bodyHtml: string): string {
 </td></tr>
 <tr><td style="padding:32px;">${bodyHtml}</td></tr>
 <tr><td style="padding:20px 32px;background:#f2ede2;font-size:11px;color:#6f6a60;">
-${siteConfig.name} · ${siteConfig.phoneDisplay} · ${siteConfig.email}
+${siteConfig.name} · ${siteConfig.email}
 </td></tr>
 </table>
 </td></tr>
@@ -61,7 +61,7 @@ const TEMPLATES: Record<EmailTemplateKey, TemplateDef> = {
       `Dear {{customer_name}},`,
       `Thank you for your interest — please find your quotation <strong>{{quotation_number}}</strong> for {{pickup}} → {{dropoff}} on {{date}} at {{time}}.`,
       `Total: <strong>{{total}}</strong>. This quotation is valid until {{valid_until}}.`,
-      `Reply to this email or contact us on ${siteConfig.phoneDisplay} to confirm.`,
+      `Reply to this email to confirm.`,
     ].map((l) => fill(l, v)),
   },
   quotation_reminder: {
@@ -137,7 +137,7 @@ export function renderEmail(key: EmailTemplateKey, vars: TemplateVars): { subjec
   const def = TEMPLATES[key];
   const subject = def.subject(vars);
   const lines = def.bodyLines(vars);
-  const html = wrapHtml(paragraphBlock(lines) + ctaButton("Questions", siteConfig.phoneDisplay));
+  const html = wrapHtml(paragraphBlock(lines) + ctaButton("Questions", siteConfig.email));
   const text = lines.map((l) => l.replace(/<[^>]+>/g, "")).join("\n\n");
   return { subject, html, text };
 }
@@ -166,7 +166,7 @@ export function renderEmailFromRaw(subjectTemplate: string, bodyTemplate: string
   const subject = fill(subjectTemplate, vars);
   const htmlLines = bodyTemplate.split(/\n\n+/).map((l) => fillHtmlSafe(l, vars));
   const textLines = bodyTemplate.split(/\n\n+/).map((l) => fill(l, vars));
-  const html = wrapHtml(paragraphBlock(htmlLines) + ctaButton("Questions", siteConfig.phoneDisplay));
+  const html = wrapHtml(paragraphBlock(htmlLines) + ctaButton("Questions", siteConfig.email));
   const text = textLines.join("\n\n");
   return { subject, html, text };
 }
