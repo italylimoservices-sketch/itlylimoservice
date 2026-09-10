@@ -4,6 +4,7 @@ import { destinations } from "@/lib/data/destinations";
 import { airports } from "@/lib/data/airports";
 import { routes } from "@/lib/data/routes";
 import { services } from "@/lib/data/services";
+import { blogPosts } from "@/lib/data/blog";
 
 const staticPaths = [
   { path: "", priority: 1, changeFrequency: "weekly" as const },
@@ -12,6 +13,7 @@ const staticPaths = [
   { path: "/destinations", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/airport-transfers", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/routes", priority: 0.9, changeFrequency: "weekly" as const },
+  { path: "/blog", priority: 0.7, changeFrequency: "weekly" as const },
   { path: "/faq", priority: 0.5, changeFrequency: "monthly" as const },
   { path: "/contact", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "/privacy-policy", priority: 0.2, changeFrequency: "yearly" as const },
@@ -62,6 +64,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.75,
+    });
+  }
+
+  for (const post of blogPosts) {
+    entries.push({
+      url: `${base}/blog/${post.slug}`,
+      lastModified: new Date(post.publishedAt),
+      changeFrequency: "monthly",
+      priority: 0.6,
     });
   }
 

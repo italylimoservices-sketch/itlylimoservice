@@ -87,6 +87,7 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
             <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-light">{t.footer.company}</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li><Link href={p("/about-us")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.aboutUs}</Link></li>
+              {!isIt && <li><Link href="/blog" className="text-ivory-deep/75 hover:text-ivory">Blog</Link></li>}
               <li><Link href={p("/fleet")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.ourFleet}</Link></li>
               <li><Link href={p("/routes")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.popularRoutes}</Link></li>
               <li><Link href={p("/faq")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.faq}</Link></li>
