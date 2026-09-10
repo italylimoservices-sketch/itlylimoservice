@@ -4,6 +4,7 @@ import { destinations } from "@/lib/data/destinations";
 import { airports } from "@/lib/data/airports";
 import { services } from "@/lib/data/services";
 import { LogoFull } from "@/components/ui/Logo";
+import SocialIcon, { hasSocialIcon } from "@/components/ui/SocialIcon";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { localePath, type Locale } from "@/lib/i18n/locales";
 import { destinationNames_it, airportNames_it, services_it } from "@/lib/i18n/data.it";
@@ -28,6 +29,22 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
               <a href={`mailto:${siteConfig.email}`} className="block font-semibold hover:text-gold-light">
                 {siteConfig.email}
               </a>
+            </div>
+            <div className="mt-4 flex gap-3">
+              {Object.entries(siteConfig.socials)
+                .filter(([key, href]) => href !== "#" && hasSocialIcon(key))
+                .map(([key, href]) => (
+                  <a
+                    key={key}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={key}
+                    className="text-ivory-deep/70 hover:text-gold-light transition-colors"
+                  >
+                    {hasSocialIcon(key) ? <SocialIcon name={key} className="h-5 w-5" /> : null}
+                  </a>
+                ))}
             </div>
           </div>
 

@@ -7,10 +7,14 @@ export const siteConfig = {
   // contact channel until a phone/WhatsApp number is confirmed.
   email: "booking@italylimoservice.com",
   trustpilotUrl: "https://www.trustpilot.com/review/italylimoservice.com",
+  // "#" means not live yet — components that render these must skip any
+  // entry still set to "#" rather than link out to nowhere.
   socials: {
     instagram: "#",
     facebook: "#",
     linkedin: "#",
+    pinterest: "https://it.pinterest.com/italylimoservice/",
+    youtube: "https://www.youtube.com/@Italylimoservice",
   },
   description:
     "Italy Limo Service provides premium private chauffeur services across Italy, including airport transfers, city-to-city transportation, hourly chauffeur hire, private tours and corporate travel.",
