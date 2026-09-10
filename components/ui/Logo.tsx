@@ -26,7 +26,7 @@ export function LogoFull({ theme = "onLight" }: { theme?: "onLight" | "onDark" }
   const textColor = theme === "onLight" ? "text-navy" : "text-ivory";
   return (
     <span className="inline-flex items-center gap-2">
-      <Monogram size={28} />
+      <Monogram size={48} />
       <span className={`font-display text-xl md:text-2xl tracking-wide whitespace-nowrap ${textColor}`}>
         {siteConfig.name}
       </span>
