@@ -10,6 +10,7 @@ export const fleet: FleetCategory[] = [
       "A comfortable, professional sedan suited to airport transfers, business travel and city transportation for individuals or small groups.",
     amenities: ["Air conditioning", "Bottled water", "Professional chauffeur", "Phone charging"],
     idealFor: "Airport transfers, business meetings and city travel",
+    image: "/images/fleet/executive-sedan.webp",
   },
   {
     slug: "luxury-sedan",
@@ -20,6 +21,7 @@ export const fleet: FleetCategory[] = [
       "A premium sedan with additional comfort and presentation, well suited to executive travel, special occasions and clients who expect an elevated experience.",
     amenities: ["Premium interior", "Air conditioning", "Bottled water", "Professional chauffeur"],
     idealFor: "Executive travel, special occasions and VIP transfers",
+    image: "/images/fleet/luxury-sedan.webp",
   },
   {
     slug: "luxury-suv",
@@ -30,6 +32,7 @@ export const fleet: FleetCategory[] = [
       "Extra space and a higher ride height make this a popular choice for families, small groups and travellers with additional luggage.",
     amenities: ["Extra luggage capacity", "Air conditioning", "Bottled water", "Professional chauffeur"],
     idealFor: "Families, small groups and additional luggage",
+    image: "/images/fleet/luxury-suv.webp",
   },
   {
     slug: "executive-van",
@@ -40,6 +43,7 @@ export const fleet: FleetCategory[] = [
       "A spacious, comfortable van for group transfers, family travel and small corporate delegations that need to travel together.",
     amenities: ["Group seating", "Extra luggage space", "Air conditioning", "Professional chauffeur"],
     idealFor: "Groups, families and corporate delegations",
+    image: "/images/fleet/executive-van.webp",
   },
   {
     slug: "luxury-van",
@@ -50,6 +54,7 @@ export const fleet: FleetCategory[] = [
       "A premium group vehicle combining generous space with an elevated interior finish, suited to executive groups and special event transportation.",
     amenities: ["Premium interior", "Group seating", "Extra luggage space", "Professional chauffeur"],
     idealFor: "Executive groups, events and premium group travel",
+    image: "/images/fleet/luxury-van.webp",
   },
 ];
 

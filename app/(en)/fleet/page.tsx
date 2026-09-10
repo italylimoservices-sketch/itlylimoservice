@@ -35,7 +35,7 @@ export default function FleetPage() {
         <div className="container-luxe grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {fleet.map((f, i) => (
             <div key={f.slug} className="rounded-md border border-line bg-white overflow-hidden">
-              <ImageBlock label={f.name} variant={i % 2 === 0 ? "navy" : "gold"} aspect="aspect-[16/10]" />
+              <ImageBlock label={f.name} variant={i % 2 === 0 ? "navy" : "gold"} aspect="aspect-[16/10]" src={f.image} />
               <div className="p-6">
                 <h2 className="font-display text-xl text-navy">{f.name}</h2>
                 <p className="mt-1 text-sm text-gold font-medium">{f.passengers} · {f.luggage}</p>

@@ -78,6 +78,7 @@ export interface FleetCategory {
   description: string;
   amenities: string[];
   idealFor: string;
+  image: string;
 }
 
 export interface Testimonial {

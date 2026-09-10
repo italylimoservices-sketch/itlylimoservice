@@ -38,7 +38,7 @@ export default function FleetPageIt() {
             const it = fleet_it[f.slug];
             return (
               <div key={f.slug} className="rounded-md border border-line bg-white overflow-hidden">
-                <ImageBlock label={it?.name ?? f.name} variant={i % 2 === 0 ? "navy" : "gold"} aspect="aspect-[16/10]" />
+                <ImageBlock label={it?.name ?? f.name} variant={i % 2 === 0 ? "navy" : "gold"} aspect="aspect-[16/10]" src={f.image} />
                 <div className="p-6">
                   <h2 className="font-display text-xl text-navy">{it?.name ?? f.name}</h2>
                   <p className="mt-1 text-sm text-gold font-medium">
