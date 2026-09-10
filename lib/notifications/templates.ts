@@ -1,6 +1,7 @@
 import { siteConfig } from "@/lib/siteConfig";
 
 export type EmailTemplateKey =
+  | "lead_received"
   | "quotation_sent"
   | "quotation_reminder"
   | "booking_confirmation"
@@ -55,6 +56,14 @@ function ctaButton(label: string, note?: string): string {
 type TemplateDef = { subject: (v: TemplateVars) => string; bodyLines: (v: TemplateVars) => string[] };
 
 const TEMPLATES: Record<EmailTemplateKey, TemplateDef> = {
+  lead_received: {
+    subject: () => `We've received your request — ${siteConfig.name}`,
+    bodyLines: (v) => [
+      `Dear {{customer_name}},`,
+      `Thank you — your request for {{pickup}} → {{dropoff}} on {{date}} at {{time}} has been received.`,
+      `A member of our team will review availability and pricing, then get back to you shortly to confirm.`,
+    ].map((l) => fill(l, v)),
+  },
   quotation_sent: {
     subject: (v) => `Your quotation ${v.quotation_number} from {{company_name}}`.replace("{{company_name}}", siteConfig.name),
     bodyLines: (v) => [
@@ -122,7 +131,12 @@ const TEMPLATES: Record<EmailTemplateKey, TemplateDef> = {
   },
   review_request: {
     subject: () => `How was your trip?`,
-    bodyLines: (v) => [`Dear {{customer_name}},`, `We'd love to hear your feedback on trip {{booking_reference}} — it helps us improve.`].map((l) => fill(l, v)),
+    bodyLines: (v) => [
+      `Dear {{customer_name}},`,
+      `We'd love to hear your feedback on trip {{booking_reference}} — it helps us improve.`,
+      `Leave a review in your account: {{review_link}}`,
+      `Or on Trustpilot: {{trustpilot_url}}`,
+    ].map((l) => fill(l, v)),
   },
   payment_overdue: {
     subject: (v) => `Payment overdue — ${v.invoice_number}`,

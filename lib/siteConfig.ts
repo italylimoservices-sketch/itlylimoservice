@@ -6,6 +6,7 @@ export const siteConfig = {
   // MAIL_TO_BOOKING in .env.example) — kept as the one prominent, real
   // contact channel until a phone/WhatsApp number is confirmed.
   email: "booking@italylimoservice.com",
+  trustpilotUrl: "https://www.trustpilot.com/review/italylimoservice.com",
   socials: {
     instagram: "#",
     facebook: "#",

@@ -27,12 +27,14 @@ export async function sendMail(options: {
   text: string;
   html?: string;
   replyTo?: string;
+  bcc?: string;
   attachments?: { filename: string; content: Buffer; contentType?: string }[];
 }) {
   await getTransporter().sendMail({
     from: options.from,
     to: options.to,
     replyTo: options.replyTo,
+    bcc: options.bcc,
     subject: options.subject,
     text: options.text,
     html: options.html,

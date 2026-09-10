@@ -1,17 +1,22 @@
 import "server-only";
 
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import { getCompanySettings } from "@/lib/pdf/company";
 import { BusinessDocument } from "@/lib/pdf/BusinessDocument";
 import { formatDate, formatTime } from "@/lib/admin/format";
+import type { Database } from "@/lib/supabase/types";
 
 /**
  * Builds the quotation PDF's React element without rendering it — shared by
- * the admin /pdf route (renders to an HTTP response) and sendQuotation
- * (renders to a Buffer for an email attachment), so the two never drift.
+ * the admin /pdf route (renders to an HTTP response), sendQuotation, and the
+ * quotation-reminders cron (both render to a Buffer for an email
+ * attachment), so none of them ever drift. Accepts an optional client so the
+ * cron route — which has no user session — can pass the admin/service-role
+ * client explicitly instead of the default cookie-based one.
  */
-export async function getQuotationPdfDocument(quotationId: string) {
-  const supabase = await createClient();
+export async function getQuotationPdfDocument(quotationId: string, supabaseClient?: SupabaseClient<Database>) {
+  const supabase = supabaseClient ?? (await createClient());
 
   const { data: quotation } = await supabase
     .from("quotations")
@@ -20,7 +25,7 @@ export async function getQuotationPdfDocument(quotationId: string) {
     .maybeSingle();
   if (!quotation) return null;
 
-  const company = await getCompanySettings();
+  const company = await getCompanySettings(supabase);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const customer = (quotation as any).customers;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

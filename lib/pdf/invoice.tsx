@@ -1,17 +1,21 @@
 import "server-only";
 
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import { getCompanySettings } from "@/lib/pdf/company";
 import { BusinessDocument } from "@/lib/pdf/BusinessDocument";
 import { formatDate } from "@/lib/admin/format";
+import type { Database } from "@/lib/supabase/types";
 
 /**
  * Builds the invoice PDF's React element without rendering it — shared by
  * the admin /pdf route (renders to an HTTP response) and markInvoiceSent
  * (renders to a Buffer for an email attachment), so the two never drift.
+ * Accepts an optional client so a future cron-context caller — no user
+ * session — can pass the admin/service-role client explicitly.
  */
-export async function getInvoicePdfDocument(invoiceId: string) {
-  const supabase = await createClient();
+export async function getInvoicePdfDocument(invoiceId: string, supabaseClient?: SupabaseClient<Database>) {
+  const supabase = supabaseClient ?? (await createClient());
 
   const { data: invoice } = await supabase
     .from("invoices")
@@ -20,7 +24,7 @@ export async function getInvoicePdfDocument(invoiceId: string) {
     .maybeSingle();
   if (!invoice) return null;
 
-  const company = await getCompanySettings();
+  const company = await getCompanySettings(supabase);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const customer = (invoice as any).customers;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

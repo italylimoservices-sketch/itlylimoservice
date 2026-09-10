@@ -1,6 +1,8 @@
 import "server-only";
 
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
+import type { Database } from "@/lib/supabase/types";
 
 export type CompanySettings = {
   company_name: string;
@@ -15,8 +17,11 @@ export type CompanySettings = {
   currency_default: string;
 };
 
-export async function getCompanySettings(): Promise<CompanySettings> {
-  const supabase = await createClient();
+// Accepts an optional client so callers with no user session (cron routes,
+// which must use the admin/service-role client since there's no cookie-based
+// auth to read company_settings through) can pass one in explicitly.
+export async function getCompanySettings(supabaseClient?: SupabaseClient<Database>): Promise<CompanySettings> {
+  const supabase = supabaseClient ?? (await createClient());
   const { data } = await supabase.from("company_settings").select("*").limit(1).maybeSingle();
   return (
     data ?? {
