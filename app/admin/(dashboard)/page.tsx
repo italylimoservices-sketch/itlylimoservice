@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Search, Plus } from "lucide-react";
 import { getCurrentProfile } from "@/lib/auth/dal";
-import { canViewFinance } from "@/lib/auth/roles";
+import { canViewFinance, canManageCrm, canManageOps } from "@/lib/auth/roles";
 import { getDashboardData } from "@/lib/admin/dashboard";
 import { DATE_RANGE_LABELS, type DateRangeKey } from "@/lib/admin/date-range";
 import { formatCurrency, formatDate, formatTime } from "@/lib/admin/format";
@@ -24,6 +25,8 @@ export default async function DashboardPage({
 
   const [profile, data] = await Promise.all([getCurrentProfile(), getDashboardData(range)]);
   const showFinance = profile ? canViewFinance(profile.role) : false;
+  const canCrm = profile ? canManageCrm(profile.role) : false;
+  const canOps = profile ? canManageOps(profile.role) : false;
 
   return (
     <div>
@@ -46,6 +49,35 @@ export default async function DashboardPage({
           </div>
         }
       />
+
+      <section className="mb-6 flex flex-wrap items-center gap-2">
+        <form action="/admin/search" className="flex-1 min-w-[240px] max-w-md relative">
+          <Search className="h-4 w-4 text-stone absolute left-3 top-1/2 -translate-y-1/2" />
+          <input type="search" name="q" placeholder="Search customers, bookings, invoices, drivers…" className="input-luxe w-full pl-9" />
+        </form>
+        <div className="flex flex-wrap gap-2">
+          {canCrm ? (
+            <Link href="/admin/quotations/new" className="inline-flex items-center gap-1 text-xs border border-line px-3 py-2 rounded-sm hover:bg-white">
+              <Plus className="h-3.5 w-3.5" /> Quotation
+            </Link>
+          ) : null}
+          {canOps ? (
+            <Link href="/admin/bookings/new" className="inline-flex items-center gap-1 text-xs border border-line px-3 py-2 rounded-sm hover:bg-white">
+              <Plus className="h-3.5 w-3.5" /> Booking
+            </Link>
+          ) : null}
+          {canCrm ? (
+            <Link href="/admin/customers/new" className="inline-flex items-center gap-1 text-xs border border-line px-3 py-2 rounded-sm hover:bg-white">
+              <Plus className="h-3.5 w-3.5" /> Customer
+            </Link>
+          ) : null}
+          {canCrm ? (
+            <Link href="/admin/leads/new" className="inline-flex items-center gap-1 text-xs border border-line px-3 py-2 rounded-sm hover:bg-white">
+              <Plus className="h-3.5 w-3.5" /> Lead
+            </Link>
+          ) : null}
+        </div>
+      </section>
 
       <section className="mb-8">
         <h2 className="text-sm font-semibold text-ink-soft mb-3">Operations</h2>

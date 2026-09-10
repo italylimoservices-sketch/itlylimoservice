@@ -44,14 +44,22 @@ export default async function CustomersPage({
         title="Customers"
         description="Every customer this business has ever quoted, booked, or invoiced."
         actions={
-          canManageCrm(profile.role) ? (
+          <div className="flex items-center gap-2">
             <Link
-              href="/admin/customers/new"
-              className="inline-flex items-center gap-1.5 bg-navy text-ivory text-sm font-semibold px-4 py-2 rounded-sm hover:bg-navy-deep transition-colors"
+              href="/admin/customers/segments"
+              className="inline-flex items-center gap-1.5 border border-line text-sm px-4 py-2 rounded-sm hover:bg-white transition-colors"
             >
-              <Plus className="h-4 w-4" /> New customer
+              Segments
             </Link>
-          ) : undefined
+            {canManageCrm(profile.role) ? (
+              <Link
+                href="/admin/customers/new"
+                className="inline-flex items-center gap-1.5 bg-navy text-ivory text-sm font-semibold px-4 py-2 rounded-sm hover:bg-navy-deep transition-colors"
+              >
+                <Plus className="h-4 w-4" /> New customer
+              </Link>
+            ) : null}
+          </div>
         }
       />
 

@@ -11,8 +11,11 @@ import { EmptyState } from "@/components/admin/ui/EmptyState";
 import { Section } from "@/components/admin/ui/Section";
 import { SimpleTable } from "@/components/admin/ui/SimpleTable";
 import { CustomerForm } from "@/components/admin/customers/CustomerForm";
-import { formatCurrency, formatDate } from "@/lib/admin/format";
+import { InternalNotes } from "@/components/admin/notes/InternalNotes";
+import { ConfirmButton } from "@/components/admin/ui/ConfirmButton";
+import { formatCurrency, formatDate, formatDateTime } from "@/lib/admin/format";
 import { updateCustomer } from "@/lib/admin/actions/customers";
+import { setCustomerSegmentOverride, clearCustomerSegmentOverride } from "@/lib/admin/actions/segments";
 
 export const metadata: Metadata = { title: "Customer" };
 
@@ -25,6 +28,13 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
   if (!customer) notFound();
 
   const showFinance = canViewFinance(profile.role);
+  const canEditSegment = canManageCrm(profile.role);
+  const [{ data: metricsRows }, { data: segmentOverride }] = await Promise.all([
+    supabase.rpc("get_customer_metrics", { p_customer_id: id }),
+    supabase.from("customer_segment_overrides").select("segment, note, created_at").eq("customer_id", id).maybeSingle(),
+  ]);
+  const metrics = metricsRows?.[0] ?? null;
+  const effectiveSegment = segmentOverride?.segment ?? metrics?.segment ?? null;
 
   const [bookingsRes, quotationsRes, invoicesRes, followUpsRes] = await Promise.all([
     supabase
@@ -72,7 +82,8 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
         title={customer.full_name}
         description={customer.company_name ?? undefined}
         actions={
-          <div className="flex gap-2 text-sm">
+          <div className="flex gap-2 text-sm items-center">
+            {effectiveSegment ? <StatusBadge status={effectiveSegment} /> : null}
             {canManageCrm(profile.role) ? (
               <Link href={`/admin/quotations/new?customer_id=${id}`} className="border border-line px-3 py-2 rounded-sm hover:bg-white">
                 New quotation
@@ -87,10 +98,12 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
         }
       />
 
-      <div className="grid sm:grid-cols-3 gap-3 mb-6">
+      <div className="grid sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
         <StatCard label="Contact" value={customer.phone ?? customer.email ?? "—"} hint={customer.email && customer.phone ? customer.email : undefined} />
         {showFinance ? <StatCard label="Total revenue" value={formatCurrency(totalRevenue)} /> : null}
         {showFinance ? <StatCard label="Outstanding balance" value={formatCurrency(outstandingBalance)} /> : null}
+        <StatCard label="Avg booking value" value={formatCurrency(metrics?.avg_booking_value ?? 0)} />
+        <StatCard label="Last booking" value={metrics?.last_booking_date ? formatDate(metrics.last_booking_date) : "—"} />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-4">
@@ -171,6 +184,52 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
                 ))}
               </ul>
             )}
+          </Section>
+
+          {canEditSegment ? (
+            <Section title="Segment">
+              <div className="p-4 space-y-3 text-sm">
+                <div>
+                  <span className="text-stone">Computed from history: </span>
+                  {metrics?.segment ? <StatusBadge status={metrics.segment} /> : "—"}
+                </div>
+                {segmentOverride ? (
+                  <div className="border border-line rounded-sm p-3 space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-stone">Manual override</span>
+                      <StatusBadge status={segmentOverride.segment} />
+                    </div>
+                    {segmentOverride.note ? <p className="text-xs text-stone">{segmentOverride.note}</p> : null}
+                    <p className="text-xs text-stone">Set {formatDateTime(segmentOverride.created_at)}</p>
+                    <form action={clearCustomerSegmentOverride.bind(null, id)}>
+                      <ConfirmButton confirmMessage="Remove this override and go back to the computed segment?" className="text-xs text-red-700 hover:underline">
+                        Clear override
+                      </ConfirmButton>
+                    </form>
+                  </div>
+                ) : (
+                  <form action={setCustomerSegmentOverride.bind(null, id)} className="space-y-2 border-t border-line pt-3">
+                    <div>
+                      <label className="block text-xs text-stone mb-1">Set a manual/custom segment</label>
+                      <input name="segment" required placeholder="e.g. VIP, KEY_ACCOUNT, PARTNER" className="input-luxe text-sm" />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-stone mb-1">Note (optional)</label>
+                      <textarea name="note" rows={2} className="input-luxe text-sm" placeholder="Why this override was set" />
+                    </div>
+                    <button type="submit" className="text-xs border border-line px-3 py-1.5 rounded-sm hover:bg-ivory-deep">
+                      Save override
+                    </button>
+                  </form>
+                )}
+              </div>
+            </Section>
+          ) : null}
+
+          <Section title="Internal notes">
+            <div className="p-4">
+              <InternalNotes entityType="customer" entityId={id} />
+            </div>
           </Section>
         </div>
       </div>

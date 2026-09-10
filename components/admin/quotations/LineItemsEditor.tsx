@@ -4,7 +4,9 @@ import { useMemo } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { formatCurrency } from "@/lib/admin/format";
 
-export type LineItem = { description: string; quantity: number; unit_price: number };
+export type LineItem = { description: string; quantity: number; unit_price: number; service_id?: string };
+
+export type ServiceOption = { id: string; name: string; default_price: number | null; currency: string | null };
 
 export function LineItemsEditor({
   name,
@@ -15,6 +17,7 @@ export function LineItemsEditor({
   currency,
   onDiscountChange,
   onTaxRateChange,
+  services,
 }: {
   name: string;
   items: LineItem[];
@@ -24,6 +27,7 @@ export function LineItemsEditor({
   currency: string;
   onDiscountChange: (value: number) => void;
   onTaxRateChange: (value: number) => void;
+  services?: ServiceOption[];
 }) {
   const subtotal = useMemo(() => items.reduce((sum, i) => sum + i.quantity * i.unit_price, 0), [items]);
   const taxAmount = Math.max(0, subtotal - discount) * (taxRate / 100);
@@ -41,6 +45,7 @@ export function LineItemsEditor({
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left text-xs uppercase tracking-wide text-stone bg-ivory-deep">
+              {services ? <th className="px-3 py-2 font-medium w-40">Service</th> : null}
               <th className="px-3 py-2 font-medium">Description</th>
               <th className="px-3 py-2 font-medium w-20">Qty</th>
               <th className="px-3 py-2 font-medium w-28">Unit price</th>
@@ -51,6 +56,33 @@ export function LineItemsEditor({
           <tbody className="divide-y divide-line">
             {items.map((item, index) => (
               <tr key={index}>
+                {services ? (
+                  <td className="px-3 py-1.5">
+                    <select
+                      value={item.service_id ?? ""}
+                      onChange={(e) => {
+                        const service = services.find((s) => s.id === e.target.value);
+                        if (!service) {
+                          update(index, { service_id: undefined });
+                          return;
+                        }
+                        update(index, {
+                          service_id: service.id,
+                          description: item.description.trim() === "" ? service.name : item.description,
+                          unit_price: service.default_price ?? item.unit_price,
+                        });
+                      }}
+                      className="input-luxe text-sm"
+                    >
+                      <option value="">Custom line</option>
+                      {services.map((s) => (
+                        <option key={s.id} value={s.id}>
+                          {s.name}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                ) : null}
                 <td className="px-3 py-1.5">
                   <input
                     value={item.description}

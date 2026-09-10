@@ -1,8 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { siteConfig } from "@/lib/siteConfig";
 import { HashSessionHandler } from "@/components/auth/HashSessionHandler";
+
+const GA_MEASUREMENT_ID = "G-VTGGYS382Q";
+const AHREFS_ANALYTICS_KEY = "+XsOQ2KW0IjexDtxRY346A";
+const CLARITY_PROJECT_ID = "yfxrnqcgda";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -40,6 +45,12 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  verification: {
+    google: "yI7_JvGHmvXsg7pN8bXNJIoabuazfwXDadARxcICcEk",
+    other: {
+      "msvalidate.01": "470931585FFF31283E1B476672E1A59D",
+    },
   },
 };
 
@@ -102,6 +113,32 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key={AHREFS_ANALYTICS_KEY}
+          strategy="afterInteractive"
+        />
+        <Script id="ms-clarity" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
+          `}
+        </Script>
         <HashSessionHandler />
         {children}
       </body>

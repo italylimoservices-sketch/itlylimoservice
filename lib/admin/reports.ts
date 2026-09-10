@@ -3,6 +3,7 @@ import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { resolveDateRange, isoDate, type DateRangeKey } from "@/lib/admin/date-range";
 import { getInsights } from "@/lib/admin/insights";
+import { getFinanceDashboard } from "@/lib/admin/finance";
 
 export type ReportKey =
   | "bookings"
@@ -18,7 +19,10 @@ export type ReportKey =
   | "expenses"
   | "route_analytics"
   | "driver_analytics"
-  | "vehicle_analytics";
+  | "vehicle_analytics"
+  | "invoices"
+  | "driver_payouts"
+  | "profit_report";
 
 export const REPORT_LABELS: Record<ReportKey, string> = {
   bookings: "Bookings",
@@ -35,6 +39,9 @@ export const REPORT_LABELS: Record<ReportKey, string> = {
   route_analytics: "Route analytics (Insights)",
   driver_analytics: "Driver analytics (Insights)",
   vehicle_analytics: "Vehicle analytics (Insights)",
+  invoices: "Invoices",
+  driver_payouts: "Driver payouts",
+  profit_report: "Profit report",
 };
 
 export type ReportResult = { columns: string[]; rows: (string | number)[][] };
@@ -198,6 +205,57 @@ export async function runReport(key: ReportKey, range: DateRangeKey): Promise<Re
       return {
         columns: ["Vehicle", "Trips", "Revenue"],
         rows: topVehicles.map((v) => [v.name, v.trips, money(v.revenue)]),
+      };
+    }
+    case "invoices": {
+      const { data } = await supabase
+        .from("invoices")
+        .select("invoice_number, created_at, due_date, status, total, balance_due, currency, customers(full_name)")
+        .gte("created_at", fromDate)
+        .lte("created_at", toDate)
+        .is("deleted_at", null)
+        .order("created_at", { ascending: false });
+      return {
+        columns: ["Number", "Customer", "Created", "Due date", "Status", "Total", "Balance due"],
+        rows: (data ?? []).map((i: any) => [i.invoice_number, i.customers?.full_name ?? "", i.created_at?.slice(0, 10), i.due_date, i.status, money(i.total), money(i.balance_due)]),
+      };
+    }
+    case "driver_payouts": {
+      const { data } = await supabase
+        .from("driver_payouts")
+        .select("period_start, period_end, gross_earnings, adjustments, expenses, net_payout, currency, status, payment_reference, drivers(full_name)")
+        .gte("period_end", fromDate)
+        .lte("period_end", toDate)
+        .order("period_end", { ascending: false });
+      return {
+        columns: ["Driver", "Period start", "Period end", "Gross earnings", "Adjustments", "Expenses", "Net payout", "Status", "Reference"],
+        rows: (data ?? []).map((p: any) => [
+          p.drivers?.full_name ?? "",
+          p.period_start,
+          p.period_end,
+          money(p.gross_earnings),
+          money(p.adjustments),
+          money(p.expenses),
+          money(p.net_payout),
+          p.status,
+          p.payment_reference ?? "",
+        ]),
+      };
+    }
+    case "profit_report": {
+      const finance = await getFinanceDashboard(range);
+      return {
+        columns: ["Metric", "Amount"],
+        rows: [
+          ["Revenue", money(finance.revenue)],
+          ["Payments collected", money(finance.collected)],
+          ["Outstanding (unpaid invoices)", money(finance.outstanding)],
+          ["Overdue (unpaid invoices)", money(finance.overdue)],
+          ["Expenses (approved + paid)", money(finance.expenses)],
+          ["Driver payouts", money(finance.driverPayouts)],
+          ["Gross profit (revenue - expenses)", money(finance.grossProfit)],
+          ["Estimated net profit (revenue - expenses - payouts)", money(finance.estimatedNetProfit)],
+        ],
       };
     }
     default:

@@ -50,6 +50,7 @@ const BookingSchema = z.object({
   currency: z.string().trim().default("EUR"),
   internal_notes: z.string().trim().optional().or(z.literal("")),
   customer_notes: z.string().trim().optional().or(z.literal("")),
+  price_override_reason: z.string().trim().optional().or(z.literal("")),
 });
 
 function toNullable(value: string | undefined) {
@@ -119,11 +120,55 @@ export async function createBooking(_prevState: FormState, formData: FormData): 
 }
 
 export async function updateBooking(id: string, _prevState: FormState, formData: FormData): Promise<FormState> {
-  await requireRole(MANAGE_OPS);
+  const profile = await requireRole(MANAGE_OPS);
   const parsed = parseBookingForm(formData);
   if (!parsed.success) return { error: parsed.error };
 
   const supabase = await createClient();
+
+  const { data: existing } = await supabase
+    .from("bookings")
+    .select("total, trip_date, trip_time, driver_id, vehicle_id, estimated_duration_minutes")
+    .eq("id", id)
+    .single();
+
+  // A changed total is a price override — it needs a reason and a durable
+  // audit trail (price_override_log), never a silent overwrite of what was
+  // originally agreed.
+  const priceChanged = existing && Math.abs(Number(existing.total) - parsed.total) > 0.01;
+  if (priceChanged && !parsed.data.price_override_reason) {
+    return { error: "Enter a reason for the price change." };
+  }
+
+  // Rescheduling (or reassigning) through this form must recheck
+  // availability the same way the dedicated Assign panel does — otherwise
+  // a date/time edit here could silently double-book a driver or vehicle
+  // that assignDriverAndVehicle would have blocked.
+  const newDriverId = toNullable(parsed.data.driver_id);
+  const newVehicleId = toNullable(parsed.data.vehicle_id);
+  const scheduleOrAssignmentChanged =
+    existing &&
+    (existing.trip_date !== parsed.data.trip_date ||
+      existing.trip_time !== parsed.data.trip_time ||
+      existing.driver_id !== newDriverId ||
+      existing.vehicle_id !== newVehicleId);
+  if (scheduleOrAssignmentChanged && (newDriverId || newVehicleId)) {
+    const { data: conflicts } = await supabase.rpc("check_assignment_conflicts", {
+      p_booking_id: id,
+      p_driver_id: newDriverId as string,
+      p_vehicle_id: newVehicleId as string,
+      p_trip_date: parsed.data.trip_date,
+      p_trip_time: parsed.data.trip_time,
+      p_duration_minutes: existing.estimated_duration_minutes,
+    });
+    if (conflicts && conflicts.length > 0) {
+      const summary = conflicts
+        .map((c) => `${c.conflict_type === "DRIVER" ? "Driver" : "Vehicle"} already on ${c.booking_reference} (${c.trip_date} ${c.trip_time})`)
+        .join("; ");
+      return { error: `Schedule conflict — ${summary}. Use the Assign panel's "force" option if this is intentional.` };
+    }
+  }
+
   const { error } = await supabase
     .from("bookings")
     .update({
@@ -153,6 +198,18 @@ export async function updateBooking(id: string, _prevState: FormState, formData:
     })
     .eq("id", id);
   if (error) return { error: error.message };
+
+  if (priceChanged && existing) {
+    const { error: logError } = await supabase.from("price_override_log").insert({
+      entity_type: "booking",
+      entity_id: id,
+      original_price: existing.total,
+      new_price: parsed.total,
+      reason: parsed.data.price_override_reason!,
+      changed_by: profile.id,
+    });
+    if (logError) console.error("price_override_log insert failed", logError.message);
+  }
 
   revalidatePath(`/admin/bookings/${id}`);
   redirect(`/admin/bookings/${id}?success=Changes+saved`);
@@ -214,6 +271,97 @@ export async function setBookingStatus(id: string, status: BookingStatus) {
       });
     }
   }
+
+  revalidatePath(`/admin/bookings/${id}`);
+  revalidatePath("/admin/bookings");
+  revalidatePath("/admin/dispatch");
+}
+
+const CancelBookingSchema = z.object({
+  cancellation_reason: z.string().trim().min(1, "A reason is required."),
+  cancellation_initiated_by: z.enum(["CUSTOMER", "DRIVER", "STAFF"]),
+  cancellation_fee: z.coerce.number().nonnegative().optional().or(z.literal("")),
+  cancellation_refund_amount: z.coerce.number().nonnegative().optional().or(z.literal("")),
+});
+
+/** Cancelling loses no history — reason/initiator/fee/refund are captured
+ * on the booking row itself (never just a bare status flip) so anyone
+ * looking back later can see who cancelled it, why, and what money moved. */
+export async function cancelBookingWithDetails(id: string, formData: FormData): Promise<void> {
+  const profile = await requireRole(MANAGE_OPS);
+  const parsed = CancelBookingSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect(`/admin/bookings/${id}?error=${encodeURIComponent(parsed.error.issues[0]?.message ?? "Invalid input.")}`);
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("bookings")
+    .update({
+      status: "CANCELLED",
+      cancelled_by: profile.id,
+      cancellation_reason: parsed.data.cancellation_reason,
+      cancellation_initiated_by: parsed.data.cancellation_initiated_by,
+      cancellation_fee: parsed.data.cancellation_fee === "" ? null : parsed.data.cancellation_fee ?? null,
+      cancellation_refund_amount: parsed.data.cancellation_refund_amount === "" ? null : parsed.data.cancellation_refund_amount ?? null,
+    })
+    .eq("id", id);
+  if (error) redirect(`/admin/bookings/${id}?error=${encodeURIComponent(error.message)}`);
+
+  await logActivitySafe(supabase, {
+    p_action: "booking.cancelled",
+    p_entity_type: "booking",
+    p_entity_id: id,
+    p_metadata: {
+      reason: parsed.data.cancellation_reason,
+      initiated_by: parsed.data.cancellation_initiated_by,
+      fee: parsed.data.cancellation_fee || null,
+      refund_amount: parsed.data.cancellation_refund_amount || null,
+    },
+  });
+
+  revalidatePath(`/admin/bookings/${id}`);
+  revalidatePath("/admin/bookings");
+  revalidatePath("/admin/dispatch");
+}
+
+const NoShowSchema = z.object({
+  no_show_type: z.enum(["PASSENGER", "DRIVER"]),
+  no_show_notes: z.string().trim().min(1, "Notes / evidence are required."),
+  no_show_charge: z.coerce.number().nonnegative().optional().or(z.literal("")),
+  no_show_refund_amount: z.coerce.number().nonnegative().optional().or(z.literal("")),
+});
+
+/** Same principle as cancellation — who didn't show (passenger or driver),
+ * the evidence/notes, and any charge or refund are recorded on the booking
+ * rather than a bare status change with no explanation. */
+export async function markNoShowWithDetails(id: string, formData: FormData): Promise<void> {
+  await requireRole(MANAGE_OPS);
+  const parsed = NoShowSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect(`/admin/bookings/${id}?error=${encodeURIComponent(parsed.error.issues[0]?.message ?? "Invalid input.")}`);
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("bookings")
+    .update({
+      status: "NO_SHOW",
+      no_show_type: parsed.data.no_show_type,
+      no_show_notes: parsed.data.no_show_notes,
+      no_show_charge: parsed.data.no_show_charge === "" ? null : parsed.data.no_show_charge ?? null,
+      no_show_refund_amount: parsed.data.no_show_refund_amount === "" ? null : parsed.data.no_show_refund_amount ?? null,
+    })
+    .eq("id", id);
+  if (error) redirect(`/admin/bookings/${id}?error=${encodeURIComponent(error.message)}`);
+
+  await logActivitySafe(supabase, {
+    p_action: "booking.no_show",
+    p_entity_type: "booking",
+    p_entity_id: id,
+    p_metadata: {
+      type: parsed.data.no_show_type,
+      notes: parsed.data.no_show_notes,
+      charge: parsed.data.no_show_charge || null,
+      refund_amount: parsed.data.no_show_refund_amount || null,
+    },
+  });
 
   revalidatePath(`/admin/bookings/${id}`);
   revalidatePath("/admin/bookings");

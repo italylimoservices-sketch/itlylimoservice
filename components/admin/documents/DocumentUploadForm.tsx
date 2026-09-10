@@ -21,6 +21,8 @@ export function DocumentUploadForm({
     return result;
   }, undefined);
 
+  const tracksExpiry = entityType === "driver" || entityType === "vehicle";
+
   return (
     <form ref={formRef} action={formAction} className="space-y-3">
       <input type="hidden" name="entity_type" value={entityType} />
@@ -32,6 +34,15 @@ export function DocumentUploadForm({
           </option>
         ))}
       </select>
+      {tracksExpiry ? (
+        <>
+          <input name="document_subtype" placeholder="e.g. Driving License, Insurance Policy" className="input-luxe" />
+          <div>
+            <label className="block text-xs text-stone mb-1">Expiry date (optional — enables expiry alerts)</label>
+            <input type="date" name="expiry_date" className="input-luxe" />
+          </div>
+        </>
+      ) : null}
       <input type="file" name="file" required className="text-sm" />
       {state?.error ? <p className="text-sm text-red-700">{state.error}</p> : null}
       <button type="submit" disabled={pending} className="text-sm border border-line px-3 py-1.5 rounded-sm hover:bg-ivory-deep disabled:opacity-60">

@@ -38,10 +38,12 @@ export function BookingForm({
   action,
   defaults,
   submitLabel = "Save booking",
+  isEdit = false,
 }: {
   action: (state: FormState, formData: FormData) => Promise<FormState>;
   defaults?: BookingDefaults;
   submitLabel?: string;
+  isEdit?: boolean;
 }) {
   const [state, formAction, pending] = useActionState(action, undefined);
 
@@ -88,6 +90,13 @@ export function BookingForm({
         <Field label="Discount" name="discount" type="number" defaultValue={defaults?.discount?.toString() ?? "0"} />
         <Field label="Tax amount" name="tax_amount" type="number" defaultValue={defaults?.tax_amount?.toString() ?? "0"} />
       </div>
+
+      {isEdit ? (
+        <div>
+          <label className="block text-sm font-medium text-ink-soft mb-1">Reason for price change</label>
+          <input name="price_override_reason" className="input-luxe" placeholder="Only required if you change price/discount/tax — logged to the price override audit" />
+        </div>
+      ) : null}
 
       <fieldset className="border border-line rounded-sm p-4 space-y-3">
         <legend className="text-sm font-medium text-ink-soft px-1">Airport / flight details</legend>

@@ -8,6 +8,7 @@ import { requireRole } from "@/lib/auth/dal";
 import { MANAGE_CRM } from "@/lib/auth/roles";
 import { notifyCustomer } from "@/lib/notifications/service";
 import { formatCurrency, formatDate } from "@/lib/admin/format";
+import { recordDiscountIfNeeded } from "@/lib/admin/actions/discounts";
 
 export type FormState = { error?: string } | undefined;
 
@@ -15,6 +16,7 @@ const ItemSchema = z.object({
   description: z.string().trim().min(1),
   quantity: z.coerce.number().positive(),
   unit_price: z.coerce.number().nonnegative(),
+  service_id: z.string().uuid().optional().or(z.literal("")),
 });
 
 const QuotationSchema = z.object({
@@ -122,6 +124,7 @@ export async function createQuotation(_prevState: FormState, formData: FormData)
   const { error: itemsError } = await supabase.from("quotation_items").insert(
     parsed.items.map((item, index) => ({
       quotation_id: quotation.id,
+      service_id: item.service_id || null,
       description: item.description,
       quantity: item.quantity,
       unit_price: item.unit_price,
@@ -138,12 +141,21 @@ export async function createQuotation(_prevState: FormState, formData: FormData)
     p_metadata: {},
   });
 
+  await recordDiscountIfNeeded(supabase, {
+    entityType: "quotation",
+    entityId: quotation.id,
+    originalPrice: parsed.subtotal,
+    discountAmount: parsed.data.discount,
+    finalPrice: parsed.total,
+    requestedBy: profile.id,
+  });
+
   revalidatePath("/admin/quotations");
   redirect(`/admin/quotations/${quotation.id}?success=Quotation+created`);
 }
 
 export async function updateQuotation(id: string, _prevState: FormState, formData: FormData): Promise<FormState> {
-  await requireRole(MANAGE_CRM);
+  const profile = await requireRole(MANAGE_CRM);
   const parsed = parseQuotationForm(formData);
   if (!parsed.success) return { error: parsed.error };
 
@@ -180,6 +192,7 @@ export async function updateQuotation(id: string, _prevState: FormState, formDat
   const { error: itemsError } = await supabase.from("quotation_items").insert(
     parsed.items.map((item, index) => ({
       quotation_id: id,
+      service_id: item.service_id || null,
       description: item.description,
       quantity: item.quantity,
       unit_price: item.unit_price,
@@ -188,6 +201,15 @@ export async function updateQuotation(id: string, _prevState: FormState, formDat
     }))
   );
   if (itemsError) return { error: itemsError.message };
+
+  await recordDiscountIfNeeded(supabase, {
+    entityType: "quotation",
+    entityId: id,
+    originalPrice: parsed.subtotal,
+    discountAmount: parsed.data.discount,
+    finalPrice: parsed.total,
+    requestedBy: profile.id,
+  });
 
   revalidatePath(`/admin/quotations/${id}`);
   redirect(`/admin/quotations/${id}?success=Changes+saved`);
@@ -298,6 +320,7 @@ export async function duplicateQuotation(id: string) {
     await supabase.from("quotation_items").insert(
       items.map((item, index) => ({
         quotation_id: copy.id,
+        service_id: item.service_id ?? null,
         description: item.description,
         quantity: item.quantity,
         unit_price: item.unit_price,

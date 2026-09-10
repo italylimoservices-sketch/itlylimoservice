@@ -17,13 +17,20 @@ const VehicleSchema = z.object({
   make: z.string().trim().optional().or(z.literal("")),
   model: z.string().trim().optional().or(z.literal("")),
   year: z.coerce.number().int().optional(),
+  color: z.string().trim().optional().or(z.literal("")),
   category: z.enum(["SEDAN", "SUV", "VAN", "LUXURY", "MINIBUS"]),
   seats: z.coerce.number().int().positive().optional(),
   luggage_capacity: z.coerce.number().int().nonnegative().optional(),
   registration_number: z.string().trim().optional().or(z.literal("")),
+  vin: z.string().trim().optional().or(z.literal("")),
+  current_mileage: z.coerce.number().int().nonnegative().optional(),
   description: z.string().trim().optional().or(z.literal("")),
   registration_expiry: z.string().trim().optional().or(z.literal("")),
   insurance_expiry: z.string().trim().optional().or(z.literal("")),
+  purchase_date: z.string().trim().optional().or(z.literal("")),
+  purchase_price: z.coerce.number().nonnegative().optional(),
+  lease_monthly_amount: z.coerce.number().nonnegative().optional(),
+  lease_end_date: z.string().trim().optional().or(z.literal("")),
 });
 
 function toNullable(value: string | undefined) {
@@ -32,7 +39,15 @@ function toNullable(value: string | undefined) {
 
 function parse(formData: FormData) {
   const raw = Object.fromEntries(formData);
-  return VehicleSchema.safeParse({ ...raw, year: raw.year || undefined, seats: raw.seats || undefined, luggage_capacity: raw.luggage_capacity || undefined });
+  return VehicleSchema.safeParse({
+    ...raw,
+    year: raw.year || undefined,
+    seats: raw.seats || undefined,
+    luggage_capacity: raw.luggage_capacity || undefined,
+    current_mileage: raw.current_mileage || undefined,
+    purchase_price: raw.purchase_price || undefined,
+    lease_monthly_amount: raw.lease_monthly_amount || undefined,
+  });
 }
 
 export async function createVehicle(_prevState: FormState, formData: FormData): Promise<FormState> {
@@ -48,13 +63,20 @@ export async function createVehicle(_prevState: FormState, formData: FormData): 
       make: toNullable(parsed.data.make),
       model: toNullable(parsed.data.model),
       year: parsed.data.year ?? null,
+      color: toNullable(parsed.data.color),
       category: parsed.data.category,
       seats: parsed.data.seats ?? null,
       luggage_capacity: parsed.data.luggage_capacity ?? null,
       registration_number: toNullable(parsed.data.registration_number),
+      vin: toNullable(parsed.data.vin),
+      current_mileage: parsed.data.current_mileage ?? null,
       description: toNullable(parsed.data.description),
       registration_expiry: toNullable(parsed.data.registration_expiry),
       insurance_expiry: toNullable(parsed.data.insurance_expiry),
+      purchase_date: toNullable(parsed.data.purchase_date),
+      purchase_price: parsed.data.purchase_price ?? null,
+      lease_monthly_amount: parsed.data.lease_monthly_amount ?? null,
+      lease_end_date: toNullable(parsed.data.lease_end_date),
     })
     .select("id")
     .single();
@@ -77,13 +99,20 @@ export async function updateVehicle(id: string, _prevState: FormState, formData:
       make: toNullable(parsed.data.make),
       model: toNullable(parsed.data.model),
       year: parsed.data.year ?? null,
+      color: toNullable(parsed.data.color),
       category: parsed.data.category,
       seats: parsed.data.seats ?? null,
       luggage_capacity: parsed.data.luggage_capacity ?? null,
       registration_number: toNullable(parsed.data.registration_number),
+      vin: toNullable(parsed.data.vin),
+      current_mileage: parsed.data.current_mileage ?? null,
       description: toNullable(parsed.data.description),
       registration_expiry: toNullable(parsed.data.registration_expiry),
       insurance_expiry: toNullable(parsed.data.insurance_expiry),
+      purchase_date: toNullable(parsed.data.purchase_date),
+      purchase_price: parsed.data.purchase_price ?? null,
+      lease_monthly_amount: parsed.data.lease_monthly_amount ?? null,
+      lease_end_date: toNullable(parsed.data.lease_end_date),
     })
     .eq("id", id);
   if (error) return { error: error.message };
@@ -95,7 +124,7 @@ export async function updateVehicle(id: string, _prevState: FormState, formData:
 export async function setVehicleStatus(id: string, status: VehicleStatus) {
   await requireRole(MANAGE_OPS);
   const supabase = await createClient();
-  const { error } = await supabase.from("vehicles").update({ status, active: status === "ACTIVE" }).eq("id", id);
+  const { error } = await supabase.from("vehicles").update({ status, active: status === "AVAILABLE" }).eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath(`/admin/vehicles/${id}`);
   revalidatePath("/admin/vehicles");

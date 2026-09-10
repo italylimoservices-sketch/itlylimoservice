@@ -13,6 +13,8 @@ import { RecordPaymentForm } from "@/components/admin/invoices/RecordPaymentForm
 import { ConfirmButton } from "@/components/admin/ui/ConfirmButton";
 import { formatCurrency, formatDate } from "@/lib/admin/format";
 import { markInvoiceSent, voidInvoice, recordPayment } from "@/lib/admin/actions/invoices";
+import { requestRefund, approveRefund, processRefund } from "@/lib/admin/actions/refunds";
+import { InternalNotes } from "@/components/admin/notes/InternalNotes";
 import { buildWhatsAppLink } from "@/lib/notifications/whatsapp";
 
 export const metadata: Metadata = { title: "Invoice" };
@@ -29,12 +31,15 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
     .maybeSingle();
   if (!invoice) notFound();
 
-  const { data: payments } = await supabase
-    .from("payments")
-    .select("id, amount, currency, method, payment_date, reference_number")
-    .eq("invoice_id", id)
-    .is("deleted_at", null)
-    .order("payment_date", { ascending: false });
+  const [{ data: payments }, { data: refunds }] = await Promise.all([
+    supabase
+      .from("payments")
+      .select("id, amount, currency, method, payment_date, reference_number")
+      .eq("invoice_id", id)
+      .is("deleted_at", null)
+      .order("payment_date", { ascending: false }),
+    supabase.from("refunds").select("*").eq("invoice_id", id).order("created_at", { ascending: false }),
+  ]);
 
   const canEdit = canManageFinance(profile.role);
   const items = ((invoice as any).invoice_items ?? []).sort((a: any, b: any) => a.sort_order - b.sort_order);
@@ -103,6 +108,61 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               <RecordPaymentForm action={recordPayment.bind(null, id)} balanceDue={Number(invoice.balance_due)} currency={invoice.currency} />
             </Section>
 
+            {payments && payments.length > 0 ? (
+              <Section title="Refunds">
+                <div className="p-4 space-y-3">
+                  {(refunds ?? []).map((r) => (
+                    <div key={r.id} className="border border-line rounded-sm p-3 text-xs space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium text-ink">
+                          {formatCurrency(r.amount, r.currency)} · {r.refund_type}
+                        </span>
+                        <StatusBadge status={r.status} />
+                      </div>
+                      <p className="text-stone">{r.reason}</p>
+                      {r.refund_reference ? <p className="text-stone">Ref: {r.refund_reference}</p> : null}
+                      {r.status === "PENDING" ? (
+                        <form action={approveRefund.bind(null, r.id, id)}>
+                          <button type="submit" className="text-xs border border-line px-2 py-1 rounded-sm hover:bg-ivory-deep">
+                            Approve
+                          </button>
+                        </form>
+                      ) : null}
+                      {r.status === "APPROVED" ? (
+                        <form action={processRefund.bind(null, r.id, id)} className="flex items-center gap-1.5">
+                          <input name="refund_reference" placeholder="Refund reference" required className="input-luxe text-xs py-1" />
+                          <button type="submit" className="text-xs bg-navy text-ivory px-2 py-1 rounded-sm hover:bg-navy-deep shrink-0">
+                            Process
+                          </button>
+                        </form>
+                      ) : null}
+                    </div>
+                  ))}
+
+                  <form action={requestRefund.bind(null, id)} className="space-y-2 border-t border-line pt-3">
+                    <select name="payment_id" required className="input-luxe text-xs">
+                      {payments.map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {formatCurrency(p.amount, p.currency)} paid {formatDate(p.payment_date)}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="flex gap-1.5">
+                      <input type="number" name="amount" min={0.01} step="0.01" placeholder="Amount" required className="input-luxe text-xs" />
+                      <select name="refund_type" className="input-luxe text-xs w-24">
+                        <option value="FULL">Full</option>
+                        <option value="PARTIAL">Partial</option>
+                      </select>
+                    </div>
+                    <input name="reason" placeholder="Reason" required className="input-luxe text-xs" />
+                    <button type="submit" className="w-full text-xs border border-line px-3 py-1.5 rounded-sm hover:bg-ivory-deep">
+                      Request refund
+                    </button>
+                  </form>
+                </div>
+              </Section>
+            ) : null}
+
             <Section title="Actions">
               <div className="p-4 space-y-2">
                 {invoice.status === "DRAFT" ? (
@@ -144,6 +204,12 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                 </div>
               </Section>
             ) : null}
+
+            <Section title="Internal notes">
+              <div className="p-4">
+                <InternalNotes entityType="invoice" entityId={id} />
+              </div>
+            </Section>
           </div>
         ) : null}
       </div>

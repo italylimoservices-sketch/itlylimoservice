@@ -9,13 +9,15 @@ import { SimpleTable } from "@/components/admin/ui/SimpleTable";
 import { StatusBadge } from "@/components/admin/ui/Badge";
 import { VehicleForm } from "@/components/admin/vehicles/VehicleForm";
 import { DocumentUploadForm } from "@/components/admin/documents/DocumentUploadForm";
+import { DocumentExpiryList } from "@/components/admin/documents/DocumentExpiryList";
+import { InternalNotes } from "@/components/admin/notes/InternalNotes";
 import { ConfirmButton } from "@/components/admin/ui/ConfirmButton";
 import { formatDate, formatTime } from "@/lib/admin/format";
 import { updateVehicle, setVehicleStatus, archiveVehicle } from "@/lib/admin/actions/vehicles";
 
 export const metadata: Metadata = { title: "Vehicle" };
 
-const STATUSES = ["ACTIVE", "MAINTENANCE", "INACTIVE"] as const;
+const STATUSES = ["AVAILABLE", "MAINTENANCE", "INACTIVE"] as const;
 
 export default async function VehicleDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -25,12 +27,15 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
   const { data: vehicle } = await supabase.from("vehicles").select("*, drivers(id, full_name)").eq("id", id).maybeSingle();
   if (!vehicle) notFound();
 
-  const { data: trips } = await supabase
-    .from("bookings")
-    .select("id, booking_reference, pickup, dropoff, trip_date, trip_time, status")
-    .eq("vehicle_id", id)
-    .order("trip_date", { ascending: false })
-    .limit(20);
+  const [{ data: trips }, { data: documents }] = await Promise.all([
+    supabase
+      .from("bookings")
+      .select("id, booking_reference, pickup, dropoff, trip_date, trip_time, status")
+      .eq("vehicle_id", id)
+      .order("trip_date", { ascending: false })
+      .limit(20),
+    supabase.from("documents").select("*").eq("entity_type", "vehicle").eq("entity_id", id).order("created_at", { ascending: false }),
+  ]);
 
   const canEdit = canManageOps(profile.role);
 
@@ -67,8 +72,16 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
         {canEdit ? (
           <div className="space-y-4">
             <Section title="Documents">
-              <div className="p-4">
+              <div className="p-4 space-y-3">
+                <DocumentExpiryList documents={documents ?? []} />
                 <DocumentUploadForm entityType="vehicle" entityId={id} defaultDocType="VEHICLE_DOCUMENT" />
+              </div>
+            </Section>
+            <Section title="Maintenance">
+              <div className="p-4">
+                <a href="/admin/fleet/maintenance" className="text-sm text-gold hover:underline">
+                  View / log maintenance →
+                </a>
               </div>
             </Section>
             <Section title="Status">
@@ -96,6 +109,11 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
                     Archive vehicle
                   </ConfirmButton>
                 </form>
+              </div>
+            </Section>
+            <Section title="Internal notes">
+              <div className="p-4">
+                <InternalNotes entityType="vehicle" entityId={id} />
               </div>
             </Section>
           </div>

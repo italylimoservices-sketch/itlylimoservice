@@ -11,9 +11,11 @@ import { EntityPicker } from "@/components/admin/ui/EntityPicker";
 import { ConfirmButton } from "@/components/admin/ui/ConfirmButton";
 import { BookingForm } from "@/components/admin/bookings/BookingForm";
 import { formatDateTime, formatCurrency, formatDate, formatTime } from "@/lib/admin/format";
-import { updateBooking, setBookingStatus, assignDriverAndVehicle } from "@/lib/admin/actions/bookings";
+import { updateBooking, setBookingStatus, assignDriverAndVehicle, cancelBookingWithDetails, markNoShowWithDetails } from "@/lib/admin/actions/bookings";
 import { createInvoiceForBooking } from "@/lib/admin/actions/invoices";
 import { buildWhatsAppLink } from "@/lib/notifications/whatsapp";
+import { changedFields, formatDiffValue } from "@/lib/admin/activityDiff";
+import { InternalNotes } from "@/components/admin/notes/InternalNotes";
 
 export const metadata: Metadata = { title: "Booking" };
 
@@ -41,12 +43,27 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
 
   const showFinance = canViewFinance(profile.role);
 
-  const [{ data: invoice }, { data: history }, { data: tripExpenses }] = await Promise.all([
+  const [{ data: invoice }, { data: history }, { data: tripExpenses }, { data: changeLog }, { data: priceOverrides }] = await Promise.all([
     supabase.from("invoices").select("id, invoice_number, status, balance_due").eq("booking_id", id).maybeSingle(),
     supabase.from("booking_status_history").select("id, from_status, to_status, changed_at").eq("booking_id", id).order("changed_at", { ascending: false }),
     showFinance
       ? supabase.from("expenses").select("category, amount").eq("booking_id", id).is("deleted_at", null)
       : Promise.resolve({ data: [] as { category: string; amount: number }[] }),
+    supabase
+      .from("activity_logs")
+      .select("id, before_state, after_state, created_at, profiles(full_name)")
+      .eq("entity_type", "bookings")
+      .eq("entity_id", id)
+      .order("created_at", { ascending: false })
+      .limit(20),
+    showFinance
+      ? supabase
+          .from("price_override_log")
+          .select("id, original_price, new_price, reason, changed_at, profiles(full_name)")
+          .eq("entity_type", "booking")
+          .eq("entity_id", id)
+          .order("changed_at", { ascending: false })
+      : Promise.resolve({ data: [] as { id: string; original_price: number; new_price: number; reason: string; changed_at: string; profiles: { full_name: string } | null }[] }),
   ]);
 
   const canEdit = canManageOps(profile.role);
@@ -104,6 +121,7 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                 <BookingForm
                   action={updateBooking.bind(null, id)}
                   submitLabel="Save changes"
+                  isEdit
                   defaults={{
                     customer_id: (booking as any).customers?.id,
                     customer_label: (booking as any).customers?.full_name,
@@ -173,6 +191,61 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
               )}
             </ul>
           </Section>
+
+          <Section title="Change history">
+            {!changeLog || changeLog.length === 0 ? (
+              <p className="px-4 py-3 text-sm text-stone">No field-level changes recorded yet (visible to admins only).</p>
+            ) : (
+              <ul className="divide-y divide-line">
+                {changeLog.map((entry) => {
+                  const diffs = changedFields(entry.before_state, entry.after_state);
+                  if (diffs.length === 0) return null;
+                  return (
+                    <li key={entry.id} className="px-4 py-3 text-sm">
+                      <p className="text-xs text-stone mb-1">
+                        {(entry as any).profiles?.full_name ?? "System"} · {formatDateTime(entry.created_at)}
+                      </p>
+                      <ul className="space-y-0.5 text-xs">
+                        {diffs.map((d) => (
+                          <li key={d.field}>
+                            <span className="font-medium">{d.field}</span>: {formatDiffValue(d.from)} → {formatDiffValue(d.to)}
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </Section>
+
+          {showFinance && priceOverrides && priceOverrides.length > 0 ? (
+            <Section title="Price override history">
+              <ul className="divide-y divide-line">
+                {priceOverrides.map((o) => (
+                  <li key={o.id} className="px-4 py-3 text-sm">
+                    <div className="flex items-center justify-between">
+                      <span>
+                        {formatCurrency(o.original_price, booking.currency)} → {formatCurrency(o.new_price, booking.currency)}
+                      </span>
+                      <span className="text-xs text-stone">{formatDateTime(o.changed_at)}</span>
+                    </div>
+                    <p className="text-xs text-stone mt-0.5">
+                      {o.reason} — {o.profiles?.full_name ?? "Unknown"}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          ) : null}
+
+          {canEdit ? (
+            <Section title="Internal notes">
+              <div className="p-4">
+                <InternalNotes entityType="booking" entityId={id} />
+              </div>
+            </Section>
+          ) : null}
         </div>
 
         {canEdit ? (
@@ -197,22 +270,75 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                       </button>
                     </form>
                   ))}
-                  <form action={setBookingStatus.bind(null, id, "NO_SHOW")}>
-                    <ConfirmButton
-                      confirmMessage="Mark this booking as a no-show?"
-                      className="text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700"
-                    >
+                  <details className="w-full">
+                    <summary className="inline-block text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700 cursor-pointer select-none">
                       No-show
-                    </ConfirmButton>
-                  </form>
-                  <form action={setBookingStatus.bind(null, id, "CANCELLED")}>
-                    <ConfirmButton
-                      confirmMessage={`Cancel booking ${booking.booking_reference}?`}
-                      className="text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700"
-                    >
+                    </summary>
+                    <form action={markNoShowWithDetails.bind(null, id)} className="mt-2 p-3 border border-line rounded-sm space-y-2 bg-ivory-deep">
+                      <div>
+                        <label className="block text-xs text-stone mb-1">Who didn&rsquo;t show</label>
+                        <select name="no_show_type" required className="input-luxe text-sm">
+                          <option value="PASSENGER">Passenger</option>
+                          <option value="DRIVER">Driver</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs text-stone mb-1">Notes / evidence</label>
+                        <textarea name="no_show_notes" required rows={2} className="input-luxe text-sm" placeholder="What happened, wait time, contact attempts…" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <label className="block text-xs text-stone mb-1">Charge</label>
+                          <input type="number" step="0.01" min="0" name="no_show_charge" className="input-luxe text-sm" />
+                        </div>
+                        <div>
+                          <label className="block text-xs text-stone mb-1">Refund</label>
+                          <input type="number" step="0.01" min="0" name="no_show_refund_amount" className="input-luxe text-sm" />
+                        </div>
+                      </div>
+                      <ConfirmButton
+                        confirmMessage="Mark this booking as a no-show?"
+                        className="text-xs px-3 py-1.5 rounded-sm border border-red-200 bg-red-50 text-red-700 hover:bg-red-100"
+                      >
+                        Confirm no-show
+                      </ConfirmButton>
+                    </form>
+                  </details>
+                  <details className="w-full">
+                    <summary className="inline-block text-xs px-2.5 py-1.5 rounded-sm border border-line hover:bg-red-50 hover:text-red-700 cursor-pointer select-none">
                       Cancel
-                    </ConfirmButton>
-                  </form>
+                    </summary>
+                    <form action={cancelBookingWithDetails.bind(null, id)} className="mt-2 p-3 border border-line rounded-sm space-y-2 bg-ivory-deep">
+                      <div>
+                        <label className="block text-xs text-stone mb-1">Initiated by</label>
+                        <select name="cancellation_initiated_by" required className="input-luxe text-sm">
+                          <option value="CUSTOMER">Customer</option>
+                          <option value="DRIVER">Driver</option>
+                          <option value="STAFF">Staff</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs text-stone mb-1">Reason</label>
+                        <textarea name="cancellation_reason" required rows={2} className="input-luxe text-sm" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <label className="block text-xs text-stone mb-1">Cancellation fee</label>
+                          <input type="number" step="0.01" min="0" name="cancellation_fee" className="input-luxe text-sm" />
+                        </div>
+                        <div>
+                          <label className="block text-xs text-stone mb-1">Refund amount</label>
+                          <input type="number" step="0.01" min="0" name="cancellation_refund_amount" className="input-luxe text-sm" />
+                        </div>
+                      </div>
+                      <ConfirmButton
+                        confirmMessage={`Cancel booking ${booking.booking_reference}?`}
+                        className="text-xs px-3 py-1.5 rounded-sm border border-red-200 bg-red-50 text-red-700 hover:bg-red-100"
+                      >
+                        Confirm cancellation
+                      </ConfirmButton>
+                    </form>
+                  </details>
                 </div>
               )}
             </Section>

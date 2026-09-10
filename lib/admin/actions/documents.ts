@@ -11,7 +11,13 @@ const UploadSchema = z.object({
   entity_type: z.string().trim().min(1),
   entity_id: z.string().uuid(),
   doc_type: z.enum(["QUOTATION", "INVOICE", "RECEIPT", "BOOKING_CONFIRMATION", "DRIVER_DOCUMENT", "VEHICLE_DOCUMENT", "OTHER"]),
+  document_subtype: z.string().trim().optional().or(z.literal("")),
+  expiry_date: z.string().trim().optional().or(z.literal("")),
 });
+
+function toNullable(value: string | undefined) {
+  return value && value.length > 0 ? value : null;
+}
 
 export async function uploadDocument(_prevState: FormState, formData: FormData): Promise<FormState> {
   const profile = await requireRole(["SUPER_ADMIN", "ADMIN", "OPERATIONS", "FINANCE"]);
@@ -33,6 +39,8 @@ export async function uploadDocument(_prevState: FormState, formData: FormData):
     entity_type: parsed.data.entity_type,
     entity_id: parsed.data.entity_id,
     doc_type: parsed.data.doc_type,
+    document_subtype: toNullable(parsed.data.document_subtype),
+    expiry_date: toNullable(parsed.data.expiry_date),
     file_name: file.name,
     storage_path: storagePath,
     mime_type: file.type || null,
