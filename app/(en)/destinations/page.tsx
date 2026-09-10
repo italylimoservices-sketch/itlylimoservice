@@ -36,7 +36,7 @@ export default function DestinationsIndexPage() {
         <div className="container-luxe grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {destinations.map((d, i) => (
             <Link key={d.slug} href={`/destinations/${d.slug}`} className="group block">
-              <ImageBlock label={d.name} variant={variants[i % variants.length]} />
+              <ImageBlock label={d.name} variant={variants[i % variants.length]} src={d.image || undefined} />
               <p className="mt-3 text-sm font-semibold text-navy">{d.name}</p>
               <p className="text-xs text-stone">{d.region}</p>
             </Link>

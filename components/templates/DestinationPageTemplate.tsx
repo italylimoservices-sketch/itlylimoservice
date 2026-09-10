@@ -128,7 +128,7 @@ export default function DestinationPageTemplate({
             </div>
           </div>
 
-          <ImageBlock label={name} variant="gold" aspect="aspect-[4/5]" />
+          <ImageBlock label={name} variant="gold" aspect="aspect-[4/5]" src={destination.image || undefined} />
         </div>
       </section>
 
@@ -189,7 +189,7 @@ export default function DestinationPageTemplate({
             <div className="mt-8 grid sm:grid-cols-3 gap-5">
               {linkedDestinations.map((ld) => (
                 <Link key={ld.slug} href={localePath(locale, `/destinations/${ld.slug}`)} className="group block">
-                  <ImageBlock label={it ? destinationNames_it[ld.slug]?.name ?? ld.name : ld.name} variant="navy" />
+                  <ImageBlock label={it ? destinationNames_it[ld.slug]?.name ?? ld.name : ld.name} variant="navy" src={ld.image || undefined} />
                   <p className="mt-3 text-sm font-semibold text-navy">
                     {it ? destinationNames_it[ld.slug]?.name ?? ld.name : ld.name}
                   </p>

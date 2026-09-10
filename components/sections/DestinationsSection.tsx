@@ -37,6 +37,7 @@ export default function DestinationsSection({ locale = "en" }: { locale?: Locale
                   label={name}
                   variant={variants[i % variants.length]}
                   className="group-hover:opacity-90 transition-opacity"
+                  src={d.image || undefined}
                 />
                 <p className="mt-3 text-sm font-semibold text-navy">{name}</p>
                 <p className="text-xs text-stone">{region}</p>

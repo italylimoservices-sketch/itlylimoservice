@@ -31,7 +31,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["rome-fiumicino", "rome-ciampino"],
     relatedRoutes: ["rome-to-florence", "rome-to-naples", "rome-to-sorrento", "rome-to-amalfi-coast"],
     relatedDestinations: ["naples", "florence", "tuscany"],
-    image: "/images/destinations/rome.jpg",
+    image: "/images/destinations/rome.webp",
   },
   {
     slug: "milan",
@@ -63,7 +63,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["milan-malpensa", "milan-linate", "bergamo"],
     relatedRoutes: ["milan-to-lake-como", "milan-to-venice"],
     relatedDestinations: ["lake-como", "verona", "turin"],
-    image: "/images/destinations/milan.jpg",
+    image: "/images/destinations/milan.webp",
   },
   {
     slug: "florence",
@@ -94,7 +94,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["florence", "pisa"],
     relatedRoutes: ["florence-to-rome", "florence-to-venice", "florence-to-pisa", "florence-to-siena"],
     relatedDestinations: ["tuscany", "siena", "pisa", "cinque-terre"],
-    image: "/images/destinations/florence.jpg",
+    image: "/images/destinations/florence.webp",
   },
   {
     slug: "venice",
@@ -124,7 +124,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["venice-marco-polo"],
     relatedRoutes: ["florence-to-venice", "venice-to-florence", "venice-to-milan"],
     relatedDestinations: ["verona", "milan"],
-    image: "/images/destinations/venice.jpg",
+    image: "/images/destinations/venice.webp",
   },
   {
     slug: "naples",
@@ -154,7 +154,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["naples"],
     relatedRoutes: ["rome-to-naples", "naples-to-rome"],
     relatedDestinations: ["sorrento", "amalfi-coast"],
-    image: "/images/destinations/naples.jpg",
+    image: "/images/destinations/naples.webp",
   },
   {
     slug: "bologna",
@@ -178,7 +178,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["bologna"],
     relatedRoutes: [],
     relatedDestinations: ["florence", "venice"],
-    image: "/images/destinations/bologna.jpg",
+    image: "/images/destinations/bologna.webp",
   },
   {
     slug: "turin",
@@ -202,7 +202,7 @@ export const destinations: Destination[] = [
     nearestAirports: [],
     relatedRoutes: [],
     relatedDestinations: ["milan"],
-    image: "/images/destinations/turin.jpg",
+    image: "/images/destinations/turin.webp",
   },
   {
     slug: "verona",
@@ -226,7 +226,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["venice-marco-polo"],
     relatedRoutes: [],
     relatedDestinations: ["venice", "milan"],
-    image: "/images/destinations/verona.jpg",
+    image: "/images/destinations/verona.webp",
   },
   {
     slug: "lake-como",
@@ -250,7 +250,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["milan-malpensa", "bergamo"],
     relatedRoutes: ["milan-to-lake-como"],
     relatedDestinations: ["milan"],
-    image: "/images/destinations/lake-como.jpg",
+    image: "/images/destinations/lake-como.webp",
   },
   {
     slug: "amalfi-coast",
@@ -274,7 +274,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["naples"],
     relatedRoutes: ["rome-to-amalfi-coast"],
     relatedDestinations: ["sorrento", "naples"],
-    image: "/images/destinations/amalfi-coast.jpg",
+    image: "/images/destinations/amalfi-coast.webp",
   },
   {
     slug: "sorrento",
@@ -298,7 +298,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["naples"],
     relatedRoutes: ["rome-to-sorrento", "sorrento-to-rome"],
     relatedDestinations: ["amalfi-coast", "naples"],
-    image: "/images/destinations/sorrento.jpg",
+    image: "/images/destinations/sorrento.webp",
   },
   {
     slug: "tuscany",
@@ -322,7 +322,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["florence", "pisa"],
     relatedRoutes: ["florence-to-pisa", "florence-to-siena"],
     relatedDestinations: ["florence", "siena", "pisa"],
-    image: "/images/destinations/tuscany.jpg",
+    image: "/images/destinations/tuscany.webp",
   },
   {
     slug: "cinque-terre",
@@ -346,7 +346,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["pisa"],
     relatedRoutes: [],
     relatedDestinations: ["florence", "pisa"],
-    image: "/images/destinations/cinque-terre.jpg",
+    image: "",
   },
   {
     slug: "portofino",
@@ -370,7 +370,7 @@ export const destinations: Destination[] = [
     nearestAirports: [],
     relatedRoutes: [],
     relatedDestinations: ["cinque-terre"],
-    image: "/images/destinations/portofino.jpg",
+    image: "",
   },
   {
     slug: "siena",
@@ -394,7 +394,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["florence"],
     relatedRoutes: ["florence-to-siena"],
     relatedDestinations: ["florence", "tuscany"],
-    image: "/images/destinations/siena.jpg",
+    image: "",
   },
   {
     slug: "pisa",
@@ -418,7 +418,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["pisa"],
     relatedRoutes: ["florence-to-pisa"],
     relatedDestinations: ["florence", "tuscany", "cinque-terre"],
-    image: "/images/destinations/pisa.jpg",
+    image: "",
   },
   {
     slug: "sicily",
@@ -442,7 +442,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["palermo", "catania"],
     relatedRoutes: [],
     relatedDestinations: [],
-    image: "/images/destinations/sicily.jpg",
+    image: "",
   },
   {
     slug: "sardinia",
@@ -466,7 +466,7 @@ export const destinations: Destination[] = [
     nearestAirports: [],
     relatedRoutes: [],
     relatedDestinations: [],
-    image: "/images/destinations/sardinia.jpg",
+    image: "",
   },
   {
     slug: "bari",
@@ -490,7 +490,7 @@ export const destinations: Destination[] = [
     nearestAirports: [],
     relatedRoutes: [],
     relatedDestinations: [],
-    image: "/images/destinations/bari.jpg",
+    image: "",
   },
   {
     slug: "genoa",
@@ -514,7 +514,7 @@ export const destinations: Destination[] = [
     nearestAirports: [],
     relatedRoutes: [],
     relatedDestinations: ["portofino", "cinque-terre"],
-    image: "/images/destinations/genoa.jpg",
+    image: "",
   },
 ];
 
