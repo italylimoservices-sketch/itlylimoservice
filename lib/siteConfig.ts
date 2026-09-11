@@ -15,6 +15,7 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/company/italy-limo-service/",
     pinterest: "https://it.pinterest.com/italylimoservice/",
     youtube: "https://www.youtube.com/@Italylimoservice",
+    reddit: "https://www.reddit.com/user/italylimoservice/",
   },
   description:
     "Italy Limo Service provides premium private chauffeur services across Italy, including airport transfers, city-to-city transportation, hourly chauffeur hire, private tours and corporate travel.",
