@@ -22,11 +22,14 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
     <footer className="bg-navy-deep text-ivory-deep">
       <div className="container-luxe py-14 md:py-16">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
-          <div className="col-span-2 md:col-span-1">
-            <LogoFull theme="onDark" />
+          <div className="col-span-2 md:col-span-1 min-w-0">
+            <LogoFull theme="onDark" compact />
             <p className="mt-3 text-sm leading-relaxed text-ivory-deep/70">{t.footer.tagline}</p>
             <div className="mt-5 space-y-1 text-sm text-ivory-deep/80">
-              <a href={`mailto:${siteConfig.email}`} className="block font-semibold hover:text-gold-light">
+              <a
+                href={`mailto:${siteConfig.email}`}
+                className="block break-words font-semibold hover:text-gold-light"
+              >
                 {siteConfig.email}
               </a>
             </div>

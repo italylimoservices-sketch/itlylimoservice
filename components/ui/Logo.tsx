@@ -21,13 +21,26 @@ function Monogram({ size = 32 }: { size?: number }) {
 
 /**
  * Full lockup: monogram + wordmark, for the header and other primary placements.
+ * `compact` shrinks the mark and drops the responsive text bump for narrow
+ * contexts (e.g. the footer's brand column) where the default size overflows
+ * into neighboring content.
  */
-export function LogoFull({ theme = "onLight" }: { theme?: "onLight" | "onDark" }) {
+export function LogoFull({
+  theme = "onLight",
+  compact = false,
+}: {
+  theme?: "onLight" | "onDark";
+  compact?: boolean;
+}) {
   const textColor = theme === "onLight" ? "text-navy" : "text-ivory";
   return (
     <span className="inline-flex items-center gap-2">
-      <Monogram size={48} />
-      <span className={`font-display text-xl md:text-2xl tracking-wide whitespace-nowrap ${textColor}`}>
+      <Monogram size={compact ? 32 : 48} />
+      <span
+        className={`font-display tracking-wide leading-tight ${
+          compact ? "text-lg" : "text-xl md:text-2xl whitespace-nowrap"
+        } ${textColor}`}
+      >
         {siteConfig.name}
       </span>
     </span>
