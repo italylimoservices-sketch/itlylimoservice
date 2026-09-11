@@ -3,8 +3,12 @@ import { sendMail } from "@/lib/mailer";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { notifyCustomer } from "@/lib/notifications/service";
 import { formatDate, formatTime } from "@/lib/admin/format";
+import { verifyRecaptcha } from "@/lib/recaptcha";
 
 const REQUIRED_FIELDS = ["pickup", "destination", "date", "time", "passengers", "name", "contact"] as const;
+// Must match the action name QuoteForm passes to grecaptcha.execute().
+const RECAPTCHA_ACTION = "submit_booking";
+const RECAPTCHA_FAILURE_MESSAGE = "Please verify your request and try again.";
 
 /**
  * Records the public enquiry as a CRM lead. Uses the service-role client
@@ -67,6 +71,14 @@ export async function POST(req: NextRequest) {
   // Honeypot: silently succeed so bots get no signal their submission was rejected.
   if (data.company) {
     return NextResponse.json({ ok: true });
+  }
+
+  const recaptchaOk = await verifyRecaptcha(data.recaptchaToken, RECAPTCHA_ACTION);
+  if (!recaptchaOk) {
+    return NextResponse.json(
+      { ok: false, error: RECAPTCHA_FAILURE_MESSAGE, code: "recaptcha_failed" },
+      { status: 400 }
+    );
   }
 
   for (const field of REQUIRED_FIELDS) {

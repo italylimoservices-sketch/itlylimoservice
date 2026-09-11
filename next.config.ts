@@ -21,13 +21,17 @@ const isDev = process.env.NODE_ENV === "development";
 // (c.bing.com) as part of Clarity's default cross-platform sync — all of
 // it, plus the region-sharded *.clarity.ms, needs an explicit allowance or
 // Clarity silently fails under this CSP.
+// reCAPTCHA v3 (QuoteForm) loads its script from google.com/gstatic.com and
+// runs its challenge in a google.com iframe — hence the explicit frame-src,
+// which nothing else on this site needs.
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com https://analytics.ahrefs.com https://www.clarity.ms https://scripts.clarity.ms${isDev ? " 'unsafe-eval'" : ""};
+  script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com https://analytics.ahrefs.com https://www.clarity.ms https://scripts.clarity.ms https://www.google.com https://www.gstatic.com${isDev ? " 'unsafe-eval'" : ""};
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data: https://c.clarity.ms https://*.clarity.ms https://c.bing.com;
   font-src 'self';
-  connect-src 'self' https://cloudflareinsights.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://analytics.ahrefs.com https://www.clarity.ms https://*.clarity.ms;
+  connect-src 'self' https://cloudflareinsights.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://analytics.ahrefs.com https://www.clarity.ms https://*.clarity.ms https://www.google.com;
+  frame-src https://www.google.com;
   object-src 'none';
   base-uri 'self';
   form-action 'self';
