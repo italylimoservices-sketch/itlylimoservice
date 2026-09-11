@@ -1,3 +1,4 @@
+import Image from "next/image";
 import QuoteForm from "@/components/ui/QuoteForm";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/locales";
@@ -7,6 +8,16 @@ export default function Hero({ locale = "en" }: { locale?: Locale }) {
 
   return (
     <section className="relative overflow-hidden bg-navy-deep text-ivory">
+      <Image
+        src="/images/fleet/executive-sedan.webp"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+        aria-hidden
+      />
+      <div className="absolute inset-0 bg-navy-deep/80" aria-hidden />
       <div
         className="absolute inset-0 opacity-[0.06]"
         style={{
