@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { parseISO } from "date-fns";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/locales";
+import DatePicker from "@/components/ui/DatePicker";
 
 const passengerOptions = ["1", "2", "3", "4", "5", "6", "7+"];
 
@@ -11,6 +13,10 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
   const [tripType, setTripType] = useState<"one-way" | "round-trip">("one-way");
+  const [date, setDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const [dateError, setDateError] = useState(false);
+  const [returnDateError, setReturnDateError] = useState(false);
   const t = getDictionary(locale).quoteForm;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -25,6 +31,16 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
       setSubmitted(true);
       return;
     }
+
+    // The travel date is a hidden input (DatePicker's calendar UI has no
+    // native browser validation), so it needs an explicit check here —
+    // unlike the plain <input required> fields, which the browser already
+    // blocks submission on before this handler even runs.
+    const missingDate = !date;
+    const missingReturnDate = tripType === "round-trip" && !returnDate;
+    setDateError(missingDate);
+    setReturnDateError(missingReturnDate);
+    if (missingDate || missingReturnDate) return;
 
     const payload = Object.fromEntries(new FormData(form).entries());
 
@@ -83,7 +99,18 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
           <input required type="text" name="destination" placeholder={t.destinationPlaceholder} className="input-luxe" />
         </Field>
         <Field label={t.date}>
-          <input required type="date" name="date" className="input-luxe" />
+          <DatePicker
+            name="date"
+            value={date}
+            onChange={(v) => {
+              setDate(v);
+              if (v) setDateError(false);
+            }}
+            placeholder={t.selectDatePlaceholder}
+            locale={locale}
+            invalid={dateError}
+          />
+          {dateError && <p className="mt-1 text-xs text-red-600">{t.dateRequiredError}</p>}
         </Field>
         <Field label={t.time}>
           <input required type="time" name="time" className="input-luxe" />
@@ -123,7 +150,10 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
             <button
               type="button"
               key={opt.value}
-              onClick={() => setTripType(opt.value)}
+              onClick={() => {
+                setTripType(opt.value);
+                if (opt.value === "one-way") setReturnDateError(false);
+              }}
               className={`flex-1 rounded-sm border py-2.5 text-sm font-medium transition-colors ${
                 tripType === opt.value
                   ? "border-navy bg-navy text-ivory"
@@ -136,6 +166,29 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
           <input type="hidden" name="tripType" value={tripType} />
         </div>
       </div>
+
+      {tripType === "round-trip" && (
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Field label={t.returnDate}>
+            <DatePicker
+              name="returnDate"
+              value={returnDate}
+              onChange={(v) => {
+                setReturnDate(v);
+                if (v) setReturnDateError(false);
+              }}
+              minDate={date ? parseISO(date) : undefined}
+              placeholder={t.selectReturnDatePlaceholder}
+              locale={locale}
+              invalid={returnDateError}
+            />
+            {returnDateError && <p className="mt-1 text-xs text-red-600">{t.returnDateRequiredError}</p>}
+          </Field>
+          <Field label={t.returnTime}>
+            <input required type="time" name="returnTime" className="input-luxe" />
+          </Field>
+        </div>
+      )}
 
       <div className="mt-4">
         <Field label={t.specialRequirements}>

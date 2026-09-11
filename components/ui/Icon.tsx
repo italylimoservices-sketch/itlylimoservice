@@ -12,6 +12,9 @@ const paths: Record<string, string> = {
   phone: "M5 4h3l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v3a2 2 0 01-2 2C9.6 20 4 14.4 4 7a2 2 0 011-2z",
   chat: "M4 5h16v11H8l-4 4V5z",
   email: "M4 5h16v14H4z M4 6l8 7 8-7",
+  calendar: "M4 5h16v15H4z M4 9h16 M8 3v4 M16 3v4",
+  "chevron-left": "M15 5l-7 7 7 7",
+  "chevron-right": "M9 5l7 7-7 7",
 };
 
 export default function Icon({ name, className = "" }: { name: string; className?: string }) {
