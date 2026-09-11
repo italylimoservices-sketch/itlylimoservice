@@ -87,6 +87,7 @@ export const dictionary = {
       confirmMessage: "A member of our team will confirm availability and send your fixed quote shortly.",
       submitAnother: "Submit another request",
       submitError: "Something went wrong sending your request. Please try again or contact us directly.",
+      recaptchaError: "Please verify your request and try again.",
       vehicleOptions: ["Not sure yet", "Executive Sedan", "Luxury Sedan", "Luxury SUV", "Executive Van", "Luxury Van"],
     },
     howItWorks: {
@@ -288,6 +289,7 @@ export const dictionary = {
       confirmMessage: "Un membro del nostro team confermerà la disponibilità e ti invierà a breve il preventivo fisso.",
       submitAnother: "Invia un'altra richiesta",
       submitError: "Si è verificato un errore durante l'invio della richiesta. Riprova o contattaci direttamente.",
+      recaptchaError: "Verifica la tua richiesta e riprova.",
       vehicleOptions: ["Non ancora sicuro", "Berlina Executive", "Berlina di Lusso", "SUV di Lusso", "Van Executive", "Van di Lusso"],
     },
     howItWorks: {

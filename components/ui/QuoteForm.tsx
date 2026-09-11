@@ -1,12 +1,42 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import Script from "next/script";
 import { parseISO } from "date-fns";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/locales";
 import DatePicker from "@/components/ui/DatePicker";
 
 const passengerOptions = ["1", "2", "3", "4", "5", "6", "7+"];
+
+// Public site key — safe to ship to the browser (that's what it's for).
+// The secret key lives only in app/api/booking/route.ts / lib/recaptcha.ts.
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+const RECAPTCHA_ACTION = "submit_booking";
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      ready: (cb: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
+
+function getRecaptchaToken(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (!window.grecaptcha) {
+      reject(new Error("reCAPTCHA not loaded"));
+      return;
+    }
+    window.grecaptcha.ready(() => {
+      window
+        .grecaptcha!.execute(RECAPTCHA_SITE_KEY!, { action: RECAPTCHA_ACTION })
+        .then(resolve)
+        .catch(reject);
+    });
+  });
+}
 
 export default function QuoteForm({ compact = false, locale = "en" }: { compact?: boolean; locale?: Locale }) {
   const [submitted, setSubmitted] = useState(false);
@@ -17,6 +47,7 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
   const [returnDate, setReturnDate] = useState("");
   const [dateError, setDateError] = useState(false);
   const [returnDateError, setReturnDateError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const t = getDictionary(locale).quoteForm;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -42,19 +73,34 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
     setReturnDateError(missingReturnDate);
     if (missingDate || missingReturnDate) return;
 
-    const payload = Object.fromEntries(new FormData(form).entries());
+    const payload = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
 
     setSubmitting(true);
     setError(false);
+    setErrorMessage("");
     try {
+      if (RECAPTCHA_SITE_KEY) {
+        // Any failure to get a token (blocked script, network issue) is
+        // treated the same as a failed verification rather than silently
+        // submitting without one — the server would reject it anyway, and
+        // this way the visitor gets an explanation instead of a generic error.
+        payload.recaptchaToken = await getRecaptchaToken();
+      }
+
       const res = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("Request failed");
+      const body = await res.json().catch(() => null);
+      if (!res.ok) {
+        setErrorMessage(body?.code === "recaptcha_failed" ? t.recaptchaError : t.submitError);
+        setError(true);
+        return;
+      }
       setSubmitted(true);
     } catch {
+      setErrorMessage(t.submitError);
       setError(true);
     } finally {
       setSubmitting(false);
@@ -83,6 +129,14 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
       onSubmit={handleSubmit}
       className={`rounded-md bg-white ${compact ? "p-5 md:p-6" : "p-6 md:p-8"} shadow-xl shadow-navy/10 border border-line`}
     >
+      {RECAPTCHA_SITE_KEY && (
+        <Script
+          id="recaptcha-v3"
+          src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+          strategy="afterInteractive"
+        />
+      )}
+
       {/* Honeypot spam trap — hidden from real visitors, left for bots to fill */}
       <div className="absolute -left-[9999px]" aria-hidden="true">
         <label>
@@ -210,7 +264,7 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
         </Field>
       </div>
 
-      {error && <p className="mt-4 text-center text-sm text-red-600">{t.submitError}</p>}
+      {error && <p className="mt-4 text-center text-sm text-red-600">{errorMessage}</p>}
 
       <button
         type="submit"
