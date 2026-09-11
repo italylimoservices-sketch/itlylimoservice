@@ -12,7 +12,7 @@ export const siteConfig = {
   socials: {
     instagram: "#",
     facebook: "#",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/company/italy-limo-service/",
     pinterest: "https://it.pinterest.com/italylimoservice/",
     youtube: "https://www.youtube.com/@Italylimoservice",
   },
