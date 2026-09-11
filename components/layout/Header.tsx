@@ -6,6 +6,7 @@ import { siteConfig } from "@/lib/siteConfig";
 import Icon from "@/components/ui/Icon";
 import { LogoFull } from "@/components/ui/Logo";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import ItalyClock from "@/components/ui/ItalyClock";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { localePath, type Locale } from "@/lib/i18n/locales";
 
@@ -28,16 +29,21 @@ export default function Header({ locale = "en" }: { locale?: Locale }) {
   return (
     <header className="sticky top-0 z-50 border-b border-line/70 bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/85">
       <div className="bg-navy text-ivory-deep">
-        <div className="container-luxe flex h-9 items-center justify-between">
-          <a
-            href={`mailto:${siteConfig.email}`}
-            aria-label={`Email ${siteConfig.email}`}
-            className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wide hover:text-gold-light transition-colors"
-          >
-            <Icon name="email" className="h-3.5 w-3.5" />
-            {siteConfig.email}
-          </a>
-          <LanguageSwitcher locale={locale} theme="onDark" />
+        <div className="container-luxe flex h-9 items-center justify-between gap-3">
+          <div className="flex-1 min-w-0">
+            <a
+              href={`mailto:${siteConfig.email}`}
+              aria-label={`Email ${siteConfig.email}`}
+              className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wide hover:text-gold-light transition-colors"
+            >
+              <Icon name="email" className="h-3.5 w-3.5" />
+              <span className="truncate">{siteConfig.email}</span>
+            </a>
+          </div>
+          <ItalyClock className="hidden sm:inline-flex shrink-0" />
+          <div className="flex-1 flex justify-end shrink-0">
+            <LanguageSwitcher locale={locale} theme="onDark" />
+          </div>
         </div>
       </div>
 
