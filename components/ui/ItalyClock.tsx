@@ -27,9 +27,14 @@ export default function ItalyClock({ className = "" }: { className?: string }) {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
-    setNow(new Date());
+    // Kick off the first tick via a timer callback rather than calling
+    // setNow synchronously in the effect body (avoids a cascading render).
+    const kickoff = setTimeout(() => setNow(new Date()), 0);
     const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
+    return () => {
+      clearTimeout(kickoff);
+      clearInterval(id);
+    };
   }, []);
 
   if (!now) return null;
