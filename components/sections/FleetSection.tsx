@@ -31,7 +31,7 @@ export default function FleetSection({ locale = "en" }: { locale?: Locale }) {
             const luggage = isIt && it ? it.luggage : f.luggage;
             return (
               <div key={f.slug} className="flex flex-col">
-                <ImageBlock label={name} variant={i % 2 === 0 ? "navy" : "gold"} aspect="aspect-[3/4]" src={f.image} />
+                <ImageBlock label={name} variant={i % 2 === 0 ? "navy" : "gold"} aspect="aspect-[4/3]" src={f.image} />
                 <h3 className="mt-3 font-display text-base text-navy">{name}</h3>
                 <p className="text-xs text-stone mt-1">{passengers} · {luggage}</p>
               </div>
