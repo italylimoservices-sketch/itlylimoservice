@@ -4,6 +4,7 @@ import { destinations } from "@/lib/data/destinations";
 import { airports } from "@/lib/data/airports";
 import { services } from "@/lib/data/services";
 import { LogoFull } from "@/components/ui/Logo";
+import SocialIcon, { hasSocialIcon } from "@/components/ui/SocialIcon";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { localePath, type Locale } from "@/lib/i18n/locales";
 import { destinationNames_it, airportNames_it, services_it } from "@/lib/i18n/data.it";
@@ -21,13 +22,32 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
     <footer className="bg-navy-deep text-ivory-deep">
       <div className="container-luxe py-14 md:py-16">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
-          <div className="col-span-2 md:col-span-1">
-            <LogoFull theme="onDark" />
+          <div className="col-span-2 md:col-span-1 min-w-0">
+            <LogoFull theme="onDark" compact />
             <p className="mt-3 text-sm leading-relaxed text-ivory-deep/70">{t.footer.tagline}</p>
             <div className="mt-5 space-y-1 text-sm text-ivory-deep/80">
-              <a href={`mailto:${siteConfig.email}`} className="block font-semibold hover:text-gold-light">
+              <a
+                href={`mailto:${siteConfig.email}`}
+                className="block break-words font-semibold hover:text-gold-light"
+              >
                 {siteConfig.email}
               </a>
+            </div>
+            <div className="mt-4 flex gap-3">
+              {Object.entries(siteConfig.socials)
+                .filter(([key, href]) => href !== "#" && hasSocialIcon(key))
+                .map(([key, href]) => (
+                  <a
+                    key={key}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={key}
+                    className="text-ivory-deep/70 hover:text-gold-light transition-colors"
+                  >
+                    {hasSocialIcon(key) ? <SocialIcon name={key} className="h-5 w-5" /> : null}
+                  </a>
+                ))}
             </div>
           </div>
 
@@ -87,6 +107,7 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
             <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-light">{t.footer.company}</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li><Link href={p("/about-us")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.aboutUs}</Link></li>
+              {!isIt && <li><Link href="/blog" className="text-ivory-deep/75 hover:text-ivory">Blog</Link></li>}
               <li><Link href={p("/fleet")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.ourFleet}</Link></li>
               <li><Link href={p("/routes")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.popularRoutes}</Link></li>
               <li><Link href={p("/faq")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.faq}</Link></li>
@@ -100,6 +121,7 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
           <div className="flex gap-5">
             <Link href={p("/privacy-policy")} className="hover:text-ivory">{t.footer.privacyPolicy}</Link>
             <Link href={p("/terms-conditions")} className="hover:text-ivory">{t.footer.termsConditions}</Link>
+            {!isIt && <Link href="/refund-policy" className="hover:text-ivory">Refund Policy</Link>}
           </div>
         </div>
       </div>

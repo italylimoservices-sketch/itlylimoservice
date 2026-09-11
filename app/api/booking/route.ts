@@ -36,7 +36,13 @@ async function recordLead(data: Record<string, string>): Promise<string | null> 
         trip_date: data.date || null,
         trip_time: data.time || null,
         passengers: Number(data.passengers) || null,
-        notes: [data.tripType ? `Trip type: ${data.tripType}` : null, data.vehicle ? `Preferred vehicle: ${data.vehicle}` : null, data.requirements || null]
+        notes: [
+          data.tripType ? `Trip type: ${data.tripType}` : null,
+          data.returnDate ? `Return date: ${data.returnDate}` : null,
+          data.returnTime ? `Return time: ${data.returnTime}` : null,
+          data.vehicle ? `Preferred vehicle: ${data.vehicle}` : null,
+          data.requirements || null,
+        ]
           .filter(Boolean)
           .join("\n") || null,
       })
@@ -84,6 +90,8 @@ export async function POST(req: NextRequest) {
     `Destination: ${data.destination}`,
     `Date: ${data.date}`,
     `Time: ${data.time}`,
+    ...(data.returnDate ? [`Return date: ${data.returnDate}`] : []),
+    ...(data.returnTime ? [`Return time: ${data.returnTime}`] : []),
     `Passengers: ${data.passengers}`,
     `Vehicle: ${data.vehicle || "-"}`,
     `Special requirements: ${data.requirements || "-"}`,

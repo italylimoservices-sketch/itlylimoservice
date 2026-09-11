@@ -45,8 +45,12 @@ export default function TermsPage() {
             <div>
               <h2 className="font-display text-xl text-navy mb-2">3. Cancellations & Changes</h2>
               <p>
-                [Cancellation windows, refund eligibility and any applicable fees are to be
-                confirmed and published here before launch.]
+                Cancellation windows, refund eligibility and any applicable fees are set out in
+                our{" "}
+                <a href="/refund-policy" className="text-gold hover:underline">
+                  Refund Policy
+                </a>
+                . [Confirm this section stays in sync with that page before launch.]
               </p>
             </div>
 

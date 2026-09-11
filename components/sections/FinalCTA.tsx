@@ -26,7 +26,7 @@ export default function FinalCTA({ locale = "en" }: { locale?: Locale }) {
             {t.requestQuote}
           </Link>
           <Link
-            href={localePath(locale, "/contact")}
+            href={locale === "en" ? "/book" : localePath(locale, "/contact")}
             className="inline-flex items-center rounded-sm border border-ivory/30 px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-ivory hover:border-gold transition-colors"
           >
             {t.bookChauffeur}
