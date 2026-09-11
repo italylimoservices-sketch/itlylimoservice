@@ -18,6 +18,7 @@ const staticPaths = [
   { path: "/contact", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "/privacy-policy", priority: 0.2, changeFrequency: "yearly" as const },
   { path: "/terms-conditions", priority: 0.2, changeFrequency: "yearly" as const },
+  { path: "/refund-policy", priority: 0.2, changeFrequency: "yearly" as const },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

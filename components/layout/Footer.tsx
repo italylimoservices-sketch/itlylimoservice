@@ -121,6 +121,7 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
           <div className="flex gap-5">
             <Link href={p("/privacy-policy")} className="hover:text-ivory">{t.footer.privacyPolicy}</Link>
             <Link href={p("/terms-conditions")} className="hover:text-ivory">{t.footer.termsConditions}</Link>
+            {!isIt && <Link href="/refund-policy" className="hover:text-ivory">Refund Policy</Link>}
           </div>
         </div>
       </div>
