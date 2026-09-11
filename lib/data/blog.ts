@@ -85,6 +85,58 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "rome-travel-guide",
+    title: "Rome Travel Guide: Best Things to Do, Places to Visit & Travel Tips",
+    metaTitle: "Rome Travel Guide: Best Things to Do, Places to Visit & Travel Tips",
+    metaDescription:
+      "Plan your Rome trip with this practical travel guide covering the best attractions, neighborhoods, food, itineraries, transport, day trips and travel tips.",
+    summary:
+      "A practical Rome guide covering the best attractions, neighborhoods, food, itineraries, getting around, day trips, and tips for first-time visitors.",
+    category: "City Guides",
+    publishedAt: "2026-09-12",
+    faqs: [
+      {
+        question: "What is Rome best known for?",
+        answer:
+          "Rome is best known for its ancient history, Roman monuments, Vatican City, Renaissance and Baroque architecture, art, fountains, piazzas, and traditional Italian food.",
+      },
+      {
+        question: "How many days are enough for Rome?",
+        answer:
+          "Three days is a good starting point for a first visit. Two days can cover many major attractions, while four or five days allows you to explore more neighborhoods and take a day trip.",
+      },
+      {
+        question: "What are the best places to visit in Rome?",
+        answer:
+          "Some of the most popular places include the Colosseum, Roman Forum, Pantheon, Trevi Fountain, Vatican Museums, St. Peter's Basilica, Piazza Navona, Villa Borghese, and Trastevere.",
+      },
+      {
+        question: "What is the best time to visit Rome?",
+        answer:
+          "Rome can be visited year-round. Spring and autumn can offer comfortable sightseeing conditions, while summer is warmer and busier. Winter can be quieter.",
+      },
+      {
+        question: "Is Rome easy to get around?",
+        answer:
+          "Yes, especially in the central areas. Walking is excellent for sightseeing, while buses, metro services, trains, taxis, and private transfers can help with longer distances.",
+      },
+      {
+        question: "Should I book a Rome airport transfer?",
+        answer:
+          "If you have a lot of luggage, are traveling with family or a group, arrive late, have an early flight, or simply prefer a direct journey to your hotel, a private airport transfer can be a convenient choice.",
+      },
+      {
+        question: "What food should I try in Rome?",
+        answer: "Try traditional dishes such as carbonara, cacio e pepe, amatriciana, supplì, Roman-style pizza, and gelato.",
+      },
+      {
+        question: "Is Rome suitable for a first trip to Italy?",
+        answer:
+          "Absolutely. Rome is one of the best places to begin exploring Italy because it combines history, culture, food, architecture, shopping, and easy access to other destinations.",
+      },
+    ],
+  },
 ];
 
 export function getBlogPostBySlug(slug: string) {
