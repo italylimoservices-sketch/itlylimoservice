@@ -94,7 +94,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["florence", "pisa"],
     relatedRoutes: ["florence-to-rome", "florence-to-venice", "florence-to-pisa", "florence-to-siena"],
     relatedDestinations: ["tuscany", "siena", "pisa", "cinque-terre"],
-    image: "/images/destinations/florence.webp",
+    image: "",
   },
   {
     slug: "venice",
@@ -298,7 +298,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["naples"],
     relatedRoutes: ["rome-to-sorrento", "sorrento-to-rome"],
     relatedDestinations: ["amalfi-coast", "naples"],
-    image: "/images/destinations/sorrento.webp",
+    image: "",
   },
   {
     slug: "tuscany",
@@ -322,7 +322,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["florence", "pisa"],
     relatedRoutes: ["florence-to-pisa", "florence-to-siena"],
     relatedDestinations: ["florence", "siena", "pisa"],
-    image: "/images/destinations/tuscany.webp",
+    image: "",
   },
   {
     slug: "cinque-terre",
