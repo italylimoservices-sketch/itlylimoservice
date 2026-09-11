@@ -11,7 +11,7 @@ export const siteConfig = {
   // entry still set to "#" rather than link out to nowhere.
   socials: {
     instagram: "#",
-    facebook: "#",
+    facebook: "https://www.facebook.com/people/Italy-Limo-Service/61593989173619/",
     linkedin: "https://www.linkedin.com/company/italy-limo-service/",
     pinterest: "https://it.pinterest.com/italylimoservice/",
     youtube: "https://www.youtube.com/@Italylimoservice",
