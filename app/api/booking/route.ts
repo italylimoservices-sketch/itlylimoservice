@@ -73,7 +73,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  const recaptchaOk = await verifyRecaptcha(data.recaptchaToken, RECAPTCHA_ACTION);
+  const recaptchaOk = await verifyRecaptcha(data.recaptchaToken, RECAPTCHA_ACTION, {
+    userAgent: req.headers.get("user-agent") || undefined,
+    userIpAddress: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim(),
+  });
   if (!recaptchaOk) {
     return NextResponse.json(
       { ok: false, error: RECAPTCHA_FAILURE_MESSAGE, code: "recaptcha_failed" },

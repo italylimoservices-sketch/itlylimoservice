@@ -17,21 +17,23 @@ const RECAPTCHA_ACTION = "submit_booking";
 declare global {
   interface Window {
     grecaptcha?: {
-      ready: (cb: () => void) => void;
-      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+      enterprise: {
+        ready: (cb: () => void) => void;
+        execute: (siteKey: string, options: { action: string }) => Promise<string>;
+      };
     };
   }
 }
 
 function getRecaptchaToken(): Promise<string> {
   return new Promise((resolve, reject) => {
-    if (!window.grecaptcha) {
+    if (!window.grecaptcha?.enterprise) {
       reject(new Error("reCAPTCHA not loaded"));
       return;
     }
-    window.grecaptcha.ready(() => {
+    window.grecaptcha.enterprise.ready(() => {
       window
-        .grecaptcha!.execute(RECAPTCHA_SITE_KEY!, { action: RECAPTCHA_ACTION })
+        .grecaptcha!.enterprise.execute(RECAPTCHA_SITE_KEY!, { action: RECAPTCHA_ACTION })
         .then(resolve)
         .catch(reject);
     });
@@ -131,8 +133,8 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
     >
       {RECAPTCHA_SITE_KEY && (
         <Script
-          id="recaptcha-v3"
-          src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+          id="recaptcha-enterprise"
+          src={`https://www.google.com/recaptcha/enterprise.js?render=${RECAPTCHA_SITE_KEY}`}
           strategy="afterInteractive"
         />
       )}
