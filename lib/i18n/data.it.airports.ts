@@ -14,9 +14,9 @@ export const airportDetails_it: Record<
   }
 > = {
   "rome-fiumicino": {
-    metaTitle: "Transfer Aeroporto di Roma Fiumicino (FCO)",
+    metaTitle: "Transfer Aeroporto Fiumicino (FCO)",
     metaDescription:
-      "Transfer privati con autista dall'Aeroporto di Roma Fiumicino (FCO). Monitoraggio del volo, accoglienza personalizzata, assistenza bagagli e trasporto diretto verso Roma e oltre.",
+      "Transfer privati con autista dall'Aeroporto di Roma Fiumicino (FCO): monitoraggio del volo, accoglienza personalizzata e trasporto diretto verso Roma.",
     summary:
       "Transfer privati con accoglienza personalizzata tra l'Aeroporto di Fiumicino e Roma o altre destinazioni nell'Italia centrale.",
     intro: [
@@ -26,9 +26,9 @@ export const airportDetails_it: Record<
     distanceInfo: "Circa 35 km / 40-50 minuti dal centro di Roma, traffico permettendo.",
   },
   "rome-ciampino": {
-    metaTitle: "Transfer Aeroporto di Roma Ciampino (CIA)",
+    metaTitle: "Transfer Aeroporto Ciampino (CIA)",
     metaDescription:
-      "Prenota un transfer privato con autista dall'Aeroporto di Roma Ciampino (CIA), con monitoraggio del volo, accoglienza personalizzata e un viaggio diretto e confortevole verso Roma.",
+      "Transfer privato con autista dall'Aeroporto di Roma Ciampino (CIA): monitoraggio del volo, accoglienza personalizzata e viaggio diretto verso Roma.",
     summary: "Transfer privati affidabili per i voli low-cost e charter in arrivo a Ciampino.",
     intro: [
       "Ciampino gestisce gran parte del traffico low-cost e charter diretto a Roma, e il suo terminal compatto permette un'uscita rapida per chi sa dove guardare. Il tuo autista ti aspetta appena fuori dall'area arrivi con il tuo nome ben visibile, pronto ad aiutarti con i bagagli non appena atterri.",
@@ -37,9 +37,9 @@ export const airportDetails_it: Record<
     distanceInfo: "Circa 15 km / 25-35 minuti dal centro di Roma, traffico permettendo.",
   },
   "milan-malpensa": {
-    metaTitle: "Transfer Aeroporto di Milano Malpensa (MXP)",
+    metaTitle: "Transfer Aeroporto Malpensa (MXP)",
     metaDescription:
-      "Servizio privato con autista dall'Aeroporto di Milano Malpensa (MXP) verso il centro di Milano, il Lago di Como e il nord Italia, con monitoraggio del volo e accoglienza personalizzata.",
+      "Servizio privato con autista dall'Aeroporto di Milano Malpensa (MXP) verso Milano e il Lago di Como, con monitoraggio del volo e accoglienza personalizzata.",
     summary:
       "Transfer executive tra l'Aeroporto di Malpensa e Milano, il Lago di Como e la regione Lombardia.",
     intro: [
@@ -49,7 +49,7 @@ export const airportDetails_it: Record<
     distanceInfo: "Circa 50 km / 45-60 minuti dal centro di Milano, traffico permettendo.",
   },
   "milan-linate": {
-    metaTitle: "Transfer Aeroporto di Milano Linate (LIN)",
+    metaTitle: "Transfer Aeroporto Linate (LIN)",
     metaDescription:
       "Transfer privati e rapidi con autista dall'Aeroporto di Milano Linate (LIN) verso il centro città, ideali per chi viaggia per lavoro con tempi ristretti.",
     summary: "Transfer rapidi e professionali per sfruttare la comodità di Linate, l'aeroporto cittadino.",
@@ -60,7 +60,7 @@ export const airportDetails_it: Record<
     distanceInfo: "Circa 8 km / 15-25 minuti dal centro di Milano, traffico permettendo.",
   },
   "venice-marco-polo": {
-    metaTitle: "Transfer Aeroporto di Venezia Marco Polo (VCE)",
+    metaTitle: "Transfer Aeroporto Marco Polo (VCE)",
     metaDescription:
       "Transfer privati con autista e collegamento via acqua dall'Aeroporto di Venezia Marco Polo (VCE) verso Venezia e la regione Veneto.",
     summary:
@@ -74,7 +74,7 @@ export const airportDetails_it: Record<
   florence: {
     metaTitle: "Transfer Aeroporto di Firenze (FLR)",
     metaDescription:
-      "Transfer privati con autista dall'Aeroporto di Firenze (Peretola) verso il centro città, la Toscana e il Chianti, con monitoraggio del volo e accoglienza personalizzata.",
+      "Transfer privati con autista dall'Aeroporto di Firenze (Peretola) verso il centro città, la Toscana e il Chianti.",
     summary: "Transfer privati diretti dall'Aeroporto di Firenze verso la città e l'intera Toscana.",
     intro: [
       "L'Aeroporto di Firenze si trova vicino alla città, il che lo rende un punto d'accesso comodo sia a Firenze sia alla campagna toscana circostante. Il tuo autista ti accoglie all'arrivo e può dirigersi direttamente verso il centro storico oppure proseguire per il Chianti, Siena o le colline toscane.",
@@ -96,7 +96,7 @@ export const airportDetails_it: Record<
   naples: {
     metaTitle: "Transfer Aeroporto di Napoli (NAP)",
     metaDescription:
-      "Transfer privati con autista dall'Aeroporto di Napoli (NAP) verso Napoli, Sorrento, la Costiera Amalfitana e Pompei, con accoglienza personalizzata e assistenza bagagli.",
+      "Transfer privati con autista dall'Aeroporto di Napoli (NAP) verso Napoli, Sorrento e la Costiera Amalfitana, con accoglienza personalizzata.",
     summary:
       "Transfer privati dall'Aeroporto di Napoli verso la città, Sorrento e la Costiera Amalfitana.",
     intro: [

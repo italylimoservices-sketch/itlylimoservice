@@ -15,9 +15,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "first-time-visitors-guide-italy",
     title: "First-Time Visitor's Guide to Italy: What to Know Before You Go",
-    metaTitle: "First-Time Visitor's Guide to Italy: What to Know Before You Go",
+    metaTitle: "First-Time Visitor's Guide to Italy",
     metaDescription:
-      "Planning your first trip to Italy? Discover what to know before you go, including destinations, transportation, ZTL zones, packing, food, safety, money, and travel tips.",
+      "Planning your first trip to Italy? What to know before you go — destinations, transportation, ZTL zones, packing, food, safety and money.",
     summary:
       "A practical guide for first-time visitors covering Italy's destinations, transportation, food, packing, safety, money, ZTL zones, and itinerary planning.",
     category: "Italy Travel Planning & Essentials",
@@ -88,7 +88,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "rome-travel-guide",
     title: "Rome Travel Guide: Best Things to Do, Places to Visit & Travel Tips",
-    metaTitle: "Rome Travel Guide: Best Things to Do, Places to Visit & Travel Tips",
+    metaTitle: "Rome Travel Guide: What to See & Do",
     metaDescription:
       "Plan your Rome trip with this practical travel guide covering the best attractions, neighborhoods, food, itineraries, transport, day trips and travel tips.",
     summary:

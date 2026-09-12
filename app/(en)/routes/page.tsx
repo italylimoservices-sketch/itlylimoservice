@@ -5,7 +5,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata: Metadata = {
-  title: "Popular Private Transfer Routes in Italy",
+  title: "Private Transfer Routes in Italy",
   description:
     "Browse Italy's most popular private chauffeur transfer routes between major cities, with fixed pricing and door-to-door service.",
   alternates: { canonical: "/routes", languages: { en: "/routes", it: "/it/routes", "x-default": "/routes" } },

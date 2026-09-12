@@ -140,7 +140,7 @@ export const fleet_it: Record<
     luggage: "Fino a 2 valigie",
     idealFor: "Viaggi executive, occasioni speciali e transfer VIP",
     description:
-      "Una berlina premium con comfort e presentazione superiori, ideale per viaggi executive, occasioni speciali e clienti che desiderano un'esperienza di livello superiore.",
+      "Una berlina premium con comfort e presentazione superiori, ideale per viaggi executive, occasioni speciali e un'esperienza di livello superiore.",
     amenities: ["Interni premium", "Aria condizionata", "Acqua in bottiglia", "Autista professionista"],
   },
   "luxury-suv": {

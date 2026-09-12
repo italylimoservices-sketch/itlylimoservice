@@ -8,9 +8,9 @@ import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata: Metadata = {
-  title: "Italy Chauffeur Service Pricing — What Affects Your Quote",
+  title: "Chauffeur Service Pricing Guide",
   description:
-    "Understand what affects the cost of a private chauffeur in Italy — vehicle type, distance, waiting time, passengers and more — and request a fixed, transparent quote.",
+    "What affects the cost of a private chauffeur in Italy — vehicle type, distance, waiting time and passengers. Request a fixed, transparent quote.",
   alternates: { canonical: "/pricing" },
 };
 

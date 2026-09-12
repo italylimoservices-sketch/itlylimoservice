@@ -66,7 +66,7 @@ const bookingFaqs = [
 
 export const metadata: Metadata = {
   title: "Book Your Private Chauffeur",
-  description: `Book a private chauffeur with ${siteConfig.name} — share your journey details and receive a fixed-price quote for airport transfers, city-to-city travel, tours and corporate journeys across Italy.`,
+  description: `Book a private chauffeur with ${siteConfig.name} — share your journey details and receive a fixed-price quote for transfers, tours and corporate travel.`,
   alternates: { canonical: "/book" },
 };
 

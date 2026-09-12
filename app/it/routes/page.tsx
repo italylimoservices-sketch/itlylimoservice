@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata: Metadata = {
-  title: "Tratte di Transfer Privato Popolari in Italia",
+  title: "Tratte di Transfer Privato in Italia",
   description:
     "Sfoglia le tratte di transfer privato con autista più popolari tra le principali città italiane, con prezzi fissi e servizio porta a porta.",
   alternates: { canonical: "/it/routes", languages: { en: "/routes", it: "/it/routes", "x-default": "/routes" } },

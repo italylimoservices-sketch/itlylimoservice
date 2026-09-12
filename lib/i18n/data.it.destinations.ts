@@ -19,7 +19,7 @@ export const destinationDetails_it: Record<
     heading: "Servizio di Autista Privato a Roma",
     metaTitle: "Servizio di Autista Privato a Roma",
     metaDescription:
-      "Prenota un autista privato a Roma per transfer aeroportuali, tour della città e gite in giornata. Autisti che parlano inglese, veicoli premium e prezzi trasparenti.",
+      "Prenota un autista privato a Roma per transfer aeroportuali, tour della città e gite in giornata, con autisti che parlano inglese e prezzi trasparenti.",
     summary:
       "Trasporto privato con autista nella capitale d'Italia, dai transfer aeroportuali alle giornate intere di visite turistiche.",
     intro: [
@@ -186,7 +186,7 @@ export const destinationDetails_it: Record<
   },
   "lake-como": {
     heading: "Servizio di Autista Privato sul Lago di Como",
-    metaTitle: "Servizio di Autista Privato sul Lago di Como",
+    metaTitle: "Autista Privato al Lago di Como",
     metaDescription:
       "Transfer privati e tour in giornata intorno al Lago di Como, tra cui Bellagio, Como e visite alle ville, da Milano o dagli aeroporti.",
     summary: "Transfer privati e autisti per tour intorno alle città e ai borghi del Lago di Como.",
@@ -203,7 +203,7 @@ export const destinationDetails_it: Record<
   },
   "amalfi-coast": {
     heading: "Servizio di Autista Privato sulla Costiera Amalfitana",
-    metaTitle: "Servizio di Autista Privato Costiera Amalfitana",
+    metaTitle: "Autista Privato Costiera Amalfitana",
     metaDescription:
       "Transfer privati e tour lungo la Costiera Amalfitana, tra cui Positano, Amalfi e Ravello, con autisti locali esperti.",
     summary: "Transfer privati e tour lungo i borghi costieri della Costiera Amalfitana.",
@@ -254,7 +254,7 @@ export const destinationDetails_it: Record<
   },
   "cinque-terre": {
     heading: "Servizio di Autista Privato per le Cinque Terre",
-    metaTitle: "Servizio di Autista Privato Cinque Terre",
+    metaTitle: "Autista Privato alle Cinque Terre",
     metaDescription:
       "Transfer privati e gite in giornata alle Cinque Terre da Firenze, Pisa e la costa toscana, con la conoscenza degli autisti locali.",
     summary: "Transfer privati e gite in giornata ai borghi delle Cinque Terre.",

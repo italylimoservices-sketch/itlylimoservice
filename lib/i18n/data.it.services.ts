@@ -20,7 +20,7 @@ export const serviceDetails_it: Record<
   "airport-transfers": {
     metaTitle: "Transfer Aeroportuali in Italia",
     metaDescription:
-      "Transfer aeroportuali privati in tutta Italia con monitoraggio dei voli, accoglienza personalizzata e assistenza bagagli. Roma, Milano, Venezia, Firenze, Napoli e altre città.",
+      "Transfer aeroportuali privati in tutta Italia con monitoraggio dei voli e accoglienza personalizzata — Roma, Milano, Venezia, Firenze, Napoli e altre città.",
     heroHeading: "Transfer Aeroportuali in Tutta Italia",
     intro: [
       "Arrivare in un nuovo paese dopo un volo lungo è tutta un'altra cosa quando trovi già qualcuno ad aspettarti. I nostri autisti monitorano il tuo volo in tempo reale, si adattano a eventuali ritardi e ti accolgono in sala arrivi con un cartello con il tuo nome e una mano per i bagagli.",
@@ -65,7 +65,7 @@ export const serviceDetails_it: Record<
     ],
   },
   "chauffeur-service": {
-    metaTitle: "Servizio Auto con Autista Privato in Italia",
+    metaTitle: "Servizio Autista Privato in Italia",
     metaDescription:
       "Servizio auto con autista privato in tutta Italia per spostamenti in città, gite giornaliere e itinerari personalizzati, con autisti di lingua inglese.",
     heroHeading: "Servizio Auto con Autista Privato in Italia",
@@ -203,7 +203,7 @@ export const serviceDetails_it: Record<
   "italy-private-tours": {
     metaTitle: "Tour Privati in Italia con Autista",
     metaDescription:
-      "Itinerari di viaggio privati e flessibili in Italia con autista, alla scoperta di Toscana, Costiera Amalfitana, Roma, Venezia, Lago di Como, Cinque Terre e Sicilia.",
+      "Itinerari privati e flessibili in Italia con autista: Toscana, Costiera Amalfitana, Roma, Venezia, Lago di Como e Sicilia.",
     heroHeading: "Tour Privati in Italia",
     intro: [
       "I tour di gruppo seguono orari fissi e tappe fisse. Un tour privato con il tuo autista segue invece i tuoi tempi, con la libertà di soffermarti in un luogo che ami e saltare ciò che non ti interessa.",
@@ -245,7 +245,7 @@ export const serviceDetails_it: Record<
     ],
   },
   "corporate-chauffeur": {
-    metaTitle: "Servizio Auto Aziendale con Autista in Italia",
+    metaTitle: "Servizio Autista Aziendale in Italia",
     metaDescription:
       "Servizio auto aziendale con autista in Italia per viaggi executive, transfer aeroportuali, roadshow e conferenze, con autisti affidabili e professionali.",
     heroHeading: "Servizio Auto Aziendale con Autista",

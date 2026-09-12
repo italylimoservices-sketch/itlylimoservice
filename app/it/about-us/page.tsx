@@ -8,7 +8,7 @@ import FinalCTA from "@/components/sections/FinalCTA";
 export const metadata: Metadata = {
   title: "Chi Siamo",
   description:
-    "Scopri Italy Limo Service, un servizio di autista privato di alta gamma attivo in tutta Italia, costruito su professionalità, sicurezza e conoscenza del territorio.",
+    "Italy Limo Service: un servizio di autista privato di alta gamma in tutta Italia, costruito su professionalità, sicurezza e conoscenza del territorio.",
   alternates: { canonical: "/it/about-us", languages: { en: "/about-us", it: "/it/about-us", "x-default": "/about-us" } },
 };
 

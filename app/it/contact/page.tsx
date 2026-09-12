@@ -7,7 +7,7 @@ import Icon from "@/components/ui/Icon";
 export const metadata: Metadata = {
   title: "Contatti | Richiedi un Preventivo",
   description:
-    "Contatta Italy Limo Service per richiedere un preventivo per il tuo servizio di autista privato in Italia — transfer aeroportuali, trasporto città-città, tour ed eventi aziendali.",
+    "Contatta Italy Limo Service per un preventivo: transfer aeroportuali, trasporto città-città, tour ed eventi aziendali in tutta Italia.",
   alternates: { canonical: "/it/contact", languages: { en: "/contact", it: "/it/contact", "x-default": "/contact" } },
 };
 

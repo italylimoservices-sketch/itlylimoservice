@@ -9,7 +9,7 @@ import FinalCTA from "@/components/sections/FinalCTA";
 export const metadata: Metadata = {
   title: "Destinazioni in Italia",
   description:
-    "Scopri il nostro servizio di autista privato nelle migliori destinazioni italiane, da Roma, Milano e Firenze al Lago di Como, la Costiera Amalfitana e la Sicilia.",
+    "Il nostro servizio di autista privato nelle migliori destinazioni italiane: Roma, Milano, Firenze, Lago di Como, Costiera Amalfitana e Sicilia.",
   alternates: { canonical: "/it/destinations", languages: { en: "/destinations", it: "/it/destinations", "x-default": "/destinations" } },
 };
 
