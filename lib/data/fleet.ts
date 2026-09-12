@@ -4,6 +4,9 @@ export const fleet: FleetCategory[] = [
   {
     slug: "executive-sedan",
     name: "Executive Sedan",
+    metaTitle: "Executive Sedan Chauffeur Service in Italy",
+    metaDescription:
+      "Book an Executive Sedan with a professional chauffeur in Italy — ideal for airport transfers, business travel and city transportation for up to 3 passengers.",
     passengers: "Up to 3 passengers",
     luggage: "Up to 2 suitcases",
     description:
@@ -15,6 +18,9 @@ export const fleet: FleetCategory[] = [
   {
     slug: "luxury-sedan",
     name: "Luxury Sedan",
+    metaTitle: "Luxury Sedan Chauffeur Service in Italy",
+    metaDescription:
+      "Book a Luxury Sedan with a professional chauffeur in Italy — premium comfort and presentation for executive travel, special occasions and VIP transfers.",
     passengers: "Up to 3 passengers",
     luggage: "Up to 2 suitcases",
     description:
@@ -26,6 +32,9 @@ export const fleet: FleetCategory[] = [
   {
     slug: "luxury-suv",
     name: "Luxury SUV",
+    metaTitle: "Luxury SUV Chauffeur Service in Italy",
+    metaDescription:
+      "Book a Luxury SUV with a professional chauffeur in Italy — extra space and comfort for families, small groups and travellers with additional luggage.",
     passengers: "Up to 5 passengers",
     luggage: "Up to 4 suitcases",
     description:
@@ -37,6 +46,9 @@ export const fleet: FleetCategory[] = [
   {
     slug: "executive-van",
     name: "Executive Van",
+    metaTitle: "Executive Van Chauffeur Service in Italy",
+    metaDescription:
+      "Book an Executive Van with a professional chauffeur in Italy — spacious group transportation for family travel and small corporate delegations.",
     passengers: "Up to 7 passengers",
     luggage: "Up to 6 suitcases",
     description:
@@ -48,6 +60,9 @@ export const fleet: FleetCategory[] = [
   {
     slug: "luxury-van",
     name: "Luxury Van",
+    metaTitle: "Luxury Van Chauffeur Service in Italy",
+    metaDescription:
+      "Book a Luxury Van with a professional chauffeur in Italy — premium group transportation for executive groups, events and special occasions.",
     passengers: "Up to 7 passengers",
     luggage: "Up to 6 suitcases",
     description:

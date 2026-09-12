@@ -5,6 +5,7 @@ import { airports } from "@/lib/data/airports";
 import { routes } from "@/lib/data/routes";
 import { services } from "@/lib/data/services";
 import { blogPosts } from "@/lib/data/blog";
+import { fleet } from "@/lib/data/fleet";
 
 const staticPaths = [
   { path: "", priority: 1, changeFrequency: "weekly" as const },
@@ -20,6 +21,7 @@ const staticPaths = [
   { path: "/privacy-policy", priority: 0.2, changeFrequency: "yearly" as const },
   { path: "/terms-conditions", priority: 0.2, changeFrequency: "yearly" as const },
   { path: "/refund-policy", priority: 0.2, changeFrequency: "yearly" as const },
+  { path: "/cookie-policy", priority: 0.2, changeFrequency: "yearly" as const },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -66,6 +68,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.75,
+    });
+  }
+
+  for (const f of fleet) {
+    entries.push({
+      url: `${base}/fleet/${f.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
     });
   }
 

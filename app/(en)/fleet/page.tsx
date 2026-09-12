@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { fleet } from "@/lib/data/fleet";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -34,8 +35,18 @@ export default function FleetPage() {
       <section className="py-16 md:py-24 bg-ivory">
         <div className="container-luxe grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {fleet.map((f, i) => (
-            <div key={f.slug} className="rounded-md border border-line bg-white overflow-hidden">
-              <ImageBlock label={f.name} variant={i % 2 === 0 ? "navy" : "gold"} aspect="aspect-[16/10]" src={f.image} />
+            <Link
+              key={f.slug}
+              href={`/fleet/${f.slug}`}
+              className="group rounded-md border border-line bg-white overflow-hidden block hover:border-gold/50 transition-colors"
+            >
+              <ImageBlock
+                label={f.name}
+                variant={i % 2 === 0 ? "navy" : "gold"}
+                aspect="aspect-[16/10]"
+                className="group-hover:opacity-90 transition-opacity"
+                src={f.image}
+              />
               <div className="p-6">
                 <h2 className="font-display text-xl text-navy">{f.name}</h2>
                 <p className="mt-1 text-sm text-gold font-medium">{f.passengers} · {f.luggage}</p>
@@ -52,8 +63,9 @@ export default function FleetPage() {
                   </ul>
                 </div>
                 <p className="mt-4 text-xs text-stone italic">Ideal for: {f.idealFor}</p>
+                <p className="mt-4 text-sm font-semibold text-gold group-hover:text-gold-light">View details →</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

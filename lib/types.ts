@@ -73,6 +73,8 @@ export interface Tour {
 export interface FleetCategory {
   slug: string;
   name: string;
+  metaTitle: string;
+  metaDescription: string;
   passengers: string;
   luggage: string;
   description: string;

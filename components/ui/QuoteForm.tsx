@@ -40,7 +40,16 @@ function getRecaptchaToken(): Promise<string> {
   });
 }
 
-export default function QuoteForm({ compact = false, locale = "en" }: { compact?: boolean; locale?: Locale }) {
+export default function QuoteForm({
+  compact = false,
+  locale = "en",
+  defaultVehicle,
+}: {
+  compact?: boolean;
+  locale?: Locale;
+  /** Pre-selects the vehicle option — e.g. a fleet category page passing its own vehicle name. */
+  defaultVehicle?: string;
+}) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
@@ -184,7 +193,7 @@ export default function QuoteForm({ compact = false, locale = "en" }: { compact?
           </select>
         </Field>
         <Field label={t.vehicleType}>
-          <select name="vehicle" defaultValue={t.vehicleOptions[0]} className="input-luxe">
+          <select name="vehicle" defaultValue={defaultVehicle ?? t.vehicleOptions[0]} className="input-luxe">
             {t.vehicleOptions.map((v) => (
               <option key={v} value={v}>
                 {v}

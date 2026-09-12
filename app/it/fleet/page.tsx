@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { fleet } from "@/lib/data/fleet";
 import { fleet_it } from "@/lib/i18n/data.it";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
@@ -37,8 +38,18 @@ export default function FleetPageIt() {
           {fleet.map((f, i) => {
             const it = fleet_it[f.slug];
             return (
-              <div key={f.slug} className="rounded-md border border-line bg-white overflow-hidden">
-                <ImageBlock label={it?.name ?? f.name} variant={i % 2 === 0 ? "navy" : "gold"} aspect="aspect-[16/10]" src={f.image} />
+              <Link
+                key={f.slug}
+                href={`/it/fleet/${f.slug}`}
+                className="group rounded-md border border-line bg-white overflow-hidden block hover:border-gold/50 transition-colors"
+              >
+                <ImageBlock
+                  label={it?.name ?? f.name}
+                  variant={i % 2 === 0 ? "navy" : "gold"}
+                  aspect="aspect-[16/10]"
+                  className="group-hover:opacity-90 transition-opacity"
+                  src={f.image}
+                />
                 <div className="p-6">
                   <h2 className="font-display text-xl text-navy">{it?.name ?? f.name}</h2>
                   <p className="mt-1 text-sm text-gold font-medium">
@@ -57,8 +68,9 @@ export default function FleetPageIt() {
                     </ul>
                   </div>
                   <p className="mt-4 text-xs text-stone italic">Ideale per: {it?.idealFor ?? f.idealFor}</p>
+                  <p className="mt-4 text-sm font-semibold text-gold group-hover:text-gold-light">Scopri di più →</p>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

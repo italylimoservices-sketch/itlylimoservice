@@ -21,6 +21,8 @@ const airportSlugs = [
   "florence", "bologna", "naples", "pisa", "palermo", "catania", "bergamo",
 ];
 
+const fleetSlugs = ["executive-sedan", "luxury-sedan", "luxury-suv", "executive-van", "luxury-van"];
+
 const routeSlugs = [
   "rome-to-florence", "florence-to-rome", "florence-to-venice", "venice-to-florence",
   "rome-to-naples", "naples-to-rome", "rome-to-sorrento", "sorrento-to-rome",
@@ -49,6 +51,7 @@ export const translatedPaths = new Set<string>([
   ...destinationSlugs.map((s) => `/destinations/${s}`),
   ...airportSlugs.map((s) => `/airport-transfers/${s}`),
   ...routeSlugs.map((s) => `/routes/${s}`),
+  ...fleetSlugs.map((s) => `/fleet/${s}`),
 ]);
 
 export function hasTranslation(path: string): boolean {
