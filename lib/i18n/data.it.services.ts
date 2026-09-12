@@ -72,6 +72,7 @@ export const serviceDetails_it: Record<
     intro: [
       "Un autista privato ti offre un unico punto di riferimento per tutti i tuoi spostamenti durante il soggiorno, invece di dover organizzare taxi o transfer separati per ogni tappa del viaggio.",
       "Che tu abbia bisogno di un trasporto per una singola serata o di un itinerario completo tra più città, il tuo autista si adatta ai tuoi programmi, non il contrario.",
+      "Lo stesso autista privato può accompagnarti anche oltre i confini italiani — scopri i nostri [trasferimenti internazionali](/it/international-border-crossing-transfers) verso Svizzera, Francia, Austria e Slovenia.",
     ],
     benefits: [
       "Un unico autista dedicato per tutto il soggiorno o l'itinerario",
@@ -118,6 +119,7 @@ export const serviceDetails_it: Record<
     intro: [
       "I treni in Italia sono efficienti, ma non arrivano porta a porta e richiedono di gestire i bagagli tra stazioni e binari. Un transfer privato ti porta direttamente dal tuo hotel in una città all'hotel nella città successiva.",
       "Operiamo su percorsi fissi tra le principali città, oltre a transfer su lunga distanza personalizzati verso destinazioni meno comuni.",
+      "Devi proseguire oltre i confini italiani? Scopri i nostri [trasferimenti internazionali](/it/international-border-crossing-transfers) verso Svizzera, Francia, Austria e Slovenia.",
     ],
     benefits: [
       "Servizio porta a porta, senza cambi in stazione",
@@ -372,6 +374,88 @@ export const serviceDetails_it: Record<
         question: "Offrite un'escursione dal porto alla città prima del reimbarco?",
         answer:
           "Sì, per i giorni di scalo possiamo organizzare una gita privata in giornata che ti riporta alla nave in tempo per la partenza.",
+      },
+    ],
+  },
+  "international-border-crossing-transfers": {
+    metaTitle: "Trasferimenti Internazionali Privati dall'Italia",
+    metaDescription:
+      "Transfer privati con autista tra l'Italia e Svizzera, Francia, Austria e Slovenia. Servizio porta a porta con autisti professionali e preventivo fisso.",
+    heroHeading: "Trasferimenti Internazionali Privati dall'Italia",
+    intro: [
+      "Viaggia oltre i confini italiani con un autista privato e un transfer confortevole porta a porta. Organizziamo viaggi internazionali tra l'Italia e i paesi confinanti, con pianificazione del percorso, autisti professionali e un preventivo fisso prima della partenza.",
+      "Invece di dover organizzare trasporti separati per ciascun lato del viaggio, un unico veicolo privato e un unico autista ti accompagnano dal punto di ritiro in Italia fino alla destinazione oltre confine, che si tratti di un hotel, un aeroporto o un indirizzo in centro città.",
+    ],
+    benefits: [
+      "Trasporto privato e non condiviso per l'intero viaggio internazionale",
+      "Transfer da hotel a hotel e da aeroporto a hotel oltre confine",
+      "Pianificazione del percorso in base al valico di frontiera specifico",
+      "Orari di ritiro flessibili in base al tuo volo o programma",
+      "Veicoli confortevoli e adatti ai bagagli per i viaggi più lunghi",
+      "Preventivo fisso concordato prima della prenotazione",
+      "Assistenza prima e durante il viaggio",
+    ],
+    whoFor: [
+      "Viaggiatori che collegano una città italiana con Svizzera, Francia, Austria o Slovenia",
+      "Viaggiatori d'affari con impegni su entrambi i lati del confine",
+      "Famiglie e gruppi che preferiscono non cambiare veicolo al valico",
+      "Chiunque preferisca un viaggio privato e diretto a un pullman o a un treno con più cambi",
+    ],
+    included: [
+      "Autista privato per l'intero viaggio internazionale",
+      "Pianificazione del percorso per il valico di frontiera specifico",
+      "Assistenza bagagli",
+      "Prezzo fisso concordato prima della partenza",
+    ],
+    faqs: [
+      {
+        question: "Posso prenotare un autista privato dall'Italia alla Svizzera?",
+        answer:
+          "Sì, i transfer internazionali privati possono essere organizzati sulle tratte adatte tra Italia e Svizzera, tra cui [Milano-Lugano](/routes/milan-to-lugano), [Lago di Como-Lugano](/routes/lake-como-to-lugano), [Milano-Zurigo](/routes/milan-to-zurich) e [Milano-St. Moritz](/routes/milan-to-st-moritz). Richiedi la tua tratta e i dettagli del viaggio per disponibilità e prezzo.",
+      },
+      {
+        question: "Posso viaggiare dall'Italia alla Francia con un autista privato?",
+        answer:
+          "Sì. Organizziamo viaggi privati transfrontalieri tra Italia e Francia sulle tratte adatte, tra cui [Milano-Nizza](/routes/milan-to-nice), [Torino-Nizza](/routes/turin-to-nice) e [Sanremo-Nizza](/routes/sanremo-to-nice).",
+      },
+      {
+        question: "Potete portarmi dall'Italia all'Austria?",
+        answer:
+          "Sì, i transfer privati con autista possono essere organizzati tra Italia e Austria in base alla tratta e alla disponibilità, tra cui [Venezia-Innsbruck](/routes/venice-to-innsbruck), [Venezia-Salisburgo](/routes/venice-to-salzburg) e [Bolzano-Innsbruck](/routes/bolzano-to-innsbruck).",
+      },
+      {
+        question: "Posso prenotare un transfer dall'Italia alla Slovenia?",
+        answer:
+          "Sì, possiamo organizzare transfer privati transfrontalieri tra Italia e Slovenia sulle tratte adatte, tra cui [Venezia-Lubiana](/routes/venice-to-ljubljana), [Venezia-Lago di Bled](/routes/venice-to-lake-bled) e [Trieste-Lubiana](/routes/trieste-to-ljubljana).",
+      },
+      {
+        question: "Avrò bisogno del passaporto?",
+        answer:
+          "I requisiti sui documenti di viaggio dipendono dalla tua nazionalità e dalla destinazione. I passeggeri devono portare con sé tutti i documenti di viaggio richiesti e verificare i requisiti aggiornati con le autorità competenti prima di partire.",
+      },
+      {
+        question: "I controlli di frontiera sono inclusi nel transfer?",
+        answer:
+          "Le autorità di frontiera gestiscono in autonomia le procedure di ingresso e uscita. Il nostro autista si occupa del trasporto, ma non possiamo garantire l'assenza di controlli o attese al confine.",
+      },
+      {
+        question: "Il transfer è privato?",
+        answer: "Sì, ogni transfer internazionale è un trasporto privato e non condiviso, riservato a te e al tuo gruppo.",
+      },
+      {
+        question: "Posso viaggiare con i bagagli?",
+        answer:
+          "Sì, i bagagli possono essere gestiti in base alla capacità del veicolo scelto. Indica il volume dei tuoi bagagli al momento della richiesta di preventivo così da consigliarti il veicolo più adatto.",
+      },
+      {
+        question: "Quanto costa un transfer internazionale?",
+        answer:
+          "Il prezzo dipende dalla tratta, dalla distanza, dal veicolo, dalla data, dal numero di passeggeri e da altre esigenze del viaggio. Richiedi un preventivo fisso per la tua tratta specifica.",
+      },
+      {
+        question: "E se la mia tratta non è elencata?",
+        answer:
+          "Le tratte mostrate sono i nostri viaggi internazionali più richiesti. Se la tua tratta non è elencata, contattaci con ritiro, destinazione e date di viaggio e ti confermeremo se può essere organizzata.",
       },
     ],
   },

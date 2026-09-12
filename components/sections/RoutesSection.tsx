@@ -8,6 +8,12 @@ import { routes_it } from "@/lib/i18n/data.it";
 export default function RoutesSection({ locale = "en" }: { locale?: Locale }) {
   const t = getDictionary(locale).home.routes;
   const isIt = locale === "it";
+  // International routes get their own hub at /international-border-crossing-transfers
+  // and their own section on /routes — kept out of this domestic city-to-city
+  // grid so the homepage and city-to-city page don't double in size. Since
+  // international routes are always appended after the domestic ones, this
+  // filter doesn't shift any index used by the routes_it[i] lookup below.
+  const domesticRoutes = routes.filter((r) => !r.international);
 
   return (
     <section className="py-16 md:py-24 bg-white">
@@ -23,7 +29,7 @@ export default function RoutesSection({ locale = "en" }: { locale?: Locale }) {
         </div>
 
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {routes.map((r, i) => {
+          {domesticRoutes.map((r, i) => {
             const it = routes_it[i];
             const from = isIt && it ? it.from : r.from;
             const to = isIt && it ? it.to : r.to;

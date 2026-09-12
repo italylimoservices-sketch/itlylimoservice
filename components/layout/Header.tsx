@@ -20,6 +20,7 @@ export default function Header({ locale = "en" }: { locale?: Locale }) {
     { href: p("/airport-transfers"), label: t.nav.airportTransfers },
     { href: p("/destinations"), label: t.nav.destinations },
     { href: p("/routes"), label: t.nav.routes },
+    { href: p("/international-border-crossing-transfers"), label: t.nav.internationalTransfers },
     { href: p("/italy-private-tours"), label: t.nav.privateTours },
     { href: p("/corporate-chauffeur"), label: t.nav.corporate },
     { href: p("/fleet"), label: t.nav.fleet },

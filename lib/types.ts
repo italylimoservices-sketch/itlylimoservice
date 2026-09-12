@@ -13,6 +13,10 @@ export interface Destination {
   relatedRoutes: string[]; // route slugs
   relatedDestinations: string[]; // destination slugs
   image: string;
+  /** Short contextual note linking to international-border-crossing-transfers,
+   * shown only on destinations with a genuine cross-border use case (see
+   * lib/data/routes.ts for which cities have dedicated international routes). */
+  internationalNote?: string;
 }
 
 export interface AirportTerminal {
@@ -60,6 +64,27 @@ export interface RouteInfo {
   highlights: string[];
   relatedDestinations: string[];
   image: string;
+  /** Present only for routes crossing one of Italy's international land
+   * borders — drives the extra border-crossing content in RoutePageTemplate
+   * and grouping on the international-border-crossing-transfers hub page. */
+  international?: {
+    /** Which country card on the hub page this route is grouped under. */
+    hubGroup: "switzerland" | "france" | "austria" | "slovenia";
+    /** Display name of the actual destination country/state — kept distinct
+     * from hubGroup so e.g. a Monaco-bound route can still sit on the
+     * France hub card while correctly naming Monaco as its own country. */
+    country: string;
+    /** General, factual description of the border crossing/pass used —
+     * never a guaranteed crossing time or a claim about checks/delays. */
+    borderNote: string;
+    pickupPoints: string[];
+    destinationPoints: string[];
+    /** Fallback summary text used when fromSlug/toSlug has no dedicated
+     * destination page to link to (e.g. Sanremo, Bolzano, Trieste, or any
+     * foreign city). */
+    fromSummary?: string;
+    toSummary?: string;
+  };
 }
 
 export interface Service {

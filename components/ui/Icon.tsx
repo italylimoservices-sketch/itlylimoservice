@@ -15,6 +15,7 @@ const paths: Record<string, string> = {
   calendar: "M4 5h16v15H4z M4 9h16 M8 3v4 M16 3v4",
   "chevron-left": "M15 5l-7 7 7 7",
   "chevron-right": "M9 5l7 7-7 7",
+  globe: "M12 21a9 9 0 100-18 9 9 0 000 18zM3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9s1-6.5 3.5-9z",
 };
 
 export default function Icon({ name, className = "" }: { name: string; className?: string }) {

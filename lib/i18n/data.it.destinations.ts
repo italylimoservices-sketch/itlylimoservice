@@ -13,6 +13,7 @@ export const destinationDetails_it: Record<
     intro: string[];
     highlights: string[];
     popularPickups: string[];
+    internationalNote?: string;
   }
 > = {
   rome: {
@@ -64,6 +65,8 @@ export const destinationDetails_it: Record<
       "Quartiere degli affari di Porta Nuova",
       "Polo fieristico di Fiera Milano",
     ],
+    internationalNote:
+      "Milano è anche il punto di partenza più richiesto per i [trasferimenti internazionali](/it/international-border-crossing-transfers), con percorsi privati verso [Lugano](/routes/milan-to-lugano), [Zurigo](/routes/milan-to-zurich), [St. Moritz](/routes/milan-to-st-moritz) e [Nizza](/routes/milan-to-nice). Richiedi un preventivo specifico per la tratta che ti interessa.",
   },
   florence: {
     heading: "Servizio di Autista Privato a Firenze",
@@ -110,6 +113,8 @@ export const destinationDetails_it: Record<
       "Piazzale Roma / collegamento con la terraferma veneziana",
       "Zona della stazione di Mestre",
     ],
+    internationalNote:
+      "Venezia è anche un buon punto di partenza per i [trasferimenti internazionali con autista privato](/it/international-border-crossing-transfers), con percorsi attraverso le Alpi verso [Innsbruck](/routes/venice-to-innsbruck) e [Salisburgo](/routes/venice-to-salzburg) in Austria, oppure verso est fino a [Lubiana](/routes/venice-to-ljubljana) e al [Lago di Bled](/routes/venice-to-lake-bled) in Slovenia.",
   },
   naples: {
     heading: "Servizio di Autista Privato a Napoli",
@@ -166,6 +171,8 @@ export const destinationDetails_it: Record<
       "Transfer da aeroporto e stazione ferroviaria",
     ],
     popularPickups: ["Aeroporto di Torino", "Zona della stazione di Porta Nuova", "Hotel del centro città"],
+    internationalNote:
+      "La vicinanza di Torino al confine francese la rende anche un punto di partenza per [transfer privati verso la Francia](/routes/turin-to-nice) e verso [il Principato di Monaco](/routes/turin-to-monaco). Consulta la pagina dei [trasferimenti internazionali](/it/international-border-crossing-transfers) per maggiori dettagli.",
   },
   verona: {
     heading: "Servizio di Autista Privato a Verona",
@@ -200,6 +207,8 @@ export const destinationDetails_it: Record<
       "Conoscenza del territorio di Bellagio, Varenna e Como",
     ],
     popularPickups: ["Centro di Milano", "Aeroporto di Milano Malpensa", "Città di Como"],
+    internationalNote:
+      "Il confine svizzero è vicino, e molti visitatori proseguono il soggiorno con un [transfer privato dal Lago di Como a Lugano](/routes/lake-como-to-lugano). Consulta la pagina dei [trasferimenti internazionali](/it/international-border-crossing-transfers) per le altre tratte verso la Svizzera.",
   },
   "amalfi-coast": {
     heading: "Servizio di Autista Privato sulla Costiera Amalfitana",
@@ -387,5 +396,7 @@ export const destinationDetails_it: Record<
       "Trasporto cittadino e di lavoro a Genova",
     ],
     popularPickups: ["Porto crociere di Genova", "Aeroporto di Genova", "Hotel del centro città"],
+    internationalNote:
+      "Da Genova è possibile organizzare su richiesta anche transfer privati con autista verso la Francia lungo la costa ligure — consulta la pagina dei [trasferimenti internazionali](/it/international-border-crossing-transfers) per le tratte e i paesi coperti.",
   },
 };

@@ -226,6 +226,462 @@ export const routes: RouteInfo[] = [
   ),
 ];
 
+function makeInternationalRoute(opts: {
+  fromName: string;
+  fromSlug: string;
+  toName: string;
+  toSlug: string;
+  distance: string;
+  duration: string;
+  hubGroup: "switzerland" | "france" | "austria" | "slovenia";
+  country: string;
+  borderNote: string;
+  pickupPoints: string[];
+  destinationPoints: string[];
+  fromSummary?: string;
+  toSummary?: string;
+  intro: string[];
+  highlights: string[];
+  metaTitle: string;
+  metaDescription: string;
+}): RouteInfo {
+  return {
+    slug: `${opts.fromSlug}-to-${opts.toSlug}`,
+    from: opts.fromName,
+    to: opts.toName,
+    fromSlug: opts.fromSlug,
+    toSlug: opts.toSlug,
+    metaTitle: opts.metaTitle,
+    metaDescription: opts.metaDescription,
+    summary: `Private chauffeur transfer between ${opts.fromName} and ${opts.toName}, crossing the border into ${opts.country}.`,
+    intro: opts.intro,
+    distanceApprox: opts.distance,
+    durationApprox: opts.duration,
+    highlights: opts.highlights,
+    relatedDestinations: [opts.fromSlug, opts.toSlug],
+    image: `/images/routes/${opts.fromSlug}-${opts.toSlug}.jpg`,
+    international: {
+      hubGroup: opts.hubGroup,
+      country: opts.country,
+      borderNote: opts.borderNote,
+      pickupPoints: opts.pickupPoints,
+      destinationPoints: opts.destinationPoints,
+      fromSummary: opts.fromSummary,
+      toSummary: opts.toSummary,
+    },
+  };
+}
+
+export const internationalRoutes: RouteInfo[] = [
+  // --- Switzerland ---
+  makeInternationalRoute({
+    fromName: "Milan",
+    fromSlug: "milan",
+    toName: "Lugano",
+    toSlug: "lugano",
+    distance: "Approximately 80 km",
+    duration: "Around 1 to 1.5 hours",
+    hubGroup: "switzerland",
+    country: "Switzerland",
+    borderNote:
+      "The route crosses into Switzerland at the Chiasso–Brogeda border crossing on the A9 motorway, north of Como — one of the busiest road crossings between the two countries.",
+    pickupPoints: ["Milan Malpensa Airport", "Milan Linate Airport", "Milan city-centre hotels"],
+    destinationPoints: ["Lugano city centre", "Lugano Airport (Agno)", "Lake Lugano hotels"],
+    toSummary:
+      "Lugano is Switzerland's Italian-speaking lakeside city in the canton of Ticino, known for its banking district, lakefront promenade and easy access to the surrounding Swiss Alps.",
+    metaTitle: "Private Transfer from Milan to Lugano",
+    metaDescription:
+      "Book a private chauffeur transfer from Milan to Lugano, Switzerland. Door-to-door service crossing the Chiasso border, with a fixed quote before travel.",
+    intro: [
+      "Milan to Lugano is one of the most requested international transfers we arrange, crossing from Lombardy into Switzerland's Ticino canton in about the same time as a typical domestic city-to-city journey.",
+      "A private chauffeur takes you directly from your Milan pickup point to your Lugano address, without a train change at the border or the need to arrange separate transportation on the Swiss side.",
+    ],
+    highlights: [
+      "Short, direct crossing suited to a same-day business trip or a lake getaway",
+      "No train change at the border — one vehicle, one driver, door to door",
+      "Comfortable for travellers continuing on to [Lake Como](/destinations/lake-como) beforehand",
+    ],
+  }),
+  makeInternationalRoute({
+    fromName: "Lake Como",
+    fromSlug: "lake-como",
+    toName: "Lugano",
+    toSlug: "lugano",
+    distance: "Approximately 35 km",
+    duration: "Around 45 minutes to 1 hour",
+    hubGroup: "switzerland",
+    country: "Switzerland",
+    borderNote:
+      "A short drive from the Como area to the Chiasso border crossing, then on into Lugano via the Swiss motorway network.",
+    pickupPoints: ["Como town", "Cernobbio", "Lake Como hotels"],
+    destinationPoints: ["Lugano city centre", "Lake Lugano hotels", "Lugano Airport (Agno)"],
+    toSummary:
+      "Lugano sits on its own lake just across the Swiss border, a natural extension for travellers already based around Lake Como who want to see both lake regions in one trip.",
+    metaTitle: "Private Transfer from Lake Como to Lugano",
+    metaDescription:
+      "Private chauffeur transfer from Lake Como to Lugano, Switzerland. A short, comfortable border crossing with door-to-door service and a fixed quote.",
+    intro: [
+      "This is the shortest of our Switzerland routes — a brief, scenic drive from the Como area across the border into Lugano, often booked as a half-day add-on rather than a standalone journey.",
+      "It suits travellers based at a Lake Como hotel who want to visit Lugano's lakefront and old town, or continue further into Switzerland afterwards, without managing the crossing themselves.",
+    ],
+    highlights: [
+      "The shortest international crossing we offer — well suited to a half-day visit",
+      "Easily combined with a [Lake Como touring day](/routes/milan-to-lake-como)",
+      "Direct hotel-to-hotel service across the border",
+    ],
+  }),
+  makeInternationalRoute({
+    fromName: "Milan",
+    fromSlug: "milan",
+    toName: "Zurich",
+    toSlug: "zurich",
+    distance: "Approximately 210 km",
+    duration: "Around 3 to 3.5 hours",
+    hubGroup: "switzerland",
+    country: "Switzerland",
+    borderNote:
+      "Crosses into Switzerland at Chiasso, then follows the Swiss A2 motorway north through the Gotthard road tunnel — a route that can see seasonal traffic around the tunnel, particularly on summer weekends.",
+    pickupPoints: ["Milan Malpensa Airport", "Milan Linate Airport", "Milan city-centre hotels"],
+    destinationPoints: ["Zurich city centre", "Zurich Airport", "Zurich hotels"],
+    toSummary:
+      "Zurich is Switzerland's largest city and financial centre, with a compact old town on the Limmat river and one of Europe's busiest airports.",
+    metaTitle: "Private Transfer from Milan to Zurich",
+    metaDescription:
+      "Private chauffeur transfer from Milan to Zurich, Switzerland via the Gotthard route. Direct, door-to-door travel with a fixed quote before booking.",
+    intro: [
+      "Milan to Zurich is a longer alpine drive, popular with business travellers moving between Italy's financial centre and Switzerland's, as well as travellers who'd rather not change trains and manage luggage at the border themselves.",
+      "The route runs north through Ticino and the Gotthard tunnel before descending into the Zurich area — a comfortable, private alternative to the train for the full journey.",
+    ],
+    highlights: [
+      "Direct, private alternative to changing trains at the border",
+      "Comfortable for business travellers with luggage or documents to manage en route",
+      "Flexible departure time built around your meeting or flight schedule",
+    ],
+  }),
+  makeInternationalRoute({
+    fromName: "Milan",
+    fromSlug: "milan",
+    toName: "St. Moritz",
+    toSlug: "st-moritz",
+    distance: "Approximately 180 km",
+    duration: "Around 3 to 3.5 hours",
+    hubGroup: "switzerland",
+    country: "Switzerland",
+    borderNote:
+      "Crosses into Switzerland at Chiasso before climbing into the Engadin valley via mountain pass roads — routing and timing can be affected by winter weather and seasonal closures.",
+    pickupPoints: ["Milan Malpensa Airport", "Milan city-centre hotels"],
+    destinationPoints: ["St. Moritz village", "St. Moritz hotels"],
+    toSummary:
+      "St. Moritz is an alpine resort town in the Engadin valley, well known for winter skiing and as a summer mountain retreat.",
+    metaTitle: "Private Transfer from Milan to St. Moritz",
+    metaDescription:
+      "Private chauffeur transfer from Milan to St. Moritz, Switzerland. Comfortable mountain-route travel with luggage and ski gear, fixed quote before travel.",
+    intro: [
+      "Milan to St. Moritz is our longest and highest-altitude Switzerland route, climbing from the Lombardy plain into the Engadin valley on mountain roads rather than motorway for the final stretch.",
+      "It's most often booked around the winter ski season or a summer mountain stay, with a private vehicle that comfortably handles ski bags or extra luggage that a train connection would make awkward.",
+    ],
+    highlights: [
+      "Avoids multiple train and cable-car connections with ski equipment or luggage",
+      "Suited to both winter ski-season travel and summer alpine stays",
+      "Flexible timing around flight arrivals into Milan",
+    ],
+  }),
+
+  // --- France (including the Principality of Monaco) ---
+  makeInternationalRoute({
+    fromName: "Milan",
+    fromSlug: "milan",
+    toName: "Nice",
+    toSlug: "nice",
+    distance: "Approximately 330 km",
+    duration: "Around 4 to 4.5 hours",
+    hubGroup: "france",
+    country: "France",
+    borderNote:
+      "Follows the Ligurian coastal motorway through Genoa and Savona to Ventimiglia, crossing into France near Menton before continuing along the Côte d'Azur to Nice.",
+    pickupPoints: ["Milan Malpensa Airport", "Milan Linate Airport", "Milan city-centre hotels"],
+    destinationPoints: ["Nice city centre", "Nice Côte d'Azur Airport", "Promenade des Anglais hotels"],
+    toSummary:
+      "Nice is the main city of the French Riviera, with its own international airport and easy onward access to Cannes, Antibes and Monaco.",
+    metaTitle: "Private Transfer from Milan to Nice",
+    metaDescription:
+      "Private chauffeur transfer from Milan to Nice, France along the Ligurian coast. Door-to-door service, crossing at Ventimiglia, fixed quote before travel.",
+    intro: [
+      "Milan to Nice is a full coastal crossing, tracing the Italian and French Rivieras from Lombardy's business capital to the heart of the Côte d'Azur.",
+      "A private chauffeur removes the need to change trains at the border or coordinate a separate taxi on arrival — one vehicle covers the whole journey, with stops possible along the Ligurian coast if you'd like to break up the drive.",
+    ],
+    highlights: [
+      "One private vehicle for the full coastal journey, no border train change",
+      "Optional stops along the Ligurian coast en route",
+      "Popular around film festival and Riviera season travel",
+    ],
+  }),
+  makeInternationalRoute({
+    fromName: "Turin",
+    fromSlug: "turin",
+    toName: "Nice",
+    toSlug: "nice",
+    distance: "Approximately 210 km",
+    duration: "Around 3.5 hours",
+    hubGroup: "france",
+    country: "France",
+    borderNote:
+      "Typically routed via the Ligurian coastal motorway through Savona to the Ventimiglia border crossing into France, rather than the mountain pass roads further inland.",
+    pickupPoints: ["Turin Airport", "Turin city-centre hotels"],
+    destinationPoints: ["Nice city centre", "Nice Côte d'Azur Airport"],
+    toSummary:
+      "Nice is the main gateway city to the French Riviera, with direct beachfront access and an international airport of its own.",
+    metaTitle: "Private Transfer from Turin to Nice",
+    metaDescription:
+      "Private chauffeur transfer from Turin to Nice, France. Comfortable coastal-route travel across the Ventimiglia border, with a fixed quote before booking.",
+    intro: [
+      "Turin to Nice connects Piedmont with the French Riviera, a route we arrange as a private, direct transfer rather than a coastal train with multiple changes.",
+      "It's a popular option for business travellers and holidaymakers alike, with the flexibility to time departure around a flight or meeting rather than a fixed timetable.",
+    ],
+    highlights: [
+      "Direct coastal-route alternative to a multi-change train journey",
+      "Flexible timing around flights into or out of Nice",
+      "Can be arranged with a stop in Liguria along the way",
+    ],
+  }),
+  makeInternationalRoute({
+    fromName: "Sanremo",
+    fromSlug: "sanremo",
+    toName: "Nice",
+    toSlug: "nice",
+    distance: "Approximately 60 km",
+    duration: "Around 1 to 1.5 hours",
+    hubGroup: "france",
+    country: "France",
+    borderNote:
+      "A short drive along the coastal motorway to the Ventimiglia border crossing into France — a busy crossing that can experience queues at peak travel times.",
+    pickupPoints: ["Sanremo hotels", "Sanremo city centre"],
+    destinationPoints: ["Nice city centre", "Nice Côte d'Azur Airport"],
+    fromSummary:
+      "Sanremo is a resort town on the Italian Riviera in western Liguria, close to the French border and well known for its casino and flower industry.",
+    toSummary:
+      "Nice is the principal city of the French Riviera, a short hop across the border from the Italian Ligurian coast.",
+    metaTitle: "Private Transfer from Sanremo to Nice",
+    metaDescription:
+      "Private chauffeur transfer from Sanremo to Nice, France. A short Riviera border crossing at Ventimiglia, door-to-door with a fixed quote.",
+    intro: [
+      "Sanremo to Nice is the shortest of our France routes, linking the Italian and French Rivieras in a single short drive across the Ventimiglia border.",
+      "It's a natural choice for travellers combining both coastlines in one trip, or attending an event on either side of the border without wanting to self-drive across it.",
+    ],
+    highlights: [
+      "The shortest Italy–France crossing we offer",
+      "Ideal for combining the Italian and French Rivieras in one visit",
+      "Direct hotel-to-hotel service, no self-driving across the border",
+    ],
+  }),
+  makeInternationalRoute({
+    fromName: "Turin",
+    fromSlug: "turin",
+    toName: "Monaco",
+    toSlug: "monaco",
+    distance: "Approximately 280 km",
+    duration: "Around 3.5 to 4 hours",
+    hubGroup: "france",
+    country: "Monaco",
+    borderNote:
+      "Routed via the Ligurian coast and the Ventimiglia crossing into France, then along the Côte d'Azur to the Principality of Monaco. Monaco is an independent sovereign state and not part of France.",
+    pickupPoints: ["Turin Airport", "Turin city-centre hotels"],
+    destinationPoints: ["Monte Carlo", "Monaco hotels and harbour"],
+    toSummary:
+      "Monaco is an independent principality on the French Riviera, distinct from France, known for Monte Carlo, its harbour and the Monaco Grand Prix.",
+    metaTitle: "Private Transfer from Turin to Monaco",
+    metaDescription:
+      "Private chauffeur transfer from Turin to the Principality of Monaco. Comfortable coastal travel crossing into France at Ventimiglia, fixed quote before travel.",
+    intro: [
+      "Turin to Monaco follows the same Ligurian coastal corridor as our France routes, continuing past Nice to the Principality of Monaco — an independent state, not part of France, though the drive passes through French territory to reach it.",
+      "This route is popular around Monaco's event calendar, including the Grand Prix and Monte Carlo's social season, when a private, direct arrival is worth the extra planning.",
+    ],
+    highlights: [
+      "Direct private transfer to Monte Carlo, no self-driving through three jurisdictions",
+      "Popular for the Monaco Grand Prix and Monte Carlo events",
+      "Comfortable presentation on arrival in a [Luxury Sedan](/fleet/luxury-sedan) or [Luxury SUV](/fleet/luxury-suv)",
+    ],
+  }),
+
+  // --- Austria ---
+  makeInternationalRoute({
+    fromName: "Venice",
+    fromSlug: "venice",
+    toName: "Innsbruck",
+    toSlug: "innsbruck",
+    distance: "Approximately 300 km",
+    duration: "Around 3.5 to 4 hours",
+    hubGroup: "austria",
+    country: "Austria",
+    borderNote:
+      "Follows the A22 Brenner motorway north through Trento and Bolzano, crossing into Austria at the Brenner Pass — one of the main Alpine crossings between Italy and Austria.",
+    pickupPoints: ["Venice Marco Polo Airport", "Venice mainland (Mestre / Piazzale Roma)"],
+    destinationPoints: ["Innsbruck city centre", "Innsbruck Airport"],
+    toSummary:
+      "Innsbruck is the capital of Austria's Tyrol region, set in an alpine valley and popular for both its historic centre and surrounding ski areas.",
+    metaTitle: "Private Transfer from Venice to Innsbruck",
+    metaDescription:
+      "Private chauffeur transfer from Venice to Innsbruck, Austria over the Brenner Pass. Door-to-door service with a fixed quote before travel.",
+    intro: [
+      "Venice to Innsbruck follows the Brenner motorway over the Alps, one of the most direct and frequently used crossings between Italy and Austria.",
+      "A private chauffeur makes this a comfortable single journey rather than a multi-leg train route via Verona and Bolzano, with the flexibility to time departure around your flight into Venice.",
+    ],
+    highlights: [
+      "Direct Brenner Pass crossing, avoiding a multi-leg train connection",
+      "Comfortable for winter travel to Tyrol's ski areas",
+      "Flexible timing around Marco Polo Airport arrivals",
+    ],
+  }),
+  makeInternationalRoute({
+    fromName: "Venice",
+    fromSlug: "venice",
+    toName: "Salzburg",
+    toSlug: "salzburg",
+    distance: "Approximately 430 km",
+    duration: "Around 5 to 5.5 hours",
+    hubGroup: "austria",
+    country: "Austria",
+    borderNote:
+      "Typically routed via Udine and Tarvisio, crossing into Austria near the Tarvisio/Thörl-Maglern border before continuing through Villach to Salzburg.",
+    pickupPoints: ["Venice Marco Polo Airport", "Venice mainland hotels"],
+    destinationPoints: ["Salzburg old town", "Salzburg Airport"],
+    toSummary:
+      "Salzburg is Mozart's birthplace and a major cultural centre in western Austria, close to the German border.",
+    metaTitle: "Private Transfer from Venice to Salzburg",
+    metaDescription:
+      "Private chauffeur transfer from Venice to Salzburg, Austria. A long-distance border crossing via Tarvisio, arranged as a private journey with a fixed quote.",
+    intro: [
+      "Venice to Salzburg is our longest Austria route, a full-day private transfer for travellers combining a Venice stay with Austria's cultural centre, most often booked around the Salzburg Festival or a wider northern-Italy-to-Austria itinerary.",
+      "Given the distance, we build in a comfortable pace and can discuss a stop along the way when you request your quote.",
+    ],
+    highlights: [
+      "A single private vehicle for a genuinely long cross-border journey",
+      "Popular around the Salzburg Festival and Austrian cultural travel",
+      "Stops can be discussed and arranged when requesting your quote",
+    ],
+  }),
+  makeInternationalRoute({
+    fromName: "Bolzano",
+    fromSlug: "bolzano",
+    toName: "Innsbruck",
+    toSlug: "innsbruck",
+    distance: "Approximately 120 km",
+    duration: "Around 1.5 to 2 hours",
+    hubGroup: "austria",
+    country: "Austria",
+    borderNote:
+      "The most direct of our Austria routes, following the A22 motorway over the Brenner Pass — a short, well-travelled Alpine crossing.",
+    pickupPoints: ["Bolzano city centre", "Bolzano train station"],
+    destinationPoints: ["Innsbruck city centre", "Innsbruck Airport"],
+    fromSummary:
+      "Bolzano is the capital of South Tyrol in the Italian Alps, a bilingual Italian–German city close to the Austrian border.",
+    toSummary:
+      "Innsbruck sits just across the Brenner Pass in Austria's Tyrol region, a short and direct alpine drive from South Tyrol.",
+    metaTitle: "Private Transfer from Bolzano to Innsbruck",
+    metaDescription:
+      "Private chauffeur transfer from Bolzano to Innsbruck, Austria over the Brenner Pass. Short, direct border crossing with a fixed quote before travel.",
+    intro: [
+      "Bolzano to Innsbruck is the shortest and most direct of our Austria routes, a quick hop over the Brenner Pass between South Tyrol and the Tyrol region on the Austrian side.",
+      "It's a natural choice for travellers moving between the two Tyrols, including winter ski-season transfers, without needing to self-drive across the border.",
+    ],
+    highlights: [
+      "The shortest Italy–Austria crossing we offer",
+      "Popular for winter ski-season travel between South Tyrol and Tyrol",
+      "Direct, no self-driving over the Brenner Pass required",
+    ],
+  }),
+
+  // --- Slovenia ---
+  makeInternationalRoute({
+    fromName: "Venice",
+    fromSlug: "venice",
+    toName: "Ljubljana",
+    toSlug: "ljubljana",
+    distance: "Approximately 245 km",
+    duration: "Around 2.5 to 3 hours",
+    hubGroup: "slovenia",
+    country: "Slovenia",
+    borderNote:
+      "Routed via Trieste to the border crossing near Fernetti/Sežana, continuing on the Slovenian motorway network into Ljubljana.",
+    pickupPoints: ["Venice Marco Polo Airport", "Venice mainland hotels"],
+    destinationPoints: ["Ljubljana old town", "Ljubljana Jože Pučnik Airport"],
+    toSummary:
+      "Ljubljana is Slovenia's compact, walkable capital, a comfortable base for exploring the wider Julian Alps region.",
+    metaTitle: "Private Transfer from Venice to Ljubljana",
+    metaDescription:
+      "Private chauffeur transfer from Venice to Ljubljana, Slovenia via Trieste. Direct, door-to-door service with a fixed quote before travel.",
+    intro: [
+      "Venice to Ljubljana crosses from northeastern Italy into Slovenia via Trieste, a route with limited convenient direct train options that makes a private transfer particularly practical.",
+      "It's a popular pairing for travellers combining a Venice stay with Slovenia's capital, timed around your flight into Marco Polo Airport.",
+    ],
+    highlights: [
+      "A practical alternative where direct train options are limited",
+      "Comfortable for travellers pairing Venice with Slovenia's capital",
+      "Flexible pickup timed around Marco Polo Airport arrivals",
+    ],
+  }),
+  makeInternationalRoute({
+    fromName: "Venice",
+    fromSlug: "venice",
+    toName: "Lake Bled",
+    toSlug: "lake-bled",
+    distance: "Approximately 300 km",
+    duration: "Around 3 to 3.5 hours",
+    hubGroup: "slovenia",
+    country: "Slovenia",
+    borderNote:
+      "Follows the same Fernetti/Sežana border crossing near Trieste as our Venice–Ljubljana route, continuing north past Ljubljana toward the Julian Alps.",
+    pickupPoints: ["Venice Marco Polo Airport", "Venice mainland hotels"],
+    destinationPoints: ["Lake Bled village", "Lake Bled hotels"],
+    toSummary:
+      "Lake Bled is an alpine lake in Slovenia's Julian Alps, known for its island church and clifftop castle, a popular day-trip or short-stay destination.",
+    metaTitle: "Private Transfer from Venice to Lake Bled",
+    metaDescription:
+      "Private chauffeur transfer from Venice to Lake Bled, Slovenia. A scenic border crossing via Trieste, door-to-door with a fixed quote before travel.",
+    intro: [
+      "Venice to Lake Bled is a longer scenic drive across the Slovenian border to one of the Julian Alps' best-known lakes, popular with travellers extending a northern Italy trip into Slovenia.",
+      "A private chauffeur handles the full distance directly, with no need to change vehicles in Ljubljana before continuing on to Bled.",
+    ],
+    highlights: [
+      "Direct service all the way to Lake Bled, no changeover in Ljubljana",
+      "Popular for combining Venice with Slovenia's alpine-lake scenery",
+      "Comfortable full-day private journey with flexible departure time",
+    ],
+  }),
+  makeInternationalRoute({
+    fromName: "Trieste",
+    fromSlug: "trieste",
+    toName: "Ljubljana",
+    toSlug: "ljubljana",
+    distance: "Approximately 100 km",
+    duration: "Around 1.25 to 1.5 hours",
+    hubGroup: "slovenia",
+    country: "Slovenia",
+    borderNote:
+      "The shortest of our Slovenia routes, crossing near Fernetti/Sežana just outside Trieste before a short drive into Ljubljana.",
+    pickupPoints: ["Trieste city centre", "Trieste Airport (Ronchi dei Legionari)"],
+    destinationPoints: ["Ljubljana old town", "Ljubljana Jože Pučnik Airport"],
+    fromSummary:
+      "Trieste is a port city in northeastern Italy, close to the Slovenian border and with its own regional airport.",
+    toSummary:
+      "Ljubljana, Slovenia's capital, is a short and direct drive from Trieste across the nearby border.",
+    metaTitle: "Private Transfer from Trieste to Ljubljana",
+    metaDescription:
+      "Private chauffeur transfer from Trieste to Ljubljana, Slovenia. A short, direct border crossing with door-to-door service and a fixed quote.",
+    intro: [
+      "Trieste to Ljubljana is the shortest of our Slovenia routes, a quick and direct crossing between two neighbouring capital-adjacent cities.",
+      "It suits business travellers and short-notice trips alike, with a private vehicle ready to cross the border without the schedule constraints of limited direct train services.",
+    ],
+    highlights: [
+      "The shortest Italy–Slovenia crossing we offer",
+      "Practical for business travel and day-return itineraries",
+      "Direct service without limited train timetables to work around",
+    ],
+  }),
+];
+
+routes.push(...internationalRoutes);
+
 export function getRouteBySlug(slug: string) {
   return routes.find((r) => r.slug === slug);
 }

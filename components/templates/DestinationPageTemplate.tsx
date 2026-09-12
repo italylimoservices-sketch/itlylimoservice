@@ -30,6 +30,7 @@ export default function DestinationPageTemplate({
   const intro = d?.intro ?? destination.intro;
   const highlights = d?.highlights ?? destination.highlights;
   const popularPickups = d?.popularPickups ?? destination.popularPickups;
+  const internationalNote = d?.internationalNote ?? destination.internationalNote;
 
   const linkedAirports = airports.filter((a) => destination.nearestAirports.includes(a.slug));
   const linkedRoutes = routes.filter((r) => destination.relatedRoutes.includes(r.slug));
@@ -127,6 +128,17 @@ export default function DestinationPageTemplate({
                 ))}
               </ul>
             </div>
+
+            {internationalNote && (
+              <div className="mt-8 rounded-md border border-line bg-white p-6">
+                <h3 className="font-display text-lg text-navy mb-2">
+                  {it ? `Trasferimenti Internazionali da ${name}` : `International Transfers from ${name}`}
+                </h3>
+                <p className="text-sm text-stone leading-relaxed">
+                  <LinkedText text={internationalNote} linkClassName="text-gold hover:underline" />
+                </p>
+              </div>
+            )}
           </div>
 
           <ImageBlock label={name} variant="gold" aspect="aspect-[4/5]" src={destination.image || undefined} />

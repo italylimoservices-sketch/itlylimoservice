@@ -65,6 +65,7 @@ export const services: Service[] = [
     intro: [
       "A private chauffeur gives you a single point of contact for your transportation throughout your stay, rather than arranging separate taxis or transfers for each leg of a trip.",
       "Whether you need transportation for a single evening or a full itinerary spanning several cities, your chauffeur adapts to your schedule rather than the other way around. For special occasions where presentation matters, many clients choose our [Luxury Sedan](/fleet/luxury-sedan).",
+      "The same private chauffeur can also take you beyond Italy — see our [international border crossing transfers](/international-border-crossing-transfers) for private journeys into Switzerland, France, Austria and Slovenia.",
     ],
     benefits: [
       "One dedicated driver for your entire stay or itinerary",
@@ -116,6 +117,7 @@ export const services: Service[] = [
     intro: [
       "Trains are efficient in Italy, but they don't go door to door, and they require managing luggage across stations and platforms. A private transfer takes you directly from your hotel in one city to your hotel in the next.",
       "We operate fixed, popular routes between major cities as well as custom long-distance transfers to less common destinations. Travellers with significant luggage, or families and groups travelling together, often choose a [Luxury SUV](/fleet/luxury-suv) or [Executive Van](/fleet/executive-van) for the extra space.",
+      "Need to continue past Italy's borders? See our [international border crossing transfers](/international-border-crossing-transfers) for private routes into Switzerland, France, Austria and Slovenia.",
     ],
     benefits: [
       "Door-to-door service, no station transfers",
@@ -396,6 +398,94 @@ export const services: Service[] = [
         question: "Do you offer a port-to-city day trip before reboarding?",
         answer:
           "Yes, for port days we can arrange a private day trip that returns you to the ship before departure.",
+      },
+    ],
+  },
+  {
+    slug: "international-border-crossing-transfers",
+    name: "International Border Crossing Transfers",
+    shortDescription:
+      "Private chauffeur transfers connecting Italy with Switzerland, France, Austria and Slovenia.",
+    metaTitle: "International Border Crossing Transfers from Italy",
+    metaDescription:
+      "Private chauffeur transfers between Italy and Switzerland, France, Austria and Slovenia. Door-to-door service with professional drivers and a fixed quote.",
+    heroHeading: "International Border Crossing Transfers from Italy",
+    intro: [
+      "Travel beyond Italy with a private chauffeur and a comfortable door-to-door transfer. We arrange international journeys between Italy and neighbouring countries, with route planning, professional drivers and a fixed quote before you travel.",
+      "Rather than arranging separate transportation for each side of the journey, one private vehicle and driver take you from your pickup point in Italy all the way to your destination across the border, whether that's a hotel, an airport or a city centre address.",
+    ],
+    benefits: [
+      "Private, non-shared transportation for the full cross-border journey",
+      "Hotel-to-hotel and airport-to-hotel international transfers",
+      "Route planning that accounts for the specific border crossing",
+      "Flexible pickup times built around your flight or schedule",
+      "Comfortable, luggage-friendly vehicles for longer journeys",
+      "Fixed quotation agreed before you book",
+      "Support before and during your journey",
+    ],
+    whoFor: [
+      "Travellers connecting an Italian city with Switzerland, France, Austria or Slovenia",
+      "Business travellers with meetings on both sides of the border",
+      "Families and groups who'd rather not change vehicles at the crossing",
+      "Anyone who prefers a private, direct journey over a coach or multi-leg train",
+    ],
+    included: [
+      "Private chauffeur for the full international journey",
+      "Route planning for the specific border crossing",
+      "Luggage assistance",
+      "Fixed price agreed before travel",
+    ],
+    icon: "globe",
+    faqs: [
+      {
+        question: "Can I book a private chauffeur from Italy to Switzerland?",
+        answer:
+          "Yes, private international chauffeur transfers can be arranged for suitable routes between Italy and Switzerland, including [Milan to Lugano](/routes/milan-to-lugano), [Lake Como to Lugano](/routes/lake-como-to-lugano), [Milan to Zurich](/routes/milan-to-zurich) and [Milan to St. Moritz](/routes/milan-to-st-moritz). Request your route and travel details for availability and pricing.",
+      },
+      {
+        question: "Can I travel from Italy to France with a private driver?",
+        answer:
+          "Yes. We arrange private cross-border journeys between Italy and France on suitable routes, including [Milan to Nice](/routes/milan-to-nice), [Turin to Nice](/routes/turin-to-nice) and [Sanremo to Nice](/routes/sanremo-to-nice).",
+      },
+      {
+        question: "Can you take me from Italy to Austria?",
+        answer:
+          "Yes, private chauffeur transfers can be arranged between Italy and Austria depending on the route and availability, including [Venice to Innsbruck](/routes/venice-to-innsbruck), [Venice to Salzburg](/routes/venice-to-salzburg) and [Bolzano to Innsbruck](/routes/bolzano-to-innsbruck).",
+      },
+      {
+        question: "Can I book a transfer from Italy to Slovenia?",
+        answer:
+          "Yes, we can arrange private cross-border transfers between Italy and Slovenia on suitable routes, including [Venice to Ljubljana](/routes/venice-to-ljubljana), [Venice to Lake Bled](/routes/venice-to-lake-bled) and [Trieste to Ljubljana](/routes/trieste-to-ljubljana).",
+      },
+      {
+        question: "Will I need my passport?",
+        answer:
+          "Travel documentation requirements depend on your nationality and destination. Passengers should carry all required travel documents and verify current requirements with the relevant official authorities before travelling.",
+      },
+      {
+        question: "Are border checks included in the transfer?",
+        answer:
+          "Border authorities control their own entry and exit procedures. Our chauffeur provides the transportation, but we cannot guarantee the absence of checks or delays at the border.",
+      },
+      {
+        question: "Is the transfer private?",
+        answer:
+          "Yes, every international transfer is private, non-shared transportation for you and your group only.",
+      },
+      {
+        question: "Can I travel with luggage?",
+        answer:
+          "Yes, luggage can be accommodated according to the selected vehicle's capacity. Let us know your luggage volume when requesting a quote so we can recommend a suitable vehicle.",
+      },
+      {
+        question: "How much does an international transfer cost?",
+        answer:
+          "Pricing depends on the route, distance, vehicle, date, passenger count and other journey requirements. Request a fixed quote for your specific route.",
+      },
+      {
+        question: "What if my route isn't listed?",
+        answer:
+          "The routes shown are our most requested international journeys. If your route isn't listed, get in touch with your pickup, destination and travel dates and we'll confirm whether it can be arranged.",
       },
     ],
   },

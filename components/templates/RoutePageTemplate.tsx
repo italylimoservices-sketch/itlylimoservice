@@ -25,9 +25,67 @@ export default function RoutePageTemplate({ route, locale = "en" }: { route: Rou
 
   const fromDestination = getDestinationBySlug(route.fromSlug);
   const toDestination = getDestinationBySlug(route.toSlug);
-  const otherRoutes = routes.filter((r) => r.slug !== route.slug).slice(0, 5);
+  const otherRoutes = routes
+    .filter((r) => r.slug !== route.slug && Boolean(r.international) === Boolean(route.international))
+    .slice(0, 5);
 
-  const faqs: FaqItem[] = it
+  const intl = route.international;
+
+  const faqs: FaqItem[] = intl
+    ? it
+      ? [
+          {
+            question: `Quanto dura il transfer da ${from} a ${to}?`,
+            answer: `Il viaggio richiede ${duration_it(route.durationApprox).toLowerCase()}, per una distanza di ${distance_it(route.distanceApprox).toLowerCase()}, a seconda del traffico, del meteo ed eventuali controlli di frontiera.`,
+          },
+          {
+            question: "È un transfer privato e diretto?",
+            answer: "Sì, si tratta di un transfer privato porta a porta riservato a te e al tuo gruppo, non una navetta condivisa — un solo veicolo per l'intero tragitto internazionale.",
+          },
+          {
+            question: "Ho bisogno del passaporto per questo viaggio?",
+            answer: "I requisiti sui documenti di viaggio dipendono dalla tua nazionalità e dalla destinazione. Ti invitiamo a verificare i requisiti aggiornati con le autorità competenti prima di partire e a portare con te tutti i documenti necessari.",
+          },
+          {
+            question: "Sono previsti controlli di frontiera lungo il percorso?",
+            answer: "Le autorità di frontiera gestiscono le procedure di ingresso e uscita in autonomia. Il nostro autista si occupa del trasporto, ma non può garantire l'assenza di controlli o eventuali attese al confine.",
+          },
+          {
+            question: "Quale veicolo è adatto a questa tratta?",
+            answer: "Dipende dal numero di passeggeri e bagagli — una berlina è comoda per 1-3 persone, mentre un SUV o van è più adatto a gruppi o bagagli extra su un tragitto più lungo. Indica i dettagli quando richiedi il preventivo.",
+          },
+          {
+            question: "Quanto costa questo transfer internazionale?",
+            answer: "Il prezzo dipende dal veicolo, dalla data e dalla tratta specifica — richiedi un preventivo per un prezzo fisso su questo percorso internazionale.",
+          },
+        ]
+      : [
+          {
+            question: `How long does the transfer from ${route.from} to ${route.to} take?`,
+            answer: `The journey takes approximately ${route.durationApprox.toLowerCase()}, covering around ${route.distanceApprox.toLowerCase()}, depending on traffic, weather and any border checks along the way.`,
+          },
+          {
+            question: "Is this a private, direct transfer?",
+            answer: "Yes, this is a private, door-to-door transfer for you and your group only, not a shared shuttle — one vehicle for the full international journey.",
+          },
+          {
+            question: "Do I need my passport for this journey?",
+            answer: "Travel documentation requirements depend on your nationality and destination. Please check the latest requirements with the relevant official authorities before travel, and carry all required documents with you.",
+          },
+          {
+            question: "Will there be border checks along the way?",
+            answer: "Border authorities control their own entry and exit procedures independently. Our chauffeur provides the transportation but cannot guarantee the absence of checks or delays at the border.",
+          },
+          {
+            question: "Which vehicle suits this route?",
+            answer: "It depends on your passenger and luggage count — a sedan works well for 1-3 people, while an SUV or van suits groups or extra luggage on a longer journey. Tell us your numbers when requesting a quote.",
+          },
+          {
+            question: "How much does this international transfer cost?",
+            answer: "Price depends on the vehicle, date and the specific route — request a quote for a fixed price on this international journey.",
+          },
+        ]
+    : it
     ? [
         {
           question: `Quanto dura il transfer da ${from} a ${to}?`,
@@ -77,10 +135,21 @@ export default function RoutePageTemplate({ route, locale = "en" }: { route: Rou
     <>
       <Breadcrumbs
         locale={locale}
-        items={[
-          { label: it ? "Tratte" : "Routes", href: localePath(locale, "/routes") },
-          { label: it ? `${from} - ${to}` : `${route.from} to ${route.to}` },
-        ]}
+        items={
+          intl
+            ? [
+                { label: it ? "Tratte" : "Routes", href: localePath(locale, "/routes") },
+                {
+                  label: it ? "Trasferimenti Internazionali" : "International Transfers",
+                  href: localePath(locale, "/international-border-crossing-transfers"),
+                },
+                { label: it ? `${from} - ${to}` : `${route.from} to ${route.to}` },
+              ]
+            : [
+                { label: it ? "Tratte" : "Routes", href: localePath(locale, "/routes") },
+                { label: it ? `${from} - ${to}` : `${route.from} to ${route.to}` },
+              ]
+        }
       />
 
       <section className="bg-navy-deep text-ivory">
@@ -135,7 +204,7 @@ export default function RoutePageTemplate({ route, locale = "en" }: { route: Rou
               title={it ? "Informazioni sulle Destinazioni" : "About Your Destinations"}
             />
             <div className="mt-6 space-y-4">
-              {fromDestination && (
+              {fromDestination ? (
                 <Link
                   href={localePath(locale, `/destinations/${fromDestination.slug}`)}
                   className="block rounded-md border border-line bg-white p-5 hover:border-gold/50 transition-colors"
@@ -146,8 +215,16 @@ export default function RoutePageTemplate({ route, locale = "en" }: { route: Rou
                     {it ? destinationDetails_it[fromDestination.slug]?.summary ?? fromDestination.summary : fromDestination.summary}
                   </p>
                 </Link>
+              ) : (
+                intl?.fromSummary && (
+                  <div className="rounded-md border border-line bg-white p-5">
+                    <p className="text-xs uppercase tracking-wide text-gold">{it ? "Partenza da" : "Departing From"}</p>
+                    <p className="font-display text-lg text-navy mt-1">{from}</p>
+                    <p className="text-sm text-stone mt-1">{intl.fromSummary}</p>
+                  </div>
+                )
               )}
-              {toDestination && (
+              {toDestination ? (
                 <Link
                   href={localePath(locale, `/destinations/${toDestination.slug}`)}
                   className="block rounded-md border border-line bg-white p-5 hover:border-gold/50 transition-colors"
@@ -158,11 +235,73 @@ export default function RoutePageTemplate({ route, locale = "en" }: { route: Rou
                     {it ? destinationDetails_it[toDestination.slug]?.summary ?? toDestination.summary : toDestination.summary}
                   </p>
                 </Link>
+              ) : (
+                intl?.toSummary && (
+                  <div className="rounded-md border border-line bg-white p-5">
+                    <p className="text-xs uppercase tracking-wide text-gold">{it ? "Arrivo a" : "Arriving In"}</p>
+                    <p className="font-display text-lg text-navy mt-1">{to}</p>
+                    <p className="text-sm text-stone mt-1">{intl.toSummary}</p>
+                  </div>
+                )
               )}
             </div>
           </div>
         </div>
       </section>
+
+      {intl && (
+        <section className="py-16 md:py-24 bg-ivory-deep/40">
+          <div className="container-luxe grid lg:grid-cols-2 gap-12">
+            <div>
+              <SectionHeading
+                eyebrow={it ? "Punti di Ritiro e Arrivo" : "Common Pickup Locations"}
+                title={it ? `Dove Ti Aspettiamo e Dove Ti Portiamo` : "Typical Pickup & Destination Points"}
+              />
+              <div className="mt-6 grid sm:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="text-xs uppercase tracking-wide text-gold font-semibold mb-2">
+                    {it ? `Ritiro a ${from}` : `Pickup in ${route.from}`}
+                  </h3>
+                  <ul className="space-y-2">
+                    {intl.pickupPoints.map((p) => (
+                      <li key={p} className="text-sm text-stone flex items-start gap-2">
+                        <span className="text-gold">·</span>
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xs uppercase tracking-wide text-gold font-semibold mb-2">
+                    {it ? `Arrivo a ${to}` : `Arrival in ${route.to}`}
+                  </h3>
+                  <ul className="space-y-2">
+                    {intl.destinationPoints.map((p) => (
+                      <li key={p} className="text-sm text-stone flex items-start gap-2">
+                        <span className="text-gold">·</span>
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <SectionHeading
+                eyebrow={it ? "Attraversare il Confine" : "Border Crossing Information"}
+                title={it ? "Attraversare un Confine Internazionale in Auto Privata" : "Crossing an International Border by Private Car"}
+              />
+              <p className="mt-6 text-sm leading-relaxed text-ink-soft">{intl.borderNote}</p>
+              <p className="mt-4 text-sm leading-relaxed text-stone">
+                {it
+                  ? "Attraversare un confine internazionale è diverso da un transfer nazionale: le autorità di frontiera possono effettuare controlli doganali e sui documenti, ed eventuali attese al confine possono influire sui tempi di viaggio. I requisiti relativi a documenti di viaggio e visti dipendono dalla tua nazionalità e dalla destinazione — verifica i requisiti aggiornati con le autorità competenti prima di partire."
+                  : "Crossing an international border is different from a domestic transfer: border authorities may carry out customs and document checks, and any waiting time at the crossing can affect your journey time. Passport, visa and customs requirements depend on your nationality and destination — please check the latest requirements with the relevant official authorities before you travel."}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="py-16 md:py-24 bg-white">
         <div className="container-luxe grid lg:grid-cols-2 gap-12">
@@ -223,11 +362,23 @@ export default function RoutePageTemplate({ route, locale = "en" }: { route: Rou
               <Link href={localePath(locale, "/fleet")} className="text-gold hover:underline">
                 {it ? "Confronta la flotta" : "Compare the fleet"}
               </Link>{" "}
-              {it ? "o consulta la nostra" : "or see our"}{" "}
-              <a href="/pricing" className="text-gold hover:underline">
-                {it ? "guida ai prezzi" : "pricing guide"}
-              </a>
-              .
+              {intl ? (
+                <>
+                  {it ? "— per bagagli extra su un tragitto più lungo, un" : "— for extra luggage on a longer journey, a"}{" "}
+                  <Link href={localePath(locale, "/fleet/luxury-suv")} className="text-gold hover:underline">
+                    {it ? "SUV di Lusso" : "Luxury SUV"}
+                  </Link>{" "}
+                  {it ? "offre più spazio." : "offers more room."}
+                </>
+              ) : (
+                <>
+                  {it ? "o consulta la nostra" : "or see our"}{" "}
+                  <a href="/pricing" className="text-gold hover:underline">
+                    {it ? "guida ai prezzi" : "pricing guide"}
+                  </a>
+                  .
+                </>
+              )}
             </p>
           </div>
         </div>
@@ -236,8 +387,16 @@ export default function RoutePageTemplate({ route, locale = "en" }: { route: Rou
       <section className="py-16 md:py-24 bg-ivory-deep/40">
         <div className="container-luxe">
           <SectionHeading
-            eyebrow={it ? "Altre Tratte Popolari" : "More Popular Routes"}
-            title={it ? "Altri Transfer Privati" : "Other Private Transfers"}
+            eyebrow={
+              intl
+                ? it
+                  ? "Altre Tratte Internazionali"
+                  : "More International Routes"
+                : it
+                ? "Altre Tratte Popolari"
+                : "More Popular Routes"
+            }
+            title={intl ? (it ? "Altri Transfer Internazionali" : "Other International Transfers") : it ? "Altri Transfer Privati" : "Other Private Transfers"}
           />
           <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {otherRoutes.map((r) => (

@@ -44,11 +44,14 @@ export default function QuoteForm({
   compact = false,
   locale = "en",
   defaultVehicle,
+  requirementsPlaceholder,
 }: {
   compact?: boolean;
   locale?: Locale;
   /** Pre-selects the vehicle option — e.g. a fleet category page passing its own vehicle name. */
   defaultVehicle?: string;
+  /** Overrides the special-requirements placeholder — e.g. international transfer pages prompting for border/flight details. */
+  requirementsPlaceholder?: string;
 }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -260,7 +263,7 @@ export default function QuoteForm({
           <textarea
             name="requirements"
             rows={2}
-            placeholder={t.specialRequirementsPlaceholder}
+            placeholder={requirementsPlaceholder ?? t.specialRequirementsPlaceholder}
             className="input-luxe resize-none"
           />
         </Field>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { fleet } from "@/lib/data/fleet";
+import LinkedText from "@/components/ui/LinkedText";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageBlock from "@/components/ui/ImageBlock";
@@ -28,6 +29,12 @@ export default function FleetPage() {
             consistent standard of presentation. Categories shown below reflect passenger and
             luggage capacity; specific vehicle models are confirmed at the time of booking based
             on availability.
+          </p>
+          <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
+            <LinkedText
+              text="The same fleet is also used for [international border crossing transfers](/international-border-crossing-transfers), where luggage capacity and comfort matter most on longer journeys."
+              linkClassName="text-gold-light underline underline-offset-2 hover:text-gold"
+            />
           </p>
         </div>
       </section>

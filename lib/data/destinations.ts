@@ -64,6 +64,8 @@ export const destinations: Destination[] = [
     relatedRoutes: ["milan-to-lake-como", "milan-to-venice"],
     relatedDestinations: ["lake-como", "verona", "turin"],
     image: "/images/destinations/milan.webp",
+    internationalNote:
+      "Milan is also our most requested starting point for [international transfers](/international-border-crossing-transfers), with private routes to [Lugano](/routes/milan-to-lugano), [Zurich](/routes/milan-to-zurich), [St. Moritz](/routes/milan-to-st-moritz) and [Nice](/routes/milan-to-nice). Request a route-specific quote for the crossing you have in mind.",
   },
   {
     slug: "florence",
@@ -125,6 +127,8 @@ export const destinations: Destination[] = [
     relatedRoutes: ["florence-to-venice", "venice-to-florence", "venice-to-milan"],
     relatedDestinations: ["verona", "milan"],
     image: "/images/destinations/venice.webp",
+    internationalNote:
+      "Venice is also a practical starting point for [international border crossing transfers](/international-border-crossing-transfers), with private routes over the Alps to [Innsbruck](/routes/venice-to-innsbruck) and [Salzburg](/routes/venice-to-salzburg) in Austria, or east to [Ljubljana](/routes/venice-to-ljubljana) and [Lake Bled](/routes/venice-to-lake-bled) in Slovenia.",
   },
   {
     slug: "naples",
@@ -203,6 +207,8 @@ export const destinations: Destination[] = [
     relatedRoutes: [],
     relatedDestinations: ["milan"],
     image: "/images/destinations/turin.webp",
+    internationalNote:
+      "Turin's position near the French border also makes it a starting point for [private transfers to France](/routes/turin-to-nice) and [the Principality of Monaco](/routes/turin-to-monaco). See our [international border crossing transfers](/international-border-crossing-transfers) page for details.",
   },
   {
     slug: "verona",
@@ -251,6 +257,8 @@ export const destinations: Destination[] = [
     relatedRoutes: ["milan-to-lake-como"],
     relatedDestinations: ["milan"],
     image: "/images/destinations/lake-como.webp",
+    internationalNote:
+      "The Swiss border is close by, and many visitors extend their stay with a [private transfer from Lake Como to Lugano](/routes/lake-como-to-lugano). See our [international border crossing transfers](/international-border-crossing-transfers) page for other Switzerland routes.",
   },
   {
     slug: "amalfi-coast",
@@ -515,6 +523,8 @@ export const destinations: Destination[] = [
     relatedRoutes: [],
     relatedDestinations: ["portofino", "cinque-terre"],
     image: "",
+    internationalNote:
+      "From Genoa, private chauffeur transfers into France along the Ligurian coast can also be arranged on request — see our [international border crossing transfers](/international-border-crossing-transfers) page for routes and countries we cover.",
   },
 ];
 

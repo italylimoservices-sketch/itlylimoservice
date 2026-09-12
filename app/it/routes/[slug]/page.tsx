@@ -5,6 +5,11 @@ import { routeDetails_it } from "@/lib/i18n/data.it.routes";
 import RoutePageTemplate from "@/components/templates/RoutePageTemplate";
 import { translatedPaths } from "@/lib/i18n/locales";
 
+// Only slugs with real Italian content render here — international routes
+// (added to lib/data/routes.ts but not yet translated) fall back to the
+// English page via localePath() instead of a mixed-language render.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return routes.filter((r) => translatedPaths.has(`/routes/${r.slug}`)).map((r) => ({ slug: r.slug }));
 }

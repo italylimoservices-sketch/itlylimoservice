@@ -56,6 +56,11 @@ export const generalFaqs: FaqItem[] = [
     answer:
       "We monitor your flight in real time, so your chauffeur adjusts pickup timing automatically for delays or early arrivals — you don't need to notify us of a schedule change yourself.",
   },
+  {
+    question: "Can I book a private transfer from Italy to another country?",
+    answer:
+      "Yes. We arrange [international border crossing transfers](/international-border-crossing-transfers) between Italy and Switzerland, France, Austria and Slovenia, with a fixed quote before you travel.",
+  },
 ];
 
 export interface FaqCategory {
@@ -227,6 +232,26 @@ export const faqCategories: FaqCategory[] = [
         question: "Will I have the vehicle to myself, or is it shared with other passengers?",
         answer:
           "Every booking is private — your vehicle and chauffeur are dedicated to your party for the duration of the journey, not shared with other passengers.",
+      },
+    ],
+  },
+  {
+    title: "International & Cross-Border Travel",
+    items: [
+      {
+        question: "Can I book a private chauffeur from Italy to Switzerland, France, Austria or Slovenia?",
+        answer:
+          "Yes. See our [international border crossing transfers](/international-border-crossing-transfers) page for the countries and routes we cover, including Milan to Lugano, Milan to Nice, Venice to Innsbruck and Venice to Ljubljana.",
+      },
+      {
+        question: "Do I need my passport for a cross-border transfer?",
+        answer:
+          "Travel documentation requirements depend on your nationality and destination. Passengers should carry all required travel documents and verify current requirements with the relevant official authorities before travelling.",
+      },
+      {
+        question: "Will there be border checks on an international transfer?",
+        answer:
+          "Border authorities control their own entry and exit procedures. Our chauffeur provides the transportation, but we cannot guarantee the absence of checks or delays at the border.",
       },
     ],
   },

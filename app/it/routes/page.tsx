@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default function RoutesIndexPageIt() {
+  const domesticRoutes = routes.filter((r) => !r.international);
+
   return (
     <>
       <Breadcrumbs locale="it" items={[{ label: "Tratte" }]} />
@@ -31,7 +33,7 @@ export default function RoutesIndexPageIt() {
 
       <section className="py-16 md:py-24 bg-ivory">
         <div className="container-luxe grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {routes.map((r) => {
+          {domesticRoutes.map((r) => {
             const from = destinationNames_it[r.fromSlug]?.name ?? r.from;
             const to = destinationNames_it[r.toSlug]?.name ?? r.to;
             return (
@@ -52,6 +54,23 @@ export default function RoutesIndexPageIt() {
               </Link>
             );
           })}
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container-luxe max-w-2xl">
+          <p className="eyebrow mb-3">Tratte Internazionali</p>
+          <h2 className="font-display text-3xl md:text-4xl leading-tight text-navy">
+            Transfer Oltre Confine dall&apos;Italia
+          </h2>
+          <p className="mt-4 text-[0.98rem] leading-relaxed text-stone">
+            Percorsi privati con autista che collegano l&apos;Italia a Svizzera, Francia, Austria e
+            Slovenia. Scopri tutte le tratte sulla pagina dei{" "}
+            <Link href="/it/international-border-crossing-transfers" className="text-gold hover:underline">
+              trasferimenti internazionali
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

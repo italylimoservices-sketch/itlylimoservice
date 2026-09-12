@@ -6,7 +6,19 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import { localePath, type Locale } from "@/lib/i18n/locales";
 import { fleet_it } from "@/lib/i18n/data.it";
 
-export default function FleetSection({ locale = "en" }: { locale?: Locale }) {
+export default function FleetSection({
+  locale = "en",
+  eyebrow,
+  title,
+  subtitle,
+}: {
+  locale?: Locale;
+  /** Overrides the default fleet-page heading — used by pages framing the
+   * fleet for a specific context (e.g. international transfers). */
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+}) {
   const t = getDictionary(locale).home.fleet;
   const isIt = locale === "it";
 
@@ -14,7 +26,7 @@ export default function FleetSection({ locale = "en" }: { locale?: Locale }) {
     <section className="py-16 md:py-24 bg-white">
       <div className="container-luxe">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <SectionHeading eyebrow={t.eyebrow} title={t.title} subtitle={t.subtitle} />
+          <SectionHeading eyebrow={eyebrow ?? t.eyebrow} title={title ?? t.title} subtitle={subtitle ?? t.subtitle} />
           <Link
             href={localePath(locale, "/fleet")}
             className="shrink-0 inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-gold-light"

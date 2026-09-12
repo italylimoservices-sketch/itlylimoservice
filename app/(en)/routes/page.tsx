@@ -12,6 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default function RoutesIndexPage() {
+  const domesticRoutes = routes.filter((r) => !r.international);
+  const internationalRoutes = routes.filter((r) => r.international);
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Routes" }]} />
@@ -30,7 +33,7 @@ export default function RoutesIndexPage() {
 
       <section className="py-16 md:py-24 bg-ivory">
         <div className="container-luxe grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {routes.map((r) => (
+          {domesticRoutes.map((r) => (
             <Link
               key={r.slug}
               href={`/routes/${r.slug}`}
@@ -47,6 +50,47 @@ export default function RoutesIndexPage() {
               </span>
             </Link>
           ))}
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container-luxe">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div className="max-w-2xl">
+              <p className="eyebrow mb-3">International Routes</p>
+              <h2 className="font-display text-3xl md:text-4xl leading-tight text-navy">
+                Cross-Border Transfers from Italy
+              </h2>
+              <p className="mt-4 text-[0.98rem] leading-relaxed text-stone">
+                Private chauffeur routes connecting Italy with Switzerland, France, Austria and
+                Slovenia. See our{" "}
+                <Link href="/international-border-crossing-transfers" className="text-gold hover:underline">
+                  international border crossing transfers
+                </Link>{" "}
+                page for the full picture.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {internationalRoutes.map((r) => (
+              <Link
+                key={r.slug}
+                href={`/routes/${r.slug}`}
+                className="group flex flex-col justify-between gap-4 rounded-md border border-line bg-ivory-deep/20 p-6 hover:border-gold/50 hover:shadow-lg hover:shadow-navy/5 transition-all"
+              >
+                <div>
+                  <p className="font-display text-lg text-navy">
+                    {r.from} <span className="text-gold">→</span> {r.to}
+                  </p>
+                  <p className="mt-2 text-sm text-stone">{r.distanceApprox} · {r.durationApprox}</p>
+                </div>
+                <span className="text-sm font-semibold text-gold group-hover:text-gold-light">
+                  View route details →
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

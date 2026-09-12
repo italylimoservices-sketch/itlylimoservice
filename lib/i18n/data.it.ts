@@ -101,6 +101,10 @@ export const services_it: Record<string, { name: string; shortDescription: strin
     name: "Transfer per Porti Crociera",
     shortDescription: "Transfer privati tra i porti crociera italiani, hotel, aeroporti e città.",
   },
+  "international-border-crossing-transfers": {
+    name: "Trasferimenti Internazionali",
+    shortDescription: "Transfer privati con autista tra l'Italia e Svizzera, Francia, Austria e Slovenia.",
+  },
 };
 
 export const routes_it: { fromEn: string; toEn: string; from: string; to: string; durationApprox: string }[] = [

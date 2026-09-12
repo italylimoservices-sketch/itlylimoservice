@@ -48,6 +48,7 @@ export const translatedPaths = new Set<string>([
   "/corporate-chauffeur",
   "/event-transportation",
   "/cruise-port-transfers",
+  "/international-border-crossing-transfers",
   ...destinationSlugs.map((s) => `/destinations/${s}`),
   ...airportSlugs.map((s) => `/airport-transfers/${s}`),
   ...routeSlugs.map((s) => `/routes/${s}`),
