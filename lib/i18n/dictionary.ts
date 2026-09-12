@@ -136,6 +136,8 @@ export const dictionary = {
         title: "Private Transportation Across Italy's Regions",
         subtitle: "From Rome and Florence to the Amalfi Coast and Lake Como, each destination page is built with local routes, pickup points and travel tips.",
         viewAll: "All destinations →",
+        bookNow: "Book Now",
+        customizeTrip: "Customize Your Trip",
       },
       routes: {
         eyebrow: "Popular Private Transfers",
@@ -338,6 +340,8 @@ export const dictionary = {
         title: "Trasporto Privato in Tutte le Regioni Italiane",
         subtitle: "Da Roma e Firenze alla Costiera Amalfitana e al Lago di Como, ogni pagina di destinazione include percorsi locali, punti di ritiro e consigli di viaggio.",
         viewAll: "Tutte le destinazioni →",
+        bookNow: "Prenota Ora",
+        customizeTrip: "Personalizza il Tuo Viaggio",
       },
       routes: {
         eyebrow: "Transfer Privati Popolari",

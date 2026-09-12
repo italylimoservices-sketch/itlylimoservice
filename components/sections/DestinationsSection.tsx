@@ -12,6 +12,7 @@ export default function DestinationsSection({ locale = "en" }: { locale?: Locale
   const featured = destinations.slice(0, 12);
   const t = getDictionary(locale).home.destinations;
   const isIt = locale === "it";
+  const bookHref = locale === "en" ? "/book" : localePath(locale, "/contact");
 
   return (
     <section className="py-16 md:py-24 bg-ivory-deep/40">
@@ -32,16 +33,46 @@ export default function DestinationsSection({ locale = "en" }: { locale?: Locale
             const name = isIt && it ? it.name : d.name;
             const region = isIt && it ? it.region : d.region;
             return (
-              <Link key={d.slug} href={localePath(locale, `/destinations/${d.slug}`)} className="group block">
-                <ImageBlock
-                  label={name}
-                  variant={variants[i % variants.length]}
-                  className="group-hover:opacity-90 transition-opacity"
-                  src={d.image || undefined}
-                />
+              <div key={d.slug} className="group">
+                <div className="[perspective:1200px]">
+                  <div
+                    className="relative aspect-[4/3] transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+                  >
+                    {/* Front — the destination photo, click-through as before */}
+                    <Link
+                      href={localePath(locale, `/destinations/${d.slug}`)}
+                      className="absolute inset-0 block [backface-visibility:hidden]"
+                    >
+                      <ImageBlock
+                        label={name}
+                        variant={variants[i % variants.length]}
+                        aspect=""
+                        className="h-full"
+                        src={d.image || undefined}
+                      />
+                    </Link>
+
+                    {/* Back — revealed on hover (pointer devices only) */}
+                    <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-md bg-navy-deep flex flex-col items-center justify-center gap-3 p-4 text-center">
+                      <p className="font-display text-base text-ivory">{name}</p>
+                      <Link
+                        href={bookHref}
+                        className="w-full max-w-[10rem] rounded-sm bg-gold-light px-4 py-2 text-xs font-semibold uppercase tracking-wide text-navy-deep hover:bg-gold-pale transition-colors"
+                      >
+                        {t.bookNow}
+                      </Link>
+                      <Link
+                        href={localePath(locale, "/contact")}
+                        className="w-full max-w-[10rem] rounded-sm border border-ivory/40 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-ivory hover:border-gold transition-colors"
+                      >
+                        {t.customizeTrip}
+                      </Link>
+                    </div>
+                  </div>
+                </div>
                 <p className="mt-3 text-sm font-semibold text-navy">{name}</p>
                 <p className="text-xs text-stone">{region}</p>
-              </Link>
+              </div>
             );
           })}
         </div>
