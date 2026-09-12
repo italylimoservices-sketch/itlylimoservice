@@ -32,7 +32,6 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: `${siteConfig.name} | Private Chauffeur Service in Italy`,
     description: siteConfig.description,
-    url: siteConfig.domain,
   },
   twitter: {
     card: "summary_large_image",
