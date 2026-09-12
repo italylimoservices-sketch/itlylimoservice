@@ -199,6 +199,7 @@ export const dictionary = {
           { icon: "steering-wheel", title: "Direct Communication", desc: "A real person confirms your booking and stays reachable before, during and after your journey." },
           { icon: "clock", title: "A Simple, Transparent Process", desc: "Request, confirm, meet your chauffeur, travel — no confusing steps or unexpected surprises." },
         ],
+        readReviews: "Read verified reviews on Trustpilot",
       },
       faq: {
         eyebrow: "FAQ",
@@ -404,6 +405,7 @@ export const dictionary = {
           { icon: "steering-wheel", title: "Comunicazione Diretta", desc: "Una persona reale conferma la tua prenotazione e resta raggiungibile prima, durante e dopo il viaggio." },
           { icon: "clock", title: "Un Processo Semplice e Trasparente", desc: "Richiedi, conferma, incontra il tuo autista, viaggia — nessun passaggio confuso o sorpresa inattesa." },
         ],
+        readReviews: "Leggi le recensioni verificate su Trustpilot",
       },
       faq: {
         eyebrow: "FAQ",

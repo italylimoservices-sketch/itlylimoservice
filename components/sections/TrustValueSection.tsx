@@ -1,6 +1,7 @@
 import SectionHeading from "@/components/ui/SectionHeading";
 import Icon from "@/components/ui/Icon";
 import { getDictionary } from "@/lib/i18n/dictionary";
+import { siteConfig } from "@/lib/siteConfig";
 import type { Locale } from "@/lib/i18n/locales";
 
 export default function TrustValueSection({ locale = "en" }: { locale?: Locale }) {
@@ -21,6 +22,17 @@ export default function TrustValueSection({ locale = "en" }: { locale?: Locale }
               <p className="mt-2 text-sm leading-relaxed text-stone">{p.desc}</p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <a
+            href={siteConfig.trustpilotUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-gold-light"
+          >
+            {t.readReviews} →
+          </a>
         </div>
       </div>
     </section>

@@ -40,6 +40,14 @@ export default function RoutePageTemplate({ route, locale = "en" }: { route: Rou
           question: "Posso richiedere una sosta lungo il percorso?",
           answer: "Sì, è generalmente possibile organizzare soste panoramiche o pratiche — indicale quando richiedi il preventivo.",
         },
+        {
+          question: "Quale veicolo è adatto a questa tratta?",
+          answer: "Dipende dal numero di passeggeri e bagagli — una berlina è comoda per 1-3 persone, mentre un SUV o van è più adatto a gruppi o bagagli extra. Indica i dettagli quando richiedi il preventivo e ti consiglieremo il veicolo più adatto.",
+        },
+        {
+          question: "Quanto costa questo transfer?",
+          answer: "Il prezzo dipende dal veicolo, dalla data e da eventuali soste — richiedi un preventivo per un prezzo fisso su questa tratta specifica.",
+        },
       ]
     : [
         {
@@ -53,6 +61,14 @@ export default function RoutePageTemplate({ route, locale = "en" }: { route: Rou
         {
           question: "Can I request a stop along the way?",
           answer: "Yes, scenic or practical stops can usually be arranged — mention them when requesting your quote.",
+        },
+        {
+          question: "Which vehicle suits this route?",
+          answer: "It depends on your passenger and luggage count — a sedan works well for 1-3 people, while an SUV or van suits groups or extra luggage. Tell us your numbers when requesting a quote and we'll recommend a suitable vehicle.",
+        },
+        {
+          question: "How much does this transfer cost?",
+          answer: "Price depends on the vehicle, date and any stops requested — request a quote for a fixed price on this specific route.",
         },
       ];
 
@@ -143,6 +159,75 @@ export default function RoutePageTemplate({ route, locale = "en" }: { route: Rou
                 </Link>
               )}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container-luxe grid lg:grid-cols-2 gap-12">
+          <div>
+            <SectionHeading
+              eyebrow={it ? "Perché un Autista Privato" : "Why a Private Chauffeur"}
+              title={it ? `${from} - ${to}: Meglio del Treno o del Taxi?` : `${route.from} to ${route.to}: Why Not Just the Train?`}
+            />
+            <ul className="mt-6 space-y-3">
+              <li className="flex items-start gap-3 text-sm text-ink-soft">
+                <Icon name="check" className="h-4 w-4 mt-0.5 text-gold shrink-0" />
+                {it
+                  ? "Porta a porta: nessun cambio, nessuna stazione, nessun trasporto dei bagagli tra treni."
+                  : "Door-to-door: no station changes, no connections, no dragging luggage between platforms."}
+              </li>
+              <li className="flex items-start gap-3 text-sm text-ink-soft">
+                <Icon name="check" className="h-4 w-4 mt-0.5 text-gold shrink-0" />
+                {it
+                  ? "Orario flessibile, adattato al tuo volo, check-out o programma — non a un orario fisso."
+                  : "Flexible timing built around your flight, check-out or schedule, not a fixed departure board."}
+              </li>
+              <li className="flex items-start gap-3 text-sm text-ink-soft">
+                <Icon name="check" className="h-4 w-4 mt-0.5 text-gold shrink-0" />
+                {it
+                  ? "Spazio privato per te e il tuo gruppo, non una carrozza condivisa."
+                  : "A private vehicle for your group only, not a shared carriage or shuttle."}
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <SectionHeading
+              eyebrow={it ? "Chi Prenota Questa Tratta" : "Who Books This Route"}
+              title={it ? "Adatto a Diversi Tipi di Viaggiatori" : "Suited to Different Kinds of Travelers"}
+            />
+            <ul className="mt-6 space-y-3">
+              <li className="flex items-start gap-3 text-sm text-ink-soft">
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gold shrink-0" />
+                {it
+                  ? "Viaggiatori d'affari con orari da rispettare e bagagli da gestire senza stress."
+                  : "Business travelers with a schedule to keep and luggage they'd rather not manage through a station."}
+              </li>
+              <li className="flex items-start gap-3 text-sm text-ink-soft">
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gold shrink-0" />
+                {it
+                  ? "Famiglie e gruppi che preferiscono viaggiare insieme in un unico veicolo comodo."
+                  : "Families and groups who'd rather travel together in one comfortable vehicle than split across train seats."}
+              </li>
+              <li className="flex items-start gap-3 text-sm text-ink-soft">
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gold shrink-0" />
+                {it
+                  ? "Viaggiatori che vogliono aggiungere una sosta panoramica lungo il percorso."
+                  : "Travelers who'd like to add a scenic or practical stop along the way."}
+              </li>
+            </ul>
+            <p className="mt-6 text-sm text-stone leading-relaxed">
+              {it ? "Non sei sicuro del veicolo o del prezzo?" : "Not sure which vehicle or price to expect?"}{" "}
+              <Link href={localePath(locale, "/fleet")} className="text-gold hover:underline">
+                {it ? "Confronta la flotta" : "Compare the fleet"}
+              </Link>{" "}
+              {it ? "o consulta la nostra" : "or see our"}{" "}
+              <a href="/pricing" className="text-gold hover:underline">
+                {it ? "guida ai prezzi" : "pricing guide"}
+              </a>
+              .
+            </p>
           </div>
         </div>
       </section>

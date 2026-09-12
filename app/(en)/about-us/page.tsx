@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/lib/siteConfig";
+import { destinations } from "@/lib/data/destinations";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Icon from "@/components/ui/Icon";
@@ -69,6 +71,34 @@ export default function AboutPage() {
       </section>
 
       <section className="py-16 md:py-24 bg-ivory-deep/40">
+        <div className="container-luxe">
+          <SectionHeading
+            eyebrow="Where We Operate"
+            title="Chauffeur Coverage Across Italy"
+            subtitle="We arrange private chauffeur transportation nationwide, with the most frequently requested destinations below."
+          />
+          <div className="mt-8 flex flex-wrap gap-3">
+            {destinations.map((d) => (
+              <Link
+                key={d.slug}
+                href={`/destinations/${d.slug}`}
+                className="rounded-full border border-line bg-white px-5 py-2.5 text-sm font-medium text-ink-soft hover:border-gold hover:text-gold transition-colors"
+              >
+                {d.name}
+              </Link>
+            ))}
+          </div>
+          <p className="mt-6 text-sm text-stone leading-relaxed">
+            Don’t see your destination listed? Most journeys across Italy can still be arranged —{" "}
+            <Link href="/contact" className="text-gold hover:underline">
+              get in touch
+            </Link>{" "}
+            with your route and we’ll confirm availability.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-ivory">
         <div className="container-luxe max-w-2xl">
           <SectionHeading eyebrow="Company Information" title="Details" />
           <dl className="mt-6 space-y-3 text-sm">
