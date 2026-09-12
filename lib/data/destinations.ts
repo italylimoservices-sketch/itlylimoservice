@@ -13,7 +13,7 @@ export const destinations: Destination[] = [
       "Private chauffeur transportation across Italy's capital, from airport pickups to full-day sightseeing.",
     intro: [
       "Rome rewards visitors who can move through it efficiently, and a private chauffeur is the most comfortable way to do that. Narrow historic streets, restricted traffic zones and unpredictable congestion make a knowledgeable local driver genuinely useful rather than a luxury add-on.",
-      "Whether you're arriving from [Fiumicino](/airport-transfers/rome-fiumicino), attending business meetings near the EUR district, or exploring the Colosseum, Vatican and Trastevere at your own pace, our chauffeurs handle the driving and logistics so you can focus on the city.",
+      "Whether you're arriving from [Fiumicino](/airport-transfers/rome-fiumicino), attending business meetings near the EUR district, or exploring the Colosseum, Vatican and Trastevere at your own pace, our chauffeurs handle the driving and logistics so you can focus on the city. Families arriving with several suitcases often find a [Luxury SUV](/fleet/luxury-suv) more comfortable than a standard sedan.",
     ],
     highlights: [
       "Direct airport meet & greet from [Fiumicino](/airport-transfers/rome-fiumicino) and [Ciampino](/airport-transfers/rome-ciampino)",
@@ -44,7 +44,7 @@ export const destinations: Destination[] = [
     summary:
       "Executive-grade chauffeur transportation for Milan's business, fashion and financial districts.",
     intro: [
-      "Milan moves at a business pace, and our chauffeur service is built to match it. Punctual pickups, discreet professionalism and vehicles suited to corporate travel make this a natural choice for executives, delegations and fashion industry professionals alike.",
+      "Milan moves at a business pace, and our chauffeur service is built to match it. Punctual pickups, discreet professionalism and vehicles suited to corporate travel make this a natural choice for executives, delegations and fashion industry professionals alike. An [Executive Sedan](/fleet/executive-sedan) suits a single executive, while an [Executive Van](/fleet/executive-van) works well for a full delegation travelling together.",
       "Beyond the city, Milan is also the most convenient base for private day trips to [Lake Como](/destinations/lake-como), Lake Maggiore and the wider Lombardy region, all reachable within a comfortable drive.",
     ],
     highlights: [
@@ -138,7 +138,7 @@ export const destinations: Destination[] = [
       "Private transportation in Naples and the gateway routes south to the Amalfi Coast.",
     intro: [
       "Naples is a working, vibrant city and also the practical starting point for the [Amalfi Coast](/destinations/amalfi-coast), [Sorrento](/destinations/sorrento) and Pompeii. A private chauffeur is especially valuable here, where local driving conditions and winding coastal roads benefit from an experienced local driver.",
-      "We provide direct airport transfers, private access to Pompeii and Herculaneum, and comfortable long-distance drives further along the coast.",
+      "We provide direct airport transfers, private access to Pompeii and Herculaneum, and comfortable long-distance drives further along the coast. Families or groups travelling with extra luggage often choose a [Luxury SUV](/fleet/luxury-suv) for the additional space.",
     ],
     highlights: [
       "Direct transfers from [Naples Airport](/airport-transfers/naples)",
@@ -238,7 +238,7 @@ export const destinations: Destination[] = [
       "Private chauffeur transfers and day tours around Lake Como, including Bellagio, Como town and villa visits, from Milan or the airports.",
     summary: "Private transfers and touring drivers around Lake Como's towns and villages.",
     intro: [
-      "Lake Como is best explored at an unhurried pace, moving between Como town, Bellagio and the lakeside villages without worrying about parking or ferry timetables. A private chauffeur makes that possible in a single, comfortable day.",
+      "Lake Como is best explored at an unhurried pace, moving between Como town, Bellagio and the lakeside villages without worrying about parking or ferry timetables. A private chauffeur makes that possible in a single, comfortable day. For a couple marking a special occasion, a [Luxury Sedan](/fleet/luxury-sedan) adds a touch of extra presentation to the day.",
       "Most visitors arrive via [Milan](/destinations/milan) or [Malpensa Airport](/airport-transfers/milan-malpensa), and we arrange direct transfers as well as full-day touring itineraries around the lake.",
     ],
     highlights: [
@@ -311,7 +311,7 @@ export const destinations: Destination[] = [
     summary: "Private transportation across Tuscany's countryside, vineyards and hill towns.",
     intro: [
       "Tuscany is a region best explored slowly, with time to stop at a vineyard, a hill town, or a viewpoint that isn't on any fixed itinerary. A private chauffeur gives you that flexibility while handling the region's rural roads with local knowledge.",
-      "We arrange full-day and multi-day itineraries through Chianti, the Val d'Orcia and Tuscany's hill towns, typically starting from [Florence](/destinations/florence), [Pisa](/destinations/pisa) or [Siena](/destinations/siena).",
+      "We arrange full-day and multi-day itineraries through Chianti, the Val d'Orcia and Tuscany's hill towns, typically starting from [Florence](/destinations/florence), [Pisa](/destinations/pisa) or [Siena](/destinations/siena). Small groups touring together for the day often choose a [Luxury SUV](/fleet/luxury-suv), while larger parties may prefer a [Luxury Van](/fleet/luxury-van).",
     ],
     highlights: [
       "Flexible wine region and countryside itineraries",
@@ -431,7 +431,7 @@ export const destinations: Destination[] = [
     summary: "Private transportation and touring drivers across Sicily.",
     intro: [
       "Sicily rewards travellers who can move flexibly between its coast, countryside and historic towns, and a private chauffeur is well suited to the island's varied roads and distances.",
-      "We arrange airport transfers from [Palermo](/airport-transfers/palermo) and [Catania](/airport-transfers/catania), along with multi-day touring itineraries that can be tailored to your own pace rather than a fixed group schedule.",
+      "We arrange airport transfers from [Palermo](/airport-transfers/palermo) and [Catania](/airport-transfers/catania), along with multi-day touring itineraries that can be tailored to your own pace rather than a fixed group schedule. Families or small groups covering multiple days often choose a [Luxury SUV](/fleet/luxury-suv) or [Executive Van](/fleet/executive-van) for the extra luggage space.",
     ],
     highlights: [
       "Transfers from [Palermo](/airport-transfers/palermo) and [Catania](/airport-transfers/catania) airports",

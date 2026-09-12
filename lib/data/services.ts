@@ -12,7 +12,7 @@ export const services: Service[] = [
     heroHeading: "Airport Transfers Across Italy",
     intro: [
       "Arriving in a new country after a long flight is easier when someone is already waiting for you. Our chauffeurs track your flight in real time, adjust for delays, and meet you in the arrivals hall with a name board and a hand for your luggage — see our [airport meeting instructions](/airport-meeting-instructions) for exactly what to expect.",
-      "We cover Italy's major international and regional airports, with direct transfers into the nearest city and onward connections across the country.",
+      "We cover Italy's major international and regional airports, with direct transfers into the nearest city and onward connections across the country. Couples and solo travellers are usually comfortable in a sedan, while families or larger groups often prefer a [Luxury SUV](/fleet/luxury-suv) or [Executive Van](/fleet/executive-van) for the extra space.",
     ],
     benefits: [
       "Real-time flight monitoring, including delays and early arrivals",
@@ -64,7 +64,7 @@ export const services: Service[] = [
     heroHeading: "Private Chauffeur Service in Italy",
     intro: [
       "A private chauffeur gives you a single point of contact for your transportation throughout your stay, rather than arranging separate taxis or transfers for each leg of a trip.",
-      "Whether you need transportation for a single evening or a full itinerary spanning several cities, your chauffeur adapts to your schedule rather than the other way around.",
+      "Whether you need transportation for a single evening or a full itinerary spanning several cities, your chauffeur adapts to your schedule rather than the other way around. For special occasions where presentation matters, many clients choose our [Luxury Sedan](/fleet/luxury-sedan).",
     ],
     benefits: [
       "One dedicated driver for your entire stay or itinerary",
@@ -115,7 +115,7 @@ export const services: Service[] = [
     heroHeading: "Private City-to-City Transfers",
     intro: [
       "Trains are efficient in Italy, but they don't go door to door, and they require managing luggage across stations and platforms. A private transfer takes you directly from your hotel in one city to your hotel in the next.",
-      "We operate fixed, popular routes between major cities as well as custom long-distance transfers to less common destinations.",
+      "We operate fixed, popular routes between major cities as well as custom long-distance transfers to less common destinations. Travellers with significant luggage, or families and groups travelling together, often choose a [Luxury SUV](/fleet/luxury-suv) or [Executive Van](/fleet/executive-van) for the extra space.",
     ],
     benefits: [
       "Door-to-door service, no station transfers",
@@ -215,7 +215,7 @@ export const services: Service[] = [
     heroHeading: "Private Italy Tours",
     intro: [
       "Group tours run on fixed schedules with fixed stops. A private tour with your own chauffeur runs on your schedule instead, with the flexibility to linger somewhere you love and skip past what doesn't interest you.",
-      "We design flexible single-day and multi-day itineraries across Italy's most requested touring regions, built around your interests and pace.",
+      "We design flexible single-day and multi-day itineraries across Italy's most requested touring regions, built around your interests and pace. Families and small groups often choose a [Luxury SUV](/fleet/luxury-suv) for day-long comfort, while larger groups may prefer an [Executive Van](/fleet/executive-van).",
     ],
     benefits: [
       "Fully private, not shared with other travellers",
@@ -264,7 +264,7 @@ export const services: Service[] = [
     heroHeading: "Corporate Chauffeur Service",
     intro: [
       "Business travel depends on reliability, and our corporate chauffeur service is built around punctuality, discretion and professionalism at every stage.",
-      "From single executive transfers to coordinated transportation for a conference or roadshow, we scale to match your organisation's needs.",
+      "From single executive transfers to coordinated transportation for a conference or roadshow, we scale to match your organisation's needs. An [Executive Sedan](/fleet/executive-sedan) suits an individual executive, while an [Executive Van](/fleet/executive-van) is a practical choice for a full delegation travelling together.",
     ],
     benefits: [
       "Punctual, reliable scheduling for tight agendas",
@@ -313,7 +313,7 @@ export const services: Service[] = [
     heroHeading: "Event Transportation",
     intro: [
       "Weddings and celebrations involve moving multiple guests to precise timings, and our event transportation service is designed around exactly that kind of coordination.",
-      "We plan pickup schedules in advance and stay flexible on the day, so your event runs smoothly whether you're transporting a couple or an entire guest list.",
+      "We plan pickup schedules in advance and stay flexible on the day, so your event runs smoothly whether you're transporting a couple or an entire guest list. A [Luxury Sedan](/fleet/luxury-sedan) suits a couple travelling to the ceremony, while a [Luxury Van](/fleet/luxury-van) comfortably keeps a larger group of guests together.",
     ],
     benefits: [
       "Coordinated scheduling for multiple pickups",
@@ -362,7 +362,7 @@ export const services: Service[] = [
     heroHeading: "Cruise Port Transfers",
     intro: [
       "Cruise embarkation and disembarkation days run on tight schedules, and a private transfer removes the uncertainty of shared shuttles and taxi queues at the port — see our [cruise arrival instructions](/cruise-arrival-instructions) for what to expect on the day.",
-      "We connect Italy's major cruise ports with nearby cities, airports and hotels, timing pickups around your ship's schedule.",
+      "We connect Italy's major cruise ports with nearby cities, airports and hotels, timing pickups around your ship's schedule. Groups and families travelling with luggage often choose a [Luxury SUV](/fleet/luxury-suv) or [Executive Van](/fleet/executive-van) for the extra space.",
     ],
     benefits: [
       "Timed around your ship's embarkation or disembarkation schedule",

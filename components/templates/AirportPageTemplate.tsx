@@ -8,6 +8,7 @@ import { localePath, type Locale } from "@/lib/i18n/locales";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Icon from "@/components/ui/Icon";
+import LinkedText from "@/components/ui/LinkedText";
 import QuoteForm from "@/components/ui/QuoteForm";
 import HowItWorks from "@/components/sections/HowItWorks";
 import FaqSection from "@/components/sections/FaqSection";
@@ -71,7 +72,7 @@ export default function AirportPageTemplate({ airport, locale = "en" }: { airpor
             <div className="mt-6 space-y-4 max-w-xl">
               {intro.map((p, i) => (
                 <p key={i} className="text-[0.98rem] leading-relaxed text-ivory-deep/80">
-                  {p}
+                  <LinkedText text={p} linkClassName="text-gold-light underline underline-offset-2 hover:text-gold" />
                 </p>
               ))}
             </div>
@@ -154,6 +155,37 @@ export default function AirportPageTemplate({ airport, locale = "en" }: { airpor
           </div>
         </div>
       </section>
+
+      {!it && (
+        <section className="py-16 md:py-24 bg-white">
+          <div className="container-luxe max-w-2xl">
+            <SectionHeading eyebrow="Choosing Your Vehicle" title="Which Vehicle Fits Your Transfer?" />
+            <p className="mt-4 text-sm leading-relaxed text-stone">
+              Couples and solo travellers are usually comfortable in an{" "}
+              <Link href="/fleet/executive-sedan" className="text-gold hover:underline">
+                Executive Sedan
+              </Link>{" "}
+              or{" "}
+              <Link href="/fleet/luxury-sedan" className="text-gold hover:underline">
+                Luxury Sedan
+              </Link>
+              . Families or small groups with extra luggage often prefer a{" "}
+              <Link href="/fleet/luxury-suv" className="text-gold hover:underline">
+                Luxury SUV
+              </Link>
+              , while groups of up to seven passengers may need an{" "}
+              <Link href="/fleet/executive-van" className="text-gold hover:underline">
+                Executive Van
+              </Link>{" "}
+              or{" "}
+              <Link href="/fleet/luxury-van" className="text-gold hover:underline">
+                Luxury Van
+              </Link>
+              . See our full <Link href="/fleet" className="text-gold hover:underline">fleet</Link> for passenger and luggage capacity by category.
+            </p>
+          </div>
+        </section>
+      )}
 
       <HowItWorks locale={locale} />
       <FaqSection items={faqs} title={it ? `${name} — Domande Frequenti` : `${airport.name} — Frequently Asked Questions`} />

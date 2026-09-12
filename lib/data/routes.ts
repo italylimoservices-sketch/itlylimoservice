@@ -91,7 +91,7 @@ export const routes: RouteInfo[] = [
     ["Direct motorway connection", "Ideal continuation to Pompeii or the [Amalfi Coast](/destinations/amalfi-coast)", "Flexible luggage capacity"],
     [
       "The [Rome](/destinations/rome) to [Naples](/destinations/naples) transfer is a practical option for travellers heading south toward Pompeii, [Sorrento](/destinations/sorrento) or the [Amalfi Coast](/destinations/amalfi-coast), avoiding a station transfer in central Naples with luggage.",
-      "We can also route this journey with a stop at Pompeii or Herculaneum along the way, turning the transfer into a private day of sightseeing.",
+      "We can also route this journey with a stop at Pompeii or Herculaneum along the way, turning the transfer into a private day of sightseeing. Families or groups travelling with extra luggage often choose a [Luxury SUV](/fleet/luxury-suv) for this route.",
     ]
   ),
   makeRoute(
@@ -117,7 +117,7 @@ export const routes: RouteInfo[] = [
     ["Direct transfer avoiding multiple train changes", "Optional Pompeii stop en route", "Comfortable for families and groups"],
     [
       "[Sorrento](/destinations/sorrento) is not directly served by fast trains, which makes a private transfer from [Rome](/destinations/rome) a considerably more comfortable option than a multi-leg train and local connection.",
-      "We regularly build in a stop at Pompeii for travellers who want to combine the transfer with a guided or self-guided visit to the ruins.",
+      "We regularly build in a stop at Pompeii for travellers who want to combine the transfer with a guided or self-guided visit to the ruins. For a family with luggage, a [Luxury SUV](/fleet/luxury-suv) offers more comfortable space than a standard sedan.",
     ]
   ),
   makeRoute(
@@ -143,7 +143,7 @@ export const routes: RouteInfo[] = [
     ["Experienced drivers on the coast's narrow roads", "Direct service to Positano, Amalfi or Ravello", "Optional Pompeii stop en route"],
     [
       "The drive from [Rome](/destinations/rome) to the [Amalfi Coast](/destinations/amalfi-coast) ends on some of Italy's narrowest and most scenic roads, where a driver with local experience makes a real difference to comfort and safety.",
-      "We take you directly to your hotel in Positano, Amalfi or Ravello, with the option to stop at Pompeii along the way.",
+      "We take you directly to your hotel in Positano, Amalfi or Ravello, with the option to stop at Pompeii along the way. For a family travelling with luggage, a [Luxury SUV](/fleet/luxury-suv) offers additional space; for larger groups, an [Executive Van](/fleet/executive-van) or [Luxury Van](/fleet/luxury-van) may be more suitable.",
     ]
   ),
   makeRoute(
@@ -182,7 +182,7 @@ export const routes: RouteInfo[] = [
     ["Direct transfer or full-day touring option", "Access to Bellagio, Como and Varenna", "Flexible return timing"],
     [
       "[Lake Como](/destinations/lake-como) is an easy private day trip from [Milan](/destinations/milan), and this route is available either as a simple point-to-point transfer or as a full-day touring itinerary around the lake's towns.",
-      "We can build in stops at Bellagio, Varenna and Como town depending on how much time you'd like to spend at each.",
+      "We can build in stops at Bellagio, Varenna and Como town depending on how much time you'd like to spend at each. Small groups touring for the day often choose a [Luxury SUV](/fleet/luxury-suv) for the extra comfort.",
     ]
   ),
   makeRoute(
@@ -221,7 +221,7 @@ export const routes: RouteInfo[] = [
     ["Short transfer through the Chianti countryside", "Easily extended into a wine region day trip", "Flexible departure and return"],
     [
       "The drive from [Florence](/destinations/florence) to [Siena](/destinations/siena) passes directly through Chianti, and many travellers extend this short transfer into a half-day or full-day countryside itinerary with vineyard stops.",
-      "This route works equally well as a simple point-to-point transfer for travellers with limited time.",
+      "This route works equally well as a simple point-to-point transfer for travellers with limited time. A group travelling together for the day may prefer a [Luxury SUV](/fleet/luxury-suv) or [Executive Van](/fleet/executive-van), depending on numbers.",
     ]
   ),
 ];
