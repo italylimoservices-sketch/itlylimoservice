@@ -122,6 +122,7 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
             <Link href={p("/privacy-policy")} className="hover:text-ivory">{t.footer.privacyPolicy}</Link>
             <Link href={p("/terms-conditions")} className="hover:text-ivory">{t.footer.termsConditions}</Link>
             {!isIt && <Link href="/refund-policy" className="hover:text-ivory">Refund Policy</Link>}
+            {!isIt && <Link href="/cookie-policy" className="hover:text-ivory">Cookie Policy</Link>}
           </div>
         </div>
       </div>

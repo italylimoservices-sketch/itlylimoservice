@@ -41,6 +41,7 @@ export const dictionary = {
     cookie: {
       text: "We use essential cookies to run this site. See our",
       privacyPolicy: "Privacy Policy",
+      cookiePolicy: "Cookie Policy",
       forDetails: "for details.",
       gotIt: "Got it",
     },
@@ -245,6 +246,7 @@ export const dictionary = {
     cookie: {
       text: "Utilizziamo cookie essenziali per il funzionamento del sito. Consulta la nostra",
       privacyPolicy: "Privacy Policy",
+      cookiePolicy: "Cookie Policy",
       forDetails: "per maggiori dettagli.",
       gotIt: "Ho capito",
     },

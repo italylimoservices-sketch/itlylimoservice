@@ -45,8 +45,11 @@ export default function CookieNotice({ locale = "en" }: { locale?: Locale }) {
       <div className="container-luxe flex flex-col sm:flex-row items-center gap-3 py-3.5 text-xs">
         <p className="flex-1 leading-relaxed text-center sm:text-left">
           {t.cookie.text}{" "}
-          <Link href={localePath(locale, "/privacy-policy")} className="text-gold-light underline hover:text-gold">
-            {t.cookie.privacyPolicy}
+          <Link
+            href={locale === "en" ? "/cookie-policy" : localePath(locale, "/privacy-policy")}
+            className="text-gold-light underline hover:text-gold"
+          >
+            {locale === "en" ? t.cookie.cookiePolicy : t.cookie.privacyPolicy}
           </Link>{" "}
           {t.cookie.forDetails}
         </p>

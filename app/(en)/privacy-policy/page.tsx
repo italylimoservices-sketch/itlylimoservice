@@ -60,10 +60,13 @@ export default function PrivacyPolicyPage() {
             <div>
               <h2 className="font-display text-xl text-navy mb-2">4. Cookies</h2>
               <p>
-                This website may use cookies or similar technologies for core functionality and,
-                where enabled, analytics. You can control cookies through your browser settings.
-                [A full cookie inventory and consent mechanism should be added before launch if
-                analytics or marketing cookies are used.]
+                This website uses cookies and similar technologies for core functionality and
+                analytics. See our{" "}
+                <a href="/cookie-policy" className="text-gold hover:underline">
+                  Cookie Policy
+                </a>{" "}
+                for the full list of what’s used and why, and how to control them through your
+                browser settings.
               </p>
             </div>
 
