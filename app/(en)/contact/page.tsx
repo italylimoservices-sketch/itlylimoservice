@@ -57,6 +57,21 @@ export default function ContactPage() {
                 , mention this in your special requirements and our team will follow up directly.
               </p>
             </div>
+
+            <div className="mt-4 rounded-md border border-line bg-white p-5">
+              <p className="text-sm font-semibold text-navy">Already Booked?</p>
+              <p className="mt-2 text-sm text-stone leading-relaxed">
+                See our{" "}
+                <Link href="/airport-meeting-instructions" className="text-gold hover:underline">
+                  airport meeting instructions
+                </Link>{" "}
+                or{" "}
+                <Link href="/cruise-arrival-instructions" className="text-gold hover:underline">
+                  cruise arrival instructions
+                </Link>{" "}
+                for exactly where and how your chauffeur will meet you.
+              </p>
+            </div>
           </div>
 
           <QuoteForm />

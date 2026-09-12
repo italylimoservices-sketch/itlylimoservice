@@ -70,6 +70,13 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
+            <p className="mt-4 text-sm text-stone">
+              See what this means in practice on our{" "}
+              <Link href="/our-guarantee" className="text-gold hover:underline">
+                guarantee page
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </section>

@@ -10,6 +10,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Icon from "@/components/ui/Icon";
 import JsonLd from "@/components/ui/JsonLd";
+import LinkedText from "@/components/ui/LinkedText";
 import HowItWorks from "@/components/sections/HowItWorks";
 import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
@@ -65,7 +66,7 @@ export default function ServicePageTemplate({
             <div className="mt-6 space-y-4 max-w-xl">
               {intro.map((p, i) => (
                 <p key={i} className="text-[0.98rem] leading-relaxed text-ivory-deep/80">
-                  {p}
+                  <LinkedText text={p} linkClassName="text-gold-light underline underline-offset-2 hover:text-gold" />
                 </p>
               ))}
             </div>

@@ -11,7 +11,7 @@ export const services: Service[] = [
       "Private airport transfers across Italy with flight monitoring, meet & greet and luggage assistance. Serving Rome, Milan, Venice, Florence, Naples and more.",
     heroHeading: "Airport Transfers Across Italy",
     intro: [
-      "Arriving in a new country after a long flight is easier when someone is already waiting for you. Our chauffeurs track your flight in real time, adjust for delays, and meet you in the arrivals hall with a name board and a hand for your luggage.",
+      "Arriving in a new country after a long flight is easier when someone is already waiting for you. Our chauffeurs track your flight in real time, adjust for delays, and meet you in the arrivals hall with a name board and a hand for your luggage — see our [airport meeting instructions](/airport-meeting-instructions) for exactly what to expect.",
       "We cover Italy's major international and regional airports, with direct transfers into the nearest city and onward connections across the country.",
     ],
     benefits: [
@@ -361,7 +361,7 @@ export const services: Service[] = [
       "Private chauffeur transfers to and from Italy's cruise ports, including Civitavecchia, Naples, Livorno, Genoa and Venice, with flexible scheduling.",
     heroHeading: "Cruise Port Transfers",
     intro: [
-      "Cruise embarkation and disembarkation days run on tight schedules, and a private transfer removes the uncertainty of shared shuttles and taxi queues at the port.",
+      "Cruise embarkation and disembarkation days run on tight schedules, and a private transfer removes the uncertainty of shared shuttles and taxi queues at the port — see our [cruise arrival instructions](/cruise-arrival-instructions) for what to expect on the day.",
       "We connect Italy's major cruise ports with nearby cities, airports and hotels, timing pickups around your ship's schedule.",
     ],
     benefits: [
