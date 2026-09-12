@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Our Fleet",
   description:
     "Explore our chauffeur-driven fleet across Italy — Executive Sedan, Luxury Sedan, Luxury SUV, Executive Van and Luxury Van categories.",
-  alternates: { canonical: "/fleet" },
+  alternates: { canonical: "/fleet", languages: { en: "/fleet", it: "/it/fleet", "x-default": "/fleet" } },
 };
 
 export default function FleetPage() {

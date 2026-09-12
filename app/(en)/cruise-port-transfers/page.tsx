@@ -8,7 +8,7 @@ const service = getServiceBySlug("cruise-port-transfers")!;
 export const metadata: Metadata = {
   title: service.metaTitle,
   description: service.metaDescription,
-  alternates: { canonical: "/cruise-port-transfers" },
+  alternates: { canonical: "/cruise-port-transfers", languages: { en: "/cruise-port-transfers", it: "/it/cruise-port-transfers", "x-default": "/cruise-port-transfers" } },
 };
 
 export default function CruisePortTransfersPage() {

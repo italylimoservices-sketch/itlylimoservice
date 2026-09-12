@@ -10,7 +10,7 @@ const sd = serviceDetails_it["city-to-city-transfers"];
 export const metadata: Metadata = {
   title: sd?.metaTitle ?? service.metaTitle,
   description: sd?.metaDescription ?? service.metaDescription,
-  alternates: { canonical: "/it/city-to-city-transfers", languages: { en: "/city-to-city-transfers", it: "/it/city-to-city-transfers" } },
+  alternates: { canonical: "/it/city-to-city-transfers", languages: { en: "/city-to-city-transfers", it: "/it/city-to-city-transfers", "x-default": "/city-to-city-transfers" } },
 };
 
 export default function CityToCityPageIt() {

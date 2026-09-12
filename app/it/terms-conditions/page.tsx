@@ -5,7 +5,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 export const metadata: Metadata = {
   title: "Termini e Condizioni",
   description: `Termini e condizioni per la prenotazione di servizi con autista privato con ${siteConfig.name}.`,
-  alternates: { canonical: "/it/terms-conditions", languages: { en: "/terms-conditions", it: "/it/terms-conditions" } },
+  alternates: { canonical: "/it/terms-conditions", languages: { en: "/terms-conditions", it: "/it/terms-conditions", "x-default": "/terms-conditions" } },
 };
 
 export default function TermsPageIt() {

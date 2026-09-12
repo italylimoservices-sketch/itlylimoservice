@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "FAQ",
   description:
     "Frequently asked questions about booking a private chauffeur in Italy, including pricing, airport transfers, luggage, accessibility, multi-day bookings and private tours.",
-  alternates: { canonical: "/faq" },
+  alternates: { canonical: "/faq", languages: { en: "/faq", it: "/it/faq", "x-default": "/faq" } },
 };
 
 export default function FaqPage() {

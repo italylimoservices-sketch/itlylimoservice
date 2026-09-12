@@ -8,7 +8,7 @@ const service = getServiceBySlug("corporate-chauffeur")!;
 export const metadata: Metadata = {
   title: service.metaTitle,
   description: service.metaDescription,
-  alternates: { canonical: "/corporate-chauffeur" },
+  alternates: { canonical: "/corporate-chauffeur", languages: { en: "/corporate-chauffeur", it: "/it/corporate-chauffeur", "x-default": "/corporate-chauffeur" } },
 };
 
 export default function CorporateChauffeurPage() {

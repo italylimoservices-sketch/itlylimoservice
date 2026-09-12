@@ -8,7 +8,7 @@ const service = getServiceBySlug("italy-private-tours")!;
 export const metadata: Metadata = {
   title: service.metaTitle,
   description: service.metaDescription,
-  alternates: { canonical: "/italy-private-tours" },
+  alternates: { canonical: "/italy-private-tours", languages: { en: "/italy-private-tours", it: "/it/italy-private-tours", "x-default": "/italy-private-tours" } },
 };
 
 export default function ItalyPrivateToursPage() {

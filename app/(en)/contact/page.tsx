@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Contact Us | Request a Quote",
   description:
     "Contact Italy Limo Service to request a quote for your private chauffeur service in Italy — airport transfers, city-to-city transportation, tours and corporate travel.",
-  alternates: { canonical: "/contact" },
+  alternates: { canonical: "/contact", languages: { en: "/contact", it: "/it/contact", "x-default": "/contact" } },
 };
 
 export default function ContactPage() {

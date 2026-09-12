@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "La Nostra Flotta",
   description:
     "Scopri la nostra flotta con autista in tutta Italia — Berlina Executive, Berlina di Lusso, SUV di Lusso, Van Executive e Van di Lusso.",
-  alternates: { canonical: "/it/fleet", languages: { en: "/fleet", it: "/it/fleet" } },
+  alternates: { canonical: "/it/fleet", languages: { en: "/fleet", it: "/it/fleet", "x-default": "/fleet" } },
 };
 
 export default function FleetPageIt() {

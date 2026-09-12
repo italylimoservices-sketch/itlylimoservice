@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "About Us",
   description:
     "Learn about Italy Limo Service, a premium private chauffeur service operating across Italy, built around professionalism, safety and local expertise.",
-  alternates: { canonical: "/about-us" },
+  alternates: { canonical: "/about-us", languages: { en: "/about-us", it: "/it/about-us", "x-default": "/about-us" } },
 };
 
 const values = [

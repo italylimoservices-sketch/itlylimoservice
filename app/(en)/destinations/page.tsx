@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Italy Destinations",
   description:
     "Explore private chauffeur service across Italy's top destinations, from Rome, Milan and Florence to Lake Como, the Amalfi Coast and Sicily.",
-  alternates: { canonical: "/destinations" },
+  alternates: { canonical: "/destinations", languages: { en: "/destinations", it: "/it/destinations", "x-default": "/destinations" } },
 };
 
 const variants = ["gold", "navy", "ivory"] as const;

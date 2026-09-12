@@ -5,7 +5,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description: `Terms and conditions for booking private chauffeur services with ${siteConfig.name}.`,
-  alternates: { canonical: "/terms-conditions" },
+  alternates: { canonical: "/terms-conditions", languages: { en: "/terms-conditions", it: "/it/terms-conditions", "x-default": "/terms-conditions" } },
 };
 
 export default function TermsPage() {

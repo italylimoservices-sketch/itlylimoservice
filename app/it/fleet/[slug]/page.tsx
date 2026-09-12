@@ -23,7 +23,7 @@ export async function generateMetadata({
     description: v?.description ?? vehicle.metaDescription,
     alternates: {
       canonical: `/it/fleet/${vehicle.slug}`,
-      languages: { en: `/fleet/${vehicle.slug}`, it: `/it/fleet/${vehicle.slug}` },
+      languages: { en: `/fleet/${vehicle.slug}`, it: `/it/fleet/${vehicle.slug}`, "x-default": `/fleet/${vehicle.slug}` },
     },
   };
 }

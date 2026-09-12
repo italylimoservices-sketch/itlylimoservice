@@ -10,7 +10,7 @@ const sd = serviceDetails_it["airport-transfers"];
 export const metadata: Metadata = {
   title: sd?.metaTitle ?? service.metaTitle,
   description: sd?.metaDescription ?? service.metaDescription,
-  alternates: { canonical: "/it/airport-transfers", languages: { en: "/airport-transfers", it: "/it/airport-transfers" } },
+  alternates: { canonical: "/it/airport-transfers", languages: { en: "/airport-transfers", it: "/it/airport-transfers", "x-default": "/airport-transfers" } },
 };
 
 export default function AirportTransfersPageIt() {

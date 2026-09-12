@@ -9,7 +9,7 @@ const sd = serviceDetails_it["hourly-chauffeur"];
 export const metadata: Metadata = {
   title: sd?.metaTitle ?? service.metaTitle,
   description: sd?.metaDescription ?? service.metaDescription,
-  alternates: { canonical: "/it/hourly-chauffeur", languages: { en: "/hourly-chauffeur", it: "/it/hourly-chauffeur" } },
+  alternates: { canonical: "/it/hourly-chauffeur", languages: { en: "/hourly-chauffeur", it: "/it/hourly-chauffeur", "x-default": "/hourly-chauffeur" } },
 };
 
 export default function HourlyChauffeurPageIt() {

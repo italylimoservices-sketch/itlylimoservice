@@ -21,7 +21,7 @@ export async function generateMetadata({
   return {
     title: d?.metaTitle ?? destination.metaTitle,
     description: d?.metaDescription ?? destination.metaDescription,
-    alternates: { canonical: `/it/destinations/${destination.slug}`, languages: { en: `/destinations/${destination.slug}`, it: `/it/destinations/${destination.slug}` } },
+    alternates: { canonical: `/it/destinations/${destination.slug}`, languages: { en: `/destinations/${destination.slug}`, it: `/it/destinations/${destination.slug}`, "x-default": `/destinations/${destination.slug}` } },
   };
 }
 

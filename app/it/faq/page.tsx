@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "FAQ",
   description:
     "Domande frequenti sulla prenotazione di un autista privato in Italia, inclusi prezzi, transfer aeroportuali, prenotazioni di più giorni e tour privati.",
-  alternates: { canonical: "/it/faq", languages: { en: "/faq", it: "/it/faq" } },
+  alternates: { canonical: "/it/faq", languages: { en: "/faq", it: "/it/faq", "x-default": "/faq" } },
 };
 
 export default function FaqPageIt() {

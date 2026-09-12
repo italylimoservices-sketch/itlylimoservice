@@ -8,7 +8,7 @@ const service = getServiceBySlug("city-to-city-transfers")!;
 export const metadata: Metadata = {
   title: service.metaTitle,
   description: service.metaDescription,
-  alternates: { canonical: "/city-to-city-transfers" },
+  alternates: { canonical: "/city-to-city-transfers", languages: { en: "/city-to-city-transfers", it: "/it/city-to-city-transfers", "x-default": "/city-to-city-transfers" } },
 };
 
 export default function CityToCityPage() {

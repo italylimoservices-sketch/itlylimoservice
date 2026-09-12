@@ -18,7 +18,7 @@ export async function generateMetadata({
   return {
     title: vehicle.metaTitle,
     description: vehicle.metaDescription,
-    alternates: { canonical: `/fleet/${vehicle.slug}` },
+    alternates: { canonical: `/fleet/${vehicle.slug}`, languages: { en: `/fleet/${vehicle.slug}`, it: `/it/fleet/${vehicle.slug}`, "x-default": `/fleet/${vehicle.slug}` } },
   };
 }
 

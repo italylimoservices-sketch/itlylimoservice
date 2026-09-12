@@ -9,7 +9,7 @@ const isDev = process.env.NODE_ENV === "development";
 // every statically generated page into dynamic rendering. Cloudflare
 // auto-injects its Web Analytics beacon into the HTML at the edge, so its
 // domains need an explicit allowance regardless of what the app itself uses.
-// Google Analytics (gtag.js, loaded in app/layout.tsx) needs the same
+// Google Analytics (gtag.js, loaded via components/layout/SiteScripts.tsx) needs the same
 // treatment: googletagmanager.com to load the script, google-analytics.com
 // (plus the region-sharded *.google-analytics.com) to send hits. Ahrefs
 // Analytics (analytics.ahrefs.com) is the same story: one domain for both
@@ -53,6 +53,14 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  experimental: {
+    // (en), it, admin and (customer) are each their own root layout (so
+    // /it/** can render a real server-side lang="it" instead of a
+    // client-side patch) — with no single shared root layout left, Next.js
+    // needs this flag + app/global-not-found.tsx for URLs that don't match
+    // any of them at all.
+    globalNotFound: true,
+  },
   async headers() {
     return [
       {

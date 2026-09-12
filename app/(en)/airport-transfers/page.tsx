@@ -8,7 +8,7 @@ const service = getServiceBySlug("airport-transfers")!;
 export const metadata: Metadata = {
   title: service.metaTitle,
   description: service.metaDescription,
-  alternates: { canonical: "/airport-transfers" },
+  alternates: { canonical: "/airport-transfers", languages: { en: "/airport-transfers", it: "/it/airport-transfers", "x-default": "/airport-transfers" } },
 };
 
 export default function AirportTransfersPage() {

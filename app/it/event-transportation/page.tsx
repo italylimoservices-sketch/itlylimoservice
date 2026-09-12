@@ -9,7 +9,7 @@ const sd = serviceDetails_it["event-transportation"];
 export const metadata: Metadata = {
   title: sd?.metaTitle ?? service.metaTitle,
   description: sd?.metaDescription ?? service.metaDescription,
-  alternates: { canonical: "/it/event-transportation", languages: { en: "/event-transportation", it: "/it/event-transportation" } },
+  alternates: { canonical: "/it/event-transportation", languages: { en: "/event-transportation", it: "/it/event-transportation", "x-default": "/event-transportation" } },
 };
 
 export default function EventTransportationPageIt() {

@@ -10,7 +10,7 @@ const sd = serviceDetails_it["italy-private-tours"];
 export const metadata: Metadata = {
   title: sd?.metaTitle ?? service.metaTitle,
   description: sd?.metaDescription ?? service.metaDescription,
-  alternates: { canonical: "/it/italy-private-tours", languages: { en: "/italy-private-tours", it: "/it/italy-private-tours" } },
+  alternates: { canonical: "/it/italy-private-tours", languages: { en: "/italy-private-tours", it: "/it/italy-private-tours", "x-default": "/italy-private-tours" } },
 };
 
 export default function ItalyPrivateToursPageIt() {

@@ -7,7 +7,7 @@ const service = getServiceBySlug("event-transportation")!;
 export const metadata: Metadata = {
   title: service.metaTitle,
   description: service.metaDescription,
-  alternates: { canonical: "/event-transportation" },
+  alternates: { canonical: "/event-transportation", languages: { en: "/event-transportation", it: "/it/event-transportation", "x-default": "/event-transportation" } },
 };
 
 export default function EventTransportationPage() {

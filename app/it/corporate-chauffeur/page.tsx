@@ -10,7 +10,7 @@ const sd = serviceDetails_it["corporate-chauffeur"];
 export const metadata: Metadata = {
   title: sd?.metaTitle ?? service.metaTitle,
   description: sd?.metaDescription ?? service.metaDescription,
-  alternates: { canonical: "/it/corporate-chauffeur", languages: { en: "/corporate-chauffeur", it: "/it/corporate-chauffeur" } },
+  alternates: { canonical: "/it/corporate-chauffeur", languages: { en: "/corporate-chauffeur", it: "/it/corporate-chauffeur", "x-default": "/corporate-chauffeur" } },
 };
 
 export default function CorporateChauffeurPageIt() {

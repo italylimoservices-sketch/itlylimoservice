@@ -5,7 +5,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: `Come ${siteConfig.name} raccoglie, utilizza e protegge i dati personali inviati tramite questo sito.`,
-  alternates: { canonical: "/it/privacy-policy", languages: { en: "/privacy-policy", it: "/it/privacy-policy" } },
+  alternates: { canonical: "/it/privacy-policy", languages: { en: "/privacy-policy", it: "/it/privacy-policy", "x-default": "/privacy-policy" } },
 };
 
 export default function PrivacyPolicyPageIt() {

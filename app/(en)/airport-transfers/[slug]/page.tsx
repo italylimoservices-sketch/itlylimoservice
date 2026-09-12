@@ -18,7 +18,7 @@ export async function generateMetadata({
   return {
     title: airport.metaTitle,
     description: airport.metaDescription,
-    alternates: { canonical: `/airport-transfers/${airport.slug}` },
+    alternates: { canonical: `/airport-transfers/${airport.slug}`, languages: { en: `/airport-transfers/${airport.slug}`, it: `/it/airport-transfers/${airport.slug}`, "x-default": `/airport-transfers/${airport.slug}` } },
   };
 }
 

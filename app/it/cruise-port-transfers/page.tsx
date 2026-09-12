@@ -10,7 +10,7 @@ const sd = serviceDetails_it["cruise-port-transfers"];
 export const metadata: Metadata = {
   title: sd?.metaTitle ?? service.metaTitle,
   description: sd?.metaDescription ?? service.metaDescription,
-  alternates: { canonical: "/it/cruise-port-transfers", languages: { en: "/cruise-port-transfers", it: "/it/cruise-port-transfers" } },
+  alternates: { canonical: "/it/cruise-port-transfers", languages: { en: "/cruise-port-transfers", it: "/it/cruise-port-transfers", "x-default": "/cruise-port-transfers" } },
 };
 
 export default function CruisePortTransfersPageIt() {
