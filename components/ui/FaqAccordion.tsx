@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FaqItem } from "@/lib/types";
+import LinkedText from "@/components/ui/LinkedText";
 
 export default function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -30,7 +31,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
               hidden={!isOpen}
               className="pb-5 text-sm leading-relaxed text-stone max-w-3xl"
             >
-              {item.answer}
+              <LinkedText text={item.answer} />
             </p>
           </div>
         );

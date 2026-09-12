@@ -13,10 +13,10 @@ export const destinations: Destination[] = [
       "Private chauffeur transportation across Italy's capital, from airport pickups to full-day sightseeing.",
     intro: [
       "Rome rewards visitors who can move through it efficiently, and a private chauffeur is the most comfortable way to do that. Narrow historic streets, restricted traffic zones and unpredictable congestion make a knowledgeable local driver genuinely useful rather than a luxury add-on.",
-      "Whether you're arriving from Fiumicino, attending business meetings near the EUR district, or exploring the Colosseum, Vatican and Trastevere at your own pace, our chauffeurs handle the driving and logistics so you can focus on the city.",
+      "Whether you're arriving from [Fiumicino](/airport-transfers/rome-fiumicino), attending business meetings near the EUR district, or exploring the Colosseum, Vatican and Trastevere at your own pace, our chauffeurs handle the driving and logistics so you can focus on the city.",
     ],
     highlights: [
-      "Direct airport meet & greet from Fiumicino and Ciampino",
+      "Direct airport meet & greet from [Fiumicino](/airport-transfers/rome-fiumicino) and [Ciampino](/airport-transfers/rome-ciampino)",
       "Knowledge of Rome's Limited Traffic Zones (ZTL)",
       "Flexible half-day and full-day sightseeing itineraries",
       "Comfortable waiting during museum visits and meetings",
@@ -45,13 +45,13 @@ export const destinations: Destination[] = [
       "Executive-grade chauffeur transportation for Milan's business, fashion and financial districts.",
     intro: [
       "Milan moves at a business pace, and our chauffeur service is built to match it. Punctual pickups, discreet professionalism and vehicles suited to corporate travel make this a natural choice for executives, delegations and fashion industry professionals alike.",
-      "Beyond the city, Milan is also the most convenient base for private day trips to Lake Como, Lake Maggiore and the wider Lombardy region, all reachable within a comfortable drive.",
+      "Beyond the city, Milan is also the most convenient base for private day trips to [Lake Como](/destinations/lake-como), Lake Maggiore and the wider Lombardy region, all reachable within a comfortable drive.",
     ],
     highlights: [
-      "Transfers from Malpensa, Linate and Bergamo airports",
+      "Transfers from [Malpensa](/airport-transfers/milan-malpensa), [Linate](/airport-transfers/milan-linate) and [Bergamo](/airport-transfers/bergamo) airports",
       "Corporate account billing available for regular business travel",
       "Private drivers for trade fairs and fashion week logistics",
-      "Day trips to Lake Como and Lake Maggiore",
+      "Day trips to [Lake Como](/destinations/lake-como) and Lake Maggiore",
     ],
     popularPickups: [
       "Milan Malpensa Airport (MXP)",
@@ -77,13 +77,13 @@ export const destinations: Destination[] = [
       "Private transportation in Florence and the surrounding Tuscan countryside.",
     intro: [
       "Florence is best experienced without the stress of parking in its historic centre or navigating restricted zones. A private chauffeur lets you move between the Uffizi, Ponte Vecchio and Piazzale Michelangelo comfortably, then continue straight into the Tuscan hills without changing vehicles.",
-      "Florence also serves as the gateway to Chianti, Siena and the wider Tuscany region, making it a popular base for private countryside and wine-region itineraries.",
+      "Florence also serves as the gateway to Chianti, [Siena](/destinations/siena) and the wider [Tuscany](/destinations/tuscany) region, making it a popular base for private countryside and wine-region itineraries.",
     ],
     highlights: [
-      "Transfers from Florence and Pisa airports",
+      "Transfers from [Florence](/airport-transfers/florence) and [Pisa](/airport-transfers/pisa) airports",
       "Access to Florence's restricted traffic zone knowledge",
-      "Seamless connection to Tuscany wine tours",
-      "Private drives to Siena, Pisa and Cinque Terre",
+      "Seamless connection to [Tuscany](/destinations/tuscany) wine tours",
+      "Private drives to [Siena](/destinations/siena), [Pisa](/destinations/pisa) and [Cinque Terre](/destinations/cinque-terre)",
     ],
     popularPickups: [
       "Florence Airport (FLR)",
@@ -107,13 +107,13 @@ export const destinations: Destination[] = [
     summary:
       "Private road transfers connecting Venice's mainland gateway with the airport and the Veneto region.",
     intro: [
-      "Venice's historic centre is car-free, so our role is to make the road portion of your journey as smooth as possible, whether that means a transfer from Marco Polo Airport to Piazzale Roma or a private drive onward into the Veneto countryside.",
-      "For travellers combining Venice with Verona, Padua or a wider northern Italy itinerary, a private chauffeur removes the need to coordinate trains and taxis between stops.",
+      "Venice's historic centre is car-free, so our role is to make the road portion of your journey as smooth as possible, whether that means a transfer from [Marco Polo Airport](/airport-transfers/venice-marco-polo) to Piazzale Roma or a private drive onward into the Veneto countryside.",
+      "For travellers combining Venice with [Verona](/destinations/verona), Padua or a wider northern Italy itinerary, a private chauffeur removes the need to coordinate trains and taxis between stops.",
     ],
     highlights: [
-      "Coordinated transfers from Venice Marco Polo Airport",
+      "Coordinated transfers from [Venice Marco Polo Airport](/airport-transfers/venice-marco-polo)",
       "Seamless handoff to water taxi or hotel boat services",
-      "Private onward drives to Verona and the Veneto region",
+      "Private onward drives to [Verona](/destinations/verona) and the Veneto region",
       "Luggage assistance for the mainland-to-city transition",
     ],
     popularPickups: [
@@ -137,14 +137,14 @@ export const destinations: Destination[] = [
     summary:
       "Private transportation in Naples and the gateway routes south to the Amalfi Coast.",
     intro: [
-      "Naples is a working, vibrant city and also the practical starting point for the Amalfi Coast, Sorrento and Pompeii. A private chauffeur is especially valuable here, where local driving conditions and winding coastal roads benefit from an experienced local driver.",
+      "Naples is a working, vibrant city and also the practical starting point for the [Amalfi Coast](/destinations/amalfi-coast), [Sorrento](/destinations/sorrento) and Pompeii. A private chauffeur is especially valuable here, where local driving conditions and winding coastal roads benefit from an experienced local driver.",
       "We provide direct airport transfers, private access to Pompeii and Herculaneum, and comfortable long-distance drives further along the coast.",
     ],
     highlights: [
-      "Direct transfers from Naples Airport",
+      "Direct transfers from [Naples Airport](/airport-transfers/naples)",
       "Private day trips to Pompeii and Herculaneum",
-      "Experienced drivers on the Amalfi Coast's winding roads",
-      "Connections to Naples cruise port",
+      "Experienced drivers on the [Amalfi Coast](/destinations/amalfi-coast)'s winding roads",
+      "Connections to [Naples cruise port](/cruise-port-transfers)",
     ],
     popularPickups: [
       "Naples Airport (NAP)",
@@ -170,7 +170,7 @@ export const destinations: Destination[] = [
       "Our chauffeurs provide direct city transfers as well as onward drives into the Emilia-Romagna countryside and neighbouring regions.",
     ],
     highlights: [
-      "Transfers from Bologna Airport",
+      "Transfers from [Bologna Airport](/airport-transfers/bologna)",
       "Support for trade fair and conference logistics",
       "Private drives across Emilia-Romagna",
     ],
@@ -214,13 +214,13 @@ export const destinations: Destination[] = [
       "Private chauffeur service in Verona for city transfers, Lake Garda day trips and connections to Venice and Milan.",
     summary: "Private transportation in Verona and connections to Lake Garda.",
     intro: [
-      "Verona's compact centre and proximity to Lake Garda make it an easy city to enjoy with a private driver, whether you're here for the arena, the historic centre, or as a stop between Venice and Milan.",
+      "Verona's compact centre and proximity to Lake Garda make it an easy city to enjoy with a private driver, whether you're here for the arena, the historic centre, or as a stop between [Venice](/destinations/venice) and [Milan](/destinations/milan).",
       "We arrange city transfers as well as private drives out to Lake Garda's towns and villages.",
     ],
     highlights: [
       "City transfers and station pickups",
       "Private day trips to Lake Garda",
-      "Convenient stopover between Venice and Milan",
+      "Convenient stopover between [Venice](/destinations/venice) and [Milan](/destinations/milan)",
     ],
     popularPickups: ["Verona Porta Nuova station", "Verona Villafranca Airport", "City centre hotels"],
     nearestAirports: ["venice-marco-polo"],
@@ -239,10 +239,10 @@ export const destinations: Destination[] = [
     summary: "Private transfers and touring drivers around Lake Como's towns and villages.",
     intro: [
       "Lake Como is best explored at an unhurried pace, moving between Como town, Bellagio and the lakeside villages without worrying about parking or ferry timetables. A private chauffeur makes that possible in a single, comfortable day.",
-      "Most visitors arrive via Milan or Malpensa Airport, and we arrange direct transfers as well as full-day touring itineraries around the lake.",
+      "Most visitors arrive via [Milan](/destinations/milan) or [Malpensa Airport](/airport-transfers/milan-malpensa), and we arrange direct transfers as well as full-day touring itineraries around the lake.",
     ],
     highlights: [
-      "Direct transfers from Milan and Malpensa Airport",
+      "Direct transfers from [Milan](/destinations/milan) and [Malpensa Airport](/airport-transfers/milan-malpensa)",
       "Full-day touring itineraries around the lake",
       "Local knowledge of Bellagio, Varenna and Como town",
     ],
@@ -263,12 +263,12 @@ export const destinations: Destination[] = [
     summary: "Private transfers and touring along the Amalfi Coast's coastal towns.",
     intro: [
       "The Amalfi Coast's roads are narrow, scenic and best left to a driver who knows every curve. A private chauffeur turns the drive itself into part of the experience, with stops for photos and viewpoints built into your itinerary.",
-      "We provide transfers from Naples Airport and Sorrento, along with full and multi-day touring itineraries covering Positano, Amalfi and Ravello.",
+      "We provide transfers from [Naples Airport](/airport-transfers/naples) and [Sorrento](/destinations/sorrento), along with full and multi-day touring itineraries covering Positano, Amalfi and Ravello.",
     ],
     highlights: [
       "Experienced drivers on the coast's narrow, winding roads",
       "Flexible stops in Positano, Amalfi and Ravello",
-      "Transfers from Naples Airport and Sorrento",
+      "Transfers from [Naples Airport](/airport-transfers/naples) and [Sorrento](/destinations/sorrento)",
     ],
     popularPickups: ["Naples Airport", "Sorrento hotels", "Positano", "Amalfi town"],
     nearestAirports: ["naples"],
@@ -287,11 +287,11 @@ export const destinations: Destination[] = [
     summary: "Private transportation based in Sorrento, ideal for exploring the Amalfi Coast.",
     intro: [
       "Sorrento is a popular base for exploring the Amalfi Coast, Capri connections and the Sorrentine Peninsula, and a private chauffeur makes it easy to reach each without relying on ferry schedules or shared coach tours.",
-      "We arrange transfers from Naples Airport and Rome, along with day trips along the coast.",
+      "We arrange transfers from [Naples Airport](/airport-transfers/naples) and [Rome](/destinations/rome), along with day trips along the coast.",
     ],
     highlights: [
-      "Transfers from Naples Airport and Rome",
-      "Day trips along the Amalfi Coast",
+      "Transfers from [Naples Airport](/airport-transfers/naples) and [Rome](/destinations/rome)",
+      "Day trips along the [Amalfi Coast](/destinations/amalfi-coast)",
       "Connections to Capri ferry ports",
     ],
     popularPickups: ["Sorrento town centre", "Naples Airport", "Rome hotels"],
@@ -311,12 +311,12 @@ export const destinations: Destination[] = [
     summary: "Private transportation across Tuscany's countryside, vineyards and hill towns.",
     intro: [
       "Tuscany is a region best explored slowly, with time to stop at a vineyard, a hill town, or a viewpoint that isn't on any fixed itinerary. A private chauffeur gives you that flexibility while handling the region's rural roads with local knowledge.",
-      "We arrange full-day and multi-day itineraries through Chianti, the Val d'Orcia and Tuscany's hill towns, typically starting from Florence, Pisa or Siena.",
+      "We arrange full-day and multi-day itineraries through Chianti, the Val d'Orcia and Tuscany's hill towns, typically starting from [Florence](/destinations/florence), [Pisa](/destinations/pisa) or [Siena](/destinations/siena).",
     ],
     highlights: [
       "Flexible wine region and countryside itineraries",
       "Local knowledge of Chianti and Val d'Orcia roads",
-      "Starting points from Florence, Pisa or Siena",
+      "Starting points from [Florence](/destinations/florence), [Pisa](/destinations/pisa) or [Siena](/destinations/siena)",
     ],
     popularPickups: ["Florence", "Pisa Airport", "Siena"],
     nearestAirports: ["florence", "pisa"],
@@ -335,12 +335,12 @@ export const destinations: Destination[] = [
     summary: "Private transfers and day trips to the Cinque Terre villages.",
     intro: [
       "Cinque Terre's villages are largely pedestrian, so a private chauffeur takes you to the gateway towns comfortably before you continue on foot or by local train between villages.",
-      "We arrange day trips from Florence and Pisa, as well as transfers to La Spezia for cruise passengers.",
+      "We arrange day trips from [Florence](/destinations/florence) and [Pisa](/destinations/pisa), as well as transfers to [La Spezia](/cruise-port-transfers) for cruise passengers.",
     ],
     highlights: [
       "Comfortable transfers to Cinque Terre's gateway towns",
-      "Day trips from Florence and Pisa",
-      "Connections to La Spezia cruise port",
+      "Day trips from [Florence](/destinations/florence) and [Pisa](/destinations/pisa)",
+      "Connections to [La Spezia cruise port](/cruise-port-transfers)",
     ],
     popularPickups: ["Florence", "Pisa Airport", "La Spezia"],
     nearestAirports: ["pisa"],
@@ -359,11 +359,11 @@ export const destinations: Destination[] = [
     summary: "Private transfers to Portofino and the Ligurian coastline.",
     intro: [
       "Portofino's narrow harbourside streets are best reached by private car up to the village edge, and our chauffeurs know exactly where to arrive and wait during your visit.",
-      "We provide transfers from Genoa, Milan and along the Ligurian coast, often paired with a Cinque Terre or Genoa cruise port itinerary.",
+      "We provide transfers from [Genoa](/destinations/genoa), [Milan](/destinations/milan) and along the Ligurian coast, often paired with a Cinque Terre or Genoa cruise port itinerary.",
     ],
     highlights: [
-      "Direct transfers from Genoa and Milan",
-      "Convenient pairing with Cinque Terre itineraries",
+      "Direct transfers from [Genoa](/destinations/genoa) and [Milan](/destinations/milan)",
+      "Convenient pairing with [Cinque Terre](/destinations/cinque-terre) itineraries",
       "Comfortable waiting arrangements near the village",
     ],
     popularPickups: ["Genoa", "Milan", "Santa Margherita Ligure"],
@@ -383,12 +383,12 @@ export const destinations: Destination[] = [
     summary: "Private transportation in Siena and the surrounding Tuscan hill country.",
     intro: [
       "Siena's hill-town centre is closed to most traffic, so a chauffeur brings you as close as possible before you continue on foot into the Piazza del Campo and the historic core.",
-      "Siena also makes an excellent base for exploring the Val d'Orcia and southern Tuscany's smaller hill towns.",
+      "Siena also makes an excellent base for exploring the Val d'Orcia and southern [Tuscany](/destinations/tuscany)'s smaller hill towns.",
     ],
     highlights: [
       "Convenient drop-off near Siena's historic centre",
       "Access to the Val d'Orcia countryside",
-      "Direct connection to Florence",
+      "Direct connection to [Florence](/destinations/florence)",
     ],
     popularPickups: ["Siena historic centre", "Florence"],
     nearestAirports: ["florence"],
@@ -407,12 +407,12 @@ export const destinations: Destination[] = [
     summary: "Private transportation in Pisa, from the airport to the Leaning Tower and beyond.",
     intro: [
       "Many visitors see Pisa on a short stop, and a private chauffeur makes that efficient, with direct transport from the airport to the Leaning Tower and Piazza dei Miracoli, then onward to your next stop.",
-      "Pisa Airport is also a convenient gateway for both Tuscany and the Cinque Terre, making it a practical arrival point for a wider itinerary.",
+      "Pisa Airport is also a convenient gateway for both [Tuscany](/destinations/tuscany) and the [Cinque Terre](/destinations/cinque-terre), making it a practical arrival point for a wider itinerary.",
     ],
     highlights: [
-      "Fast transfers from Pisa Airport",
+      "Fast transfers from [Pisa Airport](/airport-transfers/pisa)",
       "Efficient short-stop itineraries to the Leaning Tower",
-      "Onward connections to Florence and Cinque Terre",
+      "Onward connections to [Florence](/destinations/florence) and [Cinque Terre](/destinations/cinque-terre)",
     ],
     popularPickups: ["Pisa Airport (PSA)", "Piazza dei Miracoli area"],
     nearestAirports: ["pisa"],
@@ -431,10 +431,10 @@ export const destinations: Destination[] = [
     summary: "Private transportation and touring drivers across Sicily.",
     intro: [
       "Sicily rewards travellers who can move flexibly between its coast, countryside and historic towns, and a private chauffeur is well suited to the island's varied roads and distances.",
-      "We arrange airport transfers from Palermo and Catania, along with multi-day touring itineraries that can be tailored to your own pace rather than a fixed group schedule.",
+      "We arrange airport transfers from [Palermo](/airport-transfers/palermo) and [Catania](/airport-transfers/catania), along with multi-day touring itineraries that can be tailored to your own pace rather than a fixed group schedule.",
     ],
     highlights: [
-      "Transfers from Palermo and Catania airports",
+      "Transfers from [Palermo](/airport-transfers/palermo) and [Catania](/airport-transfers/catania) airports",
       "Multi-day flexible touring itineraries",
       "Local driver knowledge of Sicily's coastal and inland roads",
     ],
@@ -502,12 +502,12 @@ export const destinations: Destination[] = [
       "Private chauffeur service in Genoa for cruise port transfers, city transportation and connections to Portofino and Cinque Terre.",
     summary: "Private transportation in Genoa, including cruise port and coastal connections.",
     intro: [
-      "Genoa is a major Ligurian cruise port and a convenient base for reaching Portofino and the Cinque Terre by road, and our chauffeurs handle both the port logistics and the onward coastal drive.",
+      "Genoa is a major Ligurian cruise port and a convenient base for reaching [Portofino](/destinations/portofino) and the [Cinque Terre](/destinations/cinque-terre) by road, and our chauffeurs handle both the port logistics and the onward coastal drive.",
       "We arrange cruise transfers, city transportation and day trips along the Italian Riviera.",
     ],
     highlights: [
       "Cruise port transfers with luggage assistance",
-      "Day trips to Portofino and Cinque Terre",
+      "Day trips to [Portofino](/destinations/portofino) and [Cinque Terre](/destinations/cinque-terre)",
       "City and business transportation in Genoa",
     ],
     popularPickups: ["Genoa cruise port", "Genoa Airport", "City centre hotels"],

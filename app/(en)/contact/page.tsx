@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/lib/siteConfig";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import QuoteForm from "@/components/ui/QuoteForm";
@@ -49,8 +50,11 @@ export default function ContactPage() {
             <div className="mt-8 rounded-md border border-gold/30 bg-gold-pale/20 p-5">
               <p className="text-sm font-semibold text-navy">Corporate & Event Enquiries</p>
               <p className="mt-2 text-sm text-stone leading-relaxed">
-                For corporate accounts, conferences, roadshows or event transportation, mention
-                this in your special requirements and our team will follow up directly.
+                For corporate accounts, conferences, roadshows or{" "}
+                <Link href="/event-transportation" className="text-gold hover:underline">
+                  event transportation
+                </Link>
+                , mention this in your special requirements and our team will follow up directly.
               </p>
             </div>
           </div>

@@ -1,3 +1,5 @@
+import LinkedText from "@/components/ui/LinkedText";
+
 export default function SectionHeading({
   eyebrow,
   title,
@@ -23,7 +25,7 @@ export default function SectionHeading({
       </h2>
       {subtitle && (
         <p className={`mt-4 text-[0.98rem] leading-relaxed ${light ? "text-ivory-deep/75" : "text-stone"}`}>
-          {subtitle}
+          <LinkedText text={subtitle} linkClassName={light ? "text-gold-light underline underline-offset-2 hover:text-gold" : "text-gold hover:underline"} />
         </p>
       )}
     </div>

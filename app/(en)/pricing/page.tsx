@@ -3,6 +3,7 @@ import Link from "next/link";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Icon from "@/components/ui/Icon";
+import LinkedText from "@/components/ui/LinkedText";
 import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
 
@@ -17,12 +18,12 @@ const factors = [
   {
     icon: "steering-wheel",
     title: "Vehicle Type",
-    desc: "An executive sedan, luxury SUV or larger van each carry a different rate — see the Fleet page for what fits your group.",
+    desc: "An executive sedan, luxury SUV or larger van each carry a different rate — see the [Fleet page](/fleet) for what fits your group.",
   },
   {
     icon: "route",
     title: "Distance & Route",
-    desc: "A short airport transfer and a multi-hour city-to-city journey are priced differently, based on the actual route requested.",
+    desc: "A short airport transfer and a multi-hour [city-to-city](/city-to-city-transfers) journey are priced differently, based on the actual route requested.",
   },
   {
     icon: "clock",
@@ -119,7 +120,9 @@ export default function PricingPage() {
               <div key={f.title} className="rounded-md border border-line bg-white p-5">
                 <Icon name={f.icon} className="h-5 w-5 text-gold" />
                 <p className="mt-3 font-display text-base text-navy">{f.title}</p>
-                <p className="mt-1.5 text-sm text-stone leading-relaxed">{f.desc}</p>
+                <p className="mt-1.5 text-sm text-stone leading-relaxed">
+                  <LinkedText text={f.desc} />
+                </p>
               </div>
             ))}
           </div>
@@ -135,11 +138,11 @@ export default function PricingPage() {
                 "Your chauffeur and vehicle for the journey exactly as agreed",
                 "Standard tolls and route costs needed to complete that specific journey",
                 "Meet & greet and flight monitoring on airport transfers",
-                "The amenities listed for your vehicle category on the Fleet page",
+                "The amenities listed for your vehicle category on the [Fleet page](/fleet)",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-ink-soft">
                   <Icon name="check" className="h-4 w-4 mt-0.5 text-gold shrink-0" />
-                  {item}
+                  <LinkedText text={item} />
                 </li>
               ))}
             </ul>

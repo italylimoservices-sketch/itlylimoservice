@@ -19,7 +19,7 @@ export const generalFaqs: FaqItem[] = [
   {
     question: "Do you provide airport transfers in Italy?",
     answer:
-      "Yes. We provide private meet & greet airport transfers at major Italian airports, including Rome, Milan, Venice, Florence, Naples, Bologna, Pisa, Palermo, Catania and Bergamo, with flight monitoring included.",
+      "Yes. We provide private meet & greet airport transfers at major Italian airports, including [Rome](/airport-transfers/rome-fiumicino), [Milan](/airport-transfers/milan-malpensa), [Venice](/airport-transfers/venice-marco-polo), [Florence](/airport-transfers/florence), [Naples](/airport-transfers/naples), [Bologna](/airport-transfers/bologna), [Pisa](/airport-transfers/pisa), [Palermo](/airport-transfers/palermo), [Catania](/airport-transfers/catania) and [Bergamo](/airport-transfers/bergamo), with flight monitoring included.",
   },
   {
     question: "Can I book a private driver for multiple days?",
@@ -29,7 +29,7 @@ export const generalFaqs: FaqItem[] = [
   {
     question: "Can I travel between Italian cities with a private chauffeur?",
     answer:
-      "Yes. We offer direct, door-to-door city-to-city transfers between major Italian destinations, as well as custom long-distance routes on request.",
+      "Yes. We offer direct, door-to-door [city-to-city transfers](/city-to-city-transfers) between major Italian destinations, as well as custom long-distance routes on request.",
   },
   {
     question: "Do chauffeurs speak English?",
@@ -39,12 +39,12 @@ export const generalFaqs: FaqItem[] = [
   {
     question: "Can I book a chauffeur for a private Italy tour?",
     answer:
-      "Yes. We arrange private, flexible touring itineraries across Italy's regions, including Tuscany, the Amalfi Coast and Lake Como, paced around your own interests rather than a fixed group schedule.",
+      "Yes. We arrange private, flexible touring itineraries across Italy's regions, including [Tuscany](/destinations/tuscany), the [Amalfi Coast](/destinations/amalfi-coast) and [Lake Como](/destinations/lake-como), paced around your own interests rather than a fixed group schedule.",
   },
   {
     question: "Do you provide cruise port transfers?",
     answer:
-      "Yes. We provide private transfers to and from major Italian cruise ports, including Civitavecchia, Naples, Livorno, Genoa, Venice, Palermo, Bari, Catania and La Spezia.",
+      "Yes. We provide private transfers to and from [major Italian cruise ports](/cruise-port-transfers), including Civitavecchia, [Naples](/destinations/naples), Livorno, [Genoa](/destinations/genoa), [Venice](/destinations/venice), [Palermo](/destinations/sicily), [Bari](/destinations/bari), [Catania](/destinations/sicily) and La Spezia.",
   },
   {
     question: "Can I request a child seat?",
@@ -111,7 +111,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: "Do you provide airport transfers in Italy?",
         answer:
-          "Yes. We provide private meet & greet airport transfers at major Italian airports, including Rome, Milan, Venice, Florence, Naples, Bologna, Pisa, Palermo, Catania and Bergamo, with flight monitoring included.",
+          "Yes. We provide private meet & greet airport transfers at major Italian airports, including [Rome](/airport-transfers/rome-fiumicino), [Milan](/airport-transfers/milan-malpensa), [Venice](/airport-transfers/venice-marco-polo), [Florence](/airport-transfers/florence), [Naples](/airport-transfers/naples), [Bologna](/airport-transfers/bologna), [Pisa](/airport-transfers/pisa), [Palermo](/airport-transfers/palermo), [Catania](/airport-transfers/catania) and [Bergamo](/airport-transfers/bergamo), with flight monitoring included.",
       },
       {
         question: "What happens if my flight is delayed?",
@@ -141,7 +141,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: "How many passengers and how much luggage can each vehicle take?",
         answer:
-          "This depends on the vehicle category — our Fleet page lists passenger and luggage capacity for each option, from executive sedans to larger vans for groups.",
+          "This depends on the vehicle category — our [Fleet page](/fleet) lists passenger and luggage capacity for each option, from executive sedans to larger vans for groups.",
       },
       {
         question: "Can I request a specific vehicle type?",
@@ -176,7 +176,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: "Can I travel between Italian cities with a private chauffeur?",
         answer:
-          "Yes. We offer direct, door-to-door city-to-city transfers between major Italian destinations, as well as custom long-distance routes on request.",
+          "Yes. We offer direct, door-to-door [city-to-city transfers](/city-to-city-transfers) between major Italian destinations, as well as custom long-distance routes on request.",
       },
       {
         question: "Can I book a private driver for multiple days?",
@@ -186,22 +186,22 @@ export const faqCategories: FaqCategory[] = [
       {
         question: "Can I book a chauffeur for a private Italy tour?",
         answer:
-          "Yes. We arrange private, flexible touring itineraries across Italy's regions, including Tuscany, the Amalfi Coast and Lake Como, paced around your own interests rather than a fixed group schedule.",
+          "Yes. We arrange private, flexible touring itineraries across Italy's regions, including [Tuscany](/destinations/tuscany), the [Amalfi Coast](/destinations/amalfi-coast) and [Lake Como](/destinations/lake-como), paced around your own interests rather than a fixed group schedule.",
       },
       {
         question: "Do you provide chauffeurs for corporate or business travel?",
         answer:
-          "Yes — see our Corporate Chauffeur Service page for details on business travel, multi-stop itineraries and account arrangements for companies.",
+          "Yes — see our [Corporate Chauffeur Service](/corporate-chauffeur) page for details on business travel, multi-stop itineraries and account arrangements for companies.",
       },
       {
         question: "Do you arrange transportation for weddings and events?",
         answer:
-          "Yes — our Event Transportation service covers coordinated guest transport for weddings and celebrations. Mention your event details when requesting a quote.",
+          "Yes — our [Event Transportation](/event-transportation) service covers coordinated guest transport for weddings and celebrations. Mention your event details when requesting a quote.",
       },
       {
         question: "Do you provide cruise port transfers?",
         answer:
-          "Yes. We provide private transfers to and from major Italian cruise ports, including Civitavecchia, Naples, Livorno, Genoa, Venice, Palermo, Bari, Catania and La Spezia.",
+          "Yes. We provide private transfers to and from [major Italian cruise ports](/cruise-port-transfers), including Civitavecchia, [Naples](/destinations/naples), Livorno, [Genoa](/destinations/genoa), [Venice](/destinations/venice), [Palermo](/destinations/sicily), [Bari](/destinations/bari), [Catania](/destinations/sicily) and La Spezia.",
       },
       {
         question: "Can I book a night or very early morning transfer?",

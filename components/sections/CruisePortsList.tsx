@@ -1,5 +1,6 @@
 import { cruisePorts } from "@/lib/data/ports";
 import SectionHeading from "@/components/ui/SectionHeading";
+import LinkedText from "@/components/ui/LinkedText";
 import { ports_it } from "@/lib/i18n/data.it";
 import { type Locale } from "@/lib/i18n/locales";
 
@@ -21,7 +22,9 @@ export default function CruisePortsList({ locale = "en" }: { locale?: Locale }) 
               <div key={p.slug} className="rounded-md border border-line bg-white p-6">
                 <p className="eyebrow mb-2 text-[0.65rem]">{it && pIt ? pIt.region : p.region}</p>
                 <h3 className="font-display text-lg text-navy">{it && pIt ? pIt.name : p.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-stone">{it && pIt ? pIt.description : p.description}</p>
+                <p className="mt-2 text-sm leading-relaxed text-stone">
+                  {it && pIt ? pIt.description : <LinkedText text={p.description} />}
+                </p>
               </div>
             );
           })}

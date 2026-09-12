@@ -9,6 +9,7 @@ import { localePath, type Locale } from "@/lib/i18n/locales";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageBlock from "@/components/ui/ImageBlock";
+import LinkedText from "@/components/ui/LinkedText";
 import QuoteForm from "@/components/ui/QuoteForm";
 import HowItWorks from "@/components/sections/HowItWorks";
 import FaqSection from "@/components/sections/FaqSection";
@@ -88,7 +89,7 @@ export default function DestinationPageTemplate({
             <div className="mt-6 space-y-4 max-w-xl">
               {intro.map((p, i) => (
                 <p key={i} className="text-[0.98rem] leading-relaxed text-ivory-deep/80">
-                  {p}
+                  <LinkedText text={p} linkClassName="text-gold-light underline underline-offset-2 hover:text-gold" />
                 </p>
               ))}
             </div>
@@ -108,7 +109,7 @@ export default function DestinationPageTemplate({
               {highlights.map((h) => (
                 <li key={h} className="flex items-start gap-3 text-sm text-ink-soft">
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gold shrink-0" />
-                  {h}
+                  <LinkedText text={h} />
                 </li>
               ))}
             </ul>

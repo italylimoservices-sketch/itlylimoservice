@@ -110,7 +110,7 @@ export const dictionary = {
     home: {
       heroEyebrow: "Private Chauffeur Service in Italy",
       heroTitle: "Chauffeur Service in Italy, Refined for Every Journey",
-      heroSubtitle: "Premium private chauffeur transportation across Italy — from airport meet & greet to city-to-city transfers, hourly hire and personalised private tours. Professional, English-speaking drivers and comfortable vehicles, wherever your journey takes you.",
+      heroSubtitle: "Premium private chauffeur transportation across Italy — from airport meet & greet to [city-to-city transfers](/city-to-city-transfers), hourly hire and personalised private tours. Professional, English-speaking drivers and comfortable vehicles, wherever your journey takes you.",
       heroTrust: ["English-speaking chauffeurs", "Fixed, transparent pricing", "Italy-wide coverage"],
       trustBar: [
         { title: "Professional Chauffeurs", desc: "Experienced, English-speaking drivers" },
@@ -135,7 +135,7 @@ export const dictionary = {
       destinations: {
         eyebrow: "Italy Destinations",
         title: "Private Transportation Across Italy's Regions",
-        subtitle: "From Rome and Florence to the Amalfi Coast and Lake Como, each destination page is built with local routes, pickup points and travel tips.",
+        subtitle: "From [Rome](/destinations/rome) and [Florence](/destinations/florence) to the [Amalfi Coast](/destinations/amalfi-coast) and [Lake Como](/destinations/lake-como), each destination page is built with local routes, pickup points and travel tips.",
         viewAll: "All destinations →",
         bookNow: "Book Now",
         customizeTrip: "Customize Your Trip",

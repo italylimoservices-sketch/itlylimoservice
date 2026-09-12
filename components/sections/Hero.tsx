@@ -1,5 +1,6 @@
 import Image from "next/image";
 import QuoteForm from "@/components/ui/QuoteForm";
+import LinkedText from "@/components/ui/LinkedText";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/locales";
 
@@ -48,7 +49,7 @@ export default function Hero({ locale = "en" }: { locale?: Locale }) {
             {t.heroTitle}
           </h1>
           <p className="mt-6 max-w-lg text-[1.02rem] leading-relaxed text-ivory-deep/80">
-            {t.heroSubtitle}
+            <LinkedText text={t.heroSubtitle} linkClassName="text-gold-light underline underline-offset-2 hover:text-gold" />
           </p>
 
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
