@@ -126,6 +126,47 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container-luxe grid lg:grid-cols-2 gap-12">
+          <div>
+            <SectionHeading eyebrow="What's Covered" title="What Your Fixed Quote Includes" />
+            <ul className="mt-6 space-y-3">
+              {[
+                "Your chauffeur and vehicle for the journey exactly as agreed",
+                "Standard tolls and route costs needed to complete that specific journey",
+                "Meet & greet and flight monitoring on airport transfers",
+                "The amenities listed for your vehicle category on the Fleet page",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3 text-sm text-ink-soft">
+                  <Icon name="check" className="h-4 w-4 mt-0.5 text-gold shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <SectionHeading eyebrow="What Can Change It" title="What's Confirmed Separately" />
+            <ul className="mt-6 space-y-3">
+              {[
+                "Waiting time beyond what's agreed before the journey",
+                "Extra stops or a longer route than originally requested",
+                "Changes to date, time or vehicle made after booking",
+                "Deposit or payment timing — [to be confirmed by the business]",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3 text-sm text-ink-soft">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gold shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 text-sm text-stone leading-relaxed">
+              None of this is billed as a surprise — if something changes, we confirm the updated
+              price with you before it applies.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 md:py-24 bg-ivory-deep/40">
         <div className="container-luxe max-w-2xl">
           <SectionHeading eyebrow="How Quoting Works" title="A Fixed Price, Agreed Before You Travel" />

@@ -111,6 +111,7 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
               <li><Link href={p("/fleet")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.ourFleet}</Link></li>
               <li><Link href={p("/routes")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.popularRoutes}</Link></li>
               {!isIt && <li><Link href="/pricing" className="text-ivory-deep/75 hover:text-ivory">Pricing</Link></li>}
+              {!isIt && <li><Link href="/reviews" className="text-ivory-deep/75 hover:text-ivory">Reviews</Link></li>}
               <li><Link href={p("/faq")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.faq}</Link></li>
               <li><Link href={p("/contact")} className="text-ivory-deep/75 hover:text-ivory">{t.footer.contact}</Link></li>
             </ul>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Icon from "@/components/ui/Icon";
 import { getDictionary } from "@/lib/i18n/dictionary";
@@ -25,14 +26,20 @@ export default function TrustValueSection({ locale = "en" }: { locale?: Locale }
         </div>
 
         <div className="mt-10 text-center">
-          <a
-            href={siteConfig.trustpilotUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-gold-light"
-          >
-            {t.readReviews} →
-          </a>
+          {locale === "en" ? (
+            <Link href="/reviews" className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-gold-light">
+              {t.readReviews} →
+            </Link>
+          ) : (
+            <a
+              href={siteConfig.trustpilotUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-gold-light"
+            >
+              {t.readReviews} →
+            </a>
+          )}
         </div>
       </div>
     </section>
