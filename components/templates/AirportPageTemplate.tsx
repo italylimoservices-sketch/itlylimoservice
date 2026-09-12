@@ -11,6 +11,7 @@ import Icon from "@/components/ui/Icon";
 import LinkedText from "@/components/ui/LinkedText";
 import QuoteForm from "@/components/ui/QuoteForm";
 import HowItWorks from "@/components/sections/HowItWorks";
+import AirportInformation from "@/components/sections/AirportInformation";
 import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
 import { FaqItem } from "@/lib/types";
@@ -78,9 +79,13 @@ export default function AirportPageTemplate({ airport, locale = "en" }: { airpor
             </div>
             <p className="mt-6 text-sm text-gold-light font-medium">{distanceInfo}</p>
           </div>
-          <QuoteForm compact locale={locale} />
+          <div id="quote-form">
+            <QuoteForm compact locale={locale} />
+          </div>
         </div>
       </section>
+
+      <AirportInformation airport={airport} locale={locale} />
 
       <section className="py-16 md:py-24 bg-ivory">
         <div className="container-luxe grid lg:grid-cols-2 gap-12">

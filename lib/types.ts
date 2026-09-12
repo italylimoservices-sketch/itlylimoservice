@@ -15,10 +15,15 @@ export interface Destination {
   image: string;
 }
 
+export interface AirportTerminal {
+  name: string;
+  function?: string;
+}
+
 export interface Airport {
   slug: string;
   name: string;
-  code: string;
+  code: string; // IATA
   city: string;
   metaTitle: string;
   metaDescription: string;
@@ -27,6 +32,17 @@ export interface Airport {
   distanceInfo: string;
   nearestDestinations: string[]; // destination slugs
   image: string;
+  // Verified reference data for the AirportInformation component — every
+  // field is optional and rendered only when present, since this data must
+  // never be guessed (see lib/data/airports.ts header comment for sourcing).
+  officialName?: string;
+  icao?: string;
+  region?: string;
+  airportType?: string;
+  officialWebsite?: string;
+  /** Omit entirely (leave both undefined) if terminal info isn't verified. */
+  singleTerminal?: boolean;
+  terminals?: AirportTerminal[];
 }
 
 export interface RouteInfo {
