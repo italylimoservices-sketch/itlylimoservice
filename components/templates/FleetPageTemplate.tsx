@@ -2,10 +2,14 @@ import Link from "next/link";
 import { FleetCategory, FaqItem } from "@/lib/types";
 import { fleet } from "@/lib/data/fleet";
 import { fleet_it } from "@/lib/i18n/data.it";
+import { siteConfig } from "@/lib/siteConfig";
 import { localePath, type Locale } from "@/lib/i18n/locales";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageBlock from "@/components/ui/ImageBlock";
+import LinkedText from "@/components/ui/LinkedText";
+import JsonLd from "@/components/ui/JsonLd";
+import Icon from "@/components/ui/Icon";
 import QuoteForm from "@/components/ui/QuoteForm";
 import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
@@ -28,7 +32,17 @@ export default function FleetPageTemplate({
 
   const otherVehicles = fleet.filter((f) => f.slug !== vehicle.slug);
 
-  const faqs: FaqItem[] = it
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `${vehicle.name} Chauffeur Service`,
+    description: vehicle.metaDescription,
+    provider: { "@type": "Organization", name: siteConfig.name, url: siteConfig.domain },
+    areaServed: { "@type": "Country", name: "Italy" },
+    url: `${siteConfig.domain}/fleet/${vehicle.slug}`,
+  };
+
+  const genericFaqs: FaqItem[] = it
     ? [
         {
           question: `Il modello esatto del veicolo per ${name} è garantito?`,
@@ -64,8 +78,11 @@ export default function FleetPageTemplate({
         },
       ];
 
+  const faqs: FaqItem[] = it ? genericFaqs : vehicle.faqs ?? genericFaqs;
+
   return (
     <>
+      <JsonLd data={serviceJsonLd} />
       <Breadcrumbs
         locale={locale}
         items={[{ label: it ? "Flotta" : "Fleet", href: localePath(locale, "/fleet") }, { label: name }]}
@@ -105,6 +122,55 @@ export default function FleetPageTemplate({
           </div>
         </div>
       </section>
+
+      {!it && vehicle.whoFor && (
+        <section className="py-16 md:py-24 bg-ivory-deep/40">
+          <div className="container-luxe grid lg:grid-cols-2 gap-12">
+            <div>
+              <SectionHeading eyebrow="Who It's For" title={`Is the ${name} Right for You?`} />
+              <ul className="mt-6 space-y-3">
+                {vehicle.whoFor.map((w) => (
+                  <li key={w} className="flex items-start gap-3 text-sm text-ink-soft">
+                    <Icon name="check" className="h-4 w-4 mt-0.5 text-gold shrink-0" />
+                    {w}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {vehicle.capacityNote && (
+              <div>
+                <SectionHeading eyebrow="Passengers & Luggage" title="Choosing the Right Capacity" />
+                <p className="mt-6 text-sm leading-relaxed text-stone">
+                  <LinkedText text={vehicle.capacityNote} />
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {!it && vehicle.comparisons && vehicle.comparisons.length > 0 && (
+        <section className="py-16 md:py-24 bg-white">
+          <div className="container-luxe max-w-3xl">
+            <SectionHeading eyebrow="Choosing Between Categories" title={`${name}, Compared`} />
+            <div className="mt-8 space-y-5">
+              {vehicle.comparisons.map((c) => {
+                const other = fleet.find((f) => f.slug === c.withSlug);
+                return (
+                  <div key={c.withSlug} className="rounded-md border border-line bg-ivory p-5">
+                    <p className="font-display text-base text-navy mb-2">
+                      {name} vs {other?.name ?? c.withSlug}
+                    </p>
+                    <p className="text-sm leading-relaxed text-stone">
+                      <LinkedText text={c.note} />
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="py-16 md:py-24 bg-ivory-deep/40">
         <div className="container-luxe">

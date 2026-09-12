@@ -81,6 +81,13 @@ export interface FleetCategory {
   amenities: string[];
   idealFor: string;
   image: string;
+  // English-only topical depth (who it's for, capacity guidance, vehicle
+  // comparisons, dedicated FAQs) — optional so the IT translations, which
+  // don't define these yet, fall back to the existing generic rendering.
+  whoFor?: string[];
+  capacityNote?: string;
+  comparisons?: { withSlug: string; note: string }[];
+  faqs?: FaqItem[];
 }
 
 export interface Testimonial {
