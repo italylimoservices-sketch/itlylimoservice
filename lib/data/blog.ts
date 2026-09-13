@@ -1561,6 +1561,112 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "italy-tourist-guide",
+    title: "Italy Tourist Guide: What to Expect, How Things Work & Everything You Need to Know",
+    metaTitle: "Italy Tourist Guide: How Things Actually Work",
+    metaDescription:
+      "How sightseeing really works in Italy: museum reservations, opening hours, photo rules, ZTL zones, tourist tax, water and restrooms, and beating the crowds.",
+    summary:
+      "A practical, operational guide to how tourism actually functions in Italy — ticket reservations, museum and church hours, photography rules, ZTL zones, tourist tax, water fountains, and the everyday logistics that surprise first-time visitors.",
+    category: "Italy Travel Planning & Essentials",
+    publishedAt: "2026-09-13",
+    faqs: [
+      {
+        question: "Do I need to book museum tickets in Italy in advance?",
+        answer:
+          "For major sites — the Colosseum, Uffizi Gallery, Vatican Museums, Accademia — yes, timed-entry booking is now the standard, and walk-up lines can run two to four hours in peak season. Smaller museums and most churches still allow walk-up access.",
+      },
+      {
+        question: "What day are museums usually closed in Italy?",
+        answer:
+          "Most Italian museums close one day a week, commonly Monday — this includes the Uffizi, Accademia, Bargello, and Palazzo Pitti in Florence, plus most state and civic museums in Rome. Campania (including Naples) often closes on Tuesday instead, so always check the specific site.",
+      },
+      {
+        question: "Can you take photos in the Sistine Chapel?",
+        answer:
+          "No. Photography and filming are completely banned inside the Sistine Chapel, with no exceptions for phones or cameras, and guards actively enforce it. Photography is allowed elsewhere in the Vatican Museums, though flash, tripods, and selfie sticks are not.",
+      },
+      {
+        question: "When do you pay the tourist tax in Italy?",
+        answer:
+          "In most cases the imposta di soggiorno is paid locally at your hotel, in cash or by card, at check-in or check-out — not when you book online. Some booking platforms now collect it in advance for certain cities, but many properties still handle it manually on arrival.",
+      },
+      {
+        question: "What is a ZTL zone and does it affect tourists on foot?",
+        answer:
+          "ZTL (Zona a Traffico Limitato) zones restrict vehicle access in historic city centers, enforced by cameras that fine unauthorized cars automatically. They don't restrict pedestrians — you can walk through freely — but they matter if you're driving yourself or being dropped off, since licensed taxis and pre-booked chauffeurs are generally exempt while unauthorized rental cars are not.",
+      },
+      {
+        question: "Are public restrooms free in Italy?",
+        answer:
+          "Not usually. Free public restrooms are limited, and where they exist a small fee (roughly €0.50–€1.50) is common. Bars typically reserve restrooms for paying customers, so many travelers use a coffee as informal access or plan restroom stops around ticketed attractions.",
+      },
+      {
+        question: "Where can I get free drinking water in Rome?",
+        answer:
+          "Rome has more than 2,500 public drinking fountains called nasoni, which run cold, safe aqueduct water free around the clock. Cover the main spout with your hand and water jets up through a small hole on top for an easy drink — bring a refillable bottle.",
+      },
+      {
+        question: "Is it worth buying a city tourist card for sightseeing?",
+        answer:
+          "It depends on how many paid attractions you plan to visit in a short window, since cards bundle transport and discounted or skip-the-line entry over 48–72 hours. Note that most cards still require you to book a specific entry time for sites like the Uffizi or Vatican Museums — the card covers cost, not the reservation itself.",
+      },
+    ],
+  },
+  {
+    slug: "italy-airport-travel-guide",
+    title: "Italy Airport Travel Guide: Arrivals, Departures, Transfers & Everything You Need to Know",
+    metaTitle: "Italy Airport Travel Guide 2026",
+    metaDescription:
+      "A complete overview of Italy's major airports, how to choose the right one, and the arrival, transfer, and departure process at every gateway.",
+    summary:
+      "The hub guide to flying into Italy: a quick survey of all twelve major airports, how to pick the right one for your itinerary, and the three-phase journey — arrival, transfer, departure — with links to in-depth guides for each step.",
+    category: "Italy Airport & Arrival Guides",
+    publishedAt: "2026-09-13",
+    faqs: [
+      {
+        question: "Should I book a private transfer or take a taxi from an Italian airport?",
+        answer:
+          "It depends on group size, luggage, and arrival time. A private transfer tracks your flight and waits regardless of delays, while a taxi is faster to arrange on the spot but means queueing at the rank and handling your own bags. See the taxi and private transfer guide for a direct comparison.",
+      },
+      {
+        question: "Is a train ever better than a car from the airport?",
+        answer:
+          "For solo travelers heading directly to a station-adjacent hotel with light luggage, yes — Fiumicino, Malpensa, and Bologna all have direct airport rail links. For families, groups, or hotels outside the historic center, a car is usually more practical.",
+      },
+      {
+        question: "Which airport should I use for Rome, Milan, or Venice?",
+        answer:
+          "Rome: Fiumicino for most international flights, Ciampino for European low-cost carriers. Milan: Malpensa for long-haul, Linate for short intra-Europe hops, Bergamo for budget fares. Venice: Marco Polo is the only option, with a mainland-to-lagoon transfer to plan for.",
+      },
+      {
+        question: "How much lead time should I book a private airport transfer?",
+        answer:
+          "Most operators recommend booking at least a few days ahead, and earlier during peak season (May–September) or around major holidays, when vehicle availability tightens at busy hubs like Fiumicino and Malpensa.",
+      },
+      {
+        question: "Do I need anything different for a connecting domestic flight within Italy?",
+        answer:
+          "The arrival and departure processes still apply at each end, but you won't need a ground transfer for the connection itself — just check whether your connecting flight requires re-clearing security.",
+      },
+      {
+        question: "What if my flight lands very late at night or very early in the morning?",
+        answer:
+          "This is where a pre-booked private transfer matters most — trains stop running late at night and taxi ranks can be thinly staffed, while a driver tracking your flight will still be there when you land.",
+      },
+      {
+        question: "Is the process different if I'm picking up a rental car instead of taking a transfer?",
+        answer:
+          "Yes — rental car pickup adds its own queue and paperwork step before you even reach the exit, separate from the transfer options covered in this guide.",
+      },
+      {
+        question: "What about traveling onward to a destination beyond the city, like Tuscany or the Amalfi Coast?",
+        answer:
+          "Start with the airports-to-tourist-destinations guide, which maps direct airport-to-destination routes so you can skip the city-center stop entirely if your trip doesn't need it.",
+      },
+    ],
+  },
 ];
 
 export function getBlogPostBySlug(slug: string) {
