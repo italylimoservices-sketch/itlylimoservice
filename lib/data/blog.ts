@@ -1403,6 +1403,164 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "italy-month-by-month-travel-guide",
+    title: "Italy Month-by-Month Travel Guide: Weather, Events, Things to Do & Everything You Need to Know",
+    metaTitle: "Italy Month-by-Month Travel Guide 2026",
+    metaDescription:
+      "What each month in Italy actually looks like — weather, crowds, prices, and real events like Venice Carnevale, the Palio di Siena, and Ferragosto.",
+    summary:
+      "A calendar-specific companion to Italy's seasonal guide, covering weather, crowd and price levels, and verified festivals or events for every month of the year, from Venice Carnevale to the Palio di Siena and Ferragosto.",
+    category: "Italy Travel Planning & Essentials",
+    publishedAt: "2026-09-13",
+    faqs: [
+      {
+        question: "What is the cheapest month to visit Italy?",
+        answer:
+          "January and November are consistently the cheapest months for flights and hotels, followed closely by early March and late October. Avoid Christmas week, Easter week, and all of July–August if budget is the priority.",
+      },
+      {
+        question: "Which month has the best weather in Italy?",
+        answer:
+          "May and September are widely considered the best-weather months — warm without the extreme heat of July and August, and with lower rain probability than the spring and autumn months on either side.",
+      },
+      {
+        question: "When does Venice Carnevale happen?",
+        answer:
+          "Venice Carnevale runs for roughly ten days to two weeks, always ending on Shrove Tuesday, the day before Ash Wednesday. Because Ash Wednesday's date moves with the Easter calendar, Carnevale falls anywhere from late January to mid-February depending on the year — always check the current year's official calendar.",
+      },
+      {
+        question: "What month is the Palio di Siena?",
+        answer:
+          "The Palio di Siena runs twice a year on fixed dates: July 2 (Palio di Provenzano) and August 16 (Palio dell'Assunta), each preceded by several days of trial races and processions in Piazza del Campo.",
+      },
+      {
+        question: "Is August a bad time to visit Italian cities?",
+        answer:
+          "It's mixed. Many locals leave for the coast around Ferragosto (August 15), so some restaurants and family-run shops close, particularly outside tourist centers. But major sights stay open, crowds thin slightly among Italians (even as international tourism stays high), and it can still work well if you check opening hours in advance.",
+      },
+      {
+        question: "When do Italy's Christmas markets open and close?",
+        answer:
+          "Most open in late November and run through Epiphany on January 6, with the fullest atmosphere from December 8 through December 23.",
+      },
+      {
+        question: "What is the wettest month in Italy?",
+        answer:
+          "November is typically the wettest month nationwide, with October and early spring also seeing higher rain probability than the summer months.",
+      },
+      {
+        question: "Is it worth visiting Italy in the off-season (November–February)?",
+        answer:
+          "Yes, particularly for cities. Lower prices, thinner crowds at major sights, and a more local atmosphere make winter a strong choice for travelers prioritizing museums, food, and culture over beach time — just pack for cold, damp weather and shorter days.",
+      },
+    ],
+  },
+  {
+    slug: "what-to-know-before-traveling-to-italy",
+    title: "What to Know Before Traveling to Italy: Complete Practical Travel Guide",
+    metaTitle: "What to Know Before Traveling to Italy: Travel Guide",
+    metaDescription:
+      "Dining etiquette, tipping norms, riposo hours, dress codes, greetings, money, and SIM basics — the cultural know-how every first-time visitor to Italy needs.",
+    summary:
+      "A practical, culture-first guide to Italian etiquette and social norms — dining customs, tipping, business hours and riposo, dress codes, greetings, money, and connectivity — so first-time visitors know what to expect before they land.",
+    category: "Italy Travel Planning & Essentials",
+    publishedAt: "2026-09-13",
+    faqs: [
+      {
+        question: "Do you tip in Italy?",
+        answer:
+          "Tipping isn't obligatory in Italy since restaurant staff earn a standard wage rather than relying on tips. Rounding up the bill or leaving €1–€2 for good service is generous and typical; check first whether a service charge (servizio) is already included, especially in tourist areas, and only tip closer to 10% at fine-dining restaurants.",
+      },
+      {
+        question: "Is it true you shouldn't order a cappuccino after 11am in Italy?",
+        answer:
+          "It's a real, widely followed cultural norm rather than an official rule — Italians generally see milk-based coffee drinks as a breakfast item, believing warm milk is heavier on the stomach later in the day. You won't be refused service ordering one at 3pm, but it will mark you as a tourist; ordering an espresso or macchiato instead blends in better.",
+      },
+      {
+        question: "What is the coperto charge on Italian restaurant bills?",
+        answer:
+          "The coperto is a legitimate, legally disclosed per-person cover charge, typically €1–€3, covering bread, table setting, and service — it is not a tip and it is not unique to tourist restaurants, since Italians pay it too. In Rome and the Lazio region, a direct 'coperto' line is banned, so the same cost often appears as a 'pane e coperto' or service charge instead.",
+      },
+      {
+        question: "What is riposo and will it affect my sightseeing?",
+        answer:
+          "Riposo is a traditional midday closure, roughly 1pm to 4pm, when many shops, pharmacies, and small businesses shut so people can eat a proper lunch. It's observed most strictly in smaller towns and the south; major city centers like Rome and Milan have largely moved away from it. Plan essential errands for the morning if you're traveling outside big cities.",
+      },
+      {
+        question: "What should I wear to visit churches in Italy?",
+        answer:
+          "Shoulders and knees need to be covered for both men and women, and hats should come off before entering. This is strictly enforced at major sites like St. Peter's Basilica in the Vatican, where visitors in sleeveless tops or shorts are turned away at the door. A light scarf or wrap is an easy fix if you're coming straight from sightseeing.",
+      },
+      {
+        question: "Is cash or card better for traveling in Italy?",
+        answer:
+          "Contactless card payments are widely accepted in cities, including on public transport and in most restaurants and shops. Cash still matters for small purchases at market stalls or local cafés, public restrooms, and city tourist taxes that hotels often collect in cash at check-in or check-out. Carrying €50–€100 as backup is a sensible habit.",
+      },
+      {
+        question: "Should I get a SIM card or eSIM for a trip to Italy?",
+        answer:
+          "An eSIM is the simplest option for most modern smartphones and can be activated before you even land, making it the default choice for most visitors. A physical SIM from an Italian carrier is a fallback if your phone doesn't support eSIM, though it requires passport registration in person.",
+      },
+      {
+        question: "How do greetings work in Italy — handshake or cheek kiss?",
+        answer:
+          "A handshake is standard for first meetings and business contexts. Two cheek kisses, starting on the left, are common between friends, family, and people who already know each other socially, but aren't the default for strangers. Using the formal 'Lei' form of address with people you've just met is the safer default until they signal otherwise.",
+      },
+    ],
+  },
+  {
+    slug: "italy-travel-times-guide",
+    title: "Italy Travel Times Guide: How Long It Takes to Travel Between Major Destinations",
+    metaTitle: "Italy Travel Times Guide: City-to-City",
+    metaDescription:
+      "Quick-reference travel times between Italy's major destinations by train and car — Rome, Florence, Venice, Milan, Naples, Sorrento, Amalfi Coast, and more.",
+    summary:
+      "A data-focused reference table of verified train and driving times between Italy's major cities and destinations, with regional notes and tips for planning realistic travel days.",
+    category: "Italy Transportation Guides",
+    publishedAt: "2026-09-13",
+    faqs: [
+      {
+        question: "How long does it take to get from Rome to Florence?",
+        answer:
+          "The fastest Frecciarossa and Italo trains cover it in about 1h25–1h40, with departures roughly every 30 minutes. Driving takes 3 to 3.5 hours via the A1 autostrada.",
+      },
+      {
+        question: "Is there a direct train from Rome to the Amalfi Coast?",
+        answer:
+          "No. There's no railway on the Amalfi Coast itself. The fastest route is a high-speed train to Salerno, then a SITA bus or, in season, a ferry along the coast to towns like Amalfi or Positano.",
+      },
+      {
+        question: "What's the fastest way from Naples to Sorrento?",
+        answer:
+          "The Circumvesuviana local train takes about 1h10–1h15 and runs roughly every 30 minutes. Driving can be quicker outside peak season (around 50 minutes) but often takes longer than the train in summer due to coastal road traffic.",
+      },
+      {
+        question: "How long is the drive from Milan to Rome?",
+        answer:
+          "Around 5h15 to 6 hours covering roughly 570 km. The high-speed train covers the same route in under 3 hours and is the clear choice for this distance.",
+      },
+      {
+        question: "How long does Florence to Venice take by train?",
+        answer: "About 2 to 2h15 on direct high-speed services, with 15 or more direct departures most days.",
+      },
+      {
+        question: "Is Florence to Siena faster by bus or train?",
+        answer:
+          "Often by bus. There's no high-speed rail line between the two, so some direct trains take close to two hours, while a direct bus typically runs around 75 minutes and driving takes about an hour.",
+      },
+      {
+        question: "How far is Lake Como from Milan?",
+        answer:
+          "Como town is about 50 km from Milan, roughly 35–60 minutes by regional train or 45 minutes to an hour by car. Reaching towns farther up the lake, like Bellagio, takes longer and usually involves a bus or ferry connection from Como or Varenna.",
+      },
+      {
+        question: "Do these travel times include getting to and from the station?",
+        answer:
+          "No. All train times are door-closed-to-door-open on the train itself. Add roughly 30–45 minutes before departure and 20–30 minutes after arrival to account for reaching the station, boarding, and getting from the arrival station to your actual destination.",
+      },
+    ],
+  },
 ];
 
 export function getBlogPostBySlug(slug: string) {
