@@ -773,6 +773,164 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "italy-arrival-guide",
+    title: "Italy Arrival Guide: What to Do After Landing & Everything You Need to Know",
+    metaTitle: "Italy Arrival Guide: After Landing at the Airport",
+    metaDescription:
+      "A step-by-step guide to passport control, EES, baggage claim, customs, currency exchange, and SIM cards right after you land at an Italian airport.",
+    summary:
+      "A practical, sequence-by-sequence guide to everything that happens between landing at an Italian airport and stepping outside the terminal — immigration and the EU's Entry/Exit System, baggage claim, customs channels, currency exchange, and getting connected — before you decide how to get into the city.",
+    category: "Italy Airport & Arrival Guides",
+    publishedAt: "2026-09-13",
+    faqs: [
+      {
+        question: "Do I need to do anything special for the EU's Entry/Exit System if I'm an EU citizen?",
+        answer:
+          "No. EES applies to non-EU, short-stay travelers. EU, EEA, and Swiss citizens continue to use the EU lanes or e-gates as before, with no biometric registration required.",
+      },
+      {
+        question: "How long does passport control usually take for non-EU passport holders in Italy?",
+        answer:
+          "It varies significantly by airport, time of day, and whether it's your first EES registration or a return visit. First-time registration takes longer since it includes a passport scan, photo, and fingerprints; returning travelers already enrolled move faster. Peak arrival banks at Rome Fiumicino and Milan Malpensa can see longer waits than smaller airports.",
+      },
+      {
+        question: "What happens if my checked bag doesn't arrive?",
+        answer:
+          "Go to the airline or ground handler's baggage service desk before leaving the airport and file a Property Irregularity Report (PIR). Keep the PIR reference number — you'll need it to track the bag or file any compensation claim, and most airlines require it before they'll process a delayed or lost bag case.",
+      },
+      {
+        question: "Which customs channel should I use if I'm not sure whether I'm within the allowance?",
+        answer:
+          "Use the red (\"goods to declare\") channel. It's always the safer choice if there's any doubt, and customs officers can tell you on the spot whether duty applies.",
+      },
+      {
+        question: "Should I exchange money at the airport?",
+        answer:
+          "Only exchange or withdraw a small amount at the airport for immediate needs — rates and fees at airport exchange counters and the first ATMs you encounter in arrivals are typically worse than a bank-branded ATM found a bit further along, or in the city itself.",
+      },
+      {
+        question: "Can I buy a SIM card at the airport, or should I get an eSIM before I fly?",
+        answer:
+          "Both work. Major Italian airports have carrier kiosks or vending machines for physical prepaid SIMs. An eSIM purchased before departure is generally more convenient since it can activate the moment you land without a shop visit.",
+      },
+      {
+        question: "Is the EU's Entry/Exit System fully running in Italy right now?",
+        answer:
+          "Yes — as of this writing, EES has been fully operational at Italian border crossing points, including Rome Fiumicino and Milan Malpensa, since 10 April 2026, following a phased rollout that began in October 2025. Airports retain limited flexibility to pause biometric capture briefly during extreme congestion, so processing experiences can still vary.",
+      },
+      {
+        question: "What's the cash declaration threshold when entering Italy from outside the EU?",
+        answer:
+          "If you're carrying €10,000 or more in cash or equivalent, you must declare it to customs on arrival. This is a reporting requirement rather than a tax, but it applies regardless of which customs channel you'd otherwise use.",
+      },
+    ],
+  },
+  {
+    slug: "italy-departure-guide",
+    title: "Italy Departure Guide: What to Do Before Leaving Italy",
+    metaTitle: "Italy Departure Guide: Airport Checklist & VAT Refund",
+    metaDescription:
+      "A step-by-step guide to leaving Italy: airport arrival times, check-in, the VAT tax refund process, security rules, passport control, and boarding.",
+    summary:
+      "Everything travelers need to know about departure day in Italy — from how early to arrive and completing the VAT refund before checking your bag, to the current liquids rules and passport control changes at major airports.",
+    category: "Italy Airport & Arrival Guides",
+    publishedAt: "2026-09-13",
+    faqs: [
+      {
+        question: "How early should I arrive at the airport for a flight from Italy?",
+        answer:
+          "At least 2 hours before a domestic or Schengen flight, and at least 3 hours before an extra-Schengen international flight, per official guidance from Rome's airport authority — add 30 minutes during peak morning and evening hours.",
+      },
+      {
+        question: "Do I need to get my VAT refund form stamped before or after check-in?",
+        answer:
+          "Before, if the goods are in your checked luggage. You must show the unused items to customs before your bag disappears onto the belt, or the stamp can be refused. If everything is in your carry-on, you can do this after security instead.",
+      },
+      {
+        question: "What's the minimum purchase amount for a VAT refund in Italy?",
+        answer:
+          "You need to spend more than €70 (€70.01) in a single store on a single receipt to qualify for tax-free shopping as a non-EU resident.",
+      },
+      {
+        question: "Can I still bring liquids over 100ml in my carry-on at Italian airports?",
+        answer:
+          "At some airports and terminals — including Milan Linate, Bologna, and Malpensa Terminal 1 — new CT scanners allow up to 2 liters per container. Rome Fiumicino allows it too, except for flights to the US or Israel. Where scanners haven't been upgraded, including Venice Marco Polo, the standard 100ml rule still applies.",
+      },
+      {
+        question: "Will I get a passport stamp when I leave Italy?",
+        answer:
+          "Not necessarily. The EU's Entry/Exit System now records non-EU travelers' entries and exits digitally and biometrically at Schengen borders, replacing manual ink stamps in many cases. You'll still go through a passport control checkpoint, but the process is increasingly automated.",
+      },
+      {
+        question: "How long before my flight does the gate close?",
+        answer: "Typically 15–20 minutes before scheduled departure, though this varies by airline. Boarding itself usually starts 30–40 minutes before departure.",
+      },
+      {
+        question: "Can I get my VAT refund at a kiosk instead of a counter?",
+        answer:
+          "Yes, self-service refund kiosks are available at several major Italian airports and can process a stamped tax-free form directly onto a card, though counters with staff remain the option for cash refunds.",
+      },
+      {
+        question: "Should I book a transfer to the airport in advance?",
+        answer:
+          "It's not required, but it removes a layer of uncertainty from an already time-sensitive day — a pre-arranged transfer fixes your pickup time against your flight rather than leaving it to taxi availability or traffic on the day.",
+      },
+    ],
+  },
+  {
+    slug: "italy-taxi-private-transfer-guide",
+    title: "Italy Taxi & Private Transfer Guide: How Transportation Works & Everything You Need to Know",
+    metaTitle: "Italy Taxi & Private Transfer Guide 2026",
+    metaDescription:
+      "How Italian taxis, ride-hailing, and NCC private drivers actually work — licensing, fares, apps, Uber's real status, scams to avoid, and when to book a driver instead.",
+    summary:
+      "A practical guide to getting around Italy by taxi and private car — how licensed taxis are identified and metered, how to actually hail one, what Uber really offers in Italy, and how NCC private drivers differ from taxis in booking and pricing.",
+    category: "Italy Transportation Guides",
+    publishedAt: "2026-09-13",
+    faqs: [
+      {
+        question: "Can you hail a taxi on the street in Italy?",
+        answer:
+          "Not reliably. Most Italian cities run taxis through official ranks (piazzole taxi), phone dispatch, and apps rather than street hailing. Look for marked ranks near train stations, airports, main squares, and hotels, or book through an app like itTaxi or FreeNow.",
+      },
+      {
+        question: "Does Uber work in Italy?",
+        answer:
+          "Uber operates only in Rome, Milan, Florence, and Naples, and it isn't the peer-to-peer UberX most travelers expect. In Italy, opening the app mainly books licensed Uber Black (or Lux/Van) chauffeurs operating under the NCC framework; Rome and Milan also let you hail regular licensed taxis through the app. Outside these four cities, don't count on Uber being available.",
+      },
+      {
+        question: "What color are official taxis in Italy?",
+        answer:
+          "White is the standard color nationally — Rome has required white taxis since 1996, and most other cities followed. Legitimate cabs also carry an illuminated roof-mounted 'TAXI' sign, a visible license number on the door, and a posted fare chart inside the vehicle.",
+      },
+      {
+        question: "What is NCC and how is it different from a taxi?",
+        answer:
+          "NCC (Noleggio Con Conducente) is Italy's licensed private-hire category — the framework behind chauffeur and executive car services. Unlike taxis, NCC vehicles must be pre-booked and cannot be hailed on the street, and pricing is fixed and agreed before the trip rather than metered.",
+      },
+      {
+        question: "How do I know if a taxi in Italy is legitimate?",
+        answer:
+          "Check for a white car, an illuminated roof-mounted 'TAXI' sign, a visible license number on the door (city name plus a number, such as 'Roma 11'), and a posted tariff table inside. Avoid anyone offering rides inside an airport arrivals hall or train station before you reach the official taxi rank — that's the classic unlicensed 'taxi abusivo' setup.",
+      },
+      {
+        question: "Do you need to tip taxi drivers in Italy?",
+        answer:
+          "No. Italy doesn't have a strong tipping culture, and taxi drivers are salaried with the fare considered full payment. Rounding up to the nearest euro (or nearest €5 on longer trips) is a common, appreciated gesture, but it's never expected.",
+      },
+      {
+        question: "When should I book a private driver instead of taking a taxi?",
+        answer:
+          "A pre-booked NCC driver makes more sense than a taxi when timing matters (flights, trains, events), when traveling between cities, when moving a group with luggage, when you need a car for several hours, or for business travel — situations where a fixed price and guaranteed vehicle beat the uncertainty of finding a cab.",
+      },
+      {
+        question: "Are taxi apps like FreeNow and itTaxi useful in Italy?",
+        answer:
+          "Yes. itTaxi is the closest thing to a national taxi app, covering roughly 95 Italian cities, with strong coverage in Rome and Milan; FreeNow also covers Rome and Milan well. Coverage varies by city — Florence's taxi cooperatives run their own apps (AppTaxi, TaxiMove) instead — so it's worth having more than one app installed.",
+      },
+    ],
+  },
 ];
 
 export function getBlogPostBySlug(slug: string) {
