@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { getServiceBySlug } from "@/lib/data/services";
 import { serviceDetails_it } from "@/lib/i18n/data.it.services";
+import { italyPrivateToursCopy } from "@/lib/data/servicePageCopy";
 import ServicePageTemplate from "@/components/templates/ServicePageTemplate";
 import ToursSection from "@/components/sections/ToursSection";
+import BuildYourDaySection from "@/components/sections/BuildYourDaySection";
 
 const service = getServiceBySlug("italy-private-tours")!;
 const sd = serviceDetails_it["italy-private-tours"];
@@ -14,5 +16,12 @@ export const metadata: Metadata = {
 };
 
 export default function ItalyPrivateToursPageIt() {
-  return <ServicePageTemplate service={service} extra={<ToursSection locale="it" />} locale="it" />;
+  return (
+    <ServicePageTemplate
+      service={service}
+      extra={<><BuildYourDaySection locale="it" /><ToursSection locale="it" /></>}
+      locale="it"
+      copyOverrides={italyPrivateToursCopy}
+    />
+  );
 }

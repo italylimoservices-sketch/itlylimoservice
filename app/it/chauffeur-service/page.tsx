@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getServiceBySlug } from "@/lib/data/services";
 import { serviceDetails_it } from "@/lib/i18n/data.it.services";
+import { chauffeurServiceCopy } from "@/lib/data/servicePageCopy";
 import ServicePageTemplate from "@/components/templates/ServicePageTemplate";
 
 const service = getServiceBySlug("chauffeur-service")!;
@@ -13,5 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default function ChauffeurServicePageIt() {
-  return <ServicePageTemplate service={service} locale="it" />;
+  return <ServicePageTemplate service={service} locale="it" copyOverrides={chauffeurServiceCopy} />;
 }

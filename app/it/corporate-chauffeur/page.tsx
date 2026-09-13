@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getServiceBySlug } from "@/lib/data/services";
 import { serviceDetails_it } from "@/lib/i18n/data.it.services";
+import { corporateChauffeurCopy } from "@/lib/data/servicePageCopy";
 import ServicePageTemplate from "@/components/templates/ServicePageTemplate";
 import CorporateUseCases from "@/components/sections/CorporateUseCases";
 
@@ -14,5 +15,12 @@ export const metadata: Metadata = {
 };
 
 export default function CorporateChauffeurPageIt() {
-  return <ServicePageTemplate service={service} extra={<CorporateUseCases locale="it" />} locale="it" />;
+  return (
+    <ServicePageTemplate
+      service={service}
+      extra={<CorporateUseCases locale="it" />}
+      locale="it"
+      copyOverrides={corporateChauffeurCopy}
+    />
+  );
 }

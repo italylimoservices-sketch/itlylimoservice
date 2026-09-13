@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getServiceBySlug } from "@/lib/data/services";
+import { corporateChauffeurCopy } from "@/lib/data/servicePageCopy";
 import ServicePageTemplate from "@/components/templates/ServicePageTemplate";
 import CorporateUseCases from "@/components/sections/CorporateUseCases";
 
@@ -12,5 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function CorporateChauffeurPage() {
-  return <ServicePageTemplate service={service} extra={<CorporateUseCases />} />;
+  return <ServicePageTemplate service={service} extra={<CorporateUseCases />} copyOverrides={corporateChauffeurCopy} />;
 }

@@ -16,17 +16,40 @@ import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
 import QuoteForm from "@/components/ui/QuoteForm";
 
+interface Step {
+  n: string;
+  title: string;
+  desc: string;
+}
+
+interface LocalizedText {
+  en: string;
+  it: string;
+}
+
+export interface ServicePageCopyOverrides {
+  /** Replaces the generic "Service Benefits" / "Why Book This Service" heading. */
+  benefits?: { eyebrow: LocalizedText; title: LocalizedText };
+  /** Replaces the generic "Who It's For" / "Is This Service Right for You?" heading. */
+  whoFor?: { eyebrow: LocalizedText; title: LocalizedText };
+  /** Replaces the shared homepage 4-step booking flow with a page-specific process. */
+  steps?: { en: Step[]; it: Step[] };
+}
+
 export default function ServicePageTemplate({
   service,
   extra,
   destinationSlugs,
   locale = "en",
+  copyOverrides,
 }: {
   service: Service;
   extra?: React.ReactNode;
   /** Override which destinations appear in "Explore by Destination" — use when the default top 6 wouldn't make sense (e.g. a service only relevant to certain cities). */
   destinationSlugs?: string[];
   locale?: Locale;
+  /** Page-specific section headings and process steps, so pages sharing this template don't render identical scaffolding around their (already unique) content. */
+  copyOverrides?: ServicePageCopyOverrides;
 }) {
   const it = locale === "it";
   const sd = it ? serviceDetails_it[service.slug] : undefined;
@@ -37,6 +60,12 @@ export default function ServicePageTemplate({
   const whoFor = sd?.whoFor ?? service.whoFor;
   const included = sd?.included ?? service.included;
   const faqs = sd?.faqs ?? service.faqs;
+
+  const benefitsEyebrow = copyOverrides?.benefits ? (it ? copyOverrides.benefits.eyebrow.it : copyOverrides.benefits.eyebrow.en) : (it ? "Vantaggi del Servizio" : "Service Benefits");
+  const benefitsTitle = copyOverrides?.benefits ? (it ? copyOverrides.benefits.title.it : copyOverrides.benefits.title.en) : (it ? "Perché Prenotare Questo Servizio" : "Why Book This Service");
+  const whoForEyebrow = copyOverrides?.whoFor ? (it ? copyOverrides.whoFor.eyebrow.it : copyOverrides.whoFor.eyebrow.en) : (it ? "A Chi è Rivolto" : "Who It's For");
+  const whoForTitle = copyOverrides?.whoFor ? (it ? copyOverrides.whoFor.title.it : copyOverrides.whoFor.title.en) : (it ? "Questo Servizio Fa per Te?" : "Is This Service Right for You?");
+  const howItWorksSteps = copyOverrides?.steps ? (it ? copyOverrides.steps.it : copyOverrides.steps.en) : undefined;
 
   const relatedServices = services.filter((s) => s.slug !== service.slug).slice(0, 3);
   const featuredDestinations = destinationSlugs
@@ -78,7 +107,7 @@ export default function ServicePageTemplate({
       <section className="py-16 md:py-24 bg-ivory">
         <div className="container-luxe grid lg:grid-cols-2 gap-12">
           <div>
-            <SectionHeading eyebrow={it ? "Vantaggi del Servizio" : "Service Benefits"} title={it ? "Perché Prenotare Questo Servizio" : "Why Book This Service"} />
+            <SectionHeading eyebrow={benefitsEyebrow} title={benefitsTitle} />
             <ul className="mt-6 space-y-3">
               {benefits.map((b) => (
                 <li key={b} className="flex items-start gap-3 text-sm text-ink-soft">
@@ -89,7 +118,7 @@ export default function ServicePageTemplate({
             </ul>
           </div>
           <div>
-            <SectionHeading eyebrow={it ? "A Chi è Rivolto" : "Who It's For"} title={it ? "Questo Servizio Fa per Te?" : "Is This Service Right for You?"} />
+            <SectionHeading eyebrow={whoForEyebrow} title={whoForTitle} />
             <ul className="mt-6 space-y-3">
               {whoFor.map((w) => (
                 <li key={w} className="flex items-start gap-3 text-sm text-ink-soft">
@@ -116,7 +145,7 @@ export default function ServicePageTemplate({
 
       {extra}
 
-      <HowItWorks locale={locale} />
+      <HowItWorks locale={locale} steps={howItWorksSteps} />
 
       <section className="py-16 md:py-24 bg-ivory-deep/40">
         <div className="container-luxe">

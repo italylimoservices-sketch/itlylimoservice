@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getServiceBySlug } from "@/lib/data/services";
 import { serviceDetails_it } from "@/lib/i18n/data.it.services";
+import { airportTransfersCopy } from "@/lib/data/servicePageCopy";
 import ServicePageTemplate from "@/components/templates/ServicePageTemplate";
 import AirportsSection from "@/components/sections/AirportsSection";
 
@@ -14,5 +15,12 @@ export const metadata: Metadata = {
 };
 
 export default function AirportTransfersPageIt() {
-  return <ServicePageTemplate service={service} extra={<AirportsSection locale="it" />} locale="it" />;
+  return (
+    <ServicePageTemplate
+      service={service}
+      extra={<AirportsSection locale="it" grouped />}
+      locale="it"
+      copyOverrides={airportTransfersCopy}
+    />
+  );
 }

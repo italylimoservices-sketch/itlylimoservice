@@ -94,6 +94,27 @@ export default function RoutesIndexPage() {
         </div>
       </section>
 
+      <section className="py-16 md:py-20 bg-navy-deep text-ivory">
+        <div className="container-luxe max-w-2xl text-center mx-auto">
+          <p className="eyebrow eyebrow-invert mb-3">Can&apos;t Find Your Route?</p>
+          <h2 className="font-display text-3xl md:text-4xl leading-tight">
+            Any City, Any Airport, Any Distance
+          </h2>
+          <p className="mt-4 text-[0.98rem] leading-relaxed text-ivory-deep/80">
+            The routes above are our most requested, but they are not the only ones we run. We
+            arrange private transfers between any two points in Italy, and across the border into
+            Switzerland, France, Austria and Slovenia, on request. Tell us your pickup and
+            drop-off and we&apos;ll send a fixed quote.
+          </p>
+          <Link
+            href="/contact"
+            className="mt-8 inline-flex items-center gap-2 rounded-sm bg-gold px-8 py-3.5 text-sm font-semibold text-navy-deep hover:bg-gold-light transition-colors"
+          >
+            Request a Custom Route
+          </Link>
+        </div>
+      </section>
+
       <FinalCTA />
     </>
   );

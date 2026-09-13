@@ -14,6 +14,10 @@ export function duration_it(s: string): string {
   if (oneHour) return "Circa 1 ora";
   const hours = s.match(/^Around\s+([\d.]+)\s+hours$/);
   if (hours) return `Circa ${hours[1].replace(".", ",")} ore`;
+  const rangeHours = s.match(/^Around\s+([\d.]+)\s+to\s+([\d.]+)\s+hours$/);
+  if (rangeHours) return `Circa ${rangeHours[1].replace(".", ",")}-${rangeHours[2].replace(".", ",")} ore`;
+  const minutesToHour = s.match(/^Around\s+(\d+)\s+minutes\s+to\s+1\s+hour$/);
+  if (minutesToHour) return `Circa ${minutesToHour[1]} minuti - 1 ora`;
   return s;
 }
 
