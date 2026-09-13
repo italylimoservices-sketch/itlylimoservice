@@ -1667,6 +1667,59 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "italy-travel-planning-guide",
+    title: "Italy Travel Planning Guide: Airports, Hotels, Transportation, Itineraries & Everything You Need to Know",
+    metaTitle: "Italy Travel Planning Guide: Start Here",
+    metaDescription:
+      "The master guide to planning an Italy trip: when to go, how long to stay, budget, packing, airports, and getting around — with links to every deep-dive guide.",
+    summary:
+      "A start-here hub that walks through every stage of planning an Italy trip — timing, trip length, budget and packing, culture and safety, airports, and transportation — and links out to this site's full library of dedicated deep-dive guides for each topic.",
+    category: "Italy Travel Planning & Essentials",
+    publishedAt: "2026-09-13",
+    faqs: [
+      {
+        question: "What's the first thing I should decide when planning a trip to Italy?",
+        answer:
+          "Start with your rough travel dates and season, since that single decision affects prices, crowd levels, and hotel and train availability more than almost anything else. Once a season is set, move on to trip length and which cities or regions to visit.",
+      },
+      {
+        question: "How many days do I need for a first trip to Italy?",
+        answer:
+          "A week is enough for one region done well, such as Rome alone or Florence plus Tuscan day trips. Ten days comfortably covers two or three cities, and two weeks or more allows a relaxed multi-region route. See the how-many-days guide for a full decision framework.",
+      },
+      {
+        question: "Which airport should I fly into for Italy?",
+        answer:
+          "It depends on where your trip is centered: Rome Fiumicino for central Italy, Milan Malpensa for the north, Venice Marco Polo for the northeast, and Naples Capodichino for the south and Amalfi Coast. For multi-city trips, flying into one airport and out of another often beats backtracking.",
+      },
+      {
+        question: "Do I need a car in Italy, or is it better to rely on trains?",
+        answer:
+          "For a trip centered on major cities like Rome, Florence, Venice, and Milan, Italy's high-speed trains are usually faster and less stressful than driving. A car becomes worthwhile if your itinerary includes countryside regions like Tuscany's hill towns or the Amalfi Coast, where trains don't reach.",
+      },
+      {
+        question: "How much should I budget for a trip to Italy?",
+        answer:
+          "Costs vary enormously by season, city, and travel style — a modest trip through smaller towns and a luxury Rome-Florence-Venice loop can differ by five times or more. Peak-season hotels in Rome, Florence, and Venice, plus whether you rent a car, are the biggest cost drivers.",
+      },
+      {
+        question: "What are the most common mistakes first-time Italy travelers make?",
+        answer:
+          "Underestimating booking lead times for popular attractions, cramming too many cities into too few days, and not planning airport-to-hotel and intercity transportation until the last minute. Sequencing decisions in the right order avoids most of these.",
+      },
+      {
+        question: "Is Italy safe for tourists?",
+        answer:
+          "Yes — safety concerns in Italy's major cities center almost entirely on petty theft and tourist-targeted scams rather than violent crime. Pickpocketing on crowded transit and a handful of well-documented street cons near major sights are the main things to watch for.",
+      },
+      {
+        question: "Can a private chauffeur or tour service simplify Italy trip planning?",
+        answer:
+          "Yes. Booking airport transfers, city-to-city transportation, and day-trip drivers through a single chauffeur or private tour service removes much of the logistical coordination of independent travel, which is particularly useful for multi-city routes or travelers who'd rather not manage trains and rental cars themselves.",
+      },
+    ],
+  },
 ];
 
 export function getBlogPostBySlug(slug: string) {
