@@ -6,6 +6,7 @@ import { siteConfig } from "@/lib/siteConfig";
 import { serviceDetails_it } from "@/lib/i18n/data.it.services";
 import { services_it, destinationNames_it } from "@/lib/i18n/data.it";
 import { localePath, type Locale } from "@/lib/i18n/locales";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Icon from "@/components/ui/Icon";
@@ -67,6 +68,13 @@ export default function ServicePageTemplate({
   const whoForTitle = copyOverrides?.whoFor ? (it ? copyOverrides.whoFor.title.it : copyOverrides.whoFor.title.en) : (it ? "Questo Servizio Fa per Te?" : "Is This Service Right for You?");
   const howItWorksSteps = copyOverrides?.steps ? (it ? copyOverrides.steps.it : copyOverrides.steps.en) : undefined;
 
+  const trustBar = getDictionary(locale).home.trustBar;
+  const heroHighlights: { icon: string; title: string; desc: string }[] = [
+    { icon: "steering-wheel", ...trustBar[0] },
+    { icon: "sparkles", ...trustBar[1] },
+    { icon: "shield", ...trustBar[3] },
+  ];
+
   const relatedServices = services.filter((s) => s.slug !== service.slug).slice(0, 3);
   const featuredDestinations = destinationSlugs
     ? destinations.filter((d) => destinationSlugs.includes(d.slug))
@@ -101,6 +109,54 @@ export default function ServicePageTemplate({
             </div>
           </div>
           <QuoteForm compact locale={locale} />
+        </div>
+
+        <div className="container-luxe pb-14 md:pb-16">
+          <div className="border-t border-ivory/10 pt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div>
+              <p className="font-display text-2xl md:text-3xl text-gold-light">{destinations.length}</p>
+              <p className="mt-1 text-xs uppercase tracking-wide text-ivory-deep/60">
+                {it ? "Destinazioni Coperte" : "Destinations Covered"}
+              </p>
+            </div>
+            <div>
+              <p className="font-display text-2xl md:text-3xl text-gold-light">24/7</p>
+              <p className="mt-1 text-xs uppercase tracking-wide text-ivory-deep/60">
+                {it ? "Disponibili Tutto l'Anno" : "Available Year-Round"}
+              </p>
+            </div>
+            <a
+              href={siteConfig.trustpilotUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+            >
+              <p className="font-display text-2xl md:text-3xl text-gold-light group-hover:text-gold transition-colors">
+                {it ? "Verificate" : "Verified"}
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-wide text-ivory-deep/60 group-hover:text-ivory-deep/90 transition-colors">
+                {it ? "Recensioni su Trustpilot" : "Reviews on Trustpilot"}
+              </p>
+            </a>
+            <div>
+              <p className="font-display text-2xl md:text-3xl text-gold-light">100%</p>
+              <p className="mt-1 text-xs uppercase tracking-wide text-ivory-deep/60">
+                {it ? "Privato — Solo il Tuo Gruppo" : "Private — Your Group Only"}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 pt-8 border-t border-ivory/10 grid sm:grid-cols-3 gap-6">
+            {heroHighlights.map((h) => (
+              <div key={h.title} className="flex items-start gap-3">
+                <Icon name={h.icon} className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold text-ivory">{h.title}</p>
+                  <p className="mt-0.5 text-xs text-ivory-deep/60">{h.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
