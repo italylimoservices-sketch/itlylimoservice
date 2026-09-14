@@ -217,6 +217,11 @@ export const fleet: FleetCategory[] = [
         question: "How much luggage can it carry?",
         answer: "Up to 6 suitcases alongside 7 passengers, making it suitable for longer group trips as well as transfers.",
       },
+      {
+        question: "What if my group is larger than 7 passengers?",
+        answer:
+          "Seven passengers is the largest single vehicle in our fleet. For bigger groups, we coordinate multiple vans travelling together — common for larger delegations, wedding parties and family groups. Let us know your total numbers when requesting a quote.",
+      },
     ],
   },
   {
@@ -266,6 +271,11 @@ export const fleet: FleetCategory[] = [
         question: "Is it suitable for private tours?",
         answer:
           "Yes — for groups who want to explore together, for example a [private tour](/italy-private-tours) through [Tuscany](/destinations/tuscany)'s wine region, with the comfort of a premium interior for the full day.",
+      },
+      {
+        question: "What if my group is larger than 7 passengers?",
+        answer:
+          "Seven passengers is the largest single vehicle in our fleet. For bigger groups, we coordinate multiple vans travelling together — common for larger delegations, wedding parties and family groups. Let us know your total numbers when requesting a quote.",
       },
     ],
   },

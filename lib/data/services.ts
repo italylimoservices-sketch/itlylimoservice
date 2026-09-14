@@ -51,6 +51,11 @@ export const services: Service[] = [
         answer:
           "Yes, round-trip airport transfers can be booked together, or separately closer to your return date.",
       },
+      {
+        question: "What if my group is larger than 7 passengers?",
+        answer:
+          "Our largest single vehicle, the [Executive Van](/fleet/executive-van), seats up to 7 with luggage. For bigger groups, we coordinate multiple vehicles arriving together — let us know your total numbers when requesting a quote.",
+      },
     ],
   },
   {
@@ -102,6 +107,11 @@ export const services: Service[] = [
         question: "Is a minimum booking duration required?",
         answer:
           "This can vary by service and vehicle type — let us know your plans when requesting a quote and we'll confirm what applies.",
+      },
+      {
+        question: "Can I choose which vehicle my chauffeur drives?",
+        answer:
+          "Yes. You can select from our [fleet](/fleet) — from an [Executive Sedan](/fleet/executive-sedan) for everyday travel to a [Luxury SUV](/fleet/luxury-suv) or van for larger groups and luggage — when requesting your quote.",
       },
     ],
   },
@@ -301,6 +311,11 @@ export const services: Service[] = [
         question: "Are your vehicles suitable for client-facing travel?",
         answer:
           "Yes, our executive and luxury vehicle categories are well suited to client meetings and formal business travel.",
+      },
+      {
+        question: "What if our delegation is larger than one van can seat?",
+        answer:
+          "Our largest single vehicle, the [Executive Van](/fleet/executive-van), seats up to 7. For larger delegations, conferences or roadshows, we coordinate multiple vehicles moving as one group — tell us your total headcount and we'll plan the logistics.",
       },
     ],
   },

@@ -62,6 +62,11 @@ export const serviceDetails_it: Record<
         answer:
           "Sì, i transfer aeroportuali andata e ritorno possono essere prenotati insieme, oppure separatamente più vicino alla data del rientro.",
       },
+      {
+        question: "Cosa succede se il mio gruppo supera i 7 passeggeri?",
+        answer:
+          "Il nostro veicolo singolo più capiente, l'[Executive Van](/it/fleet/executive-van), ospita fino a 7 persone con bagagli. Per gruppi più numerosi coordiniamo più veicoli in arrivo insieme — comunicaci il numero totale di passeggeri al momento della richiesta di preventivo.",
+      },
     ],
   },
   "chauffeur-service": {
@@ -108,6 +113,11 @@ export const serviceDetails_it: Record<
         question: "È richiesta una durata minima di prenotazione?",
         answer:
           "Può variare in base al servizio e al tipo di veicolo: comunicaci i tuoi piani al momento della richiesta di preventivo e ti confermeremo le condizioni applicabili.",
+      },
+      {
+        question: "Posso scegliere il veicolo guidato dal mio autista?",
+        answer:
+          "Sì. Puoi scegliere tra i veicoli della nostra [flotta](/it/fleet) — dalla [Executive Sedan](/it/fleet/executive-sedan) per gli spostamenti quotidiani a un [Luxury SUV](/it/fleet/luxury-suv) o un van per gruppi e bagagli più numerosi — al momento della richiesta di preventivo.",
       },
     ],
   },
@@ -287,6 +297,11 @@ export const serviceDetails_it: Record<
         question: "I vostri veicoli sono adatti a incontrare i clienti?",
         answer:
           "Sì, le nostre categorie di veicoli executive e di lusso sono perfettamente adatte a incontri con i clienti e viaggi di lavoro formali.",
+      },
+      {
+        question: "Cosa succede se la nostra delegazione supera la capienza di un van?",
+        answer:
+          "Il nostro veicolo singolo più capiente, l'[Executive Van](/it/fleet/executive-van), ospita fino a 7 persone. Per delegazioni più numerose, conferenze o roadshow coordiniamo più veicoli che si muovono come un unico gruppo — comunicaci il numero totale di partecipanti e pianificheremo la logistica.",
       },
     ],
   },
