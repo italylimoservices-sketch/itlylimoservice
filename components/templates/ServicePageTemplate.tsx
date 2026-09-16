@@ -113,17 +113,17 @@ export default function ServicePageTemplate({
 
         <div className="container-luxe pb-14 md:pb-16">
           <div className="gold-rule" aria-hidden />
-          <div className="mt-8 rounded-sm border border-ivory/15 bg-white/[0.025]">
+          <div className="mt-6 rounded-sm border border-ivory/10 bg-white/[0.02]">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-y divide-ivory/10 md:divide-y-0 md:divide-x md:divide-ivory/10">
-              <div className="px-6 py-7 text-center">
-                <p className="font-display text-3xl md:text-[2.35rem] leading-none text-gold-light">{destinations.length}</p>
-                <p className="mt-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-ivory-deep/55">
+              <div className="px-5 py-4 text-center">
+                <p className="font-display text-xl md:text-2xl leading-none text-gold-light">{destinations.length}</p>
+                <p className="mt-1.5 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-ivory-deep/55">
                   {it ? "Destinazioni Coperte" : "Destinations Covered"}
                 </p>
               </div>
-              <div className="px-6 py-7 text-center">
-                <p className="font-display text-3xl md:text-[2.35rem] leading-none text-gold-light">24/7</p>
-                <p className="mt-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-ivory-deep/55">
+              <div className="px-5 py-4 text-center">
+                <p className="font-display text-xl md:text-2xl leading-none text-gold-light">24/7</p>
+                <p className="mt-1.5 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-ivory-deep/55">
                   {it ? "Disponibili Tutto l'Anno" : "Available Year-Round"}
                 </p>
               </div>
@@ -131,36 +131,36 @@ export default function ServicePageTemplate({
                 href={siteConfig.trustpilotUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group px-6 py-7 text-center"
+                className="group px-5 py-4 text-center"
               >
-                <p className="font-display text-3xl md:text-[2.35rem] leading-none text-gold-light group-hover:text-gold transition-colors">
+                <p className="font-display text-xl md:text-2xl leading-none text-gold-light group-hover:text-gold transition-colors">
                   {it ? "Verificate" : "Verified"}
                 </p>
-                <p className="mt-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-ivory-deep/55 group-hover:text-ivory-deep/80 transition-colors">
+                <p className="mt-1.5 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-ivory-deep/55 group-hover:text-ivory-deep/80 transition-colors">
                   {it ? "Recensioni su Trustpilot" : "Reviews on Trustpilot"}
                 </p>
               </a>
-              <div className="px-6 py-7 text-center">
-                <p className="font-display text-3xl md:text-[2.35rem] leading-none text-gold-light">100%</p>
-                <p className="mt-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-ivory-deep/55">
+              <div className="px-5 py-4 text-center">
+                <p className="font-display text-xl md:text-2xl leading-none text-gold-light">100%</p>
+                <p className="mt-1.5 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-ivory-deep/55">
                   {it ? "Privato — Solo il Tuo Gruppo" : "Private — Your Group Only"}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="mt-5 grid sm:grid-cols-3 gap-4">
+          <div className="mt-3 grid sm:grid-cols-3 gap-3">
             {heroHighlights.map((h) => (
               <div
                 key={h.title}
-                className="flex items-start gap-4 rounded-sm border border-ivory/10 bg-white/[0.025] p-5"
+                className="flex items-center gap-3 rounded-sm border border-ivory/10 bg-white/[0.02] px-4 py-3"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 text-gold-light shrink-0">
-                  <Icon name={h.icon} className="h-4 w-4" />
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/30 text-gold-light shrink-0">
+                  <Icon name={h.icon} className="h-3.5 w-3.5" />
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-ivory">{h.title}</p>
-                  <p className="mt-1 text-xs leading-relaxed text-ivory-deep/60">{h.desc}</p>
+                  <p className="mt-0.5 text-xs leading-snug text-ivory-deep/60">{h.desc}</p>
                 </div>
               </div>
             ))}
