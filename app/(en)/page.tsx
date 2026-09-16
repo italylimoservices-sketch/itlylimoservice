@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/sections/Hero";
 import TrustBar from "@/components/sections/TrustBar";
 import ServicesGrid from "@/components/sections/ServicesGrid";
-import AirportsSection from "@/components/sections/AirportsSection";
+import ServiceShowcase from "@/components/sections/ServiceShowcase";
 import DestinationsSection from "@/components/sections/DestinationsSection";
 import RoutesSection from "@/components/sections/RoutesSection";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
@@ -32,7 +32,7 @@ export default function HomePage() {
       <Hero locale="en" />
       <TrustBar locale="en" />
       <ServicesGrid locale="en" />
-      <AirportsSection locale="en" />
+      <ServiceShowcase locale="en" />
       <DestinationsSection locale="en" />
       <RoutesSection locale="en" />
       <WhyChooseUs locale="en" />
