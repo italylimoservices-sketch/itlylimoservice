@@ -112,47 +112,55 @@ export default function ServicePageTemplate({
         </div>
 
         <div className="container-luxe pb-14 md:pb-16">
-          <div className="border-t border-ivory/10 pt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div>
-              <p className="font-display text-2xl md:text-3xl text-gold-light">{destinations.length}</p>
-              <p className="mt-1 text-xs uppercase tracking-wide text-ivory-deep/60">
-                {it ? "Destinazioni Coperte" : "Destinations Covered"}
-              </p>
-            </div>
-            <div>
-              <p className="font-display text-2xl md:text-3xl text-gold-light">24/7</p>
-              <p className="mt-1 text-xs uppercase tracking-wide text-ivory-deep/60">
-                {it ? "Disponibili Tutto l'Anno" : "Available Year-Round"}
-              </p>
-            </div>
-            <a
-              href={siteConfig.trustpilotUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group"
-            >
-              <p className="font-display text-2xl md:text-3xl text-gold-light group-hover:text-gold transition-colors">
-                {it ? "Verificate" : "Verified"}
-              </p>
-              <p className="mt-1 text-xs uppercase tracking-wide text-ivory-deep/60 group-hover:text-ivory-deep/90 transition-colors">
-                {it ? "Recensioni su Trustpilot" : "Reviews on Trustpilot"}
-              </p>
-            </a>
-            <div>
-              <p className="font-display text-2xl md:text-3xl text-gold-light">100%</p>
-              <p className="mt-1 text-xs uppercase tracking-wide text-ivory-deep/60">
-                {it ? "Privato — Solo il Tuo Gruppo" : "Private — Your Group Only"}
-              </p>
+          <div className="gold-rule" aria-hidden />
+          <div className="mt-8 rounded-sm border border-ivory/15 bg-white/[0.025]">
+            <div className="grid grid-cols-2 md:grid-cols-4 divide-y divide-ivory/10 md:divide-y-0 md:divide-x md:divide-ivory/10">
+              <div className="px-6 py-7 text-center">
+                <p className="font-display text-3xl md:text-[2.35rem] leading-none text-gold-light">{destinations.length}</p>
+                <p className="mt-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-ivory-deep/55">
+                  {it ? "Destinazioni Coperte" : "Destinations Covered"}
+                </p>
+              </div>
+              <div className="px-6 py-7 text-center">
+                <p className="font-display text-3xl md:text-[2.35rem] leading-none text-gold-light">24/7</p>
+                <p className="mt-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-ivory-deep/55">
+                  {it ? "Disponibili Tutto l'Anno" : "Available Year-Round"}
+                </p>
+              </div>
+              <a
+                href={siteConfig.trustpilotUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group px-6 py-7 text-center"
+              >
+                <p className="font-display text-3xl md:text-[2.35rem] leading-none text-gold-light group-hover:text-gold transition-colors">
+                  {it ? "Verificate" : "Verified"}
+                </p>
+                <p className="mt-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-ivory-deep/55 group-hover:text-ivory-deep/80 transition-colors">
+                  {it ? "Recensioni su Trustpilot" : "Reviews on Trustpilot"}
+                </p>
+              </a>
+              <div className="px-6 py-7 text-center">
+                <p className="font-display text-3xl md:text-[2.35rem] leading-none text-gold-light">100%</p>
+                <p className="mt-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-ivory-deep/55">
+                  {it ? "Privato — Solo il Tuo Gruppo" : "Private — Your Group Only"}
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="mt-8 pt-8 border-t border-ivory/10 grid sm:grid-cols-3 gap-6">
+          <div className="mt-5 grid sm:grid-cols-3 gap-4">
             {heroHighlights.map((h) => (
-              <div key={h.title} className="flex items-start gap-3">
-                <Icon name={h.icon} className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+              <div
+                key={h.title}
+                className="flex items-start gap-4 rounded-sm border border-ivory/10 bg-white/[0.025] p-5"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 text-gold-light shrink-0">
+                  <Icon name={h.icon} className="h-4 w-4" />
+                </span>
                 <div>
                   <p className="text-sm font-semibold text-ivory">{h.title}</p>
-                  <p className="mt-0.5 text-xs text-ivory-deep/60">{h.desc}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-ivory-deep/60">{h.desc}</p>
                 </div>
               </div>
             ))}
