@@ -39,8 +39,8 @@ function getBlocks(locale: Locale): ShowcaseBlock[] {
       ],
       ctaLabel: it ? "Vedi Tutti i Transfer Aeroportuali" : "See All Airport Transfers",
       ctaHref: "/airport-transfers",
-      image: "/images/fleet/luxury-sedan.webp",
-      imageAlt: it ? "Berlina di lusso per transfer aeroportuale" : "Luxury sedan for airport transfer",
+      image: "/images/fleet/executive-sedan.webp",
+      imageAlt: it ? "Berlina executive pronta per il transfer aeroportuale" : "Executive sedan ready for an airport transfer",
     },
     {
       icon: "steering-wheel",
@@ -57,8 +57,8 @@ function getBlocks(locale: Locale): ShowcaseBlock[] {
       ],
       ctaLabel: it ? "Scopri il Servizio Autista" : "See Chauffeur Service",
       ctaHref: "/chauffeur-service",
-      image: "/images/fleet/executive-sedan.webp",
-      imageAlt: it ? "Autista privato con berlina executive" : "Private chauffeur with executive sedan",
+      image: "/images/destinations/rome.webp",
+      imageAlt: it ? "Il Colosseo di Roma al tramonto" : "The Colosseum in Rome at dusk",
     },
     {
       icon: "sparkles",
@@ -75,8 +75,8 @@ function getBlocks(locale: Locale): ShowcaseBlock[] {
       ],
       ctaLabel: it ? "Vedi Tutti i Tour Privati" : "See All Private Tours",
       ctaHref: "/italy-private-tours",
-      image: "/images/destinations/amalfi-coast.webp",
-      imageAlt: it ? "Costiera Amalfitana al tramonto per tour privati" : "Amalfi Coast at sunset for private touring",
+      image: "/images/destinations/lake-como.webp",
+      imageAlt: it ? "Il Lago di Como, tappa dei tour privati" : "Lake Como, a private touring destination",
     },
   ];
 }
@@ -92,19 +92,20 @@ export default function ServiceShowcase({ locale = "en" }: { locale?: Locale }) 
           return (
             <div key={block.pill} className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
               <div className={imageOnRight ? "lg:order-2" : ""}>
-                <div className="relative">
+                <div className="relative max-w-[520px] mx-auto lg:mx-0">
                   <div
                     className={`absolute -z-10 hidden md:block h-full w-full rounded-md border border-gold/30 ${
                       imageOnRight ? "-bottom-4 -right-4" : "-bottom-4 -left-4"
                     }`}
                     aria-hidden
                   />
-                  <div className="relative aspect-[5/4] overflow-hidden rounded-md">
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-md">
                     <Image
                       src={block.image}
                       alt={block.imageAlt}
                       fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      quality={90}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 560px"
                       className="object-cover"
                     />
                   </div>
