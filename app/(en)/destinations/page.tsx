@@ -5,7 +5,32 @@ import { getMacroRegion, macroRegionLabels, macroRegionOrder } from "@/lib/data/
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageBlock from "@/components/ui/ImageBlock";
+import LinkedText from "@/components/ui/LinkedText";
+import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
+
+const faqs = [
+  {
+    question: "I don't see my destination listed — can you still help?",
+    answer:
+      "Yes. The destinations above are our most requested, but we arrange private transportation to towns and regions beyond this list — [request a quote](/contact) with your specific location.",
+  },
+  {
+    question: "Can I combine multiple destinations in one trip?",
+    answer:
+      "Yes, many clients combine several destinations into a single multi-day itinerary — see our [private tours](/italy-private-tours) page for flexible, multi-region touring.",
+  },
+  {
+    question: "How do I get between two of these destinations?",
+    answer:
+      "Direct transfers between major cities are covered on our [routes](/routes) page with fixed pricing. Less common combinations can be arranged with a custom quote.",
+  },
+  {
+    question: "Do you provide a local chauffeur familiar with each destination?",
+    answer:
+      "Yes, our drivers have local route knowledge. For an ongoing, single-driver experience across a full itinerary, see our [private chauffeur service](/chauffeur-service).",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Italy Destinations",
@@ -44,6 +69,12 @@ export default function DestinationsIndexPage() {
             chauffeurs provide private transportation across every major Italian destination.
             Select a destination below for local routes, pickup points and travel guidance.
           </p>
+          <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
+            <LinkedText
+              text="We cover 20 destinations across Italy's four macro-regions, each with its own page detailing local routes, pickup points and nearby airports. If you don't see the exact town you need, our [routes](/routes) page covers custom journeys as well."
+              linkClassName="text-gold-light underline underline-offset-2 hover:text-gold"
+            />
+          </p>
         </div>
       </section>
 
@@ -68,6 +99,7 @@ export default function DestinationsIndexPage() {
         );
       })}
 
+      <FaqSection items={faqs} title="Destinations — Frequently Asked Questions" />
       <FinalCTA />
     </>
   );

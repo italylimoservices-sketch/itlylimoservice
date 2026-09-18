@@ -5,7 +5,31 @@ import LinkedText from "@/components/ui/LinkedText";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageBlock from "@/components/ui/ImageBlock";
+import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
+
+const faqs = [
+  {
+    question: "How do I know which vehicle category is right for me?",
+    answer:
+      "Passenger and luggage count are the main factors. An [Executive Sedan](/fleet/executive-sedan) or [Luxury Sedan](/fleet/luxury-sedan) suits 1-3 people, a [Luxury SUV](/fleet/luxury-suv) suits up to 5, and an [Executive Van](/fleet/executive-van) or [Luxury Van](/fleet/luxury-van) suits up to 7. Mention your numbers when requesting a quote and we'll recommend a category.",
+  },
+  {
+    question: "What's the difference between the Executive and Luxury versions of the same vehicle type?",
+    answer:
+      "Passenger and luggage capacity are identical between the Executive and Luxury version of each category — the difference is interior finish and presentation. Choose Luxury when appearance matters most, such as a special occasion or client-facing travel.",
+  },
+  {
+    question: "Can I request a specific vehicle model?",
+    answer:
+      "We don't guarantee a specific make or model for any category — categories describe capacity and a general presentation standard, with the exact vehicle assigned based on availability at the time of your journey.",
+  },
+  {
+    question: "What if my group is larger than any single vehicle can seat?",
+    answer:
+      "Seven passengers, in an Executive Van or Luxury Van, is our largest single vehicle. For bigger groups, we coordinate multiple vehicles travelling together — let us know your total numbers when requesting a quote.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Our Fleet",
@@ -35,6 +59,13 @@ export default function FleetPage() {
               text="The same fleet is also used for [international border crossing transfers](/international-border-crossing-transfers), where luggage capacity and comfort matter most on longer journeys."
               linkClassName="text-gold-light underline underline-offset-2 hover:text-gold"
             />
+          </p>
+          <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
+            Capacity is the main difference between categories: an Executive Sedan or Luxury
+            Sedan comfortably seats up to 3 with 2 suitcases, a Luxury SUV extends that to 5
+            passengers and 4 suitcases, and an Executive Van or Luxury Van seats up to 7 with 6
+            suitcases. The Luxury version of each type adds a more premium interior finish at the
+            same capacity as its Executive counterpart.
           </p>
         </div>
       </section>
@@ -89,6 +120,7 @@ export default function FleetPage() {
         </div>
       </section>
 
+      <FaqSection items={faqs} title="Fleet — Frequently Asked Questions" />
       <FinalCTA />
     </>
   );

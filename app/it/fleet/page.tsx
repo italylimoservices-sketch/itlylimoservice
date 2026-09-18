@@ -5,7 +5,31 @@ import { fleet_it } from "@/lib/i18n/data.it";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageBlock from "@/components/ui/ImageBlock";
+import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
+
+const faqs = [
+  {
+    question: "Come faccio a sapere quale categoria di veicolo fa per me?",
+    answer:
+      "Il numero di passeggeri e bagagli sono i fattori principali. Una [Executive Sedan](/it/fleet/executive-sedan) o [Luxury Sedan](/it/fleet/luxury-sedan) è adatta a 1-3 persone, un [Luxury SUV](/it/fleet/luxury-suv) fino a 5, e un [Executive Van](/it/fleet/executive-van) o [Luxury Van](/it/fleet/luxury-van) fino a 7. Indica i tuoi numeri al momento della richiesta di preventivo e ti consiglieremo una categoria.",
+  },
+  {
+    question: "Qual è la differenza tra la versione Executive e Luxury dello stesso tipo di veicolo?",
+    answer:
+      "La capacità di passeggeri e bagagli è identica tra la versione Executive e Luxury di ogni categoria: la differenza è nella finitura degli interni e nella presentazione. Scegli Luxury quando l'aspetto conta di più, ad esempio per un'occasione speciale o un viaggio di lavoro con clienti.",
+  },
+  {
+    question: "Posso richiedere un modello di veicolo specifico?",
+    answer:
+      "Non garantiamo una marca o un modello specifico per nessuna categoria: le categorie descrivono la capacità e uno standard generale di presentazione, con il veicolo esatto assegnato in base alla disponibilità al momento del tuo viaggio.",
+  },
+  {
+    question: "Cosa succede se il mio gruppo è più numeroso di quanto un singolo veicolo possa ospitare?",
+    answer:
+      "Sette passeggeri, su Executive Van o Luxury Van, è il nostro veicolo singolo più capiente. Per gruppi più numerosi coordiniamo più veicoli che viaggiano insieme — comunicaci il numero totale di passeggeri al momento della richiesta di preventivo.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "La Nostra Flotta",
@@ -29,6 +53,13 @@ export default function FleetPageIt() {
             sicurezza e uno standard di presentazione costante. Le categorie qui sotto riflettono
             la capacità di passeggeri e bagagli; il modello specifico del veicolo viene confermato
             al momento della prenotazione in base alla disponibilità.
+          </p>
+          <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
+            La capacità è la differenza principale tra le categorie: una Executive Sedan o Luxury
+            Sedan ospita comodamente fino a 3 persone con 2 valigie, un Luxury SUV estende questo
+            numero a 5 passeggeri e 4 valigie, e un Executive Van o Luxury Van ospita fino a 7
+            persone con 6 valigie. La versione Luxury di ogni tipo aggiunge una finitura degli
+            interni più raffinata, mantenendo la stessa capacità della sua controparte Executive.
           </p>
         </div>
       </section>
@@ -88,6 +119,7 @@ export default function FleetPageIt() {
         </div>
       </section>
 
+      <FaqSection items={faqs} title="Flotta — Domande Frequenti" />
       <FinalCTA locale="it" />
     </>
   );

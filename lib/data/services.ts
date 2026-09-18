@@ -13,6 +13,7 @@ export const services: Service[] = [
     intro: [
       "Arriving in a new country after a long flight is easier when someone is already waiting for you. Our chauffeurs track your flight in real time, adjust for delays, and meet you in the arrivals hall with a name board and a hand for your luggage — see our [airport meeting instructions](/airport-meeting-instructions) for exactly what to expect.",
       "We cover Italy's major international and regional airports, with direct transfers into the nearest city and onward connections across the country. Couples and solo travellers are usually comfortable in a sedan, while families or larger groups often prefer a [Luxury SUV](/fleet/luxury-suv) or [Executive Van](/fleet/executive-van) for the extra space.",
+      "Every airport has its own quirks — Fiumicino's long walk from arrivals, Ciampino's compact single terminal, Malpensa's distance from central Milan. Our drivers know these differences and time each pickup accordingly, rather than treating every airport the same way.",
     ],
     benefits: [
       "Real-time flight monitoring, including delays and early arrivals",
@@ -56,6 +57,11 @@ export const services: Service[] = [
         answer:
           "Our largest single vehicle, the [Executive Van](/fleet/executive-van), seats up to 7 with luggage. For bigger groups, we coordinate multiple vehicles arriving together — let us know your total numbers when requesting a quote.",
       },
+      {
+        question: "Do you serve regional airports as well as the main international ones?",
+        answer:
+          "Yes. Alongside Rome, Milan and Venice, we also cover regional gateways including Florence, Bologna, Naples, Pisa, Palermo, Catania and Bergamo.",
+      },
     ],
   },
   {
@@ -71,6 +77,7 @@ export const services: Service[] = [
       "A private chauffeur gives you a single point of contact for your transportation throughout your stay, rather than arranging separate taxis or transfers for each leg of a trip.",
       "Whether you need transportation for a single evening or a full itinerary spanning several cities, your chauffeur adapts to your schedule rather than the other way around. For special occasions where presentation matters, many clients choose our [Luxury Sedan](/fleet/luxury-sedan).",
       "The same private chauffeur can also take you beyond Italy — see our [international border crossing transfers](/international-border-crossing-transfers) for private journeys into Switzerland, France, Austria and Slovenia.",
+      "Unlike a single transfer or an hourly booking, this service is built around your full stay — one driver who becomes familiar with your schedule and preferences over several days, rather than starting fresh with someone new each time you need a ride.",
     ],
     benefits: [
       "One dedicated driver for your entire stay or itinerary",
@@ -113,6 +120,11 @@ export const services: Service[] = [
         answer:
           "Yes. You can select from our [fleet](/fleet) — from an [Executive Sedan](/fleet/executive-sedan) for everyday travel to a [Luxury SUV](/fleet/luxury-suv) or van for larger groups and luggage — when requesting your quote.",
       },
+      {
+        question: "What's the difference between this and hourly chauffeur hire?",
+        answer:
+          "[Hourly chauffeur hire](/hourly-chauffeur) is billed by the hour for a single day; this service covers your entire stay with one consistent, dedicated driver across multiple days.",
+      },
     ],
   },
   {
@@ -128,6 +140,7 @@ export const services: Service[] = [
       "Trains are efficient in Italy, but they don't go door to door, and they require managing luggage across stations and platforms. A private transfer takes you directly from your hotel in one city to your hotel in the next.",
       "We operate fixed, popular routes between major cities as well as custom long-distance transfers to less common destinations. Travellers with significant luggage, or families and groups travelling together, often choose a [Luxury SUV](/fleet/luxury-suv) or [Executive Van](/fleet/executive-van) for the extra space.",
       "Need to continue past Italy's borders? See our [international border crossing transfers](/international-border-crossing-transfers) for private routes into Switzerland, France, Austria and Slovenia.",
+      "Our most requested transfers connect Rome, Florence, Venice and Naples, though we also arrange custom long-distance journeys to towns not listed among our standard routes — see our [full route list](/routes) for fixed pricing on the most popular journeys.",
     ],
     benefits: [
       "Door-to-door service, no station transfers",
@@ -165,6 +178,16 @@ export const services: Service[] = [
         answer:
           "Luggage capacity depends on the vehicle booked; let us know your luggage volume so we can recommend the right vehicle type.",
       },
+      {
+        question: "Is this different from an airport transfer?",
+        answer:
+          "[Airport transfers](/airport-transfers) start or end at an airport; city-to-city transfers connect two cities directly, such as one hotel to another.",
+      },
+      {
+        question: "Can I book a one-way transfer, or does it need to be a round trip?",
+        answer:
+          "One-way transfers are the default. A return journey can be booked separately, or together with your outbound transfer if you already know both dates.",
+      },
     ],
   },
   {
@@ -179,6 +202,7 @@ export const services: Service[] = [
     intro: [
       "Some days call for flexible transportation rather than a fixed pickup and drop-off. Our hourly chauffeur service puts a dedicated driver and vehicle at your disposal for a block of time, so you can move between stops as your plans develop.",
       "This service is popular for shopping trips, business meetings across a city, and sightseeing itineraries with several stops.",
+      "A typical booking might combine a morning meeting, a stop at a client's office and a dinner reservation in the same day — your chauffeur waits between each stop rather than you arranging a new ride every time.",
     ],
     benefits: [
       "Dedicated driver and vehicle for the booked hours",
@@ -214,6 +238,16 @@ export const services: Service[] = [
         answer:
           "Extensions are often possible subject to your chauffeur's availability; simply ask your driver or our team on the day.",
       },
+      {
+        question: "What's the difference between hourly hire and a full-day private tour?",
+        answer:
+          "[Private tours](/italy-private-tours) are typically structured around a sightseeing itinerary across a region; hourly hire is more flexible and suited to city-based errands, meetings or events within a single area.",
+      },
+      {
+        question: "Is there a distance limit within my booked hours?",
+        answer:
+          "Reasonable travel within your booked hours and the general city area is included — let us know if your plans involve significant distance so we can advise on the right booking.",
+      },
     ],
   },
   {
@@ -228,6 +262,7 @@ export const services: Service[] = [
     intro: [
       "Group tours run on fixed schedules with fixed stops. A private tour with your own chauffeur runs on your schedule instead, with the flexibility to linger somewhere you love and skip past what doesn't interest you.",
       "We design flexible single-day and multi-day itineraries across Italy's most requested touring regions, built around your interests and pace. Families and small groups often choose a [Luxury SUV](/fleet/luxury-suv) for day-long comfort, while larger groups may prefer an [Executive Van](/fleet/executive-van).",
+      "Our most requested private tours cover Tuscany's wine country, the Amalfi Coast and Lake Como, though the same flexible approach applies to most Italian regions — see the tours below for regional starting points.",
     ],
     benefits: [
       "Fully private, not shared with other travellers",
@@ -263,6 +298,16 @@ export const services: Service[] = [
         answer:
           "Our chauffeurs share local knowledge along the way; a licensed local guide can be arranged separately where required — ask us when planning your itinerary.",
       },
+      {
+        question: "Do you offer tours outside the regions listed?",
+        answer:
+          "Yes. While our most requested itineraries cover regions like Tuscany, the Amalfi Coast and Lake Como, we can build a private tour to most parts of Italy — tell us where you'd like to go.",
+      },
+      {
+        question: "How far in advance should I book a private tour?",
+        answer:
+          "Multi-day tours are best booked as early as possible to secure your preferred dates and vehicle. Single-day tours can often be arranged with shorter notice, subject to availability.",
+      },
     ],
   },
   {
@@ -277,6 +322,7 @@ export const services: Service[] = [
     intro: [
       "Business travel depends on reliability, and our corporate chauffeur service is built around punctuality, discretion and professionalism at every stage.",
       "From single executive transfers to coordinated transportation for a conference or roadshow, we scale to match your organisation's needs. An [Executive Sedan](/fleet/executive-sedan) suits an individual executive, while an [Executive Van](/fleet/executive-van) is a practical choice for a full delegation travelling together.",
+      "Recurring corporate travel benefits from continuity — drivers who become familiar with your executives' preferences and your company's usual pickup points, rather than a different, unfamiliar driver each time.",
     ],
     benefits: [
       "Punctual, reliable scheduling for tight agendas",
@@ -317,6 +363,11 @@ export const services: Service[] = [
         answer:
           "Our largest single vehicle, the [Executive Van](/fleet/executive-van), seats up to 7. For larger delegations, conferences or roadshows, we coordinate multiple vehicles moving as one group — tell us your total headcount and we'll plan the logistics.",
       },
+      {
+        question: "Do you offer recurring or scheduled bookings for regular business travel?",
+        answer:
+          "Yes, companies with regular travel needs can set up recurring bookings alongside a corporate billing account — contact us to discuss an arrangement suited to your travel pattern.",
+      },
     ],
   },
   {
@@ -331,6 +382,7 @@ export const services: Service[] = [
     intro: [
       "Weddings and celebrations involve moving multiple guests to precise timings, and our event transportation service is designed around exactly that kind of coordination.",
       "We plan pickup schedules in advance and stay flexible on the day, so your event runs smoothly whether you're transporting a couple or an entire guest list. A [Luxury Sedan](/fleet/luxury-sedan) suits a couple travelling to the ceremony, while a [Luxury Van](/fleet/luxury-van) comfortably keeps a larger group of guests together.",
+      "Wedding-day timing is rarely simple — a ceremony start time, photos in between, and a reception that begins later, often at a different venue. We plan the pickup schedule around each of these moments rather than a single fixed run.",
     ],
     benefits: [
       "Coordinated scheduling for multiple pickups",
@@ -366,6 +418,16 @@ export const services: Service[] = [
         answer:
           "We recommend booking as early as possible, particularly during peak wedding and event seasons, to secure your preferred vehicles.",
       },
+      {
+        question: "Can you handle transportation across multiple venues in one day?",
+        answer:
+          "Yes, multi-venue wedding days — a ceremony, a photo location and a reception — are common, and we plan the full day's schedule in advance.",
+      },
+      {
+        question: "Do you provide transportation for guests as well as the couple?",
+        answer:
+          "Yes, we can coordinate transportation for the couple, wedding party and guests, with multiple vehicles scheduled around the event timeline.",
+      },
     ],
   },
   {
@@ -380,6 +442,7 @@ export const services: Service[] = [
     intro: [
       "Cruise embarkation and disembarkation days run on tight schedules, and a private transfer removes the uncertainty of shared shuttles and taxi queues at the port — see our [cruise arrival instructions](/cruise-arrival-instructions) for what to expect on the day.",
       "We connect Italy's major cruise ports with nearby cities, airports and hotels, timing pickups around your ship's schedule. Groups and families travelling with luggage often choose a [Luxury SUV](/fleet/luxury-suv) or [Executive Van](/fleet/executive-van) for the extra space.",
+      "We cover Italy's major cruise ports, including Civitavecchia (Rome's port), Livorno (the gateway to Florence and Pisa), Naples, Genoa, Venice, Palermo, Bari, Catania and La Spezia, each with pickup points timed around embarkation and disembarkation schedules.",
     ],
     benefits: [
       "Timed around your ship's embarkation or disembarkation schedule",
@@ -413,6 +476,16 @@ export const services: Service[] = [
         question: "Do you offer a port-to-city day trip before reboarding?",
         answer:
           "Yes, for port days we can arrange a private day trip that returns you to the ship before departure.",
+      },
+      {
+        question: "Which cruise ports do you serve?",
+        answer:
+          "We cover Italy's major cruise ports, including Civitavecchia, Naples, Livorno, Genoa, Venice, Palermo, Bari, Catania and La Spezia.",
+      },
+      {
+        question: "Can I book a transfer for a same-day port stop rather than embarkation?",
+        answer:
+          "Yes, for ports of call during your cruise itinerary, we can arrange a private transfer or day trip timed around your ship's schedule.",
       },
     ],
   },

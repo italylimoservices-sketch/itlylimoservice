@@ -4,7 +4,31 @@ import { routes } from "@/lib/data/routes";
 import { destinationNames_it, distance_it, duration_it } from "@/lib/i18n/data.it";
 import { localePath } from "@/lib/i18n/locales";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
+
+const faqs = [
+  {
+    question: "Il prezzo di queste tratte è fisso o cambia in base al traffico?",
+    answer:
+      "Ogni tratta ha un prezzo fisso concordato prima del viaggio, indipendentemente dal traffico o dalle condizioni della strada nel giorno del trasferimento.",
+  },
+  {
+    question: "Posso aggiungere una sosta lungo una di queste tratte?",
+    answer:
+      "Sì, soste panoramiche o pratiche possono generalmente essere organizzate sulla maggior parte delle tratte — indicale al momento della richiesta di preventivo.",
+  },
+  {
+    question: "Qual è la differenza tra una tratta e un tour privato?",
+    answer:
+      "Una tratta è un transfer diretto tra due punti. Un [tour privato](/it/italy-private-tours) è invece pensato per esplorare una regione al tuo ritmo, spesso con più soste lungo il percorso.",
+  },
+  {
+    question: "I transfer internazionali includono assistenza per le formalità di frontiera?",
+    answer:
+      "No, le autorità di frontiera gestiscono in autonomia le proprie procedure di ingresso e uscita. Il nostro autista si occupa del trasporto, ma non possiamo garantire l'assenza di controlli o attese — scopri la pagina dei [trasferimenti internazionali](/it/international-border-crossing-transfers) per i dettagli.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Tratte di Transfer Privato in Italia",
@@ -29,6 +53,12 @@ export default function RoutesIndexPageIt() {
           <p className="mt-6 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
             Transfer privati diretti porta a porta tra le città più visitate d&apos;Italia. Non trovi
             la tua tratta esatta qui sotto? Richiedi un preventivo e la organizzeremo per te.
+          </p>
+          <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
+            Le tratte nazionali collegano le città più visitate d&apos;Italia con prezzi fissi
+            concordati in anticipo, mentre le nostre tratte internazionali estendono lo stesso
+            servizio privato porta a porta oltre confine verso Svizzera, Francia, Austria e
+            Slovenia.
           </p>
         </div>
       </section>
@@ -125,6 +155,7 @@ export default function RoutesIndexPageIt() {
         </div>
       </section>
 
+      <FaqSection items={faqs} title="Tratte — Domande Frequenti" />
       <FinalCTA locale="it" />
     </>
   );

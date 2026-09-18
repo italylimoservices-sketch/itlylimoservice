@@ -6,7 +6,32 @@ import { getMacroRegion, macroRegionLabels, macroRegionOrder } from "@/lib/data/
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageBlock from "@/components/ui/ImageBlock";
+import LinkedText from "@/components/ui/LinkedText";
+import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
+
+const faqs = [
+  {
+    question: "Non vedo la mia destinazione nell'elenco: potete comunque aiutarmi?",
+    answer:
+      "Sì. Le destinazioni sopra sono le più richieste, ma organizziamo trasporto privato anche verso città e regioni non presenti in questo elenco — [richiedi un preventivo](/it/contact) indicando la tua destinazione specifica.",
+  },
+  {
+    question: "Posso combinare più destinazioni in un unico viaggio?",
+    answer:
+      "Sì, molti clienti combinano più destinazioni in un unico itinerario di più giorni — scopri la pagina dei [tour privati](/it/italy-private-tours) per un giro flessibile su più regioni.",
+  },
+  {
+    question: "Come mi sposto tra due di queste destinazioni?",
+    answer:
+      "I transfer diretti tra le principali città sono coperti dalla pagina delle [tratte](/it/routes) con prezzi fissi. Combinazioni meno comuni possono essere organizzate con un preventivo personalizzato.",
+  },
+  {
+    question: "Fornite un autista con conoscenza locale di ogni destinazione?",
+    answer:
+      "Sì, i nostri autisti hanno conoscenza locale dei percorsi. Per un'esperienza continuativa con lo stesso autista lungo tutto l'itinerario, scopri il nostro [servizio autista privato](/it/chauffeur-service).",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Destinazioni in Italia",
@@ -45,6 +70,12 @@ export default function DestinationsIndexPageIt() {
             offrono trasporto privato in ogni destinazione italiana principale. Seleziona una
             destinazione qui sotto per percorsi locali, punti di ritiro e consigli di viaggio.
           </p>
+          <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
+            <LinkedText
+              text="Copriamo 20 destinazioni nelle quattro macro-regioni italiane, ciascuna con la propria pagina dedicata a percorsi locali, punti di ritiro e aeroporti vicini. Se non trovi la città esatta che ti serve, la pagina delle [tratte](/it/routes) copre anche viaggi personalizzati."
+              linkClassName="text-gold-light underline underline-offset-2 hover:text-gold"
+            />
+          </p>
         </div>
       </section>
 
@@ -72,6 +103,7 @@ export default function DestinationsIndexPageIt() {
         );
       })}
 
+      <FaqSection items={faqs} title="Destinazioni — Domande Frequenti" />
       <FinalCTA locale="it" />
     </>
   );

@@ -2,7 +2,31 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { routes } from "@/lib/data/routes";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
+
+const faqs = [
+  {
+    question: "Is pricing for these routes fixed, or does it change with traffic?",
+    answer:
+      "Every route is priced as a fixed quote agreed before you travel, regardless of traffic or road conditions on the day.",
+  },
+  {
+    question: "Can I add a stop along one of these routes?",
+    answer:
+      "Yes, scenic or practical stops can usually be arranged on most routes — mention them when requesting your quote.",
+  },
+  {
+    question: "What's the difference between a route and a private tour?",
+    answer:
+      "A route is a direct transfer between two points. A [private tour](/italy-private-tours) is built around exploring a region at your own pace, often with multiple stops along the way.",
+  },
+  {
+    question: "Do international routes include help with border formalities?",
+    answer:
+      "No, border authorities handle their own entry and exit procedures. Our chauffeur provides the transportation but cannot guarantee the absence of checks or delays — see our [international border crossing transfers](/international-border-crossing-transfers) page for details.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Private Transfer Routes in Italy",
@@ -27,6 +51,11 @@ export default function RoutesIndexPage() {
           <p className="mt-6 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
             Direct, door-to-door private transfers between Italy&apos;s most visited cities. Don&apos;t see
             your exact route below? Request a quote and we&apos;ll arrange it.
+          </p>
+          <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
+            Domestic routes connect Italy&apos;s most visited cities with fixed, pre-agreed
+            pricing, while our international routes extend the same private, door-to-door service
+            across the border into Switzerland, France, Austria and Slovenia.
           </p>
         </div>
       </section>
@@ -115,6 +144,7 @@ export default function RoutesIndexPage() {
         </div>
       </section>
 
+      <FaqSection items={faqs} title="Routes — Frequently Asked Questions" />
       <FinalCTA />
     </>
   );

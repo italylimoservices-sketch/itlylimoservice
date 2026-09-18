@@ -25,6 +25,7 @@ export const serviceDetails_it: Record<
     intro: [
       "Arrivare in un nuovo paese dopo un volo lungo è tutta un'altra cosa quando trovi già qualcuno ad aspettarti. I nostri autisti monitorano il tuo volo in tempo reale, si adattano a eventuali ritardi e ti accolgono in sala arrivi con un cartello con il tuo nome e una mano per i bagagli.",
       "Copriamo i principali aeroporti internazionali e regionali italiani, con transfer diretti verso la città più vicina e collegamenti successivi verso il resto del paese.",
+      "Ogni aeroporto ha le sue particolarità — la lunga camminata dagli arrivi di Fiumicino, il terminal unico e compatto di Ciampino, la distanza di Malpensa dal centro di Milano. I nostri autisti conoscono queste differenze e calibrano ogni ritiro di conseguenza, senza trattare ogni aeroporto allo stesso modo.",
     ],
     benefits: [
       "Monitoraggio del volo in tempo reale, inclusi ritardi e arrivi anticipati",
@@ -67,6 +68,11 @@ export const serviceDetails_it: Record<
         answer:
           "Il nostro veicolo singolo più capiente, l'[Executive Van](/it/fleet/executive-van), ospita fino a 7 persone con bagagli. Per gruppi più numerosi coordiniamo più veicoli in arrivo insieme — comunicaci il numero totale di passeggeri al momento della richiesta di preventivo.",
       },
+      {
+        question: "Servite anche gli aeroporti regionali oltre a quelli internazionali principali?",
+        answer:
+          "Sì. Oltre a Roma, Milano e Venezia, copriamo anche aeroporti regionali come Firenze, Bologna, Napoli, Pisa, Palermo, Catania e Bergamo.",
+      },
     ],
   },
   "chauffeur-service": {
@@ -78,6 +84,7 @@ export const serviceDetails_it: Record<
       "Un autista privato ti offre un unico punto di riferimento per tutti i tuoi spostamenti durante il soggiorno, invece di dover organizzare taxi o transfer separati per ogni tappa del viaggio.",
       "Che tu abbia bisogno di un trasporto per una singola serata o di un itinerario completo tra più città, il tuo autista si adatta ai tuoi programmi, non il contrario.",
       "Lo stesso autista privato può accompagnarti anche oltre i confini italiani — scopri i nostri [trasferimenti internazionali](/it/international-border-crossing-transfers) verso Svizzera, Francia, Austria e Slovenia.",
+      "A differenza di un singolo transfer o di una prenotazione a ore, questo servizio è costruito attorno all'intero soggiorno — un autista che diventa familiare con i tuoi programmi e le tue preferenze nel corso di più giorni, invece di ricominciare da capo con qualcuno di nuovo ogni volta.",
     ],
     benefits: [
       "Un unico autista dedicato per tutto il soggiorno o l'itinerario",
@@ -119,6 +126,11 @@ export const serviceDetails_it: Record<
         answer:
           "Sì. Puoi scegliere tra i veicoli della nostra [flotta](/it/fleet) — dalla [Executive Sedan](/it/fleet/executive-sedan) per gli spostamenti quotidiani a un [Luxury SUV](/it/fleet/luxury-suv) o un van per gruppi e bagagli più numerosi — al momento della richiesta di preventivo.",
       },
+      {
+        question: "Qual è la differenza con il noleggio autista a ore?",
+        answer:
+          "Il [noleggio autista a ore](/it/hourly-chauffeur) è fatturato a ore per una singola giornata; questo servizio copre l'intero soggiorno con un unico autista dedicato per più giorni.",
+      },
     ],
   },
   "city-to-city-transfers": {
@@ -130,6 +142,7 @@ export const serviceDetails_it: Record<
       "I treni in Italia sono efficienti, ma non arrivano porta a porta e richiedono di gestire i bagagli tra stazioni e binari. Un transfer privato ti porta direttamente dal tuo hotel in una città all'hotel nella città successiva.",
       "Operiamo su percorsi fissi tra le principali città, oltre a transfer su lunga distanza personalizzati verso destinazioni meno comuni.",
       "Devi proseguire oltre i confini italiani? Scopri i nostri [trasferimenti internazionali](/it/international-border-crossing-transfers) verso Svizzera, Francia, Austria e Slovenia.",
+      "I nostri transfer più richiesti collegano Roma, Firenze, Venezia e Napoli, ma organizziamo anche viaggi su lunga distanza personalizzati verso città non presenti tra le nostre tratte standard — scopri la nostra [lista completa delle tratte](/it/routes) per i prezzi fissi sui viaggi più popolari.",
     ],
     benefits: [
       "Servizio porta a porta, senza cambi in stazione",
@@ -166,6 +179,16 @@ export const serviceDetails_it: Record<
         answer:
           "La capacità bagagli dipende dal veicolo prenotato; comunicaci il volume dei tuoi bagagli così possiamo consigliarti il veicolo più adatto.",
       },
+      {
+        question: "È diverso da un transfer aeroportuale?",
+        answer:
+          "I [transfer aeroportuali](/it/airport-transfers) partono o arrivano in aeroporto; i transfer città-città collegano direttamente due città, ad esempio da un hotel a un altro.",
+      },
+      {
+        question: "Posso prenotare un transfer di sola andata, o deve essere andata e ritorno?",
+        answer:
+          "Il transfer di sola andata è l'opzione predefinita. Il viaggio di ritorno può essere prenotato separatamente, oppure insieme a quello di andata se conosci già entrambe le date.",
+      },
     ],
   },
   "hourly-chauffeur": {
@@ -176,6 +199,7 @@ export const serviceDetails_it: Record<
     intro: [
       "Certe giornate richiedono un trasporto flessibile più che un ritiro e una consegna a orari fissi. Il nostro servizio di autista a ore mette a tua disposizione un autista e un veicolo dedicati per un blocco di tempo, così puoi spostarti tra le tappe man mano che i tuoi piani si sviluppano.",
       "Questo servizio è molto richiesto per giornate di shopping, riunioni di lavoro in più punti della città e itinerari turistici con diverse tappe.",
+      "Una prenotazione tipica potrebbe combinare una riunione mattutina, una sosta presso l'ufficio di un cliente e una cena la stessa giornata — il tuo autista attende tra una tappa e l'altra invece di doverti organizzare un nuovo trasporto ogni volta.",
     ],
     benefits: [
       "Autista e veicolo dedicati per le ore prenotate",
@@ -210,6 +234,16 @@ export const serviceDetails_it: Record<
         answer:
           "Le proroghe sono spesso possibili in base alla disponibilità del tuo autista; basta chiedere direttamente all'autista o al nostro team nel corso della giornata.",
       },
+      {
+        question: "Qual è la differenza tra il noleggio a ore e un tour privato di una giornata intera?",
+        answer:
+          "I [tour privati](/it/italy-private-tours) sono in genere strutturati attorno a un itinerario turistico in una regione; il noleggio a ore è più flessibile e adatto a commissioni in città, riunioni o eventi in un'unica zona.",
+      },
+      {
+        question: "C'è un limite di distanza nelle ore prenotate?",
+        answer:
+          "Gli spostamenti ragionevoli nell'area cittadina generale rientrano nelle ore prenotate — segnalaci se i tuoi piani prevedono distanze significative così possiamo consigliarti la prenotazione più adatta.",
+      },
     ],
   },
   "italy-private-tours": {
@@ -220,6 +254,7 @@ export const serviceDetails_it: Record<
     intro: [
       "I tour di gruppo seguono orari fissi e tappe fisse. Un tour privato con il tuo autista segue invece i tuoi tempi, con la libertà di soffermarti in un luogo che ami e saltare ciò che non ti interessa.",
       "Progettiamo itinerari flessibili di uno o più giorni nelle regioni italiane più richieste, costruiti attorno ai tuoi interessi e al tuo ritmo.",
+      "I nostri tour privati più richiesti coprono la regione vinicola della Toscana, la Costiera Amalfitana e il Lago di Como, ma lo stesso approccio flessibile si applica alla maggior parte delle regioni italiane — scopri i tour qui sotto per i punti di partenza regionali.",
     ],
     benefits: [
       "Completamente privato, non condiviso con altri viaggiatori",
@@ -254,6 +289,16 @@ export const serviceDetails_it: Record<
         answer:
           "I nostri autisti condividono conoscenze locali lungo il percorso; una guida locale autorizzata può essere organizzata separatamente dove richiesto: chiedici informazioni in fase di pianificazione dell'itinerario.",
       },
+      {
+        question: "Offrite tour anche al di fuori delle regioni elencate?",
+        answer:
+          "Sì. Sebbene i nostri itinerari più richiesti coprano regioni come Toscana, Costiera Amalfitana e Lago di Como, possiamo organizzare un tour privato nella maggior parte dell'Italia — dicci dove vorresti andare.",
+      },
+      {
+        question: "Con quanto anticipo devo prenotare un tour privato?",
+        answer:
+          "I tour di più giorni vanno prenotati il prima possibile per assicurarti le date e il veicolo preferiti. I tour di una giornata possono spesso essere organizzati con un preavviso più breve, in base alla disponibilità.",
+      },
     ],
   },
   "corporate-chauffeur": {
@@ -264,6 +309,7 @@ export const serviceDetails_it: Record<
     intro: [
       "I viaggi di lavoro si basano sull'affidabilità, e il nostro servizio auto aziendale è costruito attorno a puntualità, discrezione e professionalità in ogni fase.",
       "Dal singolo transfer executive al trasporto coordinato per una conferenza o un roadshow, ci adattiamo alle esigenze della tua organizzazione.",
+      "I viaggi di lavoro ricorrenti beneficiano della continuità — autisti che diventano familiari con le preferenze dei tuoi dirigenti e i punti di ritiro abituali della tua azienda, invece di un autista diverso e sconosciuto ogni volta.",
     ],
     benefits: [
       "Programmazione puntuale e affidabile per agende serrate",
@@ -303,6 +349,11 @@ export const serviceDetails_it: Record<
         answer:
           "Il nostro veicolo singolo più capiente, l'[Executive Van](/it/fleet/executive-van), ospita fino a 7 persone. Per delegazioni più numerose, conferenze o roadshow coordiniamo più veicoli che si muovono come un unico gruppo — comunicaci il numero totale di partecipanti e pianificheremo la logistica.",
       },
+      {
+        question: "Offrite prenotazioni ricorrenti o programmate per viaggi di lavoro regolari?",
+        answer:
+          "Sì, le aziende con esigenze di viaggio regolari possono attivare prenotazioni ricorrenti insieme a un account di fatturazione aziendale — contattaci per discutere una soluzione adatta ai tuoi ritmi di viaggio.",
+      },
     ],
   },
   "event-transportation": {
@@ -313,6 +364,7 @@ export const serviceDetails_it: Record<
     intro: [
       "Matrimoni e celebrazioni richiedono di spostare più ospiti rispettando orari precisi, e il nostro servizio di trasporto per eventi è pensato esattamente per questo tipo di coordinamento.",
       "Pianifichiamo gli orari di ritiro in anticipo e restiamo flessibili il giorno dell'evento, così tutto procede senza intoppi, che tu debba trasportare una coppia o un'intera lista di ospiti.",
+      "Gli orari del giorno del matrimonio sono raramente semplici — un orario di inizio cerimonia, le foto nel mezzo e un ricevimento che inizia più tardi, spesso in una sede diversa. Pianifichiamo il programma dei ritiri attorno a ciascuno di questi momenti, invece di un unico percorso fisso.",
     ],
     benefits: [
       "Programmazione coordinata per più ritiri",
@@ -347,6 +399,16 @@ export const serviceDetails_it: Record<
         answer:
           "Consigliamo di prenotare il prima possibile, in particolare durante l'alta stagione di matrimoni ed eventi, per assicurarti i veicoli che preferisci.",
       },
+      {
+        question: "Potete gestire il trasporto tra più sedi nella stessa giornata?",
+        answer:
+          "Sì, le giornate di matrimonio con più sedi — cerimonia, luogo delle foto e ricevimento — sono comuni, e pianifichiamo l'intero programma della giornata in anticipo.",
+      },
+      {
+        question: "Offrite trasporto anche per gli ospiti, oltre che per gli sposi?",
+        answer:
+          "Sì, possiamo coordinare il trasporto per gli sposi, il corteo nuziale e gli ospiti, con più veicoli programmati in base alla scaletta dell'evento.",
+      },
     ],
   },
   "cruise-port-transfers": {
@@ -357,6 +419,7 @@ export const serviceDetails_it: Record<
     intro: [
       "I giorni di imbarco e sbarco delle crociere seguono orari serrati, e un transfer privato elimina l'incertezza delle navette condivise e delle code per un taxi al porto.",
       "Colleghiamo i principali porti crociera italiani con le città vicine, gli aeroporti e gli hotel, calibrando i ritiri sugli orari della tua nave.",
+      "Copriamo i principali porti crociera italiani, tra cui Civitavecchia (il porto di Roma), Livorno (la porta d'accesso a Firenze e Pisa), Napoli, Genova, Venezia, Palermo, Bari, Catania e La Spezia, ciascuno con punti di ritiro calibrati sugli orari di imbarco e sbarco.",
     ],
     benefits: [
       "Orari calibrati sul programma di imbarco o sbarco della tua nave",
@@ -389,6 +452,16 @@ export const serviceDetails_it: Record<
         question: "Offrite un'escursione dal porto alla città prima del reimbarco?",
         answer:
           "Sì, per i giorni di scalo possiamo organizzare una gita privata in giornata che ti riporta alla nave in tempo per la partenza.",
+      },
+      {
+        question: "Quali porti crociera servite?",
+        answer:
+          "Copriamo i principali porti crociera italiani, tra cui Civitavecchia, Napoli, Livorno, Genova, Venezia, Palermo, Bari, Catania e La Spezia.",
+      },
+      {
+        question: "Posso prenotare un transfer per uno scalo in giornata anziché per l'imbarco?",
+        answer:
+          "Sì, per gli scali durante l'itinerario della crociera possiamo organizzare un transfer privato o una gita in giornata calibrata sugli orari della tua nave.",
       },
     ],
   },
