@@ -354,7 +354,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["pisa"],
     relatedRoutes: [],
     relatedDestinations: ["florence", "pisa"],
-    image: "",
+    image: "/images/destinations/cinque-terre.webp",
   },
   {
     slug: "portofino",
@@ -378,7 +378,7 @@ export const destinations: Destination[] = [
     nearestAirports: [],
     relatedRoutes: [],
     relatedDestinations: ["cinque-terre"],
-    image: "",
+    image: "/images/destinations/portofino.webp",
   },
   {
     slug: "siena",
@@ -402,7 +402,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["florence"],
     relatedRoutes: ["florence-to-siena"],
     relatedDestinations: ["florence", "tuscany"],
-    image: "",
+    image: "/images/destinations/siena.webp",
   },
   {
     slug: "pisa",
@@ -426,7 +426,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["pisa"],
     relatedRoutes: ["florence-to-pisa"],
     relatedDestinations: ["florence", "tuscany", "cinque-terre"],
-    image: "",
+    image: "/images/destinations/pisa.webp",
   },
   {
     slug: "sicily",
@@ -450,7 +450,7 @@ export const destinations: Destination[] = [
     nearestAirports: ["palermo", "catania"],
     relatedRoutes: [],
     relatedDestinations: [],
-    image: "",
+    image: "/images/destinations/sicily.webp",
   },
   {
     slug: "sardinia",
@@ -474,7 +474,7 @@ export const destinations: Destination[] = [
     nearestAirports: [],
     relatedRoutes: [],
     relatedDestinations: [],
-    image: "",
+    image: "/images/destinations/sardinia.webp",
   },
   {
     slug: "bari",
@@ -498,7 +498,7 @@ export const destinations: Destination[] = [
     nearestAirports: [],
     relatedRoutes: [],
     relatedDestinations: [],
-    image: "",
+    image: "/images/destinations/bari.webp",
   },
   {
     slug: "genoa",
@@ -522,7 +522,7 @@ export const destinations: Destination[] = [
     nearestAirports: [],
     relatedRoutes: [],
     relatedDestinations: ["portofino", "cinque-terre"],
-    image: "",
+    image: "/images/destinations/genoa.webp",
     internationalNote:
       "From Genoa, private chauffeur transfers into France along the Ligurian coast can also be arranged on request — see our [international border crossing transfers](/international-border-crossing-transfers) page for routes and countries we cover.",
   },
