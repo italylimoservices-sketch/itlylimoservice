@@ -5,7 +5,7 @@ import { getMacroRegion, macroRegionLabels, macroRegionOrder } from "@/lib/data/
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageBlock from "@/components/ui/ImageBlock";
-import LinkedText from "@/components/ui/LinkedText";
+import HubHero from "@/components/sections/HubHero";
 import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
 
@@ -58,25 +58,15 @@ export default function DestinationsIndexPage() {
   return (
     <>
       <Breadcrumbs items={[{ label: "Destinations" }]} />
-      <section className="bg-navy-deep text-ivory py-14 md:py-20">
-        <div className="container-luxe">
-          <p className="eyebrow eyebrow-invert mb-4">Italy Destinations</p>
-          <h1 className="font-display text-4xl md:text-[2.75rem] leading-tight max-w-2xl">
-            Private Chauffeur Coverage Across Italy
-          </h1>
-          <p className="mt-6 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
-            From the capital&apos;s ancient streets to the winding coastal roads of the south, our
-            chauffeurs provide private transportation across every major Italian destination.
-            Select a destination below for local routes, pickup points and travel guidance.
-          </p>
-          <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
-            <LinkedText
-              text="We cover 20 destinations across Italy's four macro-regions, each with its own page detailing local routes, pickup points and nearby airports. If you don't see the exact town you need, our [routes](/routes) page covers custom journeys as well."
-              linkClassName="text-gold-light underline underline-offset-2 hover:text-gold"
-            />
-          </p>
-        </div>
-      </section>
+      <HubHero
+        eyebrow="Italy Destinations"
+        heading="Private Chauffeur Coverage Across Italy"
+        intro={[
+          "From the capital's ancient streets to the winding coastal roads of the south, our chauffeurs provide private transportation across every major Italian destination. Select a destination below for local routes, pickup points and travel guidance.",
+          "We cover 20 destinations across Italy's four macro-regions, each with its own page detailing local routes, pickup points and nearby airports. If you don't see the exact town you need, our [routes](/routes) page covers custom journeys as well.",
+        ]}
+        image="/images/destinations/amalfi-coast.webp"
+      />
 
       {macroRegionOrder.map((macro, sectionIndex) => {
         const group = destinations.filter((d) => getMacroRegion(d.region) === macro);

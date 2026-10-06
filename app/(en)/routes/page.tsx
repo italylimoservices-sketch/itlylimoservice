@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { routes } from "@/lib/data/routes";
+import { siteConfig } from "@/lib/siteConfig";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import HubHero from "@/components/sections/HubHero";
 import FaqSection from "@/components/sections/FaqSection";
 import FinalCTA from "@/components/sections/FinalCTA";
 
@@ -42,23 +44,21 @@ export default function RoutesIndexPage() {
   return (
     <>
       <Breadcrumbs items={[{ label: "Routes" }]} />
-      <section className="bg-navy-deep text-ivory py-14 md:py-20">
-        <div className="container-luxe">
-          <p className="eyebrow eyebrow-invert mb-4">Popular Routes</p>
-          <h1 className="font-display text-4xl md:text-[2.75rem] leading-tight max-w-2xl">
-            City-to-City Private Transfer Routes
-          </h1>
-          <p className="mt-6 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
-            Direct, door-to-door private transfers between Italy&apos;s most visited cities. Don&apos;t see
-            your exact route below? Request a quote and we&apos;ll arrange it.
-          </p>
-          <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-ivory-deep/80">
-            Domestic routes connect Italy&apos;s most visited cities with fixed, pre-agreed
-            pricing, while our international routes extend the same private, door-to-door service
-            across the border into Switzerland, France, Austria and Slovenia.
-          </p>
-        </div>
-      </section>
+      <HubHero
+        eyebrow="Popular Routes"
+        heading="City-to-City Private Transfer Routes"
+        intro={[
+          "Direct, door-to-door private transfers between Italy's most visited cities. Don't see your exact route below? Request a quote and we'll arrange it.",
+          "Domestic routes connect Italy's most visited cities with fixed, pre-agreed pricing, while our international routes extend the same private, door-to-door service across the border into Switzerland, France, Austria and Slovenia.",
+        ]}
+        image="/images/destinations/lake-como.webp"
+        stats={[
+          { value: String(domesticRoutes.length), label: "Domestic Routes" },
+          { value: String(internationalRoutes.length), label: "International Routes" },
+          { value: "Verified", label: "Reviews on Trustpilot", href: siteConfig.trustpilotUrl },
+          { value: "Fixed", label: "Pricing Agreed Before You Travel" },
+        ]}
+      />
 
       <section className="py-16 md:py-24 bg-ivory">
         <div className="container-luxe grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
