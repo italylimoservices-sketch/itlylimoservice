@@ -51,7 +51,7 @@ export default function RoutesIndexPage() {
           "Direct, door-to-door private transfers between Italy's most visited cities. Don't see your exact route below? Request a quote and we'll arrange it.",
           "Domestic routes connect Italy's most visited cities with fixed, pre-agreed pricing, while our international routes extend the same private, door-to-door service across the border into Switzerland, France, Austria and Slovenia.",
         ]}
-        image="/images/destinations/lake-como.webp"
+        image="/images/fleet/luxury-sedan.webp"
         stats={[
           { value: String(domesticRoutes.length), label: "Domestic Routes" },
           { value: String(internationalRoutes.length), label: "International Routes" },

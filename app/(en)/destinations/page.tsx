@@ -65,7 +65,7 @@ export default function DestinationsIndexPage() {
           "From the capital's ancient streets to the winding coastal roads of the south, our chauffeurs provide private transportation across every major Italian destination. Select a destination below for local routes, pickup points and travel guidance.",
           "We cover 20 destinations across Italy's four macro-regions, each with its own page detailing local routes, pickup points and nearby airports. If you don't see the exact town you need, our [routes](/routes) page covers custom journeys as well.",
         ]}
-        image="/images/destinations/amalfi-coast.webp"
+        image="/images/fleet/luxury-suv.webp"
       />
 
       {macroRegionOrder.map((macro, sectionIndex) => {
